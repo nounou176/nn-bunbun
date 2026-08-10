@@ -71,7 +71,8 @@ Not present:
 
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is
 initialized on the main branch with origin set to
-https://github.com/nounou176/nn-bunbun.git. It has no commits yet.
+https://github.com/nounou176/nn-bunbun.git. The documentation foundation is
+committed and published on origin/main.
 
 ## Known issues
 
@@ -89,7 +90,6 @@ https://github.com/nounou176/nn-bunbun.git. It has no commits yet.
    architecture, and Docker topology remain undecided.
 7. No implementation exists to build or test. Manual browser testing, static
    checks, and Docker builds are therefore not applicable to this milestone.
-8. The documentation is not committed yet in the newly initialized repository.
 
 ## Next recommended work
 
@@ -125,6 +125,8 @@ After those choices are accepted:
   Docker artifacts were created.
 - Repository relocation integrity: passed; all 11 project files match the
   source content and the destination Git metadata was preserved.
+- Initial GitHub publication: passed; main tracks origin/main and the active
+  GitHub account is nounou176.
 - Application build: not applicable; no application exists.
 - Docker build: not applicable; no Dockerfiles exist.
 - Browser E2E: not applicable; no runtime exists.
