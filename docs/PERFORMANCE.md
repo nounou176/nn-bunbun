@@ -190,7 +190,8 @@ Diagnostics should not appear in the normal learner UI.
 
 ## Manual performance protocol
 
-The user performs E2E validation manually. Do not create Playwright tests.
+The user performs browser and gameplay validation manually. Do not create an
+automated browser E2E suite.
 
 For each meaningful rendering milestone:
 

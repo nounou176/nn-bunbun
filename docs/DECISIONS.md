@@ -266,7 +266,7 @@ Consequences:
 Documentation maintenance is part of completion, not optional cleanup.
 Conversation alone does not change the accepted project state.
 
-### D-011 — Use manual browser E2E testing
+### D-011 — Use manual browser and gameplay testing only
 
 - Date: 2026-08-10
 - Status: Accepted
@@ -274,14 +274,14 @@ Conversation alone does not change the accepted project state.
 
 Context:
 
-The user will personally validate browser behavior and does not need
-Playwright.
+The user will personally validate browser and gameplay behavior and does not
+want an automated browser E2E suite.
 
 Decision:
 
-Do not create or run Playwright tests unless the user explicitly reverses this
-decision. Provide clear manual happy-path, edge-case, and regression steps for
-implemented behavior.
+Do not create or run automated browser E2E tooling unless the user explicitly
+reverses this decision. Provide clear manual happy-path, edge-case, and
+regression steps for implemented behavior.
 
 Consequences:
 
@@ -364,6 +364,34 @@ The project documents move without importing the invalid Git placeholder from
 the old directory. Shared memory and future handoffs must use the canonical
 repository path.
 
+### D-015 — Complete and accept the game locally before release work
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Roadmap, development workflow, deployment
+
+Context:
+
+The project can either prepare containers and hosting during early foundation
+work or focus first on proving and completing the game locally. Early release
+infrastructure would add configuration before the runtime and product shape are
+known.
+
+Decision:
+
+Build the game for local execution first. The user will manually test and
+accept a complete local release candidate before the project designs or
+implements Docker, hosting, release automation, or domain configuration. The
+user's explicit local acceptance is the gate that starts release planning.
+
+Consequences:
+
+Milestone 1 contains no Docker or deployment work. Local development commands,
+production builds, and manual test checklists remain required. O-012 stays
+deferred until the local acceptance gate, when the actual hosting and domain
+requirements are known. "Complete" means the locally approved release scope,
+not every possible item in Later opportunities.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -381,7 +409,7 @@ These are acknowledged but not yet ready to decide:
 | O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |
 | O-010 | OpenAI model, TTS model, voice policy, and cache storage | AI and audio integration |
 | O-011 | Analytics privacy, retention, and exact metric definitions | Telemetry implementation |
-| O-012 | Deployment model and Docker topology | Deployment preparation |
+| O-012 | Deployment model and Docker topology | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

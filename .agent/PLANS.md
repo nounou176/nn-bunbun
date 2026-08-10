@@ -151,7 +151,7 @@ Continue with dependency-ordered checkpoints.
 ### Static and automated checks
 
 List only checks supported by the repository, with exact commands and expected
-outcomes. Playwright is excluded by D-011.
+outcomes. Automated browser E2E tooling is excluded by D-011.
 
 ### Manual happy path
 
@@ -204,7 +204,8 @@ specific steps for:
 - performance budgets; and
 - regressions in previously completed milestones.
 
-Playwright must not be added or run unless D-011 is explicitly superseded.
+Automated browser E2E tooling must not be added or run unless D-011 is
+explicitly superseded.
 Focused unit and integration tests may be planned when they add value and match
 the approved task. Builds, typechecks, linters, database migration checks, and
 Docker builds should be included only after their supporting files exist.

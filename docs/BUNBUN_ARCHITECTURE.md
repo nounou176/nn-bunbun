@@ -260,3 +260,6 @@ Before implementation reaches the relevant boundary, decide:
 - observability and privacy rules for learning analytics.
 
 These are intentionally not chosen during the documentation-only milestone.
+Deployment topology, Docker, hosting, and domain architecture are deliberately
+deferred until the user has manually accepted a complete local release
+candidate.

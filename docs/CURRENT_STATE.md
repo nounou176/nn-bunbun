@@ -27,11 +27,13 @@ is currently in progress.
 - Recorded accepted and deferred decisions.
 - Created a sequential implementation roadmap.
 - Created the ExecPlan standard and the plans directory.
-- Recorded the user decision to use manual browser E2E testing and not
-  Playwright.
+- Recorded the user decision to use manual browser and gameplay testing only,
+  with no automated browser E2E tooling.
 - Isolated old bunbun/game2 or Dreamworld memory from this new project.
 - Moved the documentation foundation into the dedicated nn-bunbun Git
   repository while preserving its existing main branch and origin remote.
+- Recorded the local-first delivery strategy: complete and manually accept the
+  game locally before Docker, hosting, release, or domain work.
 
 ## Current work
 
@@ -65,7 +67,7 @@ Not present:
 - 3D, audio, or image assets;
 - environment configuration;
 - unit or integration tests;
-- Playwright configuration or tests;
+- automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
 
@@ -86,8 +88,9 @@ committed and published on origin/main.
    synchronization are unresolved.
 5. Initial learner level, support locale, scene, scenario, and lesson targets
    are not selected.
-6. Package layout, tool versions, framework choices below the accepted
-   architecture, and Docker topology remain undecided.
+6. Package layout, tool versions, and framework choices below the accepted
+   architecture remain undecided. Deployment topology is intentionally
+   deferred until local release-candidate acceptance.
 7. No implementation exists to build or test. Manual browser testing, static
    checks, and Docker builds are therefore not applicable to this milestone.
 
@@ -100,8 +103,8 @@ Discuss and approve Milestone 1 foundation choices:
 3. frontend/backend development topology;
 4. shared-contract placement;
 5. initial static checks;
-6. whether Docker begins in Milestone 1; and
-7. the exact environment variable names, if any are needed.
+6. the exact environment variable names, if any are needed; and
+7. the local development and manual smoke-test commands.
 
 After those choices are accepted:
 
@@ -121,16 +124,16 @@ After those choices are accepted:
   philosophy, camera/control, states, primitives, scenarios, compiler/runtime
   boundary, stack, assets, AI, TTS, persistence, UI, performance, non-goals,
   continuity, ExecPlans, and manual testing.
-- Scope regression check: passed; no application, package, Playwright, or
-  Docker artifacts were created.
+- Scope regression check: passed; no application, package, automated browser
+  E2E, or Docker artifacts were created.
 - Repository relocation integrity: passed; all 11 project files match the
   source content and the destination Git metadata was preserved.
 - Initial GitHub publication: passed; main tracks origin/main and the active
   GitHub account is nounou176.
 - Application build: not applicable; no application exists.
 - Docker build: not applicable; no Dockerfiles exist.
-- Browser E2E: not applicable; no runtime exists.
-- Playwright: intentionally not used per D-011.
+- Manual browser/gameplay test: not applicable; no runtime exists.
+- Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
 

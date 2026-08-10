@@ -71,8 +71,9 @@ decision.
 
 ## Verification
 
-- The user performs browser E2E validation manually. Do not add or run
-  Playwright unless the user explicitly reverses this decision.
+- The user performs browser and gameplay validation manually. Do not add or
+  run automated browser E2E tooling unless the user explicitly reverses this
+  decision.
 - Every implementation handoff must include a concrete manual test checklist
   covering the happy path, edge cases, and regressions.
 - Run relevant static checks, unit or integration tests, builds, and Docker
@@ -89,6 +90,9 @@ decision.
 - Never store secret values in documentation or memory.
 - Confirm environment variable names with the user before using them in code
   or commands.
+- Develop and manually accept a complete local game before adding Docker,
+  hosting, release automation, or domain configuration. Start release planning
+  only after the user explicitly approves the local release candidate.
 - Preserve user changes and avoid destructive Git or filesystem operations.
 - Do not import the older Dreamworld or bunbun/game2 implementation into this
   repository unless the user explicitly requests it.

@@ -54,8 +54,7 @@ Decisions required:
 
 - O-004 repository layout, package manager, and version pins;
 - the minimum local development commands;
-- whether frontend and backend begin in one package or separate packages; and
-- initial Docker scope, if Docker is required at this stage.
+- whether frontend and backend begin in one package or separate packages.
 
 Planned scope:
 
@@ -71,7 +70,6 @@ Exit criteria:
 
 - Clean install, typecheck, development startup, and production build.
 - Frontend and backend boundaries are visible but contain no premature systems.
-- Any available Dockerfiles build locally.
 - The user completes the documented manual smoke check.
 
 Non-goals:
@@ -80,7 +78,8 @@ Non-goals:
 - AI calls;
 - TTS;
 - full database schema; and
-- lesson gameplay.
+- lesson gameplay;
+- Docker, hosting, release automation, and domain configuration.
 
 ## Milestone 2 — Machine-readable contracts and catalog fixtures
 
@@ -374,6 +373,52 @@ Exit criteria:
 - Scheduling remains inspectable and deterministic for the same inputs.
 - Reference-backed kanji data is distinguishable from generated mnemonics.
 
+## Local release-candidate acceptance gate
+
+Status: Planned
+
+Purpose:
+
+Establish that the approved release scope works as a complete game locally
+before any deployment architecture is selected.
+
+Exit criteria:
+
+- The approved local release scope is implemented end to end.
+- A clean install and production build succeed locally.
+- The full game starts and runs through documented local commands.
+- The user completes the manual happy-path, edge-case, regression, persistence,
+  and representative performance checklist.
+- Known limitations are documented and explicitly accepted or scheduled.
+- The user explicitly approves the local build as the release candidate.
+
+This gate is not satisfied merely because one technical milestone builds.
+
+## Milestone 11 — Release discovery and domain deployment
+
+Status: Deferred
+
+Activation condition: the user has explicitly accepted the local release
+candidate.
+
+Purpose:
+
+Publish the accepted local release candidate to a production domain using the
+smallest deployment architecture justified by the finished application.
+
+Decisions required:
+
+- O-012 deployment model and whether Docker is useful;
+- hosting provider and region;
+- domain and DNS ownership;
+- production persistence and backup behavior;
+- secret and environment-variable names;
+- TLS, observability, release, and rollback process; and
+- production cost and performance budgets.
+
+No work in this milestone begins before the local release-candidate acceptance
+gate.
+
 ## Later opportunities
 
 Status: Deferred
@@ -398,4 +443,4 @@ product decision and roadmap update.
 - a complex agent or microservice framework;
 - a general inventory RPG;
 - realtime LLM calls for every interaction; and
-- Playwright-based E2E testing.
+- automated browser E2E testing.
