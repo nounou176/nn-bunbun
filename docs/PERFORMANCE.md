@@ -1,0 +1,253 @@
+# Bunbun Performance Specification
+
+## Purpose
+
+Performance protects the learning loop. Slow loading, frame drops, delayed
+picking, and excessive travel all reduce meaningful Japanese reactions per
+minute even when the educational content is sound.
+
+This document defines initial reference budgets. They are design constraints,
+not claims about an implementation that does not yet exist.
+
+## Reference target
+
+The MVP should target:
+
+- 60 FPS on ordinary desktop and laptop hardware;
+- responsive point-and-click picking and movement;
+- fast startup for a small lesson;
+- stable DOM overlay input while the 3D scene is active; and
+- graceful degradation on weaker supported hardware.
+
+At 60 FPS the total frame budget is approximately 16.7 ms. Rendering should not
+consume the entire budget because input, lesson logic, DOM work, audio, and
+browser scheduling also need time.
+
+The minimum browser and device support matrix is still an open decision. No
+hardware claim is accepted until it has been measured on named devices.
+
+## Scene budgets
+
+Initial normal-scene targets:
+
+| Resource | Target |
+| --- | --- |
+| Active NPCs and animals | 1–5 |
+| Interactive objects | Approximately 5–30 |
+| Draw calls | Preferably below approximately 100 |
+| Texture dimensions | Generally 1024 px or below |
+| Realtime shadow casters | Minimal; ideally 0–1 |
+| Realtime lights | Minimal and intentionally budgeted |
+| Physics | No heavy physics engine |
+| Loaded content | Current lesson assets only |
+
+These are not permission to spend every budget simultaneously. A scene with
+five animated NPCs may need fewer unique materials, smaller textures, or no
+realtime shadows.
+
+Budgets for triangles, GPU memory, JavaScript bundle size, compressed lesson
+download, initial load time, and interaction latency require real prototype
+measurements before numeric limits are accepted.
+
+## Rendering strategy
+
+### Renderer
+
+- Use Three.js.
+- Prefer WebGPURenderer only where it is appropriate for the supported browser
+  matrix and demonstrably stable.
+- Provide a WebGL2 fallback.
+- Renderer selection must be capability-based and testable.
+- Failure to initialize the preferred renderer must lead to a safe fallback or
+  clear error, not a blank canvas.
+
+The exact policy and browser exclusions are deferred until the runtime
+foundation milestone.
+
+### Camera and composition
+
+- Use a fixed or constrained isometric, bird's-eye, or diorama camera.
+- Keep visible scene bounds intentionally small.
+- Avoid rendering distant world content that does not support the lesson.
+- Use frustum culling and catalog-defined visibility where appropriate.
+- Camera movement must be brief and must not impair picking or readability.
+
+### Geometry
+
+- Favor stylized low-poly assets.
+- Reuse geometry across catalog objects.
+- Use InstancedMesh for repeated compatible objects.
+- Remove hidden or unnecessary geometry before shipping assets.
+- Avoid high-frequency geometry that is invisible at the gameplay camera scale.
+- Do not add a physics mesh when a simple authored navigation or collider shape
+  is sufficient.
+
+### Materials and textures
+
+- Share materials and texture atlases where they reduce real draw calls without
+  harming maintainability.
+- Keep textures generally at or below 1024 px unless the camera view and
+  measured quality justify more.
+- Prefer KTX2/Basis GPU-compressed textures when the asset pipeline is ready.
+- Limit transparent overdraw and large layered alpha effects.
+- Avoid unique material instances created per lesson object.
+- Keep shader variants small and intentional.
+
+### Lighting and shadows
+
+- Prefer baked lighting and ambient scene treatment.
+- Use minimal realtime lights.
+- Prefer blob, decal, or other fake shadows when they communicate grounding.
+- Restrict realtime shadow maps by caster, receiver, resolution, and update
+  frequency.
+- Avoid full-scene dynamic shadows as an assumed default.
+
+### Compression
+
+- Use glTF or GLB as the runtime 3D asset format.
+- Prefer Meshopt for geometry optimization when it improves measured transfer
+  or decode cost.
+- Use Draco only when its size benefit outweighs decoder and startup cost.
+- Use KTX2/Basis when texture transfer or GPU memory warrants it.
+- Record encoder settings and decoder versions in the asset pipeline.
+
+Compression choices must be measured on representative lessons. Combining
+every compressor by default is not a goal.
+
+## Loading and caching
+
+- Load the selected manifest before activating the scene.
+- Resolve and fetch only asset bundles referenced by that manifest.
+- Separate essential first-interaction assets from optional later assets when
+  this materially improves time to first stimulus.
+- Cache reusable scene and audio assets using stable versioned keys.
+- Avoid blocking the first interaction on mnemonic images or other optional
+  media.
+- Dispose lesson-specific GPU resources when leaving a lesson, while retaining
+  deliberately shared cached resources.
+- Detect failed or incompatible assets before exposing an interaction that
+  depends on them.
+
+The TTS cache key must include all inputs that can change the spoken output,
+such as normalized Japanese text, voice profile, model version, and relevant
+generation settings.
+
+## Runtime loop
+
+- AI and network compilation work never runs in the frame loop.
+- Lesson transitions are event-driven rather than polled with expensive scene
+  scans.
+- Picking considers registered interactive targets, not every renderable mesh.
+- Object identity comes from stable application metadata.
+- Navigation remains lightweight and bounded to the micro-scene.
+- Avoid per-frame memory allocation in hot paths where measurements show
+  garbage-collection stalls.
+- Pause or reduce work when the tab is backgrounded.
+- Cap frame delta before applying movement or animation after a long pause.
+
+## Resolution and quality degradation
+
+- Cap device pixel ratio instead of blindly using the device maximum.
+- Allow an adaptive quality policy to reduce pixel ratio before changing
+  learning content.
+- Reduce or disable decorative particles, post-processing, realtime shadows,
+  and nonessential animation on weaker hardware.
+- Never hide an interactive target or Japanese prompt as a quality
+  degradation.
+- Preserve picking accuracy, input focus, and audio controls across tiers.
+
+The initial tier thresholds must be based on measured frame time, not user-agent
+guessing alone.
+
+## DOM overlay performance
+
+- Use DOM for Japanese dialogue, choices, arrangement, typing, help, and
+  lightweight progress.
+- Avoid layout thrashing during animation.
+- Do not rerender an entire overlay tree for a timer or frame update when a
+  narrow update is sufficient.
+- Keep focus transitions deterministic between canvas and form controls.
+- Avoid unnecessary 3D text geometry.
+- Ensure Japanese fonts do not cause an invisible-text delay at the first
+  stimulus.
+
+## Performance observability
+
+Development diagnostics should eventually expose:
+
+- selected renderer and adapter information;
+- device pixel ratio and active quality tier;
+- FPS plus median and high-percentile frame time;
+- draw calls, triangles, points, and lines;
+- texture and geometry counts where available;
+- loaded asset bundles and approximate transfer size;
+- scene-load and time-to-first-stimulus timings;
+- picking-to-feedback latency;
+- long-task or frame-stall indicators; and
+- active NPC and interactive-object counts.
+
+Diagnostics should not appear in the normal learner UI.
+
+## Manual performance protocol
+
+The user performs E2E validation manually. Do not create Playwright tests.
+
+For each meaningful rendering milestone:
+
+1. Record the browser version, OS, device, display resolution, and renderer.
+2. Start with caches cold and measure time to visible scene and first Japanese
+   stimulus.
+3. Repeat with warm caches.
+4. Play the full representative lesson while observing frame time and draw
+   calls.
+5. Exercise every interactive object and DOM overlay.
+6. Resize the viewport and test at the capped high-DPI setting.
+7. Force or select the weakest supported quality tier.
+8. Test WebGL2 fallback independently from WebGPU.
+9. Background and resume the tab.
+10. Record visible stutter, input delay, audio delay, memory growth, and asset
+    failures.
+
+Report measured results rather than only saying that the scene feels smooth.
+
+## Performance acceptance checklist
+
+### Happy path
+
+- The representative scene reaches the first stimulus within the accepted load
+  budget once that budget is defined.
+- Normal play holds the accepted frame target on the named reference device.
+- Picking and feedback feel immediate and have measured latency.
+- Audio replay does not stall rendering.
+
+### Edge cases
+
+- Weak GPU or unavailable WebGPU.
+- High-DPI display.
+- Narrow and wide supported viewports.
+- Slow asset delivery and failed optional asset.
+- Repeated lesson entry and exit.
+- Background tab and resume.
+- Maximum normal NPC and object counts.
+
+### Regression
+
+- Asset optimization does not change stable object identities.
+- Quality reduction does not remove instructional context.
+- Compression does not create a slower first interaction.
+- DOM overlays do not trigger persistent frame drops.
+- New visual polish does not push draw calls above the accepted scene budget.
+
+## Known unknowns
+
+The first technical prototypes must establish:
+
+- named reference devices;
+- supported browsers and versions;
+- whether 60 FPS is a hard minimum or preferred target on each tier;
+- maximum initial and warm load times;
+- maximum picking-to-feedback latency;
+- GPU and system memory budgets;
+- JavaScript and asset transfer budgets;
+- practical WebGPU fallback behavior; and
+- profiling tools and a repeatable results format.

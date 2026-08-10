@@ -1,0 +1,387 @@
+# Bunbun Decision Log
+
+## Purpose
+
+This file records durable product, architecture, UX, and workflow decisions.
+Repository documentation, not conversation history, is the long-term source of
+truth.
+
+Accepted decisions remain in this log even when superseded. A replacement must
+name the earlier decision and explain the migration or consequence.
+
+## Status vocabulary
+
+- Proposed — under discussion and not authorized for implementation.
+- Accepted — current direction.
+- Superseded — replaced by a later decision.
+- Rejected — considered and intentionally not selected.
+- Deferred — real decision postponed until evidence or a milestone requires it.
+
+## Decision template
+
+### D-XXX — Short title
+
+- Date: YYYY-MM-DD
+- Status: Proposed
+- Affects: documents or systems
+
+Context:
+
+Describe the problem, constraints, and meaningful alternatives.
+
+Decision:
+
+State the chosen direction precisely.
+
+Consequences:
+
+Describe benefits, costs, follow-up work, and constraints.
+
+## Accepted decisions
+
+### D-001 — Optimize for meaningful Japanese reactions
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Product, gameplay, analytics, UX
+
+Context:
+
+Bunbun could optimize for game breadth, lesson duration, content volume, or
+language practice density.
+
+Decision:
+
+The north-star metric is meaningful Japanese reactions per minute. When
+appropriate, the experience aims for one meaningful reaction every 5–12
+seconds. Story, movement, presentation, and feedback must protect this loop.
+
+Consequences:
+
+Game complexity is subordinate to learning density. Timing must eventually be
+measured as part of lesson quality. The operational definition in
+BUNBUN_VISION.md is version 0 and still needs play validation.
+
+### D-002 — AI is a lesson compiler
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Architecture, AI, runtime, security
+
+Context:
+
+Generating arbitrary game source for each lesson would create unpredictable
+behavior, poor validation, slow startup, and unsafe runtime coupling.
+
+Decision:
+
+AI compiles learner targets into a versioned, strictly validated
+LessonManifest. It does not generate per-lesson Three.js code. Normal gameplay
+runs locally after compilation, with no LLM in the render or interaction loop.
+
+Consequences:
+
+The manifest and catalogs become key product contracts. Compiler validation is
+both structural and semantic. Selective runtime AI may be added later only for
+approved use cases such as open-ended evaluation or requested explanations.
+
+### D-003 — Use reusable 3D micro-scenarios
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Game design, assets, content generation
+
+Context:
+
+A unique world per lesson is expensive, slow, inconsistent, and unnecessary
+for dense language practice.
+
+Decision:
+
+Bunbun uses small reusable stylized 3D scenes, entities, objects, locations,
+and scenario templates. The camera is isometric, bird's-eye, or diorama-style.
+Point-and-click is the primary MVP control.
+
+Consequences:
+
+Content generation selects catalog IDs and composes interactions. The MVP is
+not an open world, procedural world generator, or physics-heavy game. WASD is
+not required.
+
+### D-004 — Keep the initial primitive vocabulary closed
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Gameplay, manifest, runtime
+
+Context:
+
+Allowing AI to invent mechanics would make manifests impossible to validate
+and the runtime impossible to keep small.
+
+Decision:
+
+The MVP supports LISTEN, CLICK_OBJECT, CHOOSE, ARRANGE, TYPE, MOVE_TO, PICK_UP,
+and GIVE. Lessons compose these primitives. SPEAK and any other primitive
+require a later accepted decision.
+
+Consequences:
+
+The schema uses a closed discriminated union. New stories and scenario
+templates are welcome only when expressible with the existing runtime
+capabilities.
+
+### D-005 — Separate the Three.js world from DOM learning UI
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Frontend, UX, accessibility
+
+Context:
+
+Three-dimensional UI and text would increase rendering cost and reduce normal
+web input and text capabilities.
+
+Decision:
+
+Three.js handles world rendering, camera, characters, objects, animation,
+picking, and simple movement. HTML/CSS DOM overlays handle Japanese dialogue,
+audio replay, choices, arrangement, typing, help, language information, and
+lightweight progress.
+
+Consequences:
+
+The world stays visually dominant. Overlay focus must be isolated from world
+input and overlays should disappear promptly after use. React is not required
+for the MVP.
+
+### D-006 — Adopt a TypeScript web and Node.js stack
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Architecture, tooling
+
+Context:
+
+The product needs a browser 3D runtime, shared typed contracts, and a small
+backend for compilation and caching.
+
+Decision:
+
+The approved direction is TypeScript, Vite, Three.js, HTML/CSS overlays, and a
+Node.js TypeScript backend. Rendering should use WebGPURenderer where
+appropriate with WebGL2 fallback. Local/MVP persistence uses SQLite.
+
+Consequences:
+
+Exact package layout, versions, validation library, backend framework, and
+SQLite tooling remain deferred. No application is scaffolded by this decision
+alone.
+
+### D-007 — Use reusable optimized asset formats
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Assets, rendering, performance
+
+Context:
+
+Small scenes still require predictable download, decode, GPU, and draw-call
+costs.
+
+Decision:
+
+Use reusable glTF or GLB assets, stylized low-poly art, baked lighting where
+possible, minimal realtime light and shadow, shared materials, instancing for
+repetition, capped or adaptive device pixel ratio, and lesson-scoped loading.
+Use Meshopt, Draco, and KTX2/Basis only when measurements justify them.
+
+Consequences:
+
+Performance is part of content validation. Normal scenes prefer fewer than
+approximately 100 draw calls, 1–5 active NPCs, 5–30 interactive objects, and
+textures at or below 1024 px unless justified.
+
+### D-008 — Cache generated media
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Backend, TTS, generated images, cost
+
+Context:
+
+Repeated generation adds latency and cost without improving a stable lesson.
+
+Decision:
+
+OpenAI text-to-speech is generated ahead of or outside normal gameplay, cached
+with stable versioned inputs, and reused. Mnemonic images are generated only
+when needed and are also cached. Realtime voice is not an MVP requirement.
+
+Consequences:
+
+The backend needs cache metadata and asset resolution. Cache keys must include
+inputs that can change output. Provider and storage details remain deferred.
+
+### D-009 — Generate Anki packages deterministically
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Later integrations
+
+Context:
+
+AI can draft useful learning content but should not be trusted to emit a valid
+binary package.
+
+Decision:
+
+An LLM may later generate Anki learning content. Deterministic local code must
+generate the actual .apkg file.
+
+Consequences:
+
+Anki remains outside the initial gameplay runtime and roadmap sequencing until
+explicitly prioritized.
+
+### D-010 — Repository documentation is durable memory
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: All work
+
+Context:
+
+Future Codex sessions must work without external ChatGPT history.
+
+Decision:
+
+AGENTS.md and docs/ are the durable project memory. Significant work starts by
+reading the repository documentation. Durable decisions update this log and
+the relevant specification. Meaningful milestones update CURRENT_STATE.md and
+ROADMAP.md. Complex features use a live ExecPlan under plans/.
+
+Consequences:
+
+Documentation maintenance is part of completion, not optional cleanup.
+Conversation alone does not change the accepted project state.
+
+### D-011 — Use manual browser E2E testing
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Workflow, verification
+
+Context:
+
+The user will personally validate browser behavior and does not need
+Playwright.
+
+Decision:
+
+Do not create or run Playwright tests unless the user explicitly reverses this
+decision. Provide clear manual happy-path, edge-case, and regression steps for
+implemented behavior.
+
+Consequences:
+
+Manual outcomes must be reported honestly and cannot be inferred by Codex.
+Static checks, focused unit or integration tests, production builds, and Docker
+builds may still be used when they exist and are relevant.
+
+### D-012 — Isolate prior Bunbun or Dreamworld work
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Continuity, architecture
+
+Context:
+
+Shared memory contains records for an older bunbun/game2 Dreamworld project
+with first-person controls and an existing implementation. This repository is
+new and its specification chooses a different isometric, point-and-click
+direction.
+
+Decision:
+
+The older implementation is not a baseline or dependency of this repository.
+Do not copy its code, content, or architecture unless the user explicitly
+requests a reviewed import.
+
+Consequences:
+
+This repository stays self-sufficient and avoids accidental architectural
+conflicts. Useful ideas from older work require a new explicit decision.
+
+### D-013 — Use LessonManifest contract 0.1.0 as the implementation baseline
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Compiler, shared contracts, runtime, catalogs
+
+Context:
+
+The first implementation needs an explicit data boundary, while no
+machine-readable schema or runtime exists yet.
+
+Decision:
+
+Use the strict closed contract documented in LESSON_MANIFEST.md version 0.1.0
+as the design baseline. It supports one scene, one initial scenario template,
+versioned catalog references, eight fixed primitive variants, bounded
+scaffolding, explicit transitions, learning evidence bindings, completion
+independent of mastery, quality targets, and provenance.
+
+Consequences:
+
+Milestone 2 must implement and test the contract as JSON Schema, shared
+TypeScript types, and semantic validators. If implementation reveals a
+necessary change, discuss material semantics, update the documentation and
+decision log, and version the contract rather than silently drifting.
+
+### D-014 — Use nn-bunbun as the canonical repository
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Repository continuity, local development
+
+Context:
+
+The documentation foundation was initially created in the temporary
+bunbungame directory. The user created a dedicated Git repository for the
+project.
+
+Decision:
+
+The canonical local repository is
+/home/nunu/Desktop/nnlab/nn-bunbun. Its main branch tracks the origin remote at
+https://github.com/nounou176/nn-bunbun.git. Future project work must happen in
+this repository.
+
+Consequences:
+
+The project documents move without importing the invalid Git placeholder from
+the old directory. Shared memory and future handoffs must use the canonical
+repository path.
+
+## Deferred decisions
+
+These are acknowledged but not yet ready to decide:
+
+| ID | Decision needed | Resolve before |
+| --- | --- | --- |
+| O-001 | Initial learner level and support locale | First vertical-slice content |
+| O-002 | First scene, scenario, and target set | Vertical-slice ExecPlan |
+| O-003 | Mastery aggregation and weak-target scheduling policy | Persistence and adaptation milestone |
+| O-004 | Repository layout, package manager, and version pins | Project foundation milestone |
+| O-005 | JSON Schema and TypeScript generation direction and validation library | Contract implementation |
+| O-006 | Backend HTTP framework and compilation job model | Backend foundation |
+| O-007 | SQLite library, migrations, and browser/server progress ownership | Persistence foundation |
+| O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
+| O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |
+| O-010 | OpenAI model, TTS model, voice policy, and cache storage | AI and audio integration |
+| O-011 | Analytics privacy, retention, and exact metric definitions | Telemetry implementation |
+| O-012 | Deployment model and Docker topology | Deployment preparation |
+
+Deferred decisions must be discussed when they become material. They should
+not be filled with convenient defaults during unrelated work.
