@@ -392,6 +392,80 @@ deferred until the local acceptance gate, when the actual hosting and domain
 requirements are known. "Complete" means the locally approved release scope,
 not every possible item in Later opportunities.
 
+### D-016 — Adopt the local TypeScript workspace foundation
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Repository layout, local tooling, frontend, backend
+
+Context:
+
+Milestone 1 needs the smallest local structure that keeps the browser client,
+Node.js backend, and shared contracts distinct without introducing a complex
+monorepo framework or premature application systems.
+
+Decision:
+
+Use Node.js 24 LTS, pinned by .nvmrc and package engines, with the bundled npm
+major pinned in package metadata. Use native npm workspaces with one root
+package-lock.json. Place the Vite vanilla TypeScript client in apps/web, the
+Node.js TypeScript server in apps/server, and the future shared data contracts
+in packages/contracts. The server uses node:http for the Milestone 1 GET
+/health boundary rather than selecting a backend framework early. PORT is the
+only approved environment variable name in this milestone. Provide root
+commands for concurrent local development, typecheck, lint, format checking,
+and production builds.
+
+Consequences:
+
+React, Three.js scene code, the machine-readable LessonManifest, SQLite, AI,
+TTS, Docker, deployment, and browser automation remain outside Milestone 1.
+The backend framework decision O-006 stays deferred because node:http is only a
+small foundation boundary. The workspace layout resolves O-004.
+
+### D-017 — Use schema-first shared contracts with deterministic validation
+
+- Date: 2026-08-10
+- Status: Accepted
+- Affects: Shared contracts, manifest validation, catalogs, compiler, runtime
+
+Context:
+
+Milestone 2 must turn the documented LessonManifest 0.1.0 contract into one
+machine-readable definition consumed by TypeScript, the browser runtime, the
+server, developer tools, and later compiler boundaries. Hand-maintaining
+independent JSON Schema and TypeScript declarations would allow silent drift.
+Ajv's own TypeScript schema helper has limited union guarantees, while this
+contract relies heavily on closed discriminated unions.
+
+Decision:
+
+Use TypeBox 1.x in the ESM TypeScript 6 workspace as the schema-first source
+for JSON Schema and inferred TypeScript types. Export deterministic JSON Schema
+artifacts and fail a check when they drift from the source schemas. Use Ajv in
+strict, non-coercing, all-errors mode for structural validation and normalize
+its diagnostics into Bunbun validation errors. Implement reference, graph,
+coverage, evidence, catalog compatibility, and other semantic rules as pure
+TypeScript validators. Keep catalogs as a separate versioned CatalogSnapshot
+contract supplied alongside a manifest. Use focused Node test-runner tests
+through the existing tsx toolchain; browser automation remains excluded.
+
+The playable LessonManifest schema preserves contract 0.1.0 optional-field
+semantics: optional properties are omitted and null is rejected. A later AI
+compiler may require a separate Structured Outputs draft schema and a
+deterministic normalization step; it must not weaken or silently change the
+playable manifest contract.
+
+Consequences:
+
+Schema, static types, and serialized artifacts share one source. Both client
+and server can use the same structural result and normalized error vocabulary.
+Semantic validation remains explicit and independently testable rather than
+being hidden in custom schema keywords. TypeBox, Ajv, and format validation are
+new runtime dependencies of packages/contracts and must be pinned by the root
+lockfile. O-005 is resolved. Compiler-draft compatibility remains work for the
+AI compiler milestone.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -401,8 +475,6 @@ These are acknowledged but not yet ready to decide:
 | O-001 | Initial learner level and support locale | First vertical-slice content |
 | O-002 | First scene, scenario, and target set | Vertical-slice ExecPlan |
 | O-003 | Mastery aggregation and weak-target scheduling policy | Persistence and adaptation milestone |
-| O-004 | Repository layout, package manager, and version pins | Project foundation milestone |
-| O-005 | JSON Schema and TypeScript generation direction and validation library | Contract implementation |
 | O-006 | Backend HTTP framework and compilation job model | Backend foundation |
 | O-007 | SQLite library, migrations, and browser/server progress ownership | Persistence foundation |
 | O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |

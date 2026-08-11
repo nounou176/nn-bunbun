@@ -2,13 +2,17 @@
 
 ## Status and intent
 
-This document defines LessonManifest contract version 0.1.0 for the
-documentation milestone. It is the normative design input for the future JSON
-Schema, TypeScript types, compiler validators, and runtime loaders.
+This document defines the normative LessonManifest contract version 0.1.0.
+Milestone 2 implements it as shared TypeBox schemas, inferred TypeScript types,
+strict Ajv structural validation, and pure TypeScript semantic validation under
+packages/contracts.
 
-No schema code exists yet. Before implementation, this contract must be copied
-into a strict machine-readable schema without silently changing its semantics.
-Any change discovered during that work must be recorded in DECISIONS.md.
+The executable source is packages/contracts/src/schema, validation lives in
+packages/contracts/src/validation, and the checked artifacts are
+packages/contracts/schemas/lesson-manifest-0.1.0.schema.json and
+packages/contracts/schemas/catalog-snapshot-0.1.0.schema.json. Authored valid
+and invalid examples live under packages/contracts/fixtures. D-017 records the
+schema-first implementation decision.
 
 The manifest is playable data, not source code. It tells a fixed runtime which
 catalog content to load and which fixed interactions to execute.
@@ -34,8 +38,9 @@ The keywords MUST, MUST NOT, SHOULD, and MAY express requirement strength.
 - A playable manifest MUST contain no prompt, model instruction, executable
   code, arbitrary URL, filesystem path, or provider secret.
 
-The eventual JSON Schema MUST set additionalProperties to false for every
-object and use discriminated oneOf branches for interaction and target types.
+The generated JSON Schema sets additionalProperties to false for every object
+and uses discriminated oneOf branches for interaction and target types. The
+schema artifact is generated from the TypeBox source and checked for drift.
 
 ## Lifecycle
 
@@ -52,6 +57,12 @@ object and use discriminated oneOf branches for interaction and target types.
 
 A schema-valid draft is not necessarily playable. Only a manifest that passes
 all deterministic validators may reach the runtime.
+
+Contract 0.1.0 rejects every graph cycle because it has no counter or condition
+language with which to prove a cycle bounded. The validator proves rules that
+can be derived from the manifest and supplied CatalogSnapshot; it does not
+claim natural-language quality, physical reachability from future 3D geometry,
+or runtime evidence persistence before those systems exist.
 
 ## Root LessonManifest
 
@@ -354,7 +365,7 @@ Closed variants:
 
 | kind | Additional required fields |
 | --- | --- |
-| REPLAY_AUDIO | none; stimulus must reference audio |
+| REPLAY_AUDIO | none; stimulus must reference audio and set replayAllowed true |
 | SHOW_JAPANESE_TEXT | none; utterance must exist |
 | HIGHLIGHT_OBJECTS | objectIds: non-empty existing object IDs |
 | HIGHLIGHT_ENTITIES | entityIds: non-empty existing entity IDs |

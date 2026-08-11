@@ -2,9 +2,10 @@
 
 ## Status
 
-This document defines the approved architectural direction. It describes
-logical boundaries, not a committed filesystem layout. No application has been
-scaffolded yet.
+This document defines the approved architectural direction. The Milestone 1
+filesystem foundation and Milestone 2 executable contract boundary are
+implemented; later runtime, compiler, persistence, and asset boundaries remain
+planned until their roadmap milestones.
 
 ## Architectural goals
 
@@ -20,6 +21,19 @@ Bunbun should be:
 
 Avoid premature abstraction. Add a boundary only when it protects a current
 requirement or makes an approved milestone independently testable.
+
+## Repository foundation
+
+The accepted physical layout is a native npm workspace:
+
+- apps/web — Vite vanilla TypeScript browser client;
+- apps/server — Node.js TypeScript backend;
+- packages/contracts — shared compiler/runtime contract boundary; and
+- root tooling — pinned Node/npm metadata and shared static/build commands.
+
+Milestone 1 uses node:http only for a local GET /health endpoint. This does not
+select the later compiler API framework. PORT is the only environment variable
+approved for Milestone 1.
 
 ## System context
 
@@ -78,7 +92,16 @@ compiler boundary. The game client should not depend on a particular model.
 
 ### Shared contracts and catalogs
 
-The frontend and backend need one versioned definition for:
+packages/contracts now provides TypeBox 1.x source schemas and inferred
+TypeScript types for LessonManifest 0.1.0 and CatalogSnapshot 0.1.0. Ajv runs
+strict, non-coercing structural validation, while pure TypeScript validators
+check references, world compatibility, graph termination, learning coverage,
+evidence, language safety, interactions, scaffolds, provenance, and quality
+budgets. Generated JSON Schema artifacts are checked against their source.
+
+The frontend and backend consume the same isolated contract-version export so
+the small web foundation does not bundle the validator implementation. The
+shared boundary includes:
 
 - LessonManifest;
 - learning targets;
@@ -248,9 +271,6 @@ No endpoint shape is accepted yet. When APIs are designed, they should:
 
 Before implementation reaches the relevant boundary, decide:
 
-- repository and package layout;
-- Node.js runtime and package manager versions;
-- contract validation library and schema-generation direction;
 - HTTP framework and compilation job model;
 - browser support and WebGPU selection policy;
 - SQLite access and migration tools;
@@ -259,7 +279,7 @@ Before implementation reaches the relevant boundary, decide:
 - OpenAI model, TTS model, voice policy, and cache invalidation inputs; and
 - observability and privacy rules for learning analytics.
 
-These are intentionally not chosen during the documentation-only milestone.
-Deployment topology, Docker, hosting, and domain architecture are deliberately
-deferred until the user has manually accepted a complete local release
-candidate.
+The contract validation and schema-generation direction was resolved by D-017.
+The remaining choices are intentionally deferred until their owning milestone.
+Deployment topology, Docker, hosting, and domain architecture remain deferred
+until the user has manually accepted a complete local release candidate.

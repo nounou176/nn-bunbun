@@ -1,0 +1,8 @@
+node_modules/
+**/dist/
+packages/contracts/fixtures/manifests/invalid/
+packages/contracts/schemas/
+docs/
+.agent/
+plans/
+AGENTS.md

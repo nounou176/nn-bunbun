@@ -1,0 +1,135 @@
+import { readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import {
+  CatalogSnapshotSchema,
+  LessonManifestSchema,
+} from "../src/schema/index.js";
+
+type JsonObject = Record<string, unknown>;
+
+const packageDirectory = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const checkOnly = process.argv.includes("--check");
+
+const validManifestPath = resolve(
+  packageDirectory,
+  "fixtures/manifests/valid-find-dog.json",
+);
+const validManifest = JSON.parse(
+  await readFile(validManifestPath, "utf8"),
+) as JsonObject;
+
+const artifacts = new Map<string, string>([
+  [
+    resolve(packageDirectory, "schemas/lesson-manifest-0.1.0.schema.json"),
+    serialize(LessonManifestSchema),
+  ],
+  [
+    resolve(packageDirectory, "schemas/catalog-snapshot-0.1.0.schema.json"),
+    serialize(CatalogSnapshotSchema),
+  ],
+]);
+
+const unknownField = clone(validManifest);
+unknownField.unexpectedField = true;
+addInvalidManifest("invalid-unknown-field.json", unknownField);
+
+const badReference = clone(validManifest);
+const badReferenceInteraction = objectAt(
+  arrayAt(badReference, "steps")[0],
+  "interaction",
+);
+badReferenceInteraction.candidateObjectIds = ["bird", "cat"];
+badReferenceInteraction.acceptedObjectIds = ["bird"];
+addInvalidManifest("invalid-bad-reference.json", badReference);
+
+const unreachableStep = clone(validManifest);
+const steps = arrayAt(unreachableStep, "steps");
+const orphan = clone(objectAt(steps[0]));
+orphan.stepId = "orphan_step";
+orphan.contextId = "orphan_context";
+steps.push(orphan);
+addInvalidManifest("invalid-unreachable-step.json", unreachableStep);
+
+const coverageGap = clone(validManifest);
+const firstTarget = objectAt(arrayAt(coverageGap, "learningTargets")[0]);
+objectAt(firstTarget, "goal").minimumEncounters = 2;
+addInvalidManifest("invalid-coverage-gap.json", coverageGap);
+
+const unboundedFallback = clone(validManifest);
+const loopingStep = objectAt(arrayAt(unboundedFallback, "steps")[0]);
+const transitions = objectAt(loopingStep, "transitions");
+transitions.onFailure = { kind: "STEP", stepId: "find_dog" };
+transitions.onAssisted = { kind: "STEP", stepId: "find_dog" };
+arrayAt(loopingStep, "scaffolds").push({
+  scaffoldId: "fallback_to_self",
+  afterAttempt: 2,
+  kind: "RECOGNITION_FALLBACK",
+  fallbackStepId: "find_dog",
+});
+addInvalidManifest("invalid-unbounded-fallback.json", unboundedFallback);
+
+const incompatibleEvidence = clone(validManifest);
+const firstStep = objectAt(arrayAt(incompatibleEvidence, "steps")[0]);
+const assessment = objectAt(arrayAt(firstStep, "targetBindings")[1]);
+assessment.successEvidence = "actively_produced";
+addInvalidManifest("invalid-incompatible-evidence.json", incompatibleEvidence);
+
+let differences = 0;
+
+for (const [path, expected] of artifacts) {
+  if (checkOnly) {
+    const actual = await readFile(path, "utf8").catch(() => undefined);
+    if (actual !== expected) {
+      console.error(`Artifact is missing or stale: ${path}`);
+      differences += 1;
+    }
+  } else {
+    await writeFile(path, expected, "utf8");
+    console.log(`Wrote ${path}`);
+  }
+}
+
+if (differences > 0) {
+  process.exitCode = 1;
+} else if (checkOnly) {
+  console.log(`Artifact check passed (${artifacts.size} files).`);
+}
+
+function addInvalidManifest(fileName: string, manifest: JsonObject): void {
+  artifacts.set(
+    resolve(packageDirectory, "fixtures/manifests/invalid", fileName),
+    serialize(manifest),
+  );
+}
+
+function serialize(value: unknown): string {
+  return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+function clone<Value>(value: Value): Value {
+  return structuredClone(value);
+}
+
+function objectAt(value: unknown, key?: string): JsonObject {
+  const target = key === undefined ? value : asObject(value)[key];
+  return asObject(target);
+}
+
+function arrayAt(value: unknown, key: string): unknown[] {
+  const target = asObject(value)[key];
+  if (!Array.isArray(target)) {
+    throw new Error(
+      `Expected '${key}' to be an array while generating fixtures.`,
+    );
+  }
+  return target;
+}
+
+function asObject(value: unknown): JsonObject {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new Error("Expected an object while generating contract artifacts.");
+  }
+  return value as JsonObject;
+}

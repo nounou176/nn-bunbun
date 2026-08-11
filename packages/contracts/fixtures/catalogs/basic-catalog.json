@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogId": "bunbun_fixture_catalog",
+  "revision": 1,
+  "scenes": [
+    {
+      "sceneId": "park_small",
+      "variantIds": ["day"],
+      "cameraPresetIds": ["park_isometric_default"],
+      "assetBundleIds": ["park_core", "animals_basic"],
+      "spawnPoints": [
+        {
+          "spawnPointId": "park_entry",
+          "kind": "PLAYER",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "guide_spot",
+          "kind": "ENTITY",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "animal_spot_a",
+          "kind": "OBJECT",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "animal_spot_b",
+          "kind": "OBJECT",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        }
+      ]
+    }
+  ],
+  "assetBundles": [
+    {
+      "assetBundleId": "park_core",
+      "sceneIds": ["park_small"]
+    },
+    {
+      "assetBundleId": "animals_basic",
+      "sceneIds": ["park_small"]
+    }
+  ],
+  "locations": [],
+  "entities": [
+    {
+      "catalogEntityId": "npc_guide_basic",
+      "roles": ["NPC"],
+      "sceneIds": ["park_small"],
+      "stateIds": ["idle"]
+    }
+  ],
+  "objects": [
+    {
+      "catalogObjectId": "animal_dog_small",
+      "sceneIds": ["park_small"],
+      "stateIds": ["idle", "happy"],
+      "affordances": ["INTERACTIVE", "PICK_UP", "GIVE"]
+    },
+    {
+      "catalogObjectId": "animal_cat_small",
+      "sceneIds": ["park_small"],
+      "stateIds": ["idle"],
+      "affordances": ["INTERACTIVE", "PICK_UP", "GIVE"]
+    }
+  ],
+  "presentationCues": [
+    {
+      "cueId": "guide_gesture",
+      "sceneId": "park_small"
+    },
+    {
+      "cueId": "dog_happy",
+      "sceneId": "park_small"
+    },
+    {
+      "cueId": "dog_highlight",
+      "sceneId": "park_small"
+    }
+  ],
+  "voiceProfiles": [
+    {
+      "voiceProfileId": "voice_guide_01"
+    }
+  ],
+  "referenceRecords": [
+    {
+      "referenceId": "jp_vocab_inu",
+      "targetKinds": ["VOCABULARY"],
+      "providerId": "japanese_core",
+      "providerVersion": "fixture_0.1.0"
+    }
+  ]
+}

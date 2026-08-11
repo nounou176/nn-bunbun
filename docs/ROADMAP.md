@@ -10,7 +10,8 @@
 - Do not start a complex milestone without an approved ExecPlan.
 - Update this roadmap when evidence changes sequencing or scope.
 
-Status values are Complete, Next, Planned, Deferred, and Not planned.
+Status values are Complete, In progress, Next, Planned, Deferred, and Not
+planned.
 
 ## Milestone 0 — Durable documentation foundation
 
@@ -43,18 +44,18 @@ Exit criteria:
 
 ## Milestone 1 — Project foundation decisions and scaffold
 
-Status: Next
+Status: Complete
 
 Purpose:
 
 Create the smallest maintainable TypeScript workspace after discussing the
 deferred implementation choices that materially affect it.
 
-Decisions required:
+Decisions resolved for this milestone:
 
-- O-004 repository layout, package manager, and version pins;
-- the minimum local development commands;
-- whether frontend and backend begin in one package or separate packages.
+- D-016 adopts Node.js 24 LTS, npm 11, and native npm workspaces;
+- one root development command starts the web and server processes; and
+- frontend, backend, and shared contracts use separate workspace boundaries.
 
 Planned scope:
 
@@ -83,20 +84,20 @@ Non-goals:
 
 ## Milestone 2 — Machine-readable contracts and catalog fixtures
 
-Status: Planned
+Status: In progress — implementation complete; manual acceptance pending
 
 Purpose:
 
 Turn LessonManifest 0.1.0 into executable shared contracts without depending
 on AI.
 
-Decisions required:
+Decisions resolved:
 
-- O-005 schema/type generation and validation library;
+- D-017 schema/type generation and structural/semantic validation approach;
 - identifier and versioning utilities; and
 - the minimum scene/catalog record shapes.
 
-Planned scope:
+Delivered scope:
 
 - strict JSON Schema and TypeScript types;
 - structural and semantic validation layers;
@@ -107,6 +108,12 @@ Planned scope:
 - minimal catalog fixtures for one scene, entities, objects, locations, cues,
   and audio; and
 - a manifest inspection command or developer view.
+
+Implementation note:
+
+All exit criteria pass in static, unit, integration, fixture-inspection, build,
+and local HTTP/process checks. The milestone remains in progress until the user
+completes the handed-off manual acceptance checklist.
 
 Exit criteria:
 

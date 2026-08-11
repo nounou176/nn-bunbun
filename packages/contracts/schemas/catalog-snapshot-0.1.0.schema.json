@@ -1,0 +1,391 @@
+{
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "catalogId",
+    "revision",
+    "scenes",
+    "assetBundles",
+    "locations",
+    "entities",
+    "objects",
+    "presentationCues",
+    "voiceProfiles",
+    "referenceRecords"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "catalogId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sceneId",
+          "variantIds",
+          "cameraPresetIds",
+          "assetBundleIds",
+          "spawnPoints"
+        ],
+        "properties": {
+          "sceneId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "variantIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "uniqueItems": true
+          },
+          "cameraPresetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "assetBundleIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "spawnPoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "spawnPointId",
+                "kind",
+                "reachableFromPlayer",
+                "exclusiveOccupancy"
+              ],
+              "properties": {
+                "spawnPointId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "PLAYER",
+                    "ENTITY",
+                    "OBJECT"
+                  ]
+                },
+                "reachableFromPlayer": {
+                  "type": "boolean"
+                },
+                "exclusiveOccupancy": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "assetBundles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "assetBundleId",
+          "sceneIds"
+        ],
+        "properties": {
+          "assetBundleId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "sceneIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "catalogLocationId",
+          "sceneId",
+          "stateIds"
+        ],
+        "properties": {
+          "catalogLocationId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "sceneId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "stateIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "catalogEntityId",
+          "roles",
+          "sceneIds",
+          "stateIds"
+        ],
+        "properties": {
+          "catalogEntityId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "NPC",
+                "ANIMAL"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "sceneIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "stateIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "catalogObjectId",
+          "sceneIds",
+          "stateIds",
+          "affordances"
+        ],
+        "properties": {
+          "catalogObjectId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "sceneIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "stateIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+            },
+            "uniqueItems": true
+          },
+          "affordances": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "INTERACTIVE",
+                "PICK_UP",
+                "GIVE"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "presentationCues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "cueId",
+          "sceneId"
+        ],
+        "properties": {
+          "cueId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "sceneId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "voiceProfiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "voiceProfileId"
+        ],
+        "properties": {
+          "voiceProfileId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "referenceRecords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "referenceId",
+          "targetKinds",
+          "providerId",
+          "providerVersion"
+        ],
+        "properties": {
+          "referenceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "targetKinds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "VOCABULARY",
+                "GRAMMAR",
+                "KANJI"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "providerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "providerVersion": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bunbun.local/schemas/catalog-snapshot-0.1.0.schema.json",
+  "title": "Bunbun CatalogSnapshot 0.1.0",
+  "additionalProperties": false
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@bunbun/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./src/schema/index.ts",
+      "import": "./dist/schema/index.js"
+    },
+    "./version": {
+      "types": "./src/version.ts",
+      "import": "./dist/version.js"
+    }
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tools.json",
+    "schema:write": "node --import tsx scripts/generate-artifacts.ts",
+    "schema:check": "node --import tsx scripts/generate-artifacts.ts --check",
+    "test": "node --import tsx --test --test-isolation=none test/**/*.test.ts",
+    "inspect:manifest": "node --import tsx scripts/inspect-manifest.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "typebox": "^1.3.12"
+  }
+}

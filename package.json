@@ -1,0 +1,47 @@
+{
+  "name": "nn-bunbun",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.16.0",
+  "engines": {
+    "node": ">=24.18.0 <25",
+    "npm": ">=11.16.0 <12"
+  },
+  "workspaces": [
+    "packages/contracts",
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run build --workspace @bunbun/contracts && concurrently --kill-others-on-fail --names server,web --prefix-colors blue,magenta \"npm run dev --workspace @bunbun/server\" \"npm run dev --workspace @bunbun/web\"",
+    "dev:server": "npm run build --workspace @bunbun/contracts && npm run dev --workspace @bunbun/server",
+    "dev:web": "npm run build --workspace @bunbun/contracts && npm run dev --workspace @bunbun/web",
+    "start:server": "npm run start --workspace @bunbun/server",
+    "preview:web": "npm run preview --workspace @bunbun/web",
+    "typecheck": "npm run typecheck --workspace @bunbun/contracts && npm run typecheck --workspace @bunbun/server && npm run typecheck --workspace @bunbun/web",
+    "lint": "eslint .",
+    "format": "prettier --write apps packages package.json tsconfig.base.json eslint.config.js README.md",
+    "format:check": "prettier --check apps packages package.json tsconfig.base.json eslint.config.js README.md",
+    "build": "npm run build --workspace @bunbun/contracts && npm run build --workspace @bunbun/server && npm run build --workspace @bunbun/web",
+    "schema:write": "npm run schema:write --workspace @bunbun/contracts",
+    "schema:check": "npm run schema:check --workspace @bunbun/contracts",
+    "test": "npm run test --workspace @bunbun/contracts",
+    "inspect:manifest": "node --import tsx packages/contracts/scripts/inspect-manifest.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "concurrently": "^10.0.4",
+    "eslint": "^10.8.1",
+    "globals": "^17.9.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.66.0",
+    "vite": "^8.2.1"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}
