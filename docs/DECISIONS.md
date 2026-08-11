@@ -572,6 +572,82 @@ so this is not the production audio implementation. O-001 and O-002 remain open
 because park_small and Vietnamese support are technical fixture choices, not
 the first product vertical slice.
 
+## Proposed decisions
+
+### D-020 — Complete the primitive runtime with task-scoped carry state
+
+- Date: 2026-08-12
+- Status: Proposed
+- Affects: Web runtime, lesson execution, world input, fixtures, UX
+
+Context:
+
+Milestone 4 executes LISTEN, CLICK_OBJECT, and CHOOSE through a pure in-memory
+controller. LessonManifest 0.1.0 already models ARRANGE, TYPE, MOVE_TO, PICK_UP,
+and GIVE, but the web has no execution semantics for token identity, ordered
+answer normalization, location arrival, carried state, or recipient handoff.
+The current park also has no registered location targets and only one entity,
+so it cannot demonstrate a wrong MOVE_TO destination or wrong GIVE recipient.
+
+Implementing the remaining variants requires narrow coordination between DOM
+input, controller truth, and Three.js presentation. It must not grow into a
+general inventory, pathfinding, physics, or world-state scripting system, and
+it must preserve the accepted world-dominant EXPLORE presentation and atomic
+input gate that corrected Milestone 4.
+
+Decision:
+
+For Milestone 5, keep LessonManifest and CatalogSnapshot at version 0.1.0 and
+add one authored eight-step HELP_SOMEONE technical fixture in this sequence:
+LISTEN, ARRANGE, CLICK_OBJECT, TYPE, MOVE_TO, PICK_UP, GIVE, and CHOOSE. Preserve
+the earlier fixtures. Extend park_small with two code-owned authored locations
+and one second technical NPC so the fixture can exercise wrong destinations and
+recipients. These additions do not select the first product scene or content.
+
+ARRANGE runs in DOM INTERACTION mode and compares stable token ID sequences,
+including distinct IDs for duplicate displayed text. Pointer and keyboard
+controls must work without requiring drag-and-drop. TYPE also runs in DOM
+INTERACTION mode. Promote the existing deterministic TYPE normalizer to one
+shared contracts utility and apply the manifest's rules exactly once and in
+authored order. Compare exact normalized values, enforce maximumLength by
+Unicode code point, remain safe during Japanese IME composition, and retain
+only the normalized submitted value in the session-local event record.
+
+MOVE_TO, PICK_UP, and GIVE run as world-dominant EXPLORE interactions through a
+discriminated, atomic candidate gate. MOVE_TO accepts only registered authored
+locations, locks repeated selection during travel, and produces learner
+evidence only after the matching location arrival is confirmed. Its reaction
+latency starts at the learner's selection. A movement adapter failure restores
+the awaiting state without consuming an attempt or recording a wrong answer.
+
+The controller owns one task-scoped carriedObjectId mirrored by a simple
+authored follow or escort presentation. Correct PICK_UP sets it and wrong
+PICK_UP leaves it unchanged. A bounded CONTINUE_ASSISTED PICK_UP may set it only
+when the final active REDUCE_OBJECT_CANDIDATES scaffold exposes exactly one
+accepted object. Correct GIVE transfers and clears it; wrong GIVE preserves it.
+Missing or contradictory carry at GIVE fails closed as a runtime error. Restart
+restores initial world placement and clears pending movement, highlights, and
+carry state. No inventory UI, multiple carried items, collision, pathfinding,
+physics, or general world-state expression language is added.
+
+Implement HIGHLIGHT_ENTITIES, SHOW_MEANING, and SHOW_PATTERN only as the fixed
+presentation required by the reviewed fixture. RECOGNITION_FALLBACK remains
+explicitly rejected by the local capability gate until its execution and
+rejoin semantics receive separate review. Keep all evidence in memory under
+D-019, add no persistence or environment variable, and expose one-shot query
+controls only for manual movement and invalid-carry recovery checks.
+
+Consequences:
+
+One forward-only technical lesson can manually prove and regress the entire
+closed primitive vocabulary. Controller state and tests become larger, but the
+world remains a presentation adapter and all answer truth stays deterministic.
+The shared normalization utility prevents validator/runtime drift without a
+schema migration. The second NPC, authored locations, and dog escort behavior
+are technical fixtures rather than production content decisions. Persistence,
+AI compilation, cached TTS, final content, and recognition-fallback execution
+remain deferred to their owning decisions or milestones.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

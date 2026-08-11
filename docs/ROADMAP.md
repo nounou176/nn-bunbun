@@ -219,12 +219,21 @@ Exit criteria:
 
 ## Milestone 5 — Complete MVP primitive runtime
 
-Status: Planned
+Status: Next
 
 Purpose:
 
 Implement the remaining fixed interaction vocabulary without expanding game
 scope.
+
+Planning note:
+
+Proposed D-020 and
+plans/2026-08-12-complete-mvp-primitive-runtime.md define one authored
+eight-step regression fixture, shared exact TYPE normalization, authored
+MOVE_TO arrival, and one task-scoped carry/escort slot for PICK_UP and GIVE.
+The proposal is awaiting user approval; no Milestone 5 implementation has
+started.
 
 Planned scope:
 

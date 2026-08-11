@@ -4,11 +4,12 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 4 — First deterministic learning loop: Complete.
+Milestone 5 — Complete MVP primitive runtime: Proposed planning; awaiting user
+approval. No Milestone 5 runtime implementation has started.
 
-Next milestone: Milestone 5 — Complete MVP primitive runtime.
+Active ExecPlan:
 
-Active ExecPlan: None.
+- plans/2026-08-12-complete-mvp-primitive-runtime.md — Proposed
 
 Completed ExecPlans:
 
@@ -124,16 +125,20 @@ Completed ExecPlans:
 
 ## Current work
 
-- Prepare the Milestone 5 overview and decision/ExecPlan boundary before
-  implementing the remaining five primitives. No Milestone 5 implementation is
-  approved yet.
+- Review proposed D-020 and the Milestone 5 ExecPlan. The proposal keeps
+  LessonManifest 0.1.0, uses one authored eight-step flow to exercise all fixed
+  primitives, shares deterministic TYPE normalization, adds authored location
+  targets, and uses one task-scoped carry/escort slot for PICK_UP and GIVE.
+- Await explicit user approval before changing contracts fixtures, the lesson
+  controller, DOM interaction, or Three.js world behavior.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md and four completed milestone ExecPlans;
+- .agent/PLANS.md, four completed milestone ExecPlans, and one proposed
+  Milestone 5 ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -157,8 +162,9 @@ Not present:
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
 with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
 are published at 27355c0 on origin/main. Milestone 3 is committed locally at
-6a44abd. The Milestone 4 runtime/input correction and EXPLORE UX are committed
-locally at 963fae3 and 2aa07f6; the final closure documentation is uncommitted.
+6a44abd. The Milestone 4 runtime/input correction, EXPLORE UX, and closure are
+committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 planning changes
+are not yet committed.
 
 ## Known issues
 
@@ -190,12 +196,16 @@ locally at 963fae3 and 2aa07f6; the final closure documentation is uncommitted.
     an offline-audio guarantee.
 11. Milestone 4 evidence is intentionally session-local. Reload and restart use
     a fresh session until Milestone 6 defines persistence and safe resume.
+12. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
+    runtime rejoin semantics. Proposed D-020 keeps it capability-rejected in
+    Milestone 5 rather than guessing behavior.
 
 ## Next recommended work
 
-Prepare a self-contained Milestone 5 overview and ExecPlan for the remaining
-five primitives, including any ambiguous interaction semantics that require an
-accepted decision. Do not implement before user approval.
+Review and either accept or revise proposed D-020 and
+plans/2026-08-12-complete-mvp-primitive-runtime.md. If accepted, change the
+decision and plan statuses before implementing the first fixture/contracts
+checkpoint.
 
 ## Verification status
 
