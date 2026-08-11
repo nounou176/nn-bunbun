@@ -1,6 +1,6 @@
 # Walk through a reusable isometric park runtime
 
-Status: Functionally accepted; measurements pending
+Status: Complete
 Owner: Codex and user
 Created: 2026-08-11
 Last updated: 2026-08-11 22:57 Asia/Ho_Chi_Minh
@@ -224,8 +224,10 @@ results.
 - [x] 2026-08-11 22:57 — Receive the user's `PASS` for the manual functional
   matrix: normal and forced-WebGL2 rendering, movement and selection, recovery,
   resize, background/resume, and repeated-load behavior.
-- [ ] Record the reference environment and numeric diagnostics reported by the
-  runtime panel.
+- [x] 2026-08-11 — Receive a second explicit `PASS` for the requested
+  diagnostics/performance acceptance. Close the milestone qualitatively while
+  recording that exact reference-environment and numeric values were not
+  supplied.
 
 ## Surprises and discoveries
 
@@ -339,7 +341,8 @@ automated browser E2E tooling.
 
 | Scenario | Tester | Date | Result | Evidence or notes |
 | --- | --- | --- | --- | --- |
-| Milestone 3 functional acceptance | User | 2026-08-11 | PASS | User reported the full functional checklist passed; numeric diagnostics and reference-device details were not supplied |
+| Milestone 3 functional acceptance | User | 2026-08-11 | PASS | User reported the full functional checklist passed |
+| Milestone 3 performance acceptance | User | 2026-08-11 | PASS | Qualitative acceptance only; numeric diagnostics and reference-device details were not supplied |
 
 ## Recovery and compatibility
 
@@ -370,9 +373,10 @@ engine.
 ## Outcomes
 
 The approved technical runtime is implemented, passes all non-browser
-verification, and has user-reported functional browser acceptance. The
+verification, and has user-reported functional and performance acceptance. The
 repository now has one deterministic, reusable isometric park fixture with
 explicit renderer fallback, local asset ownership, stable object identities,
 bounded point-and-click movement, lifecycle recovery, disposal, and development
-diagnostics. The plan stays active only until the reference environment and
-numeric runtime results are recorded.
+diagnostics. Milestone 3 and this ExecPlan are complete. Exact browser and
+numeric diagnostic values were not supplied, so no unsupported quantitative
+claim is carried into later work.

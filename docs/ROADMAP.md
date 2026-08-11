@@ -124,7 +124,7 @@ Exit criteria:
 
 ## Milestone 3 — Isometric runtime foundation
 
-Status: In progress
+Status: Complete
 
 Purpose:
 
@@ -154,9 +154,10 @@ Implementation note:
 
 Static checks, 22 focused tests, production builds, local asset parsing, and
 HTTP regressions pass. The user reported `PASS` for the manual runtime,
-fallback, recovery, and lifecycle matrix on 2026-08-11. Status remains In
-progress only until the reference environment and numeric diagnostics are
-recorded against PERFORMANCE.md.
+fallback, recovery, and lifecycle matrix, then supplied a second explicit
+`PASS` for the requested diagnostics/performance acceptance on 2026-08-11.
+Exact values were not supplied, so closure records qualitative acceptance
+without inventing numeric measurements.
 
 Exit criteria:
 
@@ -175,7 +176,7 @@ Non-goals:
 
 ## Milestone 4 — First deterministic learning loop
 
-Status: Planned
+Status: Next
 
 Purpose:
 

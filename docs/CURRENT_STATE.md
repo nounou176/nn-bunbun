@@ -4,18 +4,17 @@ Last updated: 2026-08-11
 
 ## Current milestone
 
-Milestone 3 — Isometric runtime foundation: implementation and manual
-functional acceptance complete; reference-environment measurements pending.
+Milestone 3 — Isometric runtime foundation: Complete.
 
-Next milestone after acceptance: Milestone 4 — First deterministic learning
-loop.
+Next milestone: Milestone 4 — First deterministic learning loop.
 
-Active ExecPlan: plans/2026-08-11-isometric-runtime-foundation.md.
+Active ExecPlan: None.
 
 Completed ExecPlans:
 
 - plans/2026-08-10-project-foundation.md
 - plans/2026-08-10-contracts-and-catalog-fixtures.md
+- plans/2026-08-11-isometric-runtime-foundation.md
 
 ## Completed work
 
@@ -78,19 +77,21 @@ Completed ExecPlans:
   2026-08-11, covering normal rendering, movement and selection, forced WebGL2,
   asset-failure retry, resize, background/resume, and reload behavior. Numeric
   diagnostics and reference-device details were not included in the report.
+- Received a second explicit `PASS` on 2026-08-11 for the requested diagnostics
+  and performance acceptance. Milestone 3 is closed on the user's qualitative
+  acceptance; exact runtime values remain unreported and are not reconstructed.
 
 ## Current work
 
-- Record the Milestone 3 reference environment and diagnostics values so the
-  performance exit criterion can be closed without inventing measurements.
+- Prepare the Milestone 4 overview and ExecPlan for user approval before
+  implementing the first deterministic learning loop.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md, two completed milestone ExecPlans, and one active Milestone 3
-  ExecPlan awaiting measured diagnostics;
+- .agent/PLANS.md and three completed milestone ExecPlans;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -124,9 +125,10 @@ uncommitted.
 3. Deterministic validators cannot judge natural Japanese quality or future
    physical reachability from 3D geometry; those require later review/runtime
    systems.
-4. Forced WebGL2 and the functional runtime matrix passed by user report, but
-   numeric runtime measurements and named-device details were not supplied. No
-   wider browser, mobile, or touch support is claimed.
+4. Forced WebGL2, the functional matrix, and the provisional performance matrix
+   passed by user report, but numeric runtime measurements and named-device
+   details were not supplied. No wider browser, mobile, or touch support is
+   claimed.
 5. Initial learner level, support locale, scene, scenario, and target set are
    not selected.
 6. Mastery aggregation, weak-target scheduling, analytics privacy, progress
@@ -141,8 +143,8 @@ uncommitted.
 
 ## Next recommended work
 
-Record the Milestone 3 diagnostics values, then close its ExecPlan and prepare
-the Milestone 4 overview and approval plan.
+Prepare a self-contained Milestone 4 overview and ExecPlan without beginning
+implementation before user approval.
 
 ## Verification status
 
@@ -176,7 +178,8 @@ the Milestone 4 overview and approval plan.
   inspector, visible LessonManifest 0.1.0 value, and health contractVersion
   0.1.0 were confirmed.
 - Milestone 3 manual functional acceptance: passed by user report on
-  2026-08-11. Reference environment and numeric diagnostics remain unreported.
+  2026-08-11. A second `PASS` closed the requested performance checklist; exact
+  reference-environment and numeric diagnostics remain unreported.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -186,7 +189,7 @@ the Milestone 4 overview and approval plan.
   not weaken LessonManifest 0.1.0.
 - Catalog capability checks do not replace Milestone 3 measurements of
   navigation, object overlap, renderer compatibility, or real asset budgets.
-- Static asset and bundle measurements plus a functional `PASS` do not preserve
-  the actual runtime FPS, scene-ready time, picking latency, or renderer/device
-  details observed on the user's browser.
+- The qualitative performance `PASS` does not preserve the actual runtime FPS,
+  scene-ready time, picking latency, or renderer/device details observed on the
+  user's browser.
 - Manual-only browser validation depends on disciplined, recorded user results.

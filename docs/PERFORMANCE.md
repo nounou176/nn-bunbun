@@ -66,9 +66,11 @@ pending until the user records them through the manual protocol below.
 
 Manual functional acceptance was reported as `PASS` by the user on 2026-08-11,
 including forced WebGL2, recovery, resize, background/resume, and repeated-load
-behavior. The browser version, OS, device/GPU, display, renderer, FPS/frame
-time, draw calls, triangles, DPR, scene-ready time, and picking response were
-not supplied, so no numeric runtime-performance claim is recorded yet.
+behavior. The user then gave a second explicit `PASS` in response to the
+requested diagnostics/performance checklist. The browser version, OS,
+device/GPU, display, renderer, FPS/frame time, draw calls, triangles, DPR,
+scene-ready time, and picking response were not supplied, so the milestone is
+qualitatively accepted but no numeric runtime-performance claim is recorded.
 
 ## Scene budgets
 
