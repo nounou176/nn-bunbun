@@ -3,9 +3,10 @@
 ## Status
 
 This document defines the approved architectural direction. The Milestone 1
-filesystem foundation and Milestone 2 executable contract boundary are
-implemented; later runtime, compiler, persistence, and asset boundaries remain
-planned until their roadmap milestones.
+filesystem foundation, Milestone 2 executable contract boundary, and
+Milestone 3 technical runtime boundary are implemented. Lesson execution,
+compiler, persistence, and production asset boundaries remain planned until
+their roadmap milestones.
 
 ## Architectural goals
 
@@ -55,7 +56,22 @@ source code.
 
 ### Web client and game runtime
 
-Planned responsibilities:
+Implemented foundation responsibilities:
+
+- initialize Three.js WebGPURenderer with automatic WebGPU selection and a
+  testable WebGL2 fallback;
+- load the reviewed local park_small fixture through a code-owned asset
+  registry;
+- render a fixed orthographic isometric diorama with capped DPR and resize;
+- preserve stable catalog-aligned world identities;
+- raycast registered selectable objects and authored walkable ground;
+- perform bounded deterministic direct movement;
+- isolate canvas input from DOM controls;
+- pause, resume, recover, diagnose, and dispose the technical runtime; and
+- expose renderer, frame, scene, picking, and geometry measurements in a
+  development DOM panel.
+
+Planned lesson responsibilities:
 
 - load and validate a playable LessonManifest;
 - load only the referenced scene and asset bundles;
@@ -100,7 +116,7 @@ evidence, language safety, interactions, scaffolds, provenance, and quality
 budgets. Generated JSON Schema artifacts are checked against their source.
 
 The frontend and backend consume the same isolated contract-version export so
-the small web foundation does not bundle the validator implementation. The
+the web runtime does not bundle the validator implementation. The
 shared boundary includes:
 
 - LessonManifest;
@@ -241,6 +257,26 @@ SQLite; do not duplicate large binary data inside manifests.
 
 Detailed numeric budgets are in PERFORMANCE.md.
 
+### Milestone 3 runtime boundary
+
+D-018 fixes the technical prototype to Three.js 0.185.1 on the user's current
+stable desktop Chromium environment. WebGPURenderer starts in automatic mode,
+retries once with its forced WebGL2 backend after initialization failure, and
+supports `?renderer=webgl2` for explicit fallback validation. Broader browser,
+mobile, and touch support is not claimed.
+
+The runtime resolves the catalog-aligned `park_small` technical fixture through
+an application-owned scene definition and local asset registry. That definition
+owns asset URLs, transforms, camera settings, navigation bounds, and runtime
+placements. LessonManifest may select reviewed catalog identifiers but cannot
+supply asset paths, Three.js code, transforms, or executable mechanics.
+
+The fixture uses one repository-owned glTF asset and runtime-created placeholder
+characters and markers. Its one convex walkable region permits direct
+click-to-move without pathfinding, collision, navmesh, or physics. This is an
+explicitly narrow runtime proof and does not resolve the final product scene
+decision O-002.
+
 ## API principles
 
 No endpoint shape is accepted yet. When APIs are designed, they should:
@@ -272,7 +308,8 @@ No endpoint shape is accepted yet. When APIs are designed, they should:
 Before implementation reaches the relevant boundary, decide:
 
 - HTTP framework and compilation job model;
-- browser support and WebGPU selection policy;
+- the broader production browser/device support matrix beyond the accepted
+  Milestone 3 desktop Chromium reference environment;
 - SQLite access and migration tools;
 - progress ownership and offline behavior;
 - initial reference datasets and licenses;

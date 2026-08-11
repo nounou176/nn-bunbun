@@ -7,7 +7,8 @@ picking, and excessive travel all reduce meaningful Japanese reactions per
 minute even when the educational content is sound.
 
 This document defines initial reference budgets. They are design constraints,
-not claims about an implementation that does not yet exist.
+and the Milestone 3 section distinguishes measured build facts from runtime
+measurements that still require manual browser acceptance.
 
 ## Reference target
 
@@ -25,6 +26,49 @@ browser scheduling also need time.
 
 The minimum browser and device support matrix is still an open decision. No
 hardware claim is accepted until it has been measured on named devices.
+
+## Milestone 3 technical prototype
+
+D-018 accepts the user's current stable desktop Chromium browser with pointer
+and keyboard as the prototype reference environment. The exact browser version,
+OS, device, GPU, and display must be recorded during manual acceptance; no wider
+browser or device claim follows from this milestone.
+
+Provisional reference-machine goals are:
+
+| Measurement | Goal |
+| --- | --- |
+| Frame rate | 60 FPS preferred |
+| Draw calls | Fewer than 100 |
+| Device pixel ratio | Capped at 1.5 |
+| First visible local scene | Under 2 seconds |
+| Picking response | Under 100 ms |
+| Longest authored movement | Under 3 seconds |
+
+Static production-build measurements from 2026-08-11 are:
+
+| Artifact | Measured size |
+| --- | --- |
+| Web JavaScript | 852,644 bytes minified; 234.70 kB gzip |
+| Web CSS | 5,537 bytes minified; 1.82 kB gzip |
+| Local park glTF | 5,899 bytes |
+| Web HTML | 520 bytes |
+
+The WebGPU-capable Three.js chunk triggers Vite's default warning above 500 kB
+uncompressed. It remains visible as a known optimization risk; the milestone
+does not hide the warning or introduce premature code splitting before local
+scene-ready measurements exist.
+
+The runtime diagnostics panel reports backend, FPS, average and p95 frame time,
+draw calls, triangles, capped DPR/render size, scene-ready time, picking
+response, selected ID, and movement state. Actual browser results remain
+pending until the user records them through the manual protocol below.
+
+Manual functional acceptance was reported as `PASS` by the user on 2026-08-11,
+including forced WebGL2, recovery, resize, background/resume, and repeated-load
+behavior. The browser version, OS, device/GPU, display, renderer, FPS/frame
+time, draw calls, triangles, DPR, scene-ready time, and picking response were
+not supplied, so no numeric runtime-performance claim is recorded yet.
 
 ## Scene budgets
 
@@ -61,8 +105,9 @@ measurements before numeric limits are accepted.
 - Failure to initialize the preferred renderer must lead to a safe fallback or
   clear error, not a blank canvas.
 
-The exact policy and browser exclusions are deferred until the runtime
-foundation milestone.
+For Milestone 3, automatic WebGPU selection with WebGL2 fallback and an explicit
+forced-WebGL2 query are accepted by D-018. The broader production policy and
+browser exclusions remain deferred.
 
 ### Camera and composition
 

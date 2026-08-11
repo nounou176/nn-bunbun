@@ -1,9 +1,9 @@
 # Bunbun
 
 Bunbun is a local-first, AI-powered Japanese-learning game. The current
-workspace includes the browser and server foundations plus executable
-LessonManifest 0.1.0 contracts and deterministic fixture validation. Gameplay
-begins in later roadmap milestones.
+workspace includes the browser and server foundations, executable
+LessonManifest 0.1.0 contracts, and a deterministic isometric park runtime.
+Lesson execution begins in Milestone 4.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ npm run dev
 
 Then open:
 
-- Web foundation: http://127.0.0.1:5173/
+- Isometric park runtime: http://127.0.0.1:5173/
 - Server health: http://127.0.0.1:3000/health
 
 The backend uses port 3000 by default. PORT is the only supported Milestone 1
@@ -37,6 +37,16 @@ environment variable:
 ```bash
 PORT=3100 npm run dev:server
 ```
+
+Milestone 3 exposes explicit local query controls without adding environment
+variables:
+
+- `?debug=1` opens runtime diagnostics.
+- `?renderer=webgl2` forces the WebGL2 backend.
+- `?assetFailure=1` fails the first asset load so the retry path can be tested.
+
+For example, open
+http://127.0.0.1:5173/?renderer=webgl2&debug=1 to inspect the fallback backend.
 
 ## Checks
 
@@ -59,7 +69,7 @@ npm run inspect:manifest -- \
 
 ## Workspace layout
 
-- apps/web — Vite vanilla TypeScript browser foundation.
+- apps/web — Vite, Three.js, the local park fixture, and the browser runtime.
 - apps/server — Node.js TypeScript local health server.
 - packages/contracts — TypeBox schemas, inferred types, Ajv and semantic
   validators, generated JSON Schema, fixtures, tests, and developer inspector.
@@ -68,8 +78,13 @@ npm run inspect:manifest -- \
 
 ## Current limitations
 
-- No Three.js scene or gameplay is implemented yet.
-- No SQLite, AI, TTS, generated media, 3D runtime, or gameplay exists yet.
+- The park is a technical runtime fixture, not a playable Japanese lesson or
+  final product scene.
+- Lesson state, interaction primitives, learning evidence, SQLite, AI, TTS,
+  and generated media are not implemented yet.
+- The JavaScript build contains the WebGPU-capable Three.js renderer and emits
+  Vite's default large-chunk warning; runtime measurements are recorded during
+  manual acceptance.
 - Browser and gameplay validation is manual.
 - Docker, hosting, and domain work are deferred until local release-candidate
   acceptance.

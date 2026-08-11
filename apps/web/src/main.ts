@@ -1,45 +1,86 @@
 import "./style.css";
 
-import { LESSON_MANIFEST_SCHEMA_VERSION } from "@bunbun/contracts/version";
+import { readRuntimeConfig } from "./game/config.js";
+import {
+  BunbunRuntimeError,
+  createGameRuntime,
+  type GameRuntime,
+} from "./game/runtime.js";
+import { createAppShell } from "./ui/shell.js";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
-if (!app) {
+if (app === null) {
   throw new Error("Bunbun app root was not found.");
 }
 
-app.innerHTML = `
-  <main class="shell">
-    <section class="hero" aria-labelledby="bunbun-title">
-      <p class="eyebrow">ローカル開発環境</p>
-      <h1 id="bunbun-title">Bunbun</h1>
-      <p class="summary">
-        The local TypeScript foundation is ready. Gameplay arrives in the next
-        roadmap milestones.
-      </p>
-    </section>
+const shell = createAppShell(app);
+const baseConfig = readRuntimeConfig(window.location.search);
+const lifecycle = new AbortController();
+let runtime: GameRuntime | undefined;
+let bootSequence = 0;
+let attempt = 0;
 
-    <section class="status-card" aria-labelledby="foundation-status">
-      <div>
-        <p class="status-label">Milestone 1</p>
-        <h2 id="foundation-status">Project foundation</h2>
-      </div>
-      <span class="status-pill">Local</span>
+async function boot(): Promise<void> {
+  const sequence = ++bootSequence;
+  runtime?.dispose();
+  runtime = undefined;
+  shell.setLoading();
 
-      <dl class="service-list">
-        <div>
-          <dt>Web client</dt>
-          <dd>Vite + vanilla TypeScript</dd>
-        </div>
-        <div>
-          <dt>Server</dt>
-          <dd><a href="http://127.0.0.1:3000/health">GET /health</a></dd>
-        </div>
-        <div>
-          <dt>Contracts</dt>
-          <dd>LessonManifest ${LESSON_MANIFEST_SCHEMA_VERSION}</dd>
-        </div>
-      </dl>
-    </section>
-  </main>
-`;
+  try {
+    const nextRuntime = await createGameRuntime(
+      shell,
+      {
+        ...baseConfig,
+        simulateAssetFailure: baseConfig.simulateAssetFailure && attempt === 0,
+      },
+      handleFatalError,
+    );
+    if (sequence !== bootSequence) {
+      nextRuntime.dispose();
+      return;
+    }
+    runtime = nextRuntime;
+  } catch (error) {
+    if (sequence !== bootSequence) {
+      return;
+    }
+    const runtimeError =
+      error instanceof BunbunRuntimeError
+        ? error
+        : new BunbunRuntimeError(
+            "RUNTIME_START_FAILED",
+            error instanceof Error ? error.message : "Unknown runtime error.",
+            { cause: error },
+          );
+    shell.setError(runtimeError.code, runtimeError.message);
+  }
+}
+
+function handleFatalError(error: BunbunRuntimeError): void {
+  runtime = undefined;
+  shell.setError(error.code, error.message);
+}
+
+shell.retryButton.addEventListener(
+  "click",
+  () => {
+    attempt += 1;
+    void boot();
+  },
+  { signal: lifecycle.signal },
+);
+
+window.addEventListener("pagehide", () => runtime?.dispose(), {
+  once: true,
+  signal: lifecycle.signal,
+});
+
+if (import.meta.hot !== undefined) {
+  import.meta.hot.dispose(() => {
+    lifecycle.abort();
+    runtime?.dispose();
+  });
+}
+
+void boot();

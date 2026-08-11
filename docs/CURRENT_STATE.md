@@ -1,15 +1,21 @@
 # Bunbun Current State
 
-Last updated: 2026-08-10
+Last updated: 2026-08-11
 
 ## Current milestone
 
-Milestone 2 — Machine-readable contracts and catalog fixtures: implementation
-complete; awaiting user manual acceptance.
+Milestone 3 — Isometric runtime foundation: implementation and manual
+functional acceptance complete; reference-environment measurements pending.
 
-Active ExecPlan: plans/2026-08-10-contracts-and-catalog-fixtures.md.
+Next milestone after acceptance: Milestone 4 — First deterministic learning
+loop.
 
-Completed ExecPlan: plans/2026-08-10-project-foundation.md.
+Active ExecPlan: plans/2026-08-11-isometric-runtime-foundation.md.
+
+Completed ExecPlans:
+
+- plans/2026-08-10-project-foundation.md
+- plans/2026-08-10-contracts-and-catalog-fixtures.md
 
 ## Completed work
 
@@ -44,24 +50,51 @@ Completed ExecPlan: plans/2026-08-10-project-foundation.md.
   a drift check covering all eight generated artifacts.
 - Added a manifest inspection command and 14 focused contract tests.
 - Proved the server and web consume the same LessonManifest version through an
-  isolated browser-safe export; the web production JavaScript remains 1.76 kB
-  rather than bundling validators.
+  isolated browser-safe export; the Milestone 2 web production JavaScript was
+  1.76 kB rather than bundling validators.
+- Received the user's manual acceptance of Milestone 2 on 2026-08-11; the valid
+  inspector, visible LessonManifest 0.1.0 value, and health contractVersion
+  0.1.0 all passed.
+- Accepted D-018: Three.js 0.185.1, desktop Chromium as the reference
+  environment, automatic WebGPU with a forced WebGL2 fallback path, a fixed
+  orthographic isometric camera, direct convex-region movement, and explicit
+  provisional performance goals.
+- Implemented the asynchronous renderer lifecycle, automatic fallback,
+  recoverable error UI, capped-DPR resize, visibility pause/resume, frame-delta
+  cap, context-loss boundary, page/HMR teardown, and owned GPU disposal.
+- Added the repository-owned park_small glTF technical fixture, code-owned
+  asset registry and scene definition, required-node validation, stable
+  catalog-aligned guide/dog/cat identities, authored navigation bounds, and
+  placeholder Bunbun player.
+- Implemented registered-object and walkable-ground raycasting, deterministic
+  click-to-move with replacement destinations, dog/cat selection and highlight,
+  bounded zoom, and DOM/canvas input isolation.
+- Added runtime diagnostics for renderer, FPS, average/p95 frame time, draw
+  calls, triangles, render size/DPR, scene-ready time, pick response, selection,
+  and movement plus eight focused web runtime tests.
+- Added explicit `renderer=webgl2`, `debug=1`, and one-shot
+  `assetFailure=1` local query controls without adding an environment variable.
+- Received the user's `PASS` for the Milestone 3 manual functional matrix on
+  2026-08-11, covering normal rendering, movement and selection, forced WebGL2,
+  asset-failure retry, resize, background/resume, and reload behavior. Numeric
+  diagnostics and reference-device details were not included in the report.
 
 ## Current work
 
-- Hand off the Milestone 2 manual developer and browser-regression checklist.
-- Record the user's result and close the active ExecPlan and roadmap milestone
-  if accepted.
+- Record the Milestone 3 reference environment and diagnostics values so the
+  performance exit criterion can be closed without inventing measurements.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md and two tracked milestone ExecPlans;
+- .agent/PLANS.md, two completed milestone ExecPlans, and one active Milestone 3
+  ExecPlan awaiting measured diagnostics;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
-- apps/web and apps/server;
+- apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
+  DOM shell, diagnostics, and focused tests, plus apps/server;
 - packages/contracts source schemas, inferred types, validators, fixtures,
   generated JSON Schema artifacts, inspector, and tests; and
 - package.json and package-lock.json.
@@ -69,17 +102,18 @@ Present:
 Not present:
 
 - database or migration files;
-- 3D, audio, or image assets;
-- gameplay runtime or interaction executors;
+- production 3D, audio, or image assets;
+- LessonManifest state traversal, learning interactions, or evidence;
 - AI, compiler-job, TTS, or persistence integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
 
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
-with origin set to https://github.com/nounou176/nn-bunbun.git. Milestone 0 is
-published; the user-approved Milestone 1 and current Milestone 2 changes remain
-uncommitted together.
+with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
+are published at 27355c0 on main and origin/main. Later Milestone 2 closure
+documentation and the approved Milestone 3 implementation are currently
+uncommitted.
 
 ## Known issues
 
@@ -90,8 +124,9 @@ uncommitted together.
 3. Deterministic validators cannot judge natural Japanese quality or future
    physical reachability from 3D geometry; those require later review/runtime
    systems.
-4. Browser/device support, WebGPU policy, load budgets, and several performance
-   limits need Milestone 3 prototype measurements.
+4. Forced WebGL2 and the functional runtime matrix passed by user report, but
+   numeric runtime measurements and named-device details were not supplied. No
+   wider browser, mobile, or touch support is claimed.
 5. Initial learner level, support locale, scene, scenario, and target set are
    not selected.
 6. Mastery aggregation, weak-target scheduling, analytics privacy, progress
@@ -100,35 +135,48 @@ uncommitted together.
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
+9. The WebGPU-capable web build is 852,644 bytes minified and triggers Vite's
+   default uncompressed chunk warning, although its measured gzip size is
+   234.70 kB. Scene-ready measurements must guide later splitting decisions.
 
 ## Next recommended work
 
-Complete the short Milestone 2 manual acceptance checklist. If accepted, close
-this milestone and discuss the Milestone 3 renderer/browser decisions before
-starting its ExecPlan.
+Record the Milestone 3 diagnostics values, then close its ExecPlan and prepare
+the Milestone 4 overview and approval plan.
 
 ## Verification status
 
-- Clean dependency install: passed with Node.js 24.18.0/npm 11.16.0; 142
-  packages audited and zero vulnerabilities reported.
+- Dependency installation: an isolated clean `npm ci --ignore-scripts
+  --offline` passed with Node.js 24.18.0/npm 11.16.0; 146 packages were added,
+  150 packages were audited, and zero vulnerabilities were reported. The final
+  lockfile also passes an in-place offline dry-run.
 - Generated artifact drift check: passed for two schemas and six invalid
   fixtures.
-- Typecheck: passed for contracts, server, and web workspaces.
-- Lint and format check: passed after formatting the final validator tests.
-- Contract tests: passed, 14 of 14.
+- Typecheck: passed for contracts, server, web source, and web test tooling.
+- Lint and format check: passed.
+- Tests: passed, 22 of 22: 14 contract tests and eight web runtime helper/asset
+  tests.
 - Fixture inspection: the valid lesson passed; all six invalid fixtures exited
   nonzero with their intended stable error codes.
 - Production build: passed for contracts, server, and web workspaces; web
-  output is 1.76 kB JavaScript and 1.87 kB CSS before gzip.
-- HTTP/process regression: passed for web HTML/module output, shared contract
-  version 0.1.0, health JSON, JSON 404, combined startup, Ctrl+C shutdown, and
-  port cleanup.
-- Scope regression: passed; no Three.js, AI, SQLite, TTS, Docker, deployment,
-  or automated browser E2E artifacts were added.
+  output contains 852,644-byte JavaScript, 5,537-byte CSS, a 5,899-byte local
+  glTF fixture, and 520-byte HTML. Vite reports the known JavaScript chunk
+  warning.
+- HTTP regression: passed against the already-running local processes for
+  updated web HTML/module/asset output, health contractVersion 0.1.0, and JSON
+  404. A second combined startup correctly reported that the user's existing
+  ports were occupied; those processes were preserved.
+- Scope regression: passed; no lesson execution, AI, SQLite, TTS, physics
+  runtime, Docker, deployment, or automated browser E2E artifact was added.
+  The locked `@types/three` development package has an unused transitive Rapier
+  type dependency; Bunbun does not import or bundle it.
 - Docker build: not applicable; Dockerfiles intentionally do not exist.
 - Milestone 1 manual browser test: passed by user report on 2026-08-10.
-- Milestone 2 manual acceptance: pending user report.
-- Manual gameplay test: not applicable; gameplay does not exist yet.
+- Milestone 2 manual acceptance: passed by user report on 2026-08-11; the valid
+  inspector, visible LessonManifest 0.1.0 value, and health contractVersion
+  0.1.0 were confirmed.
+- Milestone 3 manual functional acceptance: passed by user report on
+  2026-08-11. Reference environment and numeric diagnostics remain unreported.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -138,4 +186,7 @@ starting its ExecPlan.
   not weaken LessonManifest 0.1.0.
 - Catalog capability checks do not replace Milestone 3 measurements of
   navigation, object overlap, renderer compatibility, or real asset budgets.
+- Static asset and bundle measurements plus a functional `PASS` do not preserve
+  the actual runtime FPS, scene-ready time, picking latency, or renderer/device
+  details observed on the user's browser.
 - Manual-only browser validation depends on disciplined, recorded user results.

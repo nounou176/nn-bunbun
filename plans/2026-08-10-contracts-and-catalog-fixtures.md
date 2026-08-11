@@ -1,9 +1,9 @@
 # Make LessonManifest 0.1.0 executable and reject invalid lessons
 
-Status: Approved (implementation complete; awaiting user acceptance)
+Status: Complete
 Owner: Codex and user
 Created: 2026-08-10
-Last updated: 2026-08-10 22:36 Asia/Ho_Chi_Minh
+Last updated: 2026-08-11 22:07 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -162,7 +162,9 @@ off a concise manual developer checklist.
 - [x] 2026-08-10 22:36 — Pass clean install, artifact drift, typecheck, lint,
   format, tests, build, fixture inspection, HTTP/process regression, shutdown,
   and scope checks; update durable documentation for handoff.
-- [ ] Receive and record the user's Milestone 2 manual acceptance.
+- [x] 2026-08-11 22:07 — Receive the user's report that the valid inspector,
+  visible LessonManifest 0.1.0 value, and health contractVersion 0.1.0 all pass;
+  record the result and close Milestone 2.
 
 ## Surprises and discoveries
 
@@ -251,7 +253,7 @@ unit and integration checks, not browser automation.
 | Valid contract inspection | Codex | 2026-08-10 | Pass | Schema 0.1.0; lesson_find_dog; catalog revision 1; one target and one step |
 | Six invalid fixture inspections | Codex | 2026-08-10 | Pass | Every command exited nonzero with its intended structural or semantic code |
 | Milestone 1 HTTP/process regression | Codex | 2026-08-10 | Pass | Web, health 0.1.0, JSON 404, Ctrl+C, and port cleanup passed |
-| Milestone 2 manual browser acceptance | User | Pending | Not run | Run the handoff checklist and report the visible Contracts value |
+| Milestone 2 manual browser acceptance | User | 2026-08-11 | Pass | User confirmed the inspector, visible LessonManifest 0.1.0 value, and health contractVersion 0.1.0 |
 
 ## Recovery and compatibility
 
@@ -279,7 +281,7 @@ LessonManifest 0.1.0 and CatalogSnapshot 0.1.0 contracts. It rejects structural
 drift and semantic failures deterministically, and the required valid/invalid
 fixture matrix is executable from the repository root.
 
-All available non-browser checks pass. No gameplay, AI, persistence, asset,
-Docker, deployment, or browser-automation scope was introduced. The only
-remaining plan item is recording the user's manual acceptance of the visible
-contract-version regression and developer inspection checklist.
+All available non-browser checks pass, and the user manually accepted the
+contract inspection and visible contract-version regression on 2026-08-11. No
+gameplay, AI, persistence, asset, Docker, deployment, or browser-automation
+scope was introduced. This ExecPlan and Milestone 2 are complete.

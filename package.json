@@ -26,7 +26,7 @@
     "build": "npm run build --workspace @bunbun/contracts && npm run build --workspace @bunbun/server && npm run build --workspace @bunbun/web",
     "schema:write": "npm run schema:write --workspace @bunbun/contracts",
     "schema:check": "npm run schema:check --workspace @bunbun/contracts",
-    "test": "npm run test --workspace @bunbun/contracts",
+    "test": "npm run test --workspace @bunbun/contracts && npm run test --workspace @bunbun/web",
     "inspect:manifest": "node --import tsx packages/contracts/scripts/inspect-manifest.ts"
   },
   "devDependencies": {

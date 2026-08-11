@@ -466,6 +466,54 @@ new runtime dependencies of packages/contracts and must be pinned by the root
 lockfile. O-005 is resolved. Compiler-draft compatibility remains work for the
 AI compiler milestone.
 
+### D-018 — Build a desktop-first deterministic isometric runtime fixture
+
+- Date: 2026-08-11
+- Status: Accepted
+- Affects: Web runtime, rendering, browser support, camera, navigation, assets,
+  performance
+
+Context:
+
+Milestone 3 must prove the reusable diorama runtime before lesson execution.
+CatalogSnapshot 0.1.0 describes identities and capabilities but intentionally
+contains no Three.js paths, transforms, camera rig, or navigation geometry.
+WebGPU is not universally available, and the prototype needs a manually
+testable fallback rather than a broad unverified browser claim.
+
+Decision:
+
+For Milestone 3, target the user's current stable desktop Chromium environment
+with pointer and keyboard; do not claim Firefox, Safari, mobile, or touch
+support until manually tested. Pin Three.js and its matching types at 0.185.1.
+Use WebGPURenderer in automatic mode with its WebGL2 backend as the fallback,
+plus a local query switch that forces WebGL2. Retry one failed automatic
+initialization with forced WebGL2, then show a recoverable DOM error.
+
+Use a fixed orthographic isometric camera with bounded zoom and no orbit, pan,
+or WASD. Resolve the existing park_small technical fixture through a reviewed
+local asset registry and authored scene definition outside LessonManifest.
+Load one repository-owned glTF/GLB fixture, preserve stable catalog-aligned
+object IDs, and use a single convex walkable region with direct click-to-move
+motion. Do not add pathfinding, navmesh, collision, or physics while the
+fixture has no blocking obstacle.
+
+Use provisional reference-machine goals of 60 FPS preferred, fewer than 100
+draw calls, DPR capped at 1.5, first visible local scene under 2 seconds,
+visible picking response under 100 milliseconds, and no authored movement
+longer than 3 seconds. Record actual measurements and report misses. Use query
+parameters rather than a new environment variable for local renderer,
+diagnostic, and failure-simulation controls.
+
+Consequences:
+
+The milestone can prove scene lifecycle, renderer fallback, stable world
+identity, point-and-click input, resize, background/resume, recovery, disposal,
+and performance observability without pulling lesson logic or a heavy engine
+forward. park_small remains a technical fixture and does not resolve the
+product-level first-scene decision O-002. The broader MVP browser/device matrix
+remains open after this narrow acceptance environment.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

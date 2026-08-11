@@ -84,7 +84,7 @@ Non-goals:
 
 ## Milestone 2 — Machine-readable contracts and catalog fixtures
 
-Status: In progress — implementation complete; manual acceptance pending
+Status: Complete
 
 Purpose:
 
@@ -112,8 +112,8 @@ Delivered scope:
 Implementation note:
 
 All exit criteria pass in static, unit, integration, fixture-inspection, build,
-and local HTTP/process checks. The milestone remains in progress until the user
-completes the handed-off manual acceptance checklist.
+and local HTTP/process checks. The user manually accepted the inspector and
+visible contract-version regression on 2026-08-11.
 
 Exit criteria:
 
@@ -124,21 +124,20 @@ Exit criteria:
 
 ## Milestone 3 — Isometric runtime foundation
 
-Status: Planned
+Status: In progress
 
 Purpose:
 
 Prove the lightweight reusable diorama runtime with deterministic authored
 data.
 
-Decisions required:
+Decision resolved:
 
-- O-008 browser/device matrix and renderer fallback policy;
-- camera and navigation behavior;
-- initial asset pipeline; and
-- measurable prototype performance budgets.
+- D-018 accepts the desktop Chromium reference environment, automatic WebGPU
+  with WebGL2 fallback, fixed orthographic camera, direct convex-region
+  movement, a local fixture-asset boundary, and provisional performance goals.
 
-Planned scope:
+Implemented scope:
 
 - Three.js scene lifecycle and resize;
 - isometric or diorama camera;
@@ -150,6 +149,14 @@ Planned scope:
 - essential DOM shell and canvas/overlay focus separation;
 - asset loading, error recovery, and disposal; and
 - development performance diagnostics.
+
+Implementation note:
+
+Static checks, 22 focused tests, production builds, local asset parsing, and
+HTTP regressions pass. The user reported `PASS` for the manual runtime,
+fallback, recovery, and lifecycle matrix on 2026-08-11. Status remains In
+progress only until the reference environment and numeric diagnostics are
+recorded against PERFORMANCE.md.
 
 Exit criteria:
 
