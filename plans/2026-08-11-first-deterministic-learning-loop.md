@@ -1,9 +1,9 @@
 # Play the first deterministic Japanese learning loop
 
-Status: Implemented, awaiting manual acceptance
+Status: Complete
 Owner: Codex and user
 Created: 2026-08-11
-Last updated: 2026-08-12 00:32 Asia/Ho_Chi_Minh
+Last updated: 2026-08-12 00:57 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -308,8 +308,9 @@ the user reports actual browser results.
 - [x] 2026-08-12 00:32 — Convert EXPLORE to a compact left-side mission card,
   reduce edge dimming, add an active-world cursor and explicit bilingual world
   click cue, then pass static checks, 38 tests, and production build.
-- [ ] Receive and record the user's manual happy-path, edge-case, regression,
-  audio, and performance results; then close Milestone 4.
+- [x] 2026-08-12 00:57 — Receive the user's explicit `PASS` for the corrected
+  presentation and complete manual happy-path, edge-case, failure-control,
+  renderer, resize, and regression checklist; close Milestone 4.
 
 ## Surprises and discoveries
 
@@ -461,7 +462,7 @@ D-011 excludes automated browser E2E tooling.
 | First dog-selection handoff | User | 2026-08-12 | Fail | WebGL2 picked `dog`, but `find_dog` remained `AWAITING_OBJECT`; events/reactions stayed 4/0 |
 | Corrected dog/cat handoff | User | 2026-08-12 | Pass | User confirms animal is clickable after the atomic input-gate fix |
 | Initial EXPLORE affordance | User | 2026-08-12 | Fail | Centered translucent card looked modal; user could not tell the dimmed world remained interactive |
-| Compact EXPLORE presentation and full loop | Pending user | Pending | Ready to retest | Mission card moved aside, dimming reduced, canvas cursor and bilingual click cue added |
+| Compact EXPLORE presentation and full loop | User | 2026-08-12 | Pass | Explicit `PASS` after mission card, dimming, cursor, and bilingual click-cue correction |
 
 ## Recovery and compatibility
 
@@ -499,7 +500,7 @@ provider, key, remote URL, or misleading tone.
 
 ## Outcomes
 
-The approved implementation is complete and ready for manual acceptance. One
+The approved implementation and manual acceptance are complete. One
 strictly validated authored package now drives a deterministic LISTEN →
 CLICK_OBJECT → CHOOSE lesson through the existing park. The runtime owns no
 arbitrary lesson code, AI, provider call, persistence, or mastery claim.
@@ -515,5 +516,5 @@ No dependency or lockfile changed, so the previously accepted isolated clean
 offline install remains the install result; `npm ci` was not repeated in the
 dirty implementation worktree. Docker remains not applicable because local-RC
 acceptance intentionally precedes Dockerfiles. Browser automation remains
-excluded by D-011. This plan stays open until the user completes and reports
-the manual matrix above.
+excluded by D-011. The user's explicit `PASS` on 2026-08-12 closes this plan
+and Milestone 4.

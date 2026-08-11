@@ -4,18 +4,18 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 4 — First deterministic learning loop: Implemented, awaiting manual
-browser acceptance.
+Milestone 4 — First deterministic learning loop: Complete.
 
-Next milestone after acceptance: Milestone 5 — Complete MVP primitive runtime.
+Next milestone: Milestone 5 — Complete MVP primitive runtime.
 
-Active ExecPlan: plans/2026-08-11-first-deterministic-learning-loop.md.
+Active ExecPlan: None.
 
 Completed ExecPlans:
 
 - plans/2026-08-10-project-foundation.md
 - plans/2026-08-10-contracts-and-catalog-fixtures.md
 - plans/2026-08-11-isometric-runtime-foundation.md
+- plans/2026-08-11-first-deterministic-learning-loop.md
 
 ## Completed work
 
@@ -117,20 +117,23 @@ Completed ExecPlans:
   production build after the fixes. The Milestone 4 JavaScript is 1,229,245
   bytes minified (340.84 kB gzip); the known Vite large-chunk warning remains
   visible.
+- Received the user's explicit `PASS` on 2026-08-12 for the corrected compact
+  EXPLORE presentation and the complete Milestone 4 manual happy-path,
+  edge-case, failure-control, renderer, resize, and regression checklist.
+  Milestone 4 is closed.
 
 ## Current work
 
-- Retest the corrected EXPLORE presentation, then run and record the remaining
-  manual Milestone 4 happy-path, edge-case, and Milestone 3 regression matrix.
-  Do not close the milestone before that report.
+- Prepare the Milestone 5 overview and decision/ExecPlan boundary before
+  implementing the remaining five primitives. No Milestone 5 implementation is
+  approved yet.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md, three completed milestone ExecPlans, and one implemented
-  plan awaiting manual acceptance;
+- .agent/PLANS.md and four completed milestone ExecPlans;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -154,7 +157,8 @@ Not present:
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
 with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
 are published at 27355c0 on origin/main. Milestone 3 is committed locally at
-6a44abd. The Milestone 4 implementation and documentation are uncommitted.
+6a44abd. The Milestone 4 runtime/input correction and EXPLORE UX are committed
+locally at 963fae3 and 2aa07f6; the final closure documentation is uncommitted.
 
 ## Known issues
 
@@ -186,15 +190,12 @@ are published at 27355c0 on origin/main. Milestone 3 is committed locally at
     an offline-audio guarantee.
 11. Milestone 4 evidence is intentionally session-local. Reload and restart use
     a fresh session until Milestone 6 defines persistence and safe resume.
-12. The corrected world-to-lesson gate is manually confirmed. The compact
-    EXPLORE presentation and draw-call diagnostic have static/build coverage
-    but still require final user browser confirmation.
 
 ## Next recommended work
 
-Run the documented Milestone 4 manual matrix and report `PASS` or the failing
-scenario with diagnostics. After acceptance, close Milestone 4 before planning
-the remaining five primitives in Milestone 5.
+Prepare a self-contained Milestone 5 overview and ExecPlan for the remaining
+five primitives, including any ambiguous interaction semantics that require an
+accepted decision. Do not implement before user approval.
 
 ## Verification status
 
@@ -231,7 +232,8 @@ the remaining five primitives in Milestone 5.
 - Milestone 3 manual functional acceptance: passed by user report on
   2026-08-11. A second `PASS` closed the requested performance checklist; exact
   reference-environment and numeric diagnostics remain unreported.
-- Milestone 4 manual acceptance: pending user browser/gameplay report.
+- Milestone 4 manual acceptance: passed by explicit user report on 2026-08-12
+  after the world-input and EXPLORE-affordance corrections.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -241,7 +243,7 @@ the remaining five primitives in Milestone 5.
   not weaken LessonManifest 0.1.0.
 - Catalog capability checks do not replace Milestone 3 measurements of
   navigation, object overlap, renderer compatibility, or real asset budgets.
-- The qualitative performance `PASS` does not preserve the actual runtime FPS,
-  scene-ready time, picking latency, or renderer/device details observed on the
-  user's browser.
+- Milestone 4 preserves partial screenshot metrics, but browser version,
+  device/GPU identity, display details, warm/cold split, and audio-start latency
+  remain unreported despite qualitative acceptance.
 - Manual-only browser validation depends on disciplined, recorded user results.

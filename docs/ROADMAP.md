@@ -176,7 +176,7 @@ Non-goals:
 
 ## Milestone 4 — First deterministic learning loop
 
-Status: In progress — implementation ready for manual acceptance
+Status: Complete
 
 Purpose:
 
@@ -206,7 +206,8 @@ are corrected with an atomic input gate and regression coverage. The user then
 confirmed animal clicking works and identified a modal-looking EXPLORE layout;
 the world-active state now uses a compact mission card and explicit click cue.
 Static checks, schema drift, 38 focused tests, and the production build pass.
-Manual browser retest is still required before this milestone is Complete.
+The user supplied an explicit `PASS` on 2026-08-12 after the corrected compact
+EXPLORE presentation and full manual checklist. Milestone 4 is complete.
 
 Exit criteria:
 

@@ -111,8 +111,11 @@ all screenshot metrics remain observations rather than final acceptance data.
 Subsequent screenshots after the counter fix showed 30–32 per-frame draw calls,
 62–63 FPS, 16.0–16.1/25.0 ms average/p95 frame time, 1,797–1,925 triangles,
 208 ms scene ready, and 231 ms first stimulus. These confirm the diagnostic now
-reports a plausible frame-local value. They remain partial observations until
-the corrected EXPLORE presentation and full lesson receive user acceptance.
+reports a plausible frame-local value. The user supplied an explicit `PASS` on
+2026-08-12 after the corrected compact EXPLORE presentation and full Milestone
+4 manual checklist. Acceptance is qualitative beyond these screenshot values:
+browser version, device/GPU identity, display details, cold/warm split, and
+audio-start latency were not reported and are not reconstructed.
 
 ## Scene budgets
 
