@@ -16,7 +16,9 @@
     "./version": {
       "types": "./src/version.ts",
       "import": "./dist/version.js"
-    }
+    },
+    "./fixtures/basic-catalog": "./fixtures/catalogs/basic-catalog.json",
+    "./fixtures/valid-find-dog-loop": "./fixtures/manifests/valid-find-dog-loop.json"
   },
   "types": "./src/index.ts",
   "scripts": {

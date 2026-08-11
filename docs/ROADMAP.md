@@ -176,14 +176,14 @@ Non-goals:
 
 ## Milestone 4 — First deterministic learning loop
 
-Status: Next
+Status: In progress — implementation ready for manual acceptance
 
 Purpose:
 
 Prove the north-star loop using the authored fixture and a minimal primitive
 subset.
 
-Planned scope:
+Implemented scope:
 
 - EXPLORE and INTERACTION state transitions;
 - LISTEN, CLICK_OBJECT, and CHOOSE;
@@ -193,6 +193,18 @@ Planned scope:
 - deterministic step transitions;
 - session timing and reaction events; and
 - a short authored FIND_SOMETHING flow.
+
+Implementation note:
+
+D-019 is accepted. The reviewed LISTEN → CLICK_OBJECT → CHOOSE fixture, strict
+pre-render package/capability validation, pure deterministic controller,
+bounded retry/scaffolds, visibility-aware timing, idempotent in-memory events,
+temporary learner-gesture SpeechSynthesis adapter, Japanese-first DOM UI, and
+candidate-filtered park bridge are implemented. The first manual attempt found
+a dropped world-selection handoff and a cumulative draw-call diagnostic; both
+are corrected with an atomic input gate and regression coverage. Static checks,
+schema drift, 38 focused tests, and the production build pass. Manual browser
+retest is still required before this milestone is Complete.
 
 Exit criteria:
 

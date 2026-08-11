@@ -1,0 +1,384 @@
+{
+  "schemaVersion": "0.1.0",
+  "manifestId": "manifest_find_dog_loop",
+  "lessonId": "lesson_find_dog_loop",
+  "revision": 1,
+  "createdAt": "2026-08-11T00:00:00Z",
+  "randomSeed": 104729,
+  "locales": {
+    "target": "ja",
+    "support": "vi"
+  },
+  "title": {
+    "ja": "犬を探そう",
+    "support": "Hãy tìm chú chó"
+  },
+  "learningTargets": [
+    {
+      "targetId": "target_inu",
+      "kind": "VOCABULARY",
+      "role": "REQUESTED",
+      "priority": 5,
+      "content": {
+        "kind": "VOCABULARY",
+        "writtenForms": ["犬"],
+        "readings": ["いぬ"],
+        "supportGlosses": ["chó"],
+        "partOfSpeech": "NOUN"
+      },
+      "referenceIds": ["jp_vocab_inu"],
+      "goal": {
+        "minimumEncounters": 3,
+        "minimumContexts": 3,
+        "desiredEvidence": ["heard", "selected_correctly"]
+      }
+    }
+  ],
+  "scene": {
+    "sceneId": "park_small",
+    "variantId": "day",
+    "playerSpawnPointId": "park_entry",
+    "cameraPresetId": "park_isometric_default",
+    "assetBundleIds": ["park_core", "animals_basic"]
+  },
+  "scenario": {
+    "template": "FIND_SOMETHING",
+    "objective": {
+      "ja": "犬を探してください。",
+      "support": "Hãy tìm chú chó."
+    },
+    "focusTargetIds": ["target_inu"],
+    "synopsis": "Listen to a request, find the dog, and confirm the Japanese word."
+  },
+  "locations": [],
+  "entities": [
+    {
+      "entityId": "guide",
+      "catalogEntityId": "npc_guide_basic",
+      "role": "NPC",
+      "spawnPointId": "guide_spot",
+      "displayNameJa": "ゆき",
+      "initialStateId": "idle"
+    }
+  ],
+  "objects": [
+    {
+      "objectId": "dog",
+      "catalogObjectId": "animal_dog_small",
+      "spawnPointId": "animal_spot_a",
+      "initialStateId": "idle",
+      "interactive": true
+    },
+    {
+      "objectId": "cat",
+      "catalogObjectId": "animal_cat_small",
+      "spawnPointId": "animal_spot_b",
+      "initialStateId": "idle",
+      "interactive": true
+    }
+  ],
+  "audioAssets": [
+    {
+      "audioAssetId": "audio_find_dog",
+      "textJa": "犬を探してください。",
+      "voiceProfileId": "voice_guide_01",
+      "cacheKey": "tts_4f42b382ad87c31a"
+    }
+  ],
+  "steps": [
+    {
+      "stepId": "listen_request",
+      "contextId": "park_listen_request",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "ゆきの話を聞いてください。",
+        "utterance": {
+          "speakerEntityId": "guide",
+          "textJa": "犬を探してください。",
+          "audioAssetId": "audio_find_dog",
+          "textVisibility": "ALWAYS",
+          "replayAllowed": true
+        },
+        "supportText": "Hãy nghe Yuki nhờ bạn tìm chú chó.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "LISTEN",
+        "completion": "LEARNER_CONTINUES",
+        "minimumPlaybackRatio": 0.5
+      },
+      "targetBindings": [
+        {
+          "targetId": "target_inu",
+          "relation": "EXPOSES"
+        },
+        {
+          "targetId": "target_inu",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 1,
+        "afterMaximum": "FOLLOW_FAILURE_TRANSITION",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "replay_request",
+          "afterAttempt": 1,
+          "kind": "REPLAY_AUDIO"
+        },
+        {
+          "scaffoldId": "show_request_text",
+          "afterAttempt": 1,
+          "kind": "SHOW_JAPANESE_TEXT"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "よく聞きました。",
+          "displayMs": 500,
+          "cueIds": []
+        },
+        "incorrect": {
+          "textJa": "音声をもう一度確認しましょう。",
+          "displayMs": 700,
+          "cueIds": []
+        },
+        "assisted": {
+          "textJa": "文字を見て進みましょう。",
+          "supportText": "Hãy xem câu tiếng Nhật và tiếp tục.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["guide_gesture"],
+        "onSuccessCueIds": [],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": {
+          "kind": "STEP",
+          "stepId": "find_dog"
+        },
+        "onFailure": {
+          "kind": "STEP",
+          "stepId": "find_dog"
+        },
+        "onAssisted": {
+          "kind": "STEP",
+          "stepId": "find_dog"
+        }
+      }
+    },
+    {
+      "stepId": "find_dog",
+      "contextId": "park_find_dog",
+      "mode": "EXPLORE",
+      "stimulus": {
+        "instructionJa": "犬を選んでください。",
+        "utterance": {
+          "speakerEntityId": "guide",
+          "textJa": "犬はどこですか。",
+          "textVisibility": "ALWAYS",
+          "replayAllowed": false
+        },
+        "supportText": "Hãy chọn chú chó.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "CLICK_OBJECT",
+        "candidateObjectIds": ["dog", "cat"],
+        "acceptedObjectIds": ["dog"]
+      },
+      "targetBindings": [
+        {
+          "targetId": "target_inu",
+          "relation": "EXPOSES"
+        },
+        {
+          "targetId": "target_inu",
+          "relation": "ASSESSES",
+          "successEvidence": "selected_correctly"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "highlight_animals",
+          "afterAttempt": 1,
+          "kind": "HIGHLIGHT_OBJECTS",
+          "objectIds": ["dog", "cat"]
+        },
+        {
+          "scaffoldId": "reduce_to_dog",
+          "afterAttempt": 2,
+          "kind": "REDUCE_OBJECT_CANDIDATES",
+          "objectIds": ["dog"]
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "はい、犬です。",
+          "displayMs": 650,
+          "cueIds": ["dog_happy"]
+        },
+        "incorrect": {
+          "textJa": "もう一度、犬を探してください。",
+          "displayMs": 700,
+          "cueIds": []
+        },
+        "assisted": {
+          "textJa": "これが犬です。",
+          "supportText": "Đây là chú chó.",
+          "displayMs": 800,
+          "cueIds": ["dog_highlight"]
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["guide_gesture"],
+        "onSuccessCueIds": ["dog_happy"],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": {
+          "kind": "STEP",
+          "stepId": "confirm_dog"
+        },
+        "onFailure": {
+          "kind": "STEP",
+          "stepId": "confirm_dog"
+        },
+        "onAssisted": {
+          "kind": "STEP",
+          "stepId": "confirm_dog"
+        }
+      }
+    },
+    {
+      "stepId": "confirm_dog",
+      "contextId": "park_confirm_dog",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "これは何ですか。",
+        "supportText": "Đây là con gì?",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "CHOOSE",
+        "options": [
+          {
+            "optionId": "choice_dog",
+            "textJa": "犬"
+          },
+          {
+            "optionId": "choice_cat",
+            "textJa": "猫"
+          }
+        ],
+        "acceptedOptionIds": ["choice_dog"],
+        "shuffle": true
+      },
+      "targetBindings": [
+        {
+          "targetId": "target_inu",
+          "relation": "EXPOSES"
+        },
+        {
+          "targetId": "target_inu",
+          "relation": "ASSESSES",
+          "successEvidence": "selected_correctly"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "show_inu_reading",
+          "afterAttempt": 1,
+          "kind": "SHOW_READING",
+          "textJa": "犬（いぬ）"
+        },
+        {
+          "scaffoldId": "reduce_to_inu",
+          "afterAttempt": 2,
+          "kind": "REDUCE_CHOICE_CANDIDATES",
+          "optionIds": ["choice_dog"]
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "そうです。犬です。",
+          "displayMs": 650,
+          "cueIds": ["dog_happy"]
+        },
+        "incorrect": {
+          "textJa": "もう一度、考えてください。",
+          "displayMs": 700,
+          "cueIds": []
+        },
+        "assisted": {
+          "textJa": "犬は「いぬ」です。",
+          "supportText": "犬 đọc là いぬ.",
+          "displayMs": 850,
+          "cueIds": ["dog_highlight"]
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["dog_highlight"],
+        "onSuccessCueIds": ["dog_happy"],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": {
+          "kind": "COMPLETE"
+        },
+        "onFailure": {
+          "kind": "COMPLETE"
+        },
+        "onAssisted": {
+          "kind": "COMPLETE"
+        }
+      }
+    }
+  ],
+  "entryStepId": "listen_request",
+  "completion": {
+    "requiredStepIds": ["listen_request", "find_dog", "confirm_dog"],
+    "closingMessage": {
+      "ja": "犬を見つけました。よくできました。",
+      "support": "Bạn đã tìm thấy chú chó. Làm tốt lắm!"
+    }
+  },
+  "quality": {
+    "intendedReactionCount": 2,
+    "preferredReactionIntervalMinSeconds": 5,
+    "preferredReactionIntervalMaxSeconds": 12,
+    "estimatedActiveMinutes": 0.6,
+    "maximumNpcCount": 1,
+    "maximumInteractiveObjectCount": 2,
+    "preferredMaximumDrawCalls": 100
+  },
+  "provenance": {
+    "compilerVersion": "0.1.0",
+    "contractVersion": "0.1.0",
+    "source": "AUTHORED",
+    "inputHash": "sha256_61cb434ef29c0f4e",
+    "promptModuleVersions": [],
+    "referenceDataVersions": [
+      {
+        "id": "japanese_core",
+        "version": "fixture_0.1.0"
+      }
+    ]
+  }
+}

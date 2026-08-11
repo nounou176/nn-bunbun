@@ -514,6 +514,64 @@ forward. park_small remains a technical fixture and does not resolve the
 product-level first-scene decision O-002. The broader MVP browser/device matrix
 remains open after this narrow acceptance environment.
 
+### D-019 — Prove one lesson with a pure in-memory executor
+
+- Date: 2026-08-11
+- Status: Accepted
+- Affects: Web runtime, lesson execution, audio, learning evidence, UX
+
+Context:
+
+Milestone 4 must execute one validated LessonManifest through LISTEN,
+CLICK_OBJECT, and CHOOSE without pulling persistence, production TTS, AI, or
+the remaining primitives forward. The current park runtime owns canvas input
+directly, the valid contract fixture contains only one CLICK_OBJECT step, and
+the contract does not yet define a persisted evidence-event payload. Browser
+autoplay restrictions also prevent reliable audio from starting before a user
+gesture, while the cached OpenAI TTS pipeline belongs to Milestone 8.
+
+Decision:
+
+For Milestone 4, add a pure deterministic lesson controller around a new
+authored three-step FIND_SOMETHING fixture: LISTEN, CLICK_OBJECT, then CHOOSE.
+Validate the complete manifest and catalog in the browser before activating the
+scene, then apply a separate closed runtime-capability check for the implemented
+scene, primitives, scaffolds, cues, and audio IDs. Unsupported valid contract
+features fail closed rather than being ignored.
+
+Keep session, reaction, and learning-evidence events in memory only. Give every
+attempt and terminal outcome a deterministic session-local idempotency key,
+exclude hidden-tab time from active latency, and expose technical results only
+through development diagnostics. Reload starts a new session. Do not add
+localStorage, SQLite, analytics transport, mastery calculation, or a durable
+evidence schema before Milestone 6.
+
+Place audio behind an AudioPlaybackPort. For this technical milestone only,
+map the reviewed fixture audio ID to its validated Japanese text and use the
+desktop browser's SpeechSynthesis API after an explicit learner gesture. Record
+heard evidence only after playback reports that it started; replay never
+duplicates evidence. Missing or failed speech presents a recoverable assisted
+path. This temporary adapter makes no voice-quality, cache, offline, or cross-
+browser claim and must be replaced by the D-008 cached-audio boundary in
+Milestone 8.
+
+Use the manifest randomSeed for deterministic CHOOSE ordering. A wrong attempt
+records one result, applies only authored supported scaffolds, and cannot advance
+twice under repeated input. Correct work after help uses the assisted feedback
+and transition. CONTINUE_ASSISTED resolves after the bounded maximum without
+claiming unaided success. DOM input suspends world picking during INTERACTION;
+CLICK_OBJECT in EXPLORE consumes only registered candidate IDs.
+
+Consequences:
+
+The milestone proves the data-driven learning loop and event semantics without
+a storage migration or service dependency. The pure controller, injected clock,
+audio port, and world-input bridge remain testable outside a browser. Speech
+quality and availability depend on the accepted desktop Chromium environment,
+so this is not the production audio implementation. O-001 and O-002 remain open
+because park_small and Vietnamese support are technical fixture choices, not
+the first product vertical slice.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

@@ -1,14 +1,15 @@
 # Bunbun Current State
 
-Last updated: 2026-08-11
+Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 3 — Isometric runtime foundation: Complete.
+Milestone 4 — First deterministic learning loop: Implemented, awaiting manual
+browser acceptance.
 
-Next milestone: Milestone 4 — First deterministic learning loop.
+Next milestone after acceptance: Milestone 5 — Complete MVP primitive runtime.
 
-Active ExecPlan: None.
+Active ExecPlan: plans/2026-08-11-first-deterministic-learning-loop.md.
 
 Completed ExecPlans:
 
@@ -80,22 +81,56 @@ Completed ExecPlans:
 - Received a second explicit `PASS` on 2026-08-11 for the requested diagnostics
   and performance acceptance. Milestone 3 is closed on the user's qualitative
   acceptance; exact runtime values remain unreported and are not reconstructed.
+- Accepted D-019 and implemented a second reviewed FIND_SOMETHING fixture with
+  the required LISTEN → CLICK_OBJECT → CHOOSE sequence while preserving the
+  Milestone 2 one-step fixture.
+- Added full structural and semantic lesson-package validation before renderer
+  startup plus a closed Milestone 4 capability gate for the scene, object,
+  audio, cue, scaffold, and primitive executors that actually exist.
+- Added a pure deterministic lesson controller with bounded attempts, authored
+  scaffold escalation, seeded choices, assisted outcomes, feedback input
+  locking, required-step completion, and a fresh in-memory session on restart.
+- Added visibility-aware active timing and idempotent session-local exposure,
+  heard, reaction, step-completed, and lesson-completed records. Heard evidence
+  is written only after playback starts and replay cannot duplicate it.
+- Added the temporary learner-gesture SpeechSynthesis adapter behind
+  AudioPlaybackPort, a visible assisted audio-failure path, Japanese-first DOM
+  learning UI, deterministic focus transitions, and candidate-filtered world
+  input/highlight/cue commands.
+- Added `manifestFailure=1` and `audioFailure=1` local controls and expanded
+  diagnostics with lesson progress, heard/terminal/assisted outcomes,
+  correct/wrong reaction counts, active time, latest reaction latency, and time
+  to first lesson stimulus.
+- The user's first Milestone 4 browser attempt exposed a world-to-lesson bridge
+  defect: picking selected `dog`, but `find_dog` remained `AWAITING_OBJECT`
+  with zero reactions. Replaced the indirect post-construction callback with an
+  atomic candidate-and-handler input gate and added a focused regression test.
+- The same screenshot exposed a diagnostics error: `render.calls` reported
+  cumulative render invocations as draw calls. Diagnostics now use the
+  per-frame `render.drawCalls` value.
+- Passed schema drift, typecheck, lint, format, 38 focused tests, and the
+  production build after the fixes. The Milestone 4 JavaScript is 1,228,713
+  bytes minified (340.66 kB gzip); the known Vite large-chunk warning remains
+  visible.
 
 ## Current work
 
-- Prepare the Milestone 4 overview and ExecPlan for user approval before
-  implementing the first deterministic learning loop.
+- Retest the corrected dog/cat world interaction, then run and record the
+  remaining manual Milestone 4 happy-path, edge-case, and Milestone 3
+  regression matrix. Do not close the milestone before that report.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md and three completed milestone ExecPlans;
+- .agent/PLANS.md, three completed milestone ExecPlans, and one implemented
+  plan awaiting manual acceptance;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
-  DOM shell, diagnostics, and focused tests, plus apps/server;
+  deterministic three-step lesson executor, audio/world adapters, DOM learning
+  shell, diagnostics, and focused tests, plus apps/server;
 - packages/contracts source schemas, inferred types, validators, fixtures,
   generated JSON Schema artifacts, inspector, and tests; and
 - package.json and package-lock.json.
@@ -104,7 +139,8 @@ Not present:
 
 - database or migration files;
 - production 3D, audio, or image assets;
-- LessonManifest state traversal, learning interactions, or evidence;
+- executors for ARRANGE, TYPE, MOVE_TO, PICK_UP, or GIVE;
+- durable evidence, resume, learner identity, mastery, or analytics;
 - AI, compiler-job, TTS, or persistence integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
@@ -112,9 +148,8 @@ Not present:
 
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
 with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
-are published at 27355c0 on main and origin/main. Later Milestone 2 closure
-documentation and the approved Milestone 3 implementation are currently
-uncommitted.
+are published at 27355c0 on origin/main. Milestone 3 is committed locally at
+6a44abd. The Milestone 4 implementation and documentation are uncommitted.
 
 ## Known issues
 
@@ -137,14 +172,23 @@ uncommitted.
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-9. The WebGPU-capable web build is 852,644 bytes minified and triggers Vite's
-   default uncompressed chunk warning, although its measured gzip size is
-   234.70 kB. Scene-ready measurements must guide later splitting decisions.
+9. The Milestone 4 WebGPU-capable web build is 1,228,713 bytes minified and
+   triggers Vite's default uncompressed chunk warning, although its measured
+   gzip size is 340.66 kB. Full browser validation intentionally introduced
+   validator weight; first-stimulus measurements must guide splitting.
+10. Browser SpeechSynthesis voice quality and availability vary by installed
+    desktop voice. It is a temporary technical adapter, not production TTS or
+    an offline-audio guarantee.
+11. Milestone 4 evidence is intentionally session-local. Reload and restart use
+    a fresh session until Milestone 6 defines persistence and safe resume.
+12. The corrected world-to-lesson gate and draw-call diagnostic have static and
+    unit coverage but still require user browser confirmation.
 
 ## Next recommended work
 
-Prepare a self-contained Milestone 4 overview and ExecPlan without beginning
-implementation before user approval.
+Run the documented Milestone 4 manual matrix and report `PASS` or the failing
+scenario with diagnostics. After acceptance, close Milestone 4 before planning
+the remaining five primitives in Milestone 5.
 
 ## Verification status
 
@@ -156,22 +200,23 @@ implementation before user approval.
   fixtures.
 - Typecheck: passed for contracts, server, web source, and web test tooling.
 - Lint and format check: passed.
-- Tests: passed, 22 of 22: 14 contract tests and eight web runtime helper/asset
-  tests.
+- Tests: passed, 38 of 38: 15 contract tests and 23 web lesson/runtime tests.
 - Fixture inspection: the valid lesson passed; all six invalid fixtures exited
   nonzero with their intended stable error codes.
 - Production build: passed for contracts, server, and web workspaces; web
-  output contains 852,644-byte JavaScript, 5,537-byte CSS, a 5,899-byte local
-  glTF fixture, and 520-byte HTML. Vite reports the known JavaScript chunk
-  warning.
+  output contains 1,228,713-byte JavaScript (340.66 kB gzip), 8,072-byte CSS
+  (2.35 kB gzip), a 5,899-byte local glTF fixture, and 520-byte HTML. Vite
+  reports the known JavaScript chunk warning.
 - HTTP regression: passed against the already-running local processes for
   updated web HTML/module/asset output, health contractVersion 0.1.0, and JSON
   404. A second combined startup correctly reported that the user's existing
   ports were occupied; those processes were preserved.
-- Scope regression: passed; no lesson execution, AI, SQLite, TTS, physics
-  runtime, Docker, deployment, or automated browser E2E artifact was added.
-  The locked `@types/three` development package has an unused transitive Rapier
-  type dependency; Bunbun does not import or bundle it.
+- Scope regression: passed; the executor remains limited to LISTEN,
+  CLICK_OBJECT, and CHOOSE, in-memory events, and the isolated temporary browser
+  speech adapter. No AI, provider key, persistence, analytics transport,
+  production TTS, physics runtime, Docker, deployment, or automated browser E2E
+  artifact was added. The locked `@types/three` development package has an
+  unused transitive Rapier type dependency; Bunbun does not import or bundle it.
 - Docker build: not applicable; Dockerfiles intentionally do not exist.
 - Milestone 1 manual browser test: passed by user report on 2026-08-10.
 - Milestone 2 manual acceptance: passed by user report on 2026-08-11; the valid
@@ -180,6 +225,7 @@ implementation before user approval.
 - Milestone 3 manual functional acceptance: passed by user report on
   2026-08-11. A second `PASS` closed the requested performance checklist; exact
   reference-environment and numeric diagnostics remain unreported.
+- Milestone 4 manual acceptance: pending user browser/gameplay report.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks

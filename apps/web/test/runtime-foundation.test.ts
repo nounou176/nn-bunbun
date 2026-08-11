@@ -14,6 +14,7 @@ import {
 } from "../src/game/camera.js";
 import { readRuntimeConfig } from "../src/game/config.js";
 import { FrameMeter } from "../src/game/frame-meter.js";
+import { LessonWorldInputGate } from "../src/game/lesson-input-gate.js";
 import {
   clampToWalkableBounds,
   isInsideWalkableBounds,
@@ -101,17 +102,23 @@ test("orthographic sizing preserves aspect and clamps zoom", () => {
 
 test("runtime query controls are explicit and closed", () => {
   assert.deepEqual(
-    readRuntimeConfig("?renderer=webgl2&debug=1&assetFailure=1"),
+    readRuntimeConfig(
+      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1",
+    ),
     {
       forceWebGL2: true,
       diagnosticsOpen: true,
       simulateAssetFailure: true,
+      simulateManifestFailure: true,
+      simulateAudioFailure: true,
     },
   );
   assert.deepEqual(readRuntimeConfig("?renderer=webgpu&debug=yes"), {
     forceWebGL2: false,
     diagnosticsOpen: false,
     simulateAssetFailure: false,
+    simulateManifestFailure: false,
+    simulateAudioFailure: false,
   });
 });
 
@@ -126,6 +133,30 @@ test("frame meter reports stable average, FPS, and p95", () => {
     averageFrameMs: 25,
     p95FrameMs: 40,
   });
+});
+
+test("lesson world input routes an accepted animal selection exactly once", () => {
+  const gate = new LessonWorldInputGate();
+  const selected: string[] = [];
+  gate.configure({
+    enabled: true,
+    candidateObjectIds: ["dog", "cat"],
+    highlightObjectIds: [],
+    onObjectSelected: (objectId) => selected.push(objectId),
+  });
+
+  assert.equal(gate.routeSelection("dog"), true);
+  assert.deepEqual(selected, ["dog"]);
+  assert.equal(gate.routeSelection("guide"), false);
+  assert.deepEqual(selected, ["dog"]);
+
+  gate.configure({
+    enabled: false,
+    candidateObjectIds: [],
+    highlightObjectIds: [],
+  });
+  assert.equal(gate.routeSelection("dog"), false);
+  assert.deepEqual(selected, ["dog"]);
 });
 
 class TestProgressEvent extends Event {

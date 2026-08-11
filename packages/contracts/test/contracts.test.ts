@@ -20,6 +20,10 @@ const validManifestPath = resolve(
   packageDirectory,
   "fixtures/manifests/valid-find-dog.json",
 );
+const validLoopManifestPath = resolve(
+  packageDirectory,
+  "fixtures/manifests/valid-find-dog-loop.json",
+);
 
 const invalidCases = [
   ["invalid-unknown-field.json", "STRUCTURAL_ADDITIONAL_PROPERTIES"],
@@ -43,6 +47,24 @@ test("valid authored lesson passes structural and semantic validation", async ()
     assert.equal(result.value.manifest.schemaVersion, "0.1.0");
     assert.equal(result.value.manifest.lessonId, "lesson_find_dog");
     assert.equal(result.value.catalog.catalogId, "bunbun_fixture_catalog");
+  }
+});
+
+test("valid three-step learning loop passes contract validation", async () => {
+  const [manifest, catalog] = await Promise.all([
+    readJson(validLoopManifestPath),
+    readJson(catalogPath),
+  ]);
+
+  const result = validateLessonPackage(manifest, catalog);
+
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.value.manifest.lessonId, "lesson_find_dog_loop");
+    assert.deepEqual(
+      result.value.manifest.steps.map((step) => step.interaction.type),
+      ["LISTEN", "CLICK_OBJECT", "CHOOSE"],
+    );
   }
 });
 

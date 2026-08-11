@@ -9,6 +9,10 @@ import {
 } from "./camera.js";
 import type { RuntimeConfig } from "./config.js";
 import { FrameMeter } from "./frame-meter.js";
+import {
+  LessonWorldInputGate,
+  type LessonWorldInputConfiguration,
+} from "./lesson-input-gate.js";
 import { isInsideWalkableBounds, stepToward } from "./navigation.js";
 import { PARK_SCENE_DEFINITION } from "./park-definition.js";
 import { loadParkWorld } from "./park-world.js";
@@ -20,6 +24,8 @@ const MAXIMUM_FRAME_DELTA_SECONDS = 0.05;
 const DIAGNOSTIC_UPDATE_INTERVAL_MS = 250;
 
 export interface GameRuntime {
+  configureLessonInput: (configuration: LessonWorldInputConfiguration) => void;
+  applyCues: (cueIds: readonly string[]) => void;
   dispose: () => void;
 }
 
@@ -75,6 +81,7 @@ export async function createGameRuntime(
   const raycaster = new Raycaster();
   const pointer = new Vector2();
   const frameMeter = new FrameMeter();
+  const lessonInput = new LessonWorldInputGate();
   const worldPosition = new Vector3();
   let zoom = DEFAULT_ZOOM;
   let destination: Vector2 | undefined;
@@ -153,7 +160,7 @@ export async function createGameRuntime(
     shell.updateDiagnostics({
       renderer: backend,
       ...frame,
-      drawCalls: renderer.info.render.calls,
+      drawCalls: renderer.info.render.drawCalls,
       triangles: renderer.info.render.triangles,
       renderSize: `${shell.canvas.width} × ${shell.canvas.height}`,
       devicePixelRatio: Math.min(
@@ -174,6 +181,7 @@ export async function createGameRuntime(
     world.selectionMarker.position.set(worldPosition.x, 0.035, worldPosition.z);
     world.selectionMarker.visible = true;
     shell.setSelection(selectedId, catalogId);
+    lessonInput.routeSelection(selectedId);
     requestAnimationFrame(() => {
       latestPickingMs = performance.now() - startedPickingAt;
     });
@@ -198,7 +206,7 @@ export async function createGameRuntime(
   };
 
   const onPointerDown = (event: PointerEvent) => {
-    if (event.button !== 0) {
+    if (event.button !== 0 || !lessonInput.enabled) {
       return;
     }
     const startedPickingAt = performance.now();
@@ -254,6 +262,33 @@ export async function createGameRuntime(
     renderer.dispose();
   };
 
+  const configureLessonInput = (
+    configuration: LessonWorldInputConfiguration,
+  ) => {
+    lessonInput.configure(configuration);
+    world.highlightMarkers.forEach((marker, objectId) => {
+      marker.visible = configuration.highlightObjectIds.includes(objectId);
+    });
+  };
+
+  const applyCues = (cueIds: readonly string[]) => {
+    const highlightedIds = cueIds.flatMap((cueId) => {
+      switch (cueId) {
+        case "guide_gesture":
+          return ["guide"];
+        case "dog_happy":
+        case "dog_highlight":
+          return ["dog"];
+        default:
+          return [];
+      }
+    });
+    highlightedIds.forEach((objectId) => {
+      const marker = world.highlightMarkers.get(objectId);
+      if (marker !== undefined) marker.visible = true;
+    });
+  };
+
   shell.canvas.addEventListener("pointerdown", onPointerDown, { signal });
   shell.zoomInButton.addEventListener("click", () => changeZoom(0.1), {
     signal,
@@ -294,7 +329,7 @@ export async function createGameRuntime(
     fps: 0,
     averageFrameMs: 0,
     p95FrameMs: 0,
-    drawCalls: renderer.info.render.calls,
+    drawCalls: renderer.info.render.drawCalls,
     triangles: renderer.info.render.triangles,
     renderSize: `${shell.canvas.width} × ${shell.canvas.height}`,
     devicePixelRatio: Math.min(
@@ -309,7 +344,7 @@ export async function createGameRuntime(
   lastFrameTime = performance.now();
   void renderer.setAnimationLoop(renderFrame);
 
-  return { dispose };
+  return { configureLessonInput, applyCues, dispose };
 }
 
 function findSelectableRoot(

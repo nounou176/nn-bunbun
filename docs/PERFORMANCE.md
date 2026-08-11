@@ -7,8 +7,8 @@ picking, and excessive travel all reduce meaningful Japanese reactions per
 minute even when the educational content is sound.
 
 This document defines initial reference budgets. They are design constraints,
-and the Milestone 3 section distinguishes measured build facts from runtime
-measurements that still require manual browser acceptance.
+and the Milestone 3 and 4 sections distinguish measured build facts from
+runtime measurements that still require manual browser acceptance.
 
 ## Reference target
 
@@ -45,7 +45,7 @@ Provisional reference-machine goals are:
 | Picking response | Under 100 ms |
 | Longest authored movement | Under 3 seconds |
 
-Static production-build measurements from 2026-08-11 are:
+Static production-build measurements from 2026-08-12 are:
 
 | Artifact | Measured size |
 | --- | --- |
@@ -71,6 +71,42 @@ requested diagnostics/performance checklist. The browser version, OS,
 device/GPU, display, renderer, FPS/frame time, draw calls, triangles, DPR,
 scene-ready time, and picking response were not supplied, so the milestone is
 qualitatively accepted but no numeric runtime-performance claim is recorded.
+
+## Milestone 4 deterministic lesson prototype
+
+D-019 adds full browser-side lesson validation, a three-step controller, DOM
+learning overlays, and a temporary SpeechSynthesis adapter to the existing
+park. Static production-build measurements from 2026-08-11 are:
+
+| Artifact | Measured size |
+| --- | --- |
+| Web JavaScript | 1,228,713 bytes minified; 340.66 kB gzip |
+| Web CSS | 8,072 bytes minified; 2.35 kB gzip |
+| Local park glTF | 5,899 bytes |
+| Web HTML | 520 bytes |
+| Three-step LessonManifest fixture | 10,131 bytes authored JSON |
+| CatalogSnapshot fixture | 2,259 bytes authored JSON |
+
+The JavaScript increase is primarily the intentional first inclusion of Ajv,
+TypeBox-derived schemas, semantic validators, and the lesson runtime in the
+browser boundary. The single chunk still triggers Vite's default 500 kB
+uncompressed warning. This is recorded as an optimization risk; splitting or
+removing validation is not justified until manual first-stimulus and warm/cold
+measurements show where startup time is actually spent.
+
+Diagnostics now report lesson-active time, the latest reaction latency, and
+time from boot start to the first rendered lesson stimulus in addition to the
+Milestone 3 renderer metrics. Numeric browser results, audio-start latency, and
+named reference-device details remain pending manual Milestone 4 acceptance.
+
+The user's first browser screenshot on 2026-08-12 recorded WebGL2, 62 FPS,
+16.2/25.0 ms average/p95 frame time, 1,861 triangles, DPR 1.5, 374 ms scene
+ready, 7.9 ms picking response, and 397 ms first stimulus. It also displayed
+15,542 “draw calls,” but source inspection proved that field was reading the
+cumulative `render.calls` counter rather than per-frame `render.drawCalls`.
+That diagnostic is corrected and the invalid 15,542 value is not accepted as a
+performance measurement. The attempt also failed the lesson input handoff, so
+all screenshot metrics remain observations rather than final acceptance data.
 
 ## Scene budgets
 

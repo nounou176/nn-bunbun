@@ -30,6 +30,7 @@ export interface ParkWorld {
   selectableRoots: readonly Group[];
   destinationMarker: Mesh;
   selectionMarker: Mesh;
+  highlightMarkers: ReadonlyMap<string, Mesh>;
   dispose: () => void;
 }
 
@@ -90,9 +91,11 @@ export async function loadParkWorld(
 
     const destinationMarker = createMarker("#f1b45c", 0.17, 0.25);
     const selectionMarker = createMarker("#fff8d9", 0.4, 0.49);
+    const highlightMarkers = createHighlightMarkers(definition);
     destinationMarker.visible = false;
     selectionMarker.visible = false;
     scene.add(destinationMarker, selectionMarker);
+    highlightMarkers.forEach((marker) => scene.add(marker));
 
     return {
       scene,
@@ -101,6 +104,7 @@ export async function loadParkWorld(
       selectableRoots,
       destinationMarker,
       selectionMarker,
+      highlightMarkers,
       dispose: () => disposeObjectTree(scene),
     };
   } catch (error) {
@@ -109,6 +113,20 @@ export async function loadParkWorld(
       cause: error,
     });
   }
+}
+
+function createHighlightMarkers(
+  definition: ParkSceneDefinition,
+): ReadonlyMap<string, Mesh> {
+  const markers = new Map<string, Mesh>();
+  [definition.guide, ...definition.objects].forEach((placement) => {
+    const marker = createMarker("#f3b24d", 0.45, 0.54);
+    marker.name = `highlight_${placement.localId}`;
+    marker.position.set(placement.position.x, 0.04, placement.position.z);
+    marker.visible = false;
+    markers.set(placement.localId, marker);
+  });
+  return markers;
 }
 
 function createBunbunPlayer(): Group {

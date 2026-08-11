@@ -4,9 +4,10 @@
 
 This document defines the approved architectural direction. The Milestone 1
 filesystem foundation, Milestone 2 executable contract boundary, and
-Milestone 3 technical runtime boundary are implemented. Lesson execution,
-compiler, persistence, and production asset boundaries remain planned until
-their roadmap milestones.
+Milestone 3 technical runtime boundary are implemented. The Milestone 4
+three-step lesson executor is implemented and awaiting manual browser
+acceptance. The complete primitive set, compiler, persistence, and production
+asset boundaries remain planned until their roadmap milestones.
 
 ## Architectural goals
 
@@ -69,20 +70,30 @@ Implemented foundation responsibilities:
 - isolate canvas input from DOM controls;
 - pause, resume, recover, diagnose, and dispose the technical runtime; and
 - expose renderer, frame, scene, picking, and geometry measurements in a
-  development DOM panel.
+  development DOM panel;
+- validate the complete authored LessonManifest and CatalogSnapshot before
+  activating the renderer, then reject capabilities outside the closed local
+  executor allowlist;
+- run a pure deterministic LISTEN, CLICK_OBJECT, and CHOOSE controller with
+  bounded attempts, authored scaffolds, seeded choice order, transitions, and
+  required-step completion checks;
+- present Japanese-first stimulus, help, feedback, choices, completion, and
+  focus transitions through DOM controls while keeping lesson truth outside
+  Three.js;
+- isolate audio behind AudioPlaybackPort and use browser SpeechSynthesis only
+  as the temporary Milestone 4 learner-gesture adapter; and
+- record idempotent session-local exposure, heard, reaction, step, and
+  completion events against active time that excludes hidden-tab duration.
 
-Planned lesson responsibilities:
+Planned responsibilities beyond Milestone 4:
 
-- load and validate a playable LessonManifest;
-- load only the referenced scene and asset bundles;
-- render the Three.js diorama;
-- handle camera, picking, simple navigation, and lightweight animation;
-- run a deterministic lesson state machine;
-- execute the fixed interaction primitives;
-- present Japanese dialogue and task overlays in HTML/CSS;
-- play cached audio;
-- emit normalized learning evidence;
-- track session-level metrics; and
+- load accepted lesson packages from the future compiler/cache boundary rather
+  than a repository fixture;
+- dynamically load only the referenced scene and asset bundles;
+- execute ARRANGE, TYPE, MOVE_TO, PICK_UP, and GIVE;
+- replace the temporary audio adapter with reviewed cached audio;
+- promote the provisional in-memory event record into the accepted persistent
+  evidence contract; and
 - send or persist progress through an explicit storage boundary.
 
 The runtime must not call an LLM from the render loop. A lesson that has already
@@ -115,9 +126,11 @@ check references, world compatibility, graph termination, learning coverage,
 evidence, language safety, interactions, scaffolds, provenance, and quality
 budgets. Generated JSON Schema artifacts are checked against their source.
 
-The frontend and backend consume the same isolated contract-version export so
-the web runtime does not bundle the validator implementation. The
-shared boundary includes:
+The frontend and backend consume the same contract package. Starting in
+Milestone 4, the frontend intentionally bundles the strict package validator so
+authored lesson content fails before scene activation; the earlier isolated
+version export remains available for callers that only need compatibility
+metadata. The shared boundary includes:
 
 - LessonManifest;
 - learning targets;
@@ -238,7 +251,9 @@ SQLite; do not duplicate large binary data inside manifests.
 - Evidence events use stable lesson, revision, session, target, and interaction
   identifiers.
 - Saving is explicit at meaningful interaction boundaries.
-- Reloading must not duplicate evidence or lose a completed interaction.
+- Milestone 4 events are intentionally memory-only and reload starts a clean
+  session. Milestone 6 must make reloading idempotent without losing a completed
+  persistent interaction.
 - Unknown schema versions fail closed with a useful error.
 - A broken manifest must return the learner to a safe UI state, not a partially
   loaded world.
@@ -276,6 +291,30 @@ characters and markers. Its one convex walkable region permits direct
 click-to-move without pathfinding, collision, navmesh, or physics. This is an
 explicitly narrow runtime proof and does not resolve the final product scene
 decision O-002.
+
+### Milestone 4 lesson boundary
+
+D-019 adds one narrow executable lesson slice without changing the contract or
+pulling later services forward. The browser loads the reviewed three-step
+FIND_SOMETHING package, runs full structural and semantic validation, and then
+applies a second capability allowlist for `park_small`, LISTEN, CLICK_OBJECT,
+CHOOSE, reviewed cues, scaffolds, object IDs, and audio ID. Invalid content
+fails into the existing recoverable DOM boundary before renderer activation.
+
+The lesson controller is a pure reducer over explicit input events. It owns
+attempts, help/assisted state, feedback locking, scaffold escalation,
+transitions, deterministic choice order, and completion truth. Browser
+orchestration owns timers, visibility-aware active time, audio callbacks, DOM
+focus, world commands, and an idempotent in-memory event sink. The world bridge
+atomically binds the active candidate IDs and selection handler, reports stable
+IDs, and applies known presentation cues; it does not decide correctness or
+advance lesson state.
+
+The temporary SpeechSynthesis adapter starts only after a learner gesture and
+records `heard` only after the browser reports playback start. Failure reveals
+an assisted text route and never claims heard evidence. No browser storage,
+backend evidence transport, learner identity, mastery, production TTS, AI, or
+network dependency is introduced by this boundary.
 
 ## API principles
 
