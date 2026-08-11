@@ -108,16 +108,21 @@ Completed ExecPlans:
 - The same screenshot exposed a diagnostics error: `render.calls` reported
   cumulative render invocations as draw calls. Diagnostics now use the
   per-frame `render.drawCalls` value.
+- The user confirmed the corrected animal click reaches the lesson, then found
+  an EXPLORE affordance issue: the centered translucent lesson card made the
+  world appear modal and disabled. EXPLORE now uses a compact left-side mission
+  card, reduced edge dimming, an active canvas cursor, and an explicit
+  Japanese/Vietnamese instruction to click an animal in the park.
 - Passed schema drift, typecheck, lint, format, 38 focused tests, and the
-  production build after the fixes. The Milestone 4 JavaScript is 1,228,713
-  bytes minified (340.66 kB gzip); the known Vite large-chunk warning remains
+  production build after the fixes. The Milestone 4 JavaScript is 1,229,245
+  bytes minified (340.84 kB gzip); the known Vite large-chunk warning remains
   visible.
 
 ## Current work
 
-- Retest the corrected dog/cat world interaction, then run and record the
-  remaining manual Milestone 4 happy-path, edge-case, and Milestone 3
-  regression matrix. Do not close the milestone before that report.
+- Retest the corrected EXPLORE presentation, then run and record the remaining
+  manual Milestone 4 happy-path, edge-case, and Milestone 3 regression matrix.
+  Do not close the milestone before that report.
 
 ## Repository inventory
 
@@ -172,17 +177,18 @@ are published at 27355c0 on origin/main. Milestone 3 is committed locally at
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-9. The Milestone 4 WebGPU-capable web build is 1,228,713 bytes minified and
+9. The Milestone 4 WebGPU-capable web build is 1,229,245 bytes minified and
    triggers Vite's default uncompressed chunk warning, although its measured
-   gzip size is 340.66 kB. Full browser validation intentionally introduced
+   gzip size is 340.84 kB. Full browser validation intentionally introduced
    validator weight; first-stimulus measurements must guide splitting.
 10. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. It is a temporary technical adapter, not production TTS or
     an offline-audio guarantee.
 11. Milestone 4 evidence is intentionally session-local. Reload and restart use
     a fresh session until Milestone 6 defines persistence and safe resume.
-12. The corrected world-to-lesson gate and draw-call diagnostic have static and
-    unit coverage but still require user browser confirmation.
+12. The corrected world-to-lesson gate is manually confirmed. The compact
+    EXPLORE presentation and draw-call diagnostic have static/build coverage
+    but still require final user browser confirmation.
 
 ## Next recommended work
 
@@ -204,8 +210,8 @@ the remaining five primitives in Milestone 5.
 - Fixture inspection: the valid lesson passed; all six invalid fixtures exited
   nonzero with their intended stable error codes.
 - Production build: passed for contracts, server, and web workspaces; web
-  output contains 1,228,713-byte JavaScript (340.66 kB gzip), 8,072-byte CSS
-  (2.35 kB gzip), a 5,899-byte local glTF fixture, and 520-byte HTML. Vite
+  output contains 1,229,245-byte JavaScript (340.84 kB gzip), 9,175-byte CSS
+  (2.58 kB gzip), a 5,899-byte local glTF fixture, and 520-byte HTML. Vite
   reports the known JavaScript chunk warning.
 - HTTP regression: passed against the already-running local processes for
   updated web HTML/module/asset output, health contractVersion 0.1.0, and JSON

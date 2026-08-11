@@ -80,8 +80,8 @@ park. Static production-build measurements from 2026-08-11 are:
 
 | Artifact | Measured size |
 | --- | --- |
-| Web JavaScript | 1,228,713 bytes minified; 340.66 kB gzip |
-| Web CSS | 8,072 bytes minified; 2.35 kB gzip |
+| Web JavaScript | 1,229,245 bytes minified; 340.84 kB gzip |
+| Web CSS | 9,175 bytes minified; 2.58 kB gzip |
 | Local park glTF | 5,899 bytes |
 | Web HTML | 520 bytes |
 | Three-step LessonManifest fixture | 10,131 bytes authored JSON |
@@ -107,6 +107,12 @@ cumulative `render.calls` counter rather than per-frame `render.drawCalls`.
 That diagnostic is corrected and the invalid 15,542 value is not accepted as a
 performance measurement. The attempt also failed the lesson input handoff, so
 all screenshot metrics remain observations rather than final acceptance data.
+
+Subsequent screenshots after the counter fix showed 30–32 per-frame draw calls,
+62–63 FPS, 16.0–16.1/25.0 ms average/p95 frame time, 1,797–1,925 triangles,
+208 ms scene ready, and 231 ms first stimulus. These confirm the diagnostic now
+reports a plausible frame-local value. They remain partial observations until
+the corrected EXPLORE presentation and full lesson receive user acceptance.
 
 ## Scene budgets
 

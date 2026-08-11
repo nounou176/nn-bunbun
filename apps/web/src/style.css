@@ -67,6 +67,12 @@ button:focus-visible,
   left: 0;
   pointer-events: none;
   content: "";
+  transition: opacity 180ms ease;
+}
+
+.world-stage[data-lesson-mode="EXPLORE"]::before,
+.world-stage[data-lesson-mode="EXPLORE"]::after {
+  opacity: 0.35;
 }
 
 .world-stage::before {
@@ -89,6 +95,10 @@ button:focus-visible,
   width: 100%;
   height: 100%;
   touch-action: none;
+}
+
+.world-stage[data-world-input="active"] .world-canvas {
+  cursor: crosshair;
 }
 
 .world-header {
@@ -220,7 +230,34 @@ h1 {
 }
 
 .lesson-panel[data-mode="EXPLORE"] {
-  width: min(calc(100% - 4rem), 28rem);
+  top: clamp(6.75rem, 12vw, 8.5rem);
+  left: clamp(1rem, 2.8vw, 2rem);
+  width: min(calc(100% - 2rem), 24rem);
+  padding: 0.9rem 1rem;
+  border: 2px solid rgb(151 68 46 / 40%);
+  border-left-width: 0.35rem;
+  background: rgb(255 250 239 / 96%);
+  box-shadow: 0 0.65rem 1.6rem rgb(40 49 35 / 16%);
+  transform: none;
+  backdrop-filter: none;
+}
+
+.lesson-panel[data-mode="EXPLORE"] .lesson-heading {
+  margin-bottom: 0.35rem;
+}
+
+.lesson-panel[data-mode="EXPLORE"] .lesson-speaker {
+  display: none;
+}
+
+.lesson-panel[data-mode="EXPLORE"] .lesson-instruction {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+}
+
+.lesson-panel[data-mode="EXPLORE"] .lesson-utterance {
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
 }
 
 .lesson-panel[data-mode="COMPLETED"] {
@@ -265,6 +302,7 @@ h1 {
 
 .lesson-reading,
 .lesson-support,
+.lesson-world-action,
 .lesson-audio-error,
 .lesson-feedback {
   display: block;
@@ -280,6 +318,26 @@ h1 {
 
 .lesson-support {
   color: #665b50;
+}
+
+.lesson-world-action {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.7rem;
+  color: #fffaf0;
+  background: #315f4b;
+  box-shadow: 0 0.35rem 0.8rem rgb(35 69 53 / 18%);
+}
+
+.lesson-world-action span {
+  font-weight: 850;
+}
+
+.lesson-world-action small {
+  color: #dcebdd;
+  font-size: 0.72rem;
+  line-height: 1.35;
 }
 
 .lesson-audio-error {
@@ -298,6 +356,7 @@ h1 {
 .lesson-feedback[hidden],
 .lesson-reading[hidden],
 .lesson-support[hidden],
+.lesson-world-action[hidden],
 .lesson-audio-error[hidden],
 .lesson-speaker[hidden],
 .lesson-utterance[hidden] {

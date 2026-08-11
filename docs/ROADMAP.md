@@ -202,9 +202,11 @@ bounded retry/scaffolds, visibility-aware timing, idempotent in-memory events,
 temporary learner-gesture SpeechSynthesis adapter, Japanese-first DOM UI, and
 candidate-filtered park bridge are implemented. The first manual attempt found
 a dropped world-selection handoff and a cumulative draw-call diagnostic; both
-are corrected with an atomic input gate and regression coverage. Static checks,
-schema drift, 38 focused tests, and the production build pass. Manual browser
-retest is still required before this milestone is Complete.
+are corrected with an atomic input gate and regression coverage. The user then
+confirmed animal clicking works and identified a modal-looking EXPLORE layout;
+the world-active state now uses a compact mission card and explicit click cue.
+Static checks, schema drift, 38 focused tests, and the production build pass.
+Manual browser retest is still required before this milestone is Complete.
 
 Exit criteria:
 

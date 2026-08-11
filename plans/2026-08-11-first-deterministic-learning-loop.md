@@ -3,7 +3,7 @@
 Status: Implemented, awaiting manual acceptance
 Owner: Codex and user
 Created: 2026-08-11
-Last updated: 2026-08-12 00:11 Asia/Ho_Chi_Minh
+Last updated: 2026-08-12 00:32 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -302,6 +302,12 @@ the user reports actual browser results.
   candidate-and-handler input gate, correct diagnostics to per-frame
   `render.drawCalls`, add the exact animal-selection regression, and pass 38
   tests plus all static and production-build gates.
+- [x] 2026-08-12 00:25 — Receive user confirmation that animal clicking works;
+  record the follow-up UX failure that the centered translucent EXPLORE card
+  makes the world appear disabled behind a modal.
+- [x] 2026-08-12 00:32 — Convert EXPLORE to a compact left-side mission card,
+  reduce edge dimming, add an active-world cursor and explicit bilingual world
+  click cue, then pass static checks, 38 tests, and production build.
 - [ ] Receive and record the user's manual happy-path, edge-case, regression,
   audio, and performance results; then close Milestone 4.
 
@@ -325,7 +331,7 @@ the user reports actual browser results.
   as a technical adapter but needs an explicit learner gesture and cannot make
   production voice or cache guarantees.
 - Full browser validation increases the production JavaScript from the
-  Milestone 3 value of 852,644 bytes to 1,228,713 bytes minified (340.66 kB
+  Milestone 3 value of 852,644 bytes to 1,229,245 bytes minified (340.84 kB
   gzip). The known chunk warning remains visible pending real first-stimulus
   measurements.
 - A direct web-test command must build packages/contracts first because its
@@ -453,7 +459,9 @@ D-011 excludes automated browser E2E tooling.
 | Scenario | Tester | Date | Result | Evidence or notes |
 | --- | --- | --- | --- | --- |
 | First dog-selection handoff | User | 2026-08-12 | Fail | WebGL2 picked `dog`, but `find_dog` remained `AWAITING_OBJECT`; events/reactions stayed 4/0 |
-| Corrected dog/cat handoff and full loop | Pending user | Pending | Ready to retest | Atomic input gate and draw-call fix pass static/build gates and focused regression |
+| Corrected dog/cat handoff | User | 2026-08-12 | Pass | User confirms animal is clickable after the atomic input-gate fix |
+| Initial EXPLORE affordance | User | 2026-08-12 | Fail | Centered translucent card looked modal; user could not tell the dimmed world remained interactive |
+| Compact EXPLORE presentation and full loop | Pending user | Pending | Ready to retest | Mission card moved aside, dimming reduced, canvas cursor and bilingual click cue added |
 
 ## Recovery and compatibility
 
@@ -499,8 +507,8 @@ arbitrary lesson code, AI, provider call, persistence, or mastery claim.
 Static verification passes: schema artifacts 8/8, contracts 15/15 tests, web
 23/23 tests, typecheck, lint, format, fixture inspection, production build,
 diff check, scope scan, server health 200 with contractVersion 0.1.0, JSON 404,
-and current Vite module delivery. The build contains 1,228,713-byte JavaScript
-(340.66 kB gzip), 8,072-byte CSS (2.35 kB gzip), the 5,899-byte glTF fixture,
+and current Vite module delivery. The build contains 1,229,245-byte JavaScript
+(340.84 kB gzip), 9,175-byte CSS (2.58 kB gzip), the 5,899-byte glTF fixture,
 10,131-byte authored lesson JSON, 2,259-byte catalog JSON, and 520-byte HTML.
 
 No dependency or lockfile changed, so the previously accepted isolated clean

@@ -101,6 +101,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           <p class="lesson-utterance" data-role="lesson-utterance"></p>
           <p class="lesson-reading" data-role="lesson-reading" hidden></p>
           <p class="lesson-support" data-role="lesson-support" hidden></p>
+          <p class="lesson-world-action" data-role="lesson-world-action" hidden>
+            <span>公園の動物をクリック</span>
+            <small>Chọn một con vật trực tiếp trong công viên</small>
+          </p>
           <p class="lesson-audio-error" data-role="lesson-audio-error" hidden></p>
           <div class="choice-list" data-role="choice-list"></div>
           <output class="lesson-feedback" data-role="lesson-feedback"></output>
@@ -228,6 +232,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     app,
     '[data-role="lesson-support"]',
   );
+  const lessonWorldAction = required<HTMLElement>(
+    app,
+    '[data-role="lesson-world-action"]',
+  );
   const lessonAudioError = required<HTMLElement>(
     app,
     '[data-role="lesson-audio-error"]',
@@ -286,6 +294,8 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       rendererPill.dataset.backend = "loading";
       runtimeState.textContent = "loading";
       lessonPanel.hidden = true;
+      delete viewport.dataset.lessonMode;
+      delete viewport.dataset.worldInput;
     },
     setReady: (backend, recoveredWithWebGL2) => {
       statePanel.hidden = true;
@@ -306,6 +316,8 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       rendererPill.dataset.backend = "error";
       runtimeState.textContent = "error";
       lessonPanel.hidden = true;
+      delete viewport.dataset.lessonMode;
+      delete viewport.dataset.worldInput;
     },
     setPaused: (paused) => {
       runtimeState.textContent = paused ? "paused" : "ready";
@@ -333,6 +345,9 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       lessonPanel.dataset.mode =
         state.phase === "COMPLETED" ? "COMPLETED" : step.mode;
       lessonPanel.dataset.phase = state.phase;
+      viewport.dataset.lessonMode = lessonPanel.dataset.mode;
+      const awaitingWorldObject = state.phase === "AWAITING_OBJECT";
+      viewport.dataset.worldInput = awaitingWorldObject ? "active" : "locked";
       lessonMode.textContent =
         state.phase === "COMPLETED" ? "COMPLETE" : step.mode;
       lessonProgress.textContent = `${Math.max(1, stepIndex + 1)} / ${state.manifest.steps.length}`;
@@ -382,6 +397,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           ? (step.stimulus.supportText ?? "")
           : "";
       lessonSupport.hidden = lessonSupport.textContent.length === 0;
+      lessonWorldAction.hidden = !awaitingWorldObject;
       lessonAudioError.textContent = audioErrorMessage ?? "";
       lessonAudioError.hidden = audioErrorMessage === undefined;
 
