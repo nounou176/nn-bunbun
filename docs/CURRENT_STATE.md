@@ -4,8 +4,9 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 7 — Lesson compiler with Structured Outputs: Proposed planning;
-awaiting user approval. No compiler implementation has started.
+Milestone 7 — Lesson compiler with Structured Outputs: phase 0 prompt pack
+approved; remaining architecture and ExecPlan gates await user approval. No
+compiler implementation has started.
 
 Active ExecPlan:
 
@@ -211,10 +212,20 @@ Completed ExecPlans:
   hard budgets.
 - Classified every supplied image and the APKG as a local style/output example
   only. They cannot supply lesson/reference content or evaluation fixtures.
-- All three selected M7 prompt modules remain disabled pending typed
-  adaptation, missing source metadata, separately authored text evaluations,
-  versioning, and explicit approval. D-022, the ExecPlan, model/reasoning
-  setting, and environment-variable name also remain proposed.
+- Accepted D-024 after the user approved Prompt Adaptation Pack 0.1.0. Its
+  shared contract, three exact prompt fragments and hashes, fixed composition
+  order, deterministic failure/privacy boundaries, and fifteen text-only
+  fixtures are now approved. Milestone 7 phase 0 is complete.
+- All three selected M7 prompt modules are Approved for implementation but are
+  not implemented or runtime-active. D-022, the ExecPlan, model/reasoning
+  setting, and environment-variable name remain proposed.
+- Added the approved `docs/ai-modules/` adaptation pack: one shared typed
+  contribution contract, three exact lean prompt fragments, source and prompt
+  hashes, three module adaptation records, and fifteen text-only evaluation
+  fixtures. The pack explicitly removes image/worksheet/Anki, unverified JLPT/
+  reference claims, long ChatGPT teaching flows, and deterministic runtime
+  control from the selected modules. Pack approval does not enable any provider
+  or API call.
 
 ## Repository inventory
 
@@ -300,33 +311,25 @@ proposed Milestone 7 planning records are currently uncommitted.
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
 15. Six Custom GPT configurations and their local Knowledge assets are
-    captured and their Milestone 7 mapping is accepted, but recommended models,
-    enabled capabilities/actions, exact source revisions, knowledge ownership/
-    licenses, typed adaptations, and representative text-only success/failure
-    examples are not documented. The selected prompt modules therefore remain
-    disabled. Supplied images and the APKG cannot fill these gaps because they
-    are style/output examples only.
+    captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
+    0.1.0 is approved. The three selected modules are Approved for
+    implementation but remain inactive because the compiler/provider does not
+    exist. GPT-editor model, capability/action, and version-history metadata was
+    not supplied and is not inherited; config hashes identify the reviewed
+    local source snapshots. Supplied images and the APKG remain style/output
+    examples only.
 
 ## Next recommended work
 
-Review the Milestone 7 proposal before implementation:
+Complete the remaining Milestone 7 approval gates before implementation:
 
-1. Define the typed Bunbun adaptations for Story Sheet, Story Coach, and
-   Reverse Trainer using the accepted D-023 responsibility map.
-2. Supply or confirm each selected GPT's source revision, recommended model,
-   enabled capabilities/actions, and Knowledge ownership/license without
-   credentials or secrets.
-3. Author separate text-only success/failure evaluation fixtures; do not derive
-   them from the supplied images or APKG.
-4. Review and approve each selected module's adaptation, data
-   disclosure, evaluation fixtures, composition order, and version.
-5. Approve or revise proposed D-022 and
+1. Approve or revise proposed D-022 and
    `plans/2026-08-12-structured-lesson-compiler.md`.
-6. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
+2. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
    setting.
-7. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
+3. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
    provide or store its value in repository documentation or shared memory.
-8. Start implementation only after those decisions and the ExecPlan are
+4. Start implementation only after those decisions and the ExecPlan are
    explicitly approved.
 
 ## Verification status

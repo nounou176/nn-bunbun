@@ -1,0 +1,122 @@
+{
+  "fixtureFormatVersion": "0.1.0",
+  "moduleId": "reverse_trainer",
+  "moduleVersion": "0.1.0",
+  "mediaPolicy": "TEXT_ONLY",
+  "cases": [
+    {
+      "id": "reverse_trainer_natural_phrase_groups",
+      "category": "EXPECTED",
+      "input": {
+        "targetId": "target_inu",
+        "reviewedReading": "いぬ",
+        "reviewedMeaningVi": "chó",
+        "practiceText": "犬を探してください。",
+        "slotId": "listen_request",
+        "primitive": "LISTEN"
+      },
+      "expectedProperties": [
+        "Phrase analysis keeps 犬を and 探してください as useful natural groups.",
+        "Reading and Vietnamese meaning preserve the reviewed input.",
+        "LISTEN returns no accepted text, arrange segments, or distractors."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "REFERENCE_FIELDS_PRESERVED",
+        "PRIMITIVE_SHAPE_PRESERVED",
+        "WITHIN_BUDGETS"
+      ]
+    },
+    {
+      "id": "reverse_trainer_reverse_recall_type",
+      "category": "EXPECTED",
+      "input": {
+        "targetId": "target_te_kudasai",
+        "reviewedPattern": "〜てください",
+        "reviewedMeaningVi": "hãy làm...",
+        "slotId": "type_request",
+        "primitive": "TYPE",
+        "normalizationRules": ["UNICODE_NFKC", "TRIM"]
+      },
+      "expectedProperties": [
+        "The practice intent leads from a Vietnamese request toward one permitted Japanese answer.",
+        "Accepted text uses the reviewed pattern and contains no unrelated variant.",
+        "Distractors and arrange segments remain empty for TYPE."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "REFERENCE_FIELDS_PRESERVED",
+        "PRIMITIVE_SHAPE_PRESERVED",
+        "WITHIN_BUDGETS"
+      ]
+    },
+    {
+      "id": "reverse_trainer_arrange_reconstruction",
+      "category": "EXPECTED",
+      "input": {
+        "targets": ["target_inu", "target_te_kudasai"],
+        "slotId": "arrange_find_dog",
+        "primitive": "ARRANGE",
+        "acceptedResponseJa": "犬を探してください。"
+      },
+      "expectedProperties": [
+        "Arrange segments form natural phrase-sized units.",
+        "Concatenating the ordered segments reconstructs the accepted Japanese response exactly.",
+        "Code, not the module, assigns token IDs and seeded display order."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "ARRANGE_RECONSTRUCTS_ANSWER",
+        "PRIMITIVE_SHAPE_PRESERVED"
+      ]
+    },
+    {
+      "id": "reverse_trainer_rejects_unverified_reference_claims",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "targetId": "target_te_kudasai",
+        "referenceFields": {
+          "reading": null,
+          "meaningVi": "hãy làm...",
+          "jlptLevel": null,
+          "kanjiEtymology": null
+        }
+      },
+      "mustNot": [
+        "Invent a JLPT level, exam frequency, reading, kanji decomposition, or etymology.",
+        "Claim that model-generated analysis is authoritative reference data.",
+        "Add romaji or a long exam-coaching section."
+      ],
+      "assertions": [
+        "REFERENCE_FIELDS_PRESERVED",
+        "NO_DEFERRED_FEATURES",
+        "SAFE_PLAIN_TEXT"
+      ]
+    },
+    {
+      "id": "reverse_trainer_rejects_plan_and_answer_mutation",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "slotId": "choose_meaning",
+        "primitive": "CHOOSE",
+        "difficulty": "GUIDED",
+        "acceptedResponseJa": "犬",
+        "normalizationRules": ["UNICODE_NFKC", "TRIM"],
+        "permitsDistractors": true
+      },
+      "mustNot": [
+        "Change CHOOSE to TYPE, reorder the slot, or change its difficulty.",
+        "Return a distractor that normalizes to 犬.",
+        "Invent option IDs, transitions, attempts, scaffolds, or feedback."
+      ],
+      "assertions": [
+        "NO_PLAN_MUTATION",
+        "NO_DISTRACTOR_COLLISION",
+        "PRIMITIVE_SHAPE_PRESERVED"
+      ]
+    }
+  ]
+}

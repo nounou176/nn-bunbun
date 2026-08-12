@@ -8,9 +8,11 @@ This directory stores live and completed ExecPlans created according to
 Milestones 1 through 6 are complete. The Milestone 7 Structured Outputs lesson
 compiler ExecPlan is Proposed. D-023 confirms the supplied six-GPT set and
 accepts the Story Sheet + Story Coach + Reverse Trainer responsibility map.
-Their typed adaptations, text-only evaluation fixtures, versions, and user
-approval are still required before real provider/prompt implementation and
-final plan approval; binary examples are style references only.
+D-024 approves Prompt Adaptation Pack 0.1.0: its typed contract, exact prompt
+fragments/hashes, composition order, and fifteen text-only evaluation fixtures
+under `docs/ai-modules/`. Phase 0 is complete, but D-022, the ExecPlan,
+model/reasoning setting, and environment-variable name still require approval
+before implementation. Binary examples are style references only.
 
 ## Index
 

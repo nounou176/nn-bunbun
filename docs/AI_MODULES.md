@@ -6,13 +6,15 @@ Six user-owned Custom GPT source packages were captured locally on 2026-08-12,
 and the user confirmed that they are the complete intended set. This document
 is the durable inventory and routing boundary for those sources and Bunbun's
 earlier conceptual modules. The Milestone 7 responsibility map is accepted,
-but no prompt-module adaptation or version has been approved or implemented.
+and Prompt Adaptation Pack 0.1.0 is approved. No prompt module has been
+implemented or activated.
 
 The local source library is intentionally excluded from Git under `gpts/`.
-Each selected prompt module remains disabled until its source revision,
-capabilities, knowledge ownership, text evaluation examples, narrow typed
-adaptation, and version are reviewed and explicitly approved. Accepted routing
-does not by itself authorize a prompt implementation.
+Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
+modules are Approved for implementation. They are not implemented or
+runtime-active; no provider or compiler call exists yet. Accepted prompt
+behavior does not by itself approve the remaining provider and compiler-plan
+decisions.
 
 ## Purpose
 
@@ -135,15 +137,15 @@ actually needs the integration.
 
 The `Documented fact` column is supported by current source. Milestone 7 uses
 only the three responsibilities explicitly accepted above. All activation
-states remain disabled until the corresponding typed adaptation, version, and
-text evaluation set pass the readiness gates.
+states accurately distinguish an approved design from an implemented runtime
+module.
 
 | Module ID | Custom GPT / concept | Documented fact | Accepted or deferred Bunbun use | Roadmap owner | Source status | Activation |
 | --- | --- | --- | --- | --- | --- | --- |
-| `story_coach` | Story Coach | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7 | Captured; mapping accepted; adaptation pending | Disabled |
-| `reverse_trainer` | Reverse Trainer | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression | Milestone 7 | Captured; mapping accepted; adaptation pending | Disabled |
+| `story_coach` | Story Coach | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7 | Approved adaptation 0.1.0 | Approved; not implemented |
+| `reverse_trainer` | Reverse Trainer | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression | Milestone 7 | Approved adaptation 0.1.0 | Approved; not implemented |
 | `tutor` | Tutor | Earlier concept only; no standalone GPT exists in the confirmed source set | No separate Milestone 7 module; bounded lesson support is assigned to `story_coach`; runtime explanations remain a later decision | Later runtime opportunity only | Not part of confirmed source set | Not selected |
-| `story_sheet` | Nunu JP Story Sheet | Supplied GPT; creates surreal stories and aligned visual worksheets | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later | Milestone 7 for story content; later for export | Captured; mapping accepted; adaptation pending | Disabled |
+| `story_sheet` | Nunu JP Story Sheet | Supplied GPT; creates surreal stories and aligned visual worksheets | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later | Milestone 7 for story content; later for export | Approved adaptation 0.1.0 | Approved; not implemented |
 | `visual_mnemonic` | Visual Mnemonic | Nunu JP Visual Mnemonic source and visual examples captured locally | Produce a mnemonic concept or image prompt for an explicitly requested kanji aid; never establish authoritative decomposition | Later opportunity, after reference/image decisions | Captured; review pending | Disabled |
 | `anki_content` | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg` | Later opportunity | Captured; mapping review pending | Disabled |
 | `jlpt_assessment` | JLPT assessment generator | Earlier concept only; no standalone GPT exists in the confirmed source set | Deferred capability requiring a later reference, content, and routing decision | Later opportunity | Not part of confirmed source set | Not selected |
@@ -160,9 +162,9 @@ Tutor module in this composition.
 | Validate and normalize learner input | Deterministic server code | None |
 | Resolve readings and reference records | Deterministic reviewed reference provider | None |
 | Select scene/scenario compatibility, primitive sequence, difficulty progression, IDs, transitions, and budgets | Deterministic compiler profile | None |
-| Author premise, story, and setting/context | Structured lesson request | `story_sheet`, after adaptation/version approval |
-| Author phrase analysis, reverse recall, and practice content | Structured lesson request | `reverse_trainer`, after adaptation/version approval |
-| Author bounded hints, scaffold wording, pedagogical cadence, and feedback | Structured lesson request | `story_coach`, after adaptation/version approval; code enforces slots and budgets |
+| Author premise, story, and setting/context | Structured lesson request | Approved `story_sheet@0.1.0`; implementation pending |
+| Author phrase analysis, reverse recall, and practice content | Structured lesson request | Approved `reverse_trainer@0.1.0`; implementation pending |
+| Author bounded hints, scaffold wording, pedagogical cadence, and feedback | Structured lesson request | Approved `story_coach@0.1.0`; implementation pending; code enforces slots and budgets |
 | Produce LessonContentDraft | One composed Responses API request | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach` |
 | Repair one invalid draft | One bounded repair request | Same module versions plus stable validator diagnostics |
 | Normalize and validate LessonManifest | Deterministic contracts and runtime capability gate | None |
@@ -175,6 +177,33 @@ manifest provenance. A module that is missing, unapproved, incompatible with
 the target, or outside its roadmap owner is omitted. The compiler must fail
 clearly if an approved lesson profile requires a module that is unavailable;
 it must not substitute an undocumented generic prompt.
+
+## Approved Milestone 7 adaptation pack
+
+The user approved the 0.1.0 pack on 2026-08-12 under D-024. It is stored under
+`docs/ai-modules/`:
+
+- `CONTRACT.md` defines the code-owned input envelope, three disjoint model
+  contribution types, deterministic validators, failure behavior, and privacy
+  boundary.
+- `story-sheet-0.1.0.md`, `reverse-trainer-0.1.0.md`, and
+  `story-coach-0.1.0.md` record source behavior retained/removed, exact typed
+  ownership, source identity, and approved prompt hashes.
+- `prompts/` contains the three exact lean prompt fragments.
+- `evals/` contains fifteen text-only fixtures: three expected and two rejected
+  behavior cases per module.
+
+The approved composition order is compiler envelope, Story Sheet, Reverse
+Trainer, Story Coach, then the strict output schema. This order lets story
+context inform practice and lets coaching copy refer to both while keeping the
+three output sections disjoint. It remains one structured request.
+
+The captured config SHA-256 values are the Bunbun source-revision identities.
+Unknown GPT-editor model, capability, action, and version-history fields are
+not inherited. The M7 adaptations require no tools and exclude every image and
+the APKG. Any prompt behavior edit requires an appropriate module version
+change, an updated content hash, evaluation rerun, and explicit approval before
+activation.
 
 ## Source package required for each module
 
@@ -319,8 +348,10 @@ reference truth.
 
 A module is `Approved` only when all of the following are true:
 
-- its source configuration is complete and the intended revision is identified;
-- every knowledge file has ownership/license and privacy review;
+- its reviewed source snapshot is identified and missing editor fields are
+  either supplied or explicitly excluded from inheritance;
+- every knowledge file used by the module has ownership/license and privacy
+  review, while excluded style examples remain outside prompts and evals;
 - its Bunbun purpose, inputs, outputs, exclusions, and roadmap owner are clear;
 - representative success and failure examples exist;
 - deterministic validators and fallback behavior are defined;
@@ -328,17 +359,16 @@ A module is `Approved` only when all of the following are true:
 - its API data disclosure is explicit; and
 - the user approves the Bunbun adaptation and version.
 
-The source-to-module mapping is accepted. Milestone 7 real provider/prompt work
-must still wait until `story_sheet`, `reverse_trainer`, and `story_coach` pass
-these gates. Contract, persistence, and fake-provider plumbing may be designed,
-but it must not invent missing pedagogical behavior or transfer deterministic
-game sequencing to a prompt.
+The source-to-module mapping and Prompt Adaptation Pack 0.1.0 are accepted
+under D-023 and D-024. The three selected modules meet the design-level
+readiness gate and are Approved for implementation, but remain inactive until
+the provider/compiler implementation is separately approved and completed.
+Implementation must not invent missing pedagogical behavior or transfer
+deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Define narrow typed adaptations for `story_sheet`, `reverse_trainer`, and
-`story_coach`; collect their missing source revision/capability and ownership
-metadata; author text-only success/failure evaluation fixtures; assign module
-versions and content hashes; and present the complete adaptations for user
-approval. Keep Visual Mnemonic and both Anki workflows captured but defer their
-porting until their roadmap owner is active.
+Decide proposed D-022, the Milestone 7 ExecPlan, the model/reasoning setting,
+and the environment-variable name before code implementation. Prompt
+Adaptation Pack 0.1.0 is already approved; keep Visual Mnemonic and both Anki
+workflows deferred.

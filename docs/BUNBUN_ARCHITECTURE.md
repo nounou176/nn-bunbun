@@ -198,9 +198,10 @@ The compiler is a pipeline, not a runtime game programmer:
 
 1. Normalize the learner's input.
 2. Match targets to deterministic linguistic references where possible.
-3. Select a compatible scene and scenario template from catalogs.
-4. Ask AI for a structured interaction sequence using only allowed identifiers
-   and primitive types.
+3. Select a compatible scene, scenario template, primitive sequence,
+   difficulty progression, candidate truth, and authored content slots.
+4. Ask AI to fill the structured story, practice, scaffold, and feedback text
+   slots without changing the deterministic plan.
 5. Validate the response against the strict schema.
 6. Validate referential integrity, reachability, target coverage, and budgets.
 7. Enrich accepted Japanese lines with cacheable audio references.
@@ -247,12 +248,19 @@ this is the complete intended set and accepts the Milestone 7 mapping: Story
 Sheet owns premise/story/setting content, Story Coach owns bounded hint,
 scaffold, pedagogical-cadence, and feedback content, and Reverse Trainer owns
 phrase analysis, reverse recall, and practice content. One composed structured
-request uses these responsibilities only after their typed adaptations and
-versions are approved. Deterministic code continues to own primitive order,
-difficulty progression, IDs, transitions, attempt/timing limits, and hard
-budgets. No source has an approved Bunbun adaptation yet, so the three selected
-prompt modules remain disabled. A missing or unapproved behavior must not be
-replaced by an undocumented generic prompt.
+request uses the typed adaptations and versions approved by D-024.
+Deterministic code continues to own primitive order, difficulty progression,
+IDs, transitions, attempt/timing limits, and hard budgets. The three selected
+prompt modules are Approved for implementation but are not implemented or
+runtime-active. A missing or unapproved behavior must not be replaced by an
+undocumented generic prompt.
+
+The D-024-approved adaptation pack at `docs/ai-modules/` makes this boundary
+typed: the compiler envelope owns every runtime and reference decision; Story
+Sheet, Reverse Trainer, and Story Coach own disjoint contribution fields in one
+LessonContentDraft. Exact approved prompt fragments, content hashes, and fifteen
+text-only evaluation fixtures are versioned together. Pack approval does not
+activate a provider or approve the remaining Milestone 7 decisions.
 
 The captured images and APKG are local style/output examples only. They are not
 linguistic references, lesson-content sources, or evaluation fixtures, and the

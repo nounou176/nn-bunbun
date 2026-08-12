@@ -329,6 +329,9 @@ Decision resolved:
 - D-023 confirms the complete six-GPT source set and assigns Milestone 7
   lesson-authoring responsibilities while keeping primitive sequence and
   difficulty progression deterministic.
+- D-024 approves Prompt Adaptation Pack 0.1.0, its shared contribution
+  contract, three exact prompt fragments and hashes, fixed composition order,
+  privacy/failure boundaries, and fifteen text-only fixtures.
 
 Planning note:
 
@@ -349,11 +352,18 @@ Tutor or JLPT assessment GPT. The accepted M7 composition uses Story Sheet for
 premise/story/setting, Story Coach for bounded hints/scaffolds/pedagogical
 cadence/feedback, and Reverse Trainer for phrase analysis/reverse recall/
 practice content. Code deterministically owns primitive order, difficulty, IDs,
-transitions, and hard budgets. The three prompt modules still require typed
-adaptations, text-only evaluation fixtures, versioning, and user approval
-before provider/prompt work. Supplied images and the APKG are style/output
-examples only, not content, reference data, or evaluation fixtures. Visual
-Mnemonic and both Anki workflows remain deferred.
+transitions, and hard budgets. D-024 closes the typed-adaptation, versioning,
+text-only-evaluation, and user-approval phase 0 gate: all three 0.1.0 modules
+are Approved for implementation but are not runtime-active. Supplied images
+and the APKG are style/output examples only, not content, reference data, or
+evaluation fixtures. Visual Mnemonic and both Anki workflows remain deferred.
+
+The approved `docs/ai-modules/` pack provides the shared typed
+contribution contract, exact 0.1.0 prompt fragments and hashes, disjoint module
+ownership, deterministic failure/privacy rules, fixed composition order, and
+fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. The
+pack does not activate the modules or satisfy the remaining D-022, ExecPlan,
+model, reasoning-setting, and environment-name approval gates.
 
 Planned scope:
 

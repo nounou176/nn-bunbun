@@ -1,0 +1,121 @@
+{
+  "fixtureFormatVersion": "0.1.0",
+  "moduleId": "story_coach",
+  "moduleVersion": "0.1.0",
+  "mediaPolicy": "TEXT_ONLY",
+  "cases": [
+    {
+      "id": "story_coach_indirect_hint_without_answer",
+      "category": "EXPECTED",
+      "input": {
+        "stepId": "find_dog",
+        "primitive": "CLICK_OBJECT",
+        "acceptedCandidateId": "dog",
+        "acceptedTextJa": "犬",
+        "acceptedMeaningVi": "chó",
+        "hintRevealLevel": "INDIRECT"
+      },
+      "expectedProperties": [
+        "The instruction asks for one immediate world action.",
+        "The hint directs attention broadly without naming 犬, chó, or dog.",
+        "Japanese remains the primary cue."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "NO_EARLY_ANSWER_REVEAL",
+        "WITHIN_BUDGETS"
+      ]
+    },
+    {
+      "id": "story_coach_direct_meaning_scaffold",
+      "category": "EXPECTED",
+      "input": {
+        "stepId": "find_dog",
+        "scaffoldSlotId": "show_dog_meaning",
+        "scaffoldKind": "SHOW_MEANING",
+        "revealLevel": "DIRECT",
+        "permitsVietnameseText": true,
+        "acceptedMeaningVi": "chó"
+      },
+      "expectedProperties": [
+        "The direct scaffold may reveal the reviewed Vietnamese meaning chó.",
+        "The module does not alter afterAttempt or create another scaffold.",
+        "Copy remains short enough to resume interaction immediately."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "OUTCOME_LANGUAGE_CORRECT",
+        "NO_PLAN_MUTATION",
+        "WITHIN_BUDGETS"
+      ]
+    },
+    {
+      "id": "story_coach_three_feedback_outcomes",
+      "category": "EXPECTED",
+      "input": {
+        "stepId": "find_dog",
+        "outcomes": ["correct", "incorrect", "assisted"],
+        "supportLocale": "vi",
+        "maxJapaneseCharacters": 80,
+        "maxVietnameseCharacters": 160
+      },
+      "expectedProperties": [
+        "Correct feedback confirms and advances without a lecture.",
+        "Incorrect feedback invites a recoverable retry without punishment.",
+        "Assisted feedback acknowledges help and does not claim unaided success."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "OUTCOME_LANGUAGE_CORRECT",
+        "WITHIN_BUDGETS",
+        "SAFE_PLAIN_TEXT"
+      ]
+    },
+    {
+      "id": "story_coach_rejects_early_answer_leak",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "stepId": "choose_dog",
+        "acceptedTextJa": "犬",
+        "acceptedMeaningVi": "chó",
+        "acceptedCandidateId": "dog",
+        "hintRevealLevel": "INDIRECT"
+      },
+      "mustNot": [
+        "Include 犬, chó, dog, the accepted candidate ID, or an equivalent direct answer in the hint.",
+        "Turn an indirect hint into SHOW_MEANING, SHOW_READING, or a direct candidate reduction.",
+        "Add an unplanned support level."
+      ],
+      "assertions": [
+        "NO_EARLY_ANSWER_REVEAL",
+        "NO_PLAN_MUTATION",
+        "PRIMITIVE_SHAPE_PRESERVED"
+      ]
+    },
+    {
+      "id": "story_coach_rejects_source_and_runtime_regression",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "stepId": "type_request",
+        "primitive": "TYPE",
+        "difficulty": "INDEPENDENT",
+        "maximumAttempts": 2,
+        "displayMs": 900,
+        "scaffoldSlotIds": ["show_pattern"]
+      },
+      "mustNot": [
+        "Change primitive, difficulty, maximumAttempts, displayMs, slot IDs, transitions, or completion behavior.",
+        "Produce a five-minute schedule, self-rating checklist, kanji writing drill, mnemonic, JLPT claim, romaji table, worksheet, or image prompt.",
+        "Infer mastery or shame an incorrect learner response."
+      ],
+      "assertions": [
+        "NO_PLAN_MUTATION",
+        "NO_DEFERRED_FEATURES",
+        "OUTCOME_LANGUAGE_CORRECT",
+        "SAFE_PLAIN_TEXT"
+      ]
+    }
+  ]
+}

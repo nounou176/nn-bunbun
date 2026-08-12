@@ -920,6 +920,65 @@ lesson provider and cannot be promoted into compiler/reference/evaluation data.
 A later visual or Anki workflow may use them only as style/output examples
 after its own review and approval.
 
+### D-024 — Approve Milestone 7 Prompt Adaptation Pack 0.1.0
+
+- Date: 2026-08-12
+- Status: Accepted
+- Affects: AI modules, compiler prompt composition, evaluation fixtures,
+  provenance, privacy
+
+Context:
+
+D-023 accepted the complete supplied six-GPT source set and assigned the three
+Milestone 7 authoring responsibilities. The repository now contains a shared
+typed contribution contract, three exact prompt fragments with content hashes,
+and fifteen separately authored text-only evaluation fixtures. These artifacts
+needed explicit approval before any provider or compiler implementation could
+use them.
+
+Decision:
+
+Approve `docs/ai-modules/` as Prompt Adaptation Pack version `0.1.0`, including
+the shared contract, failure and validation boundaries, privacy policy, fixed
+composition order, and evaluation fixtures.
+
+Approve these exact prompt-module versions and SHA-256 content hashes:
+
+- `story_sheet@0.1.0`:
+  `61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def`;
+- `reverse_trainer@0.1.0`:
+  `301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b`;
+- `story_coach@0.1.0`:
+  `73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7`.
+
+Compose one structured request in this fixed order: code-owned compiler
+envelope, Story Sheet, Reverse Trainer, Story Coach, then the strict output
+schema. The modules remain disjoint contributions rather than independent
+agents or calls. Code continues to own IDs, primitive sequence, difficulty,
+candidate and answer truth, attempts, transitions, timing, budgets,
+normalization, and final validation.
+
+The captured `config.md` hashes identify the reviewed source snapshots.
+Unknown GPT-editor model, capability, action, and version-history values are
+not inherited. The approved modules use no tools. Supplied images and the APKG
+remain local style/output examples only and are excluded from prompts,
+reference/content inputs, and evaluation fixtures.
+
+If any required module returns `CANNOT_COMPLY`, the whole draft fails. The
+compiler may attempt at most one bounded repair using the same module versions
+and deterministic diagnostics; it must not use an undocumented generic
+fallback. Any prompt behavior change requires an appropriate semantic version
+change, a new content hash, rerunning the relevant evaluations, and explicit
+approval before activation.
+
+Consequences:
+
+Milestone 7 phase 0 is complete and these three modules are Approved for
+implementation. They are not runtime-active: no provider adapter, compiler, or
+API call has been implemented or enabled by this decision. Proposed D-022, the
+Milestone 7 ExecPlan, the model and reasoning setting, and the environment
+variable name remain separate approval gates before implementation starts.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

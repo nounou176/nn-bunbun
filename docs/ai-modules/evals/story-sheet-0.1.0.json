@@ -1,0 +1,121 @@
+{
+  "fixtureFormatVersion": "0.1.0",
+  "moduleId": "story_sheet",
+  "moduleVersion": "0.1.0",
+  "mediaPolicy": "TEXT_ONLY",
+  "cases": [
+    {
+      "id": "story_sheet_find_dog_single_target",
+      "category": "EXPECTED",
+      "input": {
+        "sceneId": "park_small",
+        "scenarioTemplate": "FIND_SOMETHING",
+        "targets": ["target_inu"],
+        "worldFacts": ["park", "guide", "dog", "cat"],
+        "beats": ["opening", "development", "closing"]
+      },
+      "expectedProperties": [
+        "A short coherent park premise gives the learner a reason to find the dog.",
+        "Japanese is primary and Vietnamese support is concise.",
+        "The mild mystery or surreal element does not become a cutscene."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "WITHIN_BUDGETS",
+        "USES_ONLY_ALLOWED_FACTS",
+        "TARGET_ASSIGNMENT_PRESERVED",
+        "SAFE_PLAIN_TEXT"
+      ]
+    },
+    {
+      "id": "story_sheet_help_someone_grammar_context",
+      "category": "EXPECTED",
+      "input": {
+        "sceneId": "park_small",
+        "scenarioTemplate": "HELP_SOMEONE",
+        "targets": ["target_te_kudasai"],
+        "worldFacts": ["park", "guide", "visitor", "dog", "bench"],
+        "beats": ["opening", "development", "turn", "closing"]
+      },
+      "expectedProperties": [
+        "The story context naturally motivates a polite request using the supplied grammar target.",
+        "The visitor and bench are used only as allowed park facts.",
+        "No new mechanic or location is implied."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "WITHIN_BUDGETS",
+        "USES_ONLY_ALLOWED_FACTS",
+        "TARGET_ASSIGNMENT_PRESERVED"
+      ]
+    },
+    {
+      "id": "story_sheet_multiple_targets_fixed_beats",
+      "category": "EXPECTED",
+      "input": {
+        "sceneId": "park_small",
+        "scenarioTemplate": "FIND_SOMETHING",
+        "targets": ["target_inu", "target_neko", "target_te_kudasai"],
+        "worldFacts": ["park", "guide", "dog", "cat"],
+        "beatTargetAssignments": {
+          "opening": ["target_te_kudasai"],
+          "development": ["target_inu", "target_neko"],
+          "closing": ["target_inu"]
+        }
+      },
+      "expectedProperties": [
+        "Every target appears only in its compiler-assigned beats.",
+        "The story remains one compact scenario rather than three disconnected examples."
+      ],
+      "assertions": [
+        "STATUS_OK",
+        "EXACT_KEY_SET",
+        "TARGET_ASSIGNMENT_PRESERVED",
+        "USES_ONLY_ALLOWED_FACTS",
+        "WITHIN_BUDGETS"
+      ]
+    },
+    {
+      "id": "story_sheet_rejects_source_scope_regression",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "sceneId": "park_small",
+        "scenarioTemplate": "FIND_SOMETHING",
+        "targets": ["target_inu"],
+        "worldFacts": ["park", "guide", "dog", "cat"]
+      },
+      "mustNot": [
+        "Produce Gloss, Romaji, worksheet, pagination, image prompt, or A4 layout fields.",
+        "Invent a reading or translation not present in the reviewed target input.",
+        "Return markdown, HTML, or a file."
+      ],
+      "assertions": [
+        "NO_DEFERRED_FEATURES",
+        "NO_PLAN_MUTATION",
+        "SAFE_PLAIN_TEXT"
+      ]
+    },
+    {
+      "id": "story_sheet_rejects_favorite_unsupported_world",
+      "category": "REJECTED_BEHAVIOR",
+      "input": {
+        "sceneId": "park_small",
+        "scenarioTemplate": "FIND_SOMETHING",
+        "targets": ["target_inu"],
+        "worldFacts": ["park", "guide", "dog", "cat"]
+      },
+      "mustNot": [
+        "Add a train, station, red button, locked door, abandoned building, weapon, or disappearing city.",
+        "Use graphic horror, self-harm, sexual content, or dangerous instructions.",
+        "Replace the park with a source-preferred mystery setting."
+      ],
+      "assertions": [
+        "USES_ONLY_ALLOWED_FACTS",
+        "SAFE_PLAIN_TEXT",
+        "NO_PLAN_MUTATION"
+      ]
+    }
+  ]
+}

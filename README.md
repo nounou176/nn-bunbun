@@ -139,9 +139,11 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
 - Six user-owned Custom GPT configurations and their local Knowledge assets are
   captured under the Git-ignored `gpts/` source library and confirmed as the
   complete intended set. D-023 accepts the Milestone 7 Story Sheet + Story
-  Coach + Reverse Trainer responsibility map, but their typed adaptations,
-  versions, and text evaluation fixtures remain unapproved, so the prompt
-  modules are still disabled. Supplied images/APKG are style examples only.
+  Coach + Reverse Trainer responsibility map. D-024 approves Prompt Adaptation
+  Pack 0.1.0 under `docs/ai-modules/`, including the typed contract, exact
+  prompt fragments/hashes, and fifteen text-only fixtures. The modules are
+  Approved for implementation but remain inactive because no compiler/provider
+  is implemented. Supplied images/APKG are style examples only.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.
 - The JavaScript build contains the WebGPU-capable Three.js renderer and emits
