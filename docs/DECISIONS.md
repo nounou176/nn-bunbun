@@ -740,6 +740,122 @@ cross-device sync, analytics, canonical cross-lesson mastery, and adaptive
 scheduling remain deferred. This decision resolves O-003, O-007, and O-011 for
 the local persistence milestone.
 
+### D-022 — Compile lessons through durable local jobs and a strict draft boundary
+
+- Date: 2026-08-12
+- Status: Proposed
+- Affects: Compiler, shared contracts, server, SQLite, web client, AI, local
+  configuration
+
+Context:
+
+Milestones 2 through 6 prove the strict playable LessonManifest 0.1.0,
+deterministic runtime, complete fixed primitive vocabulary, and local evidence
+boundary using authored fixtures. Milestone 7 must accept learner vocabulary
+and grammar targets, use AI only to propose lesson content, reject anything
+that is not playable, persist an immutable revision, and let an already
+compiled lesson play without another model call.
+
+The playable manifest cannot be sent directly as an OpenAI Structured Outputs
+schema. It intentionally omits optional properties, while Structured Outputs
+requires every field to be required and represents optional values with null.
+The current server uses node:http and synchronous server-owned SQLite; adding a
+web framework, external queue, second database, or model call in gameplay would
+expand the milestone without protecting its outcome. The existing catalog also
+contains only a small technical park and metadata-only reference records, so it
+cannot support an unbounded claim about arbitrary Japanese targets or licensed
+external linguistic data.
+
+The original Bunbun source names Story Coach, Reverse Trainer, Visual Mnemonic,
+Tutor, Anki content generator, and JLPT assessment generator, but it does not
+contain their actual Custom GPT configurations. `docs/AI_MODULES.md` records
+that source gap and keeps every module disabled until its source, examples,
+adaptation, version, and routing are reviewed and approved.
+
+Decision:
+
+For Milestone 7, retain node:http and the single local Node process. Add a
+versioned LessonCompilation 0.1.0 API contract and durable SQLite compilation
+jobs. POST creates an idempotent job and returns promptly; GET exposes its
+queued, running, succeeded, or failed state. One in-process worker runs at most
+one job at a time. A process restart marks an interrupted running job failed
+and never silently repeats a potentially billable model call. Successful
+compiled packages are stored as immutable lesson revisions and may be listed,
+loaded, validated, and played without OpenAI being available.
+
+Normalize one to three vocabulary or grammar targets deterministically using
+Unicode NFKC, trimming, controlled whitespace collapse, exact duplicate
+removal, stable ordering, closed size limits, and plain-text safety checks.
+Kanji targets remain outside this milestone. Use a small reviewed,
+repository-owned Bunbun Core reference fixture for the technical park. A known
+target receives its reference record; an unknown vocabulary target is accepted
+only when the learner supplies its reading. Grammar patterns may remain
+learner-supplied as permitted by LessonManifest 0.1.0. No external dictionary
+or grammar dataset is imported, and no license claim is invented. O-009 is
+resolved only for this technical compiler slice; production reference-provider
+selection remains deferred.
+
+Select the existing park_small runtime profile and a compatible initial
+scenario deterministically before asking AI for content. The model receives
+only normalized targets, a compact allowlist of reviewed local world IDs,
+primitive capabilities, quality budgets, a versioned compiler envelope, and
+only the approved prompt modules registered in `docs/AI_MODULES.md`. The
+initial proposal composes Story Coach, Reverse Trainer, and Tutor in one
+structured lesson request; it does not run independent agents. A required
+module that remains missing or unapproved fails clearly rather than being
+replaced by an undocumented generic prompt. The model cannot invent assets,
+mechanics, paths, URLs, or executable behavior.
+
+Use the official OpenAI JavaScript SDK and Responses API with strict Structured
+Outputs through a separate all-required LessonContentDraft 0.1.0 schema. The
+proposed initial model is `gpt-5.6-terra` with `reasoning.effort` set to
+`medium`, because current official OpenAI documentation identifies Terra as
+the balance of intelligence and cost and confirms Responses and Structured
+Outputs support. Use `text.format`, not JSON mode or function calling, because
+the desired result is a structured response rather than a model-triggered
+tool. Record the requested model, returned model identifier, response ID,
+participating prompt-module IDs and versions, usage metadata, and normalized
+validation diagnostics; do not persist hidden reasoning or a provider
+credential.
+
+The model-facing draft is never playable. A pure deterministic normalizer
+removes null optionals, assigns backend-owned identifiers, timestamps,
+revision, seed, provenance, reference versions, and technical audio metadata,
+then runs the existing structural and semantic package validators plus the
+same runtime-capability gate used by the browser. At most two OpenAI Responses
+calls are allowed per job: the initial draft and one bounded retry using stable
+validation diagnostics. Refusal, unsafe input, missing configuration, and
+unrecoverable provider errors fail visibly without a silent model fallback.
+No invalid draft or partially normalized package is published.
+
+The server reads the provider credential only from an environment variable
+named `OPENAI_API_KEY`. This name still requires explicit user confirmation
+before implementation or use. The model, compiler envelope, and approved
+prompt-module versions remain code-owned for this technical milestone rather
+than adding another configuration variable. The browser never receives the
+key.
+
+The web client gains a small pre-game compiler view for entering targets,
+observing job state, and selecting a previously compiled lesson. Once a
+validated package is selected, the existing world-dominant runtime and
+persistence flow remain authoritative. Compiler-generated utterances may use
+the temporary browser SpeechSynthesis adapter through validated technical audio
+metadata until Milestone 8; this does not claim cached or production audio.
+
+Consequences:
+
+Milestone 7 can prove the real AI-to-deterministic-runtime boundary without a
+backend framework, external worker, production content library, external
+reference license, TTS pipeline, or runtime LLM. Successful results are cached
+and reproducible enough to diagnose through explicit compiler, prompt,
+catalog, reference, and model metadata, while exact model output is not assumed
+to be deterministic. The local SQLite schema, server APIs, shared contracts,
+web boot flow, capability validator, and manual failure matrix all grow. Model
+quality and Japanese naturalness still require reviewed examples and manual
+acceptance because schema and semantic validators cannot prove them. O-006 and
+the initial text-model portion of O-010 are resolved only if this proposal is
+accepted; TTS model, voice, and cache choices remain owned by Milestone 8.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

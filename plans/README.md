@@ -5,14 +5,17 @@ This directory stores live and completed ExecPlans created according to
 
 ## Current status
 
-Milestones 1 through 5 are complete. Milestone 6 implementation is ready for
-manual browser acceptance under its persistence ExecPlan.
+Milestones 1 through 6 are complete. The Milestone 7 Structured Outputs lesson
+compiler ExecPlan is Proposed. Its six Custom GPT concepts are inventoried, but
+Story Coach, Reverse Trainer, and Tutor source capture and approval are required
+before real provider/prompt implementation and final plan approval.
 
 ## Index
 
 | Plan | Status | Outcome |
 | --- | --- | --- |
-| 2026-08-12-local-evidence-sqlite-persistence.md | Implemented; awaiting manual acceptance | Persist evidence and resume one local lesson safely through server-owned SQLite |
+| 2026-08-12-structured-lesson-compiler.md | Proposed | Capture approved lesson-authoring modules, then compile learner vocabulary and grammar into a strictly validated playable local lesson |
+| 2026-08-12-local-evidence-sqlite-persistence.md | Complete | Persist evidence and resume one local lesson safely through server-owned SQLite |
 | 2026-08-12-complete-mvp-primitive-runtime.md | Complete | Played one authored lesson through all eight fixed MVP primitives |
 | 2026-08-11-first-deterministic-learning-loop.md | Complete | Play one authored LISTEN → CLICK_OBJECT → CHOOSE lesson deterministically |
 | 2026-08-11-isometric-runtime-foundation.md | Complete | Walk through and inspect one reusable isometric park runtime |

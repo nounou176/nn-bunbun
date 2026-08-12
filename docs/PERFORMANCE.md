@@ -312,8 +312,9 @@ must not block the render loop or claim an unacknowledged interaction as saved.
 The 2026-08-12 production build after Milestone 6 implementation contains a
 1,273.78 kB minified JavaScript chunk (351.53 kB gzip), 12.42 kB CSS (3.17 kB
 gzip), the 5.89 kB local glTF fixture, and the 0.52 kB HTML entry. Vite's known
-large-chunk warning remains. Browser save latency and visible-stall measurements
-remain pending user validation and must not be inferred from server unit tests.
+large-chunk warning remains. Milestone 6 received qualitative browser
+acceptance on 2026-08-12, but save latency, visible-stall measurements, and
+named-device details were not supplied and must not be inferred.
 
 Diagnostics should not appear in the normal learner UI.
 

@@ -3,10 +3,10 @@
 ## Status
 
 This document defines the approved architectural direction. Milestones 1
-through 5 are implemented and manually accepted. Milestone 6 local evidence,
-SQLite, and safe-resume implementation exists and awaits manual browser
-acceptance. Compiler, cached audio, and production asset boundaries remain
-planned until their roadmap milestones.
+through 6 are implemented and manually accepted: the workspace, contracts,
+technical runtime, complete eight-primitive executor, and local evidence/
+safe-resume boundary all exist locally. Compiler, cached audio, and production
+asset boundaries remain planned until their roadmap milestones.
 
 ## Architectural goals
 
@@ -238,6 +238,16 @@ Existing Custom GPT behavior may later be ported into versioned reusable prompt
 modules behind the compiler boundary. It must not be treated as hidden external
 project memory or copied into separate services by default.
 
+`docs/AI_MODULES.md` is the source-capture and routing registry for these
+behaviors. As of 2026-08-12, only the six conceptual names are documented; no
+exact GPT editor configuration, knowledge file, example set, or approved
+Bunbun adaptation has been captured. All six modules therefore remain disabled.
+Story Coach, Reverse Trainer, and Tutor are proposed inputs to the Milestone 7
+lesson-authoring request, but that proposal cannot become a prompt
+implementation until the source configurations are reviewed, versioned, and
+approved. A missing module must not be replaced by an undocumented generic
+prompt.
+
 ## Data and persistence
 
 SQLite is the approved local/MVP persistence technology. The initial data model
@@ -363,7 +373,9 @@ deserializing application objects. It clears TYPE drafts, normalizes interrupted
 audio/movement, retains feedback pending action, active time, carry, and GIVE
 transfers, and never replays evidence. The local data panel exposes resume
 preference, conservative non-mastery summary, counts, and confirmed deletion.
-See EVIDENCE_PERSISTENCE.md. Manual browser acceptance remains pending.
+See EVIDENCE_PERSISTENCE.md. The user's explicit 2026-08-12 approval closes
+this boundary qualitatively; no numeric persistence or renderer measurements
+are inferred.
 
 ## API principles
 

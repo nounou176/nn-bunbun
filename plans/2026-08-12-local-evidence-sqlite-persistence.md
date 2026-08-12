@@ -1,9 +1,9 @@
 # Persist local evidence and resume safe lesson boundaries
 
-Status: Implemented; awaiting manual acceptance
+Status: Complete
 Owner: Codex and user
 Created: 2026-08-12
-Last updated: 2026-08-12 12:18 Asia/Ho_Chi_Minh
+Last updated: 2026-08-12 12:35 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -479,11 +479,13 @@ results.
 - [x] 2026-08-12 12:18 — Implement milestone 6: local resume preference,
   progress/count panel, privacy copy, two-step confirmed reset, persistence
   failure control, and privacy-safe CLI summary.
-- [x] 2026-08-12 12:18 — Implement milestone 7 static work: 55 focused tests,
+- [x] 2026-08-12 12:18 — Implement Milestone 6 static work: 55 focused tests,
   schema drift, typecheck, lint, format, production build, durable
   documentation, and the manual handoff matrix all pass or are prepared.
-- [ ] Record only user-reported manual results and close Milestone 6 after
-  explicit acceptance.
+- [x] 2026-08-12 12:35 — User explicitly responded `DUYỆT MILESTONE 6`,
+  accepting the supplied browser matrix as a whole. No per-scenario notes,
+  screenshots, named-device details, persistence latency, or numeric renderer
+  measurements were supplied, so none are reconstructed.
 
 ## Surprises and discoveries
 
@@ -660,12 +662,12 @@ Run from `/home/nunu/Desktop/nnlab/nn-bunbun` after `nvm use` with Node.js
 
 | Scenario | Tester | Date | Result | Evidence or notes |
 | --- | --- | --- | --- | --- |
-| Durable create, reload, resume, and completion | Pending | Pending | Not run | Implementation ready; awaiting user validation |
-| Interrupted audio, movement, feedback, and forms | Pending | Pending | Not run | Implementation ready; awaiting user validation |
-| Idempotent retry and stale-tab conflict | Pending | Pending | Not run | Implementation ready; awaiting user validation |
-| Carry/transfer world reconstruction | Pending | Pending | Not run | Implementation ready; awaiting user validation |
-| Privacy, target signal, and confirmed reset | Pending | Pending | Not run | Implementation ready; awaiting user validation |
-| Full M5 renderer/gameplay regression | Pending | Pending | Not run | Implementation ready; awaiting user validation |
+| Durable create, reload, resume, and completion | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
+| Interrupted audio, movement, feedback, and forms | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
+| Idempotent retry and stale-tab conflict | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
+| Carry/transfer world reconstruction | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
+| Privacy, target signal, and confirmed reset | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
+| Full M5 renderer/gameplay regression | User | 2026-08-12 | Accepted overall | Included in the user's explicit Milestone 6 approval; no scenario-level notes supplied |
 
 ## Recovery and compatibility
 
@@ -741,8 +743,12 @@ confirmed deletion. The root test suite passes all 55 focused tests; schema
 drift, typecheck, lint, formatting, and the production build pass. Docker is
 not applicable because D-015 intentionally keeps Dockerfiles absent.
 
-The plan remains open only for user-run browser acceptance. No reload/resume,
-server-restart, multi-tab conflict, deletion/privacy, renderer, or complete M5
-regression result is claimed until the user reports it. After that report,
-record the actual matrix outcome, update CURRENT_STATE/ROADMAP, change this
-status to Complete, and only then plan Milestone 7.
+The user explicitly approved Milestone 6 on 2026-08-12 after receiving the
+manual reload/resume, server-restart, multi-tab, deletion/privacy, renderer,
+failure, and complete M5 regression matrix. This closes the milestone
+qualitatively. Because the user supplied one overall approval and no
+per-scenario evidence or numeric diagnostics, this outcome does not establish
+measured save latency, a named reference device, broader browser support, or
+scenario-specific observations. Milestone 7 planning may now begin, but its
+compiler decisions and ExecPlan still require discussion and approval before
+implementation.

@@ -4,12 +4,12 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 6 — Evidence and SQLite persistence: In progress.
+Milestone 7 — Lesson compiler with Structured Outputs: Proposed planning;
+awaiting user approval. No compiler implementation has started.
 
 Active ExecPlan:
 
-- plans/2026-08-12-local-evidence-sqlite-persistence.md — Implemented;
-  awaiting manual acceptance
+- plans/2026-08-12-structured-lesson-compiler.md — Proposed
 
 Completed ExecPlans:
 
@@ -18,6 +18,7 @@ Completed ExecPlans:
 - plans/2026-08-11-isometric-runtime-foundation.md
 - plans/2026-08-11-first-deterministic-learning-loop.md
 - plans/2026-08-12-complete-mvp-primitive-runtime.md
+- plans/2026-08-12-local-evidence-sqlite-persistence.md
 
 ## Completed work
 
@@ -186,21 +187,34 @@ Completed ExecPlans:
   production build. The two server tests exercise real temporary SQLite files,
   reopen/migration/idempotency/reset, and the complete HTTP lifecycle over
   loopback. Browser E2E remains manual under D-011.
+- Received the user's explicit `DUYỆT MILESTONE 6` approval on 2026-08-12.
+  This closes the supplied manual acceptance matrix qualitatively. No
+  scenario-level notes, named test device, screenshots, measured persistence
+  latency, or numeric renderer observations were supplied, so none are inferred.
 
 ## Current work
 
-- Milestone 6 implementation and static/integration verification are complete.
-- Await the user's manual browser validation of reload/resume, server restart,
-  stale-tab conflict, carry/transfer reconstruction, deletion/privacy,
-  persistence failure, renderer behavior, and the complete Milestone 5 flow.
+- Milestone 6 is closed with no blocking defect reported in the user's approval.
+- Proposed D-022 and the Milestone 7 ExecPlan define a durable node:http/SQLite
+  compilation job, strict Structured Outputs draft normalization, a small
+  project-authored reference fixture, and validated dynamic lesson loading.
+- Added `docs/AI_MODULES.md` after auditing the original Bunbun source, current
+  repository, known local attachments, and shared memory. It inventories the
+  six named Custom GPT concepts, but their exact configurations are absent, so
+  all six are marked `Missing source` and `Disabled`.
+- Capture, review, version, and approve Story Coach, Reverse Trainer, and Tutor
+  before real Milestone 7 provider/prompt work. Then obtain explicit approval
+  of D-022, the ExecPlan, model/reasoning setting, prompt-module routing, and
+  environment-variable name before implementation.
 
 ## Repository inventory
 
 Present:
 
-- AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md, five completed milestone ExecPlans, and one implemented
-  Milestone 6 ExecPlan awaiting manual acceptance;
+- AGENTS.md, `docs/AI_MODULES.md`, and the required docs/ durable project
+  records;
+- .agent/PLANS.md, six completed milestone ExecPlans, and one proposed
+  Milestone 7 ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -232,7 +246,8 @@ are published at 27355c0 on origin/main. Milestone 3 is committed locally at
 6a44abd. The Milestone 4 runtime/input correction, EXPLORE UX, and closure are
 committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 implementation
 and closure are committed locally at `da0b519`. Milestone 6 implementation is
-not yet committed.
+committed locally at `a69e82a`; its acceptance-closure documentation and the
+proposed Milestone 7 planning records are currently uncommitted.
 
 ## Known issues
 
@@ -250,7 +265,8 @@ not yet committed.
 5. Initial learner level, support locale, scene, scenario, and target set are
    not selected.
 6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
-   progress synchronization, and compiler-draft normalization remain deferred.
+   and progress synchronization remain deferred. Compiler-draft normalization
+   is proposed in D-022 but is not approved or implemented.
 7. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
@@ -262,22 +278,41 @@ not yet committed.
 10. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. It is a temporary technical adapter, not production TTS or
     an offline-audio guarantee.
-11. Milestone 6 browser behavior is not yet manually accepted. Static and
-    integration checks do not establish actual reload/resume, server restart,
-    multi-tab conflict, deletion/privacy, or visible save-latency behavior.
+11. Milestone 6 has only qualitative overall manual approval. There are no
+    scenario-level observations, measured save/reload latency, named device or
+    browser details, or numeric renderer metrics; the approval must not be
+    represented as evidence for those finer-grained claims.
 12. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
+    Milestone 5 rather than guessing behavior.
 13. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
 14. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
+15. The six Custom GPT concept names are documented, but their actual editor
+    configurations, knowledge files, evaluation examples, and approved Bunbun
+    adaptations are not available. Their proposed gameplay mapping is not an
+    accepted implementation specification, and no generic prompt may silently
+    replace the missing source.
 
 ## Next recommended work
 
-Run the supplied Milestone 6 manual browser matrix and report results. Do not
-begin Milestone 7 compiler decisions or implementation before persistence is
-manually accepted and this plan is complete.
+Review the Milestone 7 proposal before implementation:
+
+1. Supply the source packages described in `docs/AI_MODULES.md` for Story
+   Coach, Reverse Trainer, and Tutor without credentials or other secret
+   values.
+2. Review and approve each module's Bunbun adaptation, responsibility,
+   conflicts, data disclosure, evaluation examples, and version.
+3. Approve or revise proposed D-022 and
+   `plans/2026-08-12-structured-lesson-compiler.md`.
+4. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
+   setting.
+5. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
+   provide or store its value in repository documentation or shared memory.
+6. Start implementation only after those decisions and the ExecPlan are
+   explicitly approved.
 
 ## Verification status
 
@@ -320,7 +355,8 @@ manually accepted and this plan is complete.
 - Milestone 5 manual acceptance: passed by explicit user report on 2026-08-12
   for the complete supplied matrix. Acceptance is qualitative because no
   numeric diagnostics or per-scenario notes were supplied.
-- Milestone 6 manual acceptance: pending user browser validation.
+- Milestone 6 manual acceptance: explicitly approved by the user on 2026-08-12
+  as an overall qualitative result.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -336,6 +372,6 @@ manually accepted and this plan is complete.
 - Manual-only browser validation depends on disciplined user reports; the
   Milestone 5 overall PASS provides no retained screenshots, numeric runtime
   measurements, or per-case evidence for later comparison.
-- Persistence correctness and privacy are covered by contracts and focused
-  integration tests, but stale-tab UX, visible save latency, server restart,
-  and local deletion/privacy still require the user's browser validation.
+- The Milestone 6 approval did not include per-scenario evidence or measured
+  responsiveness. Future persistence or runtime changes should re-run targeted
+  manual checks rather than treating this approval as a numeric baseline.

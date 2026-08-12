@@ -5,7 +5,7 @@
 Milestone 6 implements this local persistence boundary under accepted D-021.
 The Node server is the only SQLite owner. The browser uses the same-origin
 `/api/v1` service and never opens the database or stores a second copy in
-browser storage. Manual browser acceptance is still pending.
+browser storage. The user manually accepted Milestone 6 on 2026-08-12.
 
 EvidencePersistence 0.1.0 evolves independently from LessonManifest and
 CatalogSnapshot 0.1.0. Its TypeBox source is

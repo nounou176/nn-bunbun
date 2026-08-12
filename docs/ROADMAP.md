@@ -263,7 +263,7 @@ Exit criteria:
 
 ## Milestone 6 — Evidence and SQLite persistence
 
-Status: In progress
+Status: Complete
 
 Purpose:
 
@@ -287,9 +287,10 @@ privacy-minimized local-only data, confirmed reset, and a conservative
 lesson-scoped signal with no mastery claim. The user approved this direction on
 2026-08-12. Contracts, migrations, SQLite repositories, local API, checkpoint
 restore, durable browser sessions, progress/privacy controls, focused tests,
-and documentation are implemented. The milestone remains In progress until the
-user completes the manual browser reload/resume, conflict, deletion/privacy,
-renderer, and Milestone 5 regression matrix.
+and documentation are implemented. The user explicitly responded
+`DUYỆT MILESTONE 6` on 2026-08-12 after receiving the complete manual browser
+matrix. This closes the milestone qualitatively; no per-scenario notes or
+numeric runtime measurements were supplied or inferred.
 
 Implemented scope:
 
@@ -310,7 +311,7 @@ Exit criteria:
 
 ## Milestone 7 — Lesson compiler with Structured Outputs
 
-Status: Planned
+Status: Next
 
 Purpose:
 
@@ -323,6 +324,25 @@ Decisions required:
 - the initial OpenAI model and prompt-module versions from O-010; and
 - input normalization and compiler retry policy.
 
+Planning note:
+
+Proposed D-022 and
+`plans/2026-08-12-structured-lesson-compiler.md` recommend retaining node:http,
+adding durable single-process SQLite compilation jobs, using a separate strict
+all-required model draft plus deterministic LessonManifest normalization,
+starting with `gpt-5.6-terra` at medium reasoning, and using a small
+project-authored technical reference fixture. The proposal also recommends the
+single environment-variable name `OPENAI_API_KEY`. No compiler implementation
+has started; all of these boundaries await explicit user approval.
+
+`docs/AI_MODULES.md` inventories the six named Custom GPT concepts and records
+that their exact configurations are not present in the repository, known local
+attachments, or shared memory. Capturing, reviewing, versioning, and approving
+Story Coach, Reverse Trainer, and Tutor is a prerequisite to real Milestone 7
+provider/prompt work. Visual Mnemonic, Anki content, and JLPT assessment remain
+deferred. Missing behavior must not be replaced by an undocumented generic
+prompt.
+
 Planned scope:
 
 - vocabulary and grammar request normalization;
@@ -334,7 +354,7 @@ Planned scope:
 - bounded repair or retry behavior;
 - revisioned manifest persistence;
 - useful compiler errors; and
-- reuse of conceptual modules only where required.
+- source capture and composed use of only approved, versioned prompt modules.
 
 Exit criteria:
 
@@ -342,6 +362,8 @@ Exit criteria:
 - Invalid, impossible, unsafe, or uncovered output never reaches the runtime.
 - Cached or already compiled lessons play without an LLM.
 - Model unavailability has a clear recoverable state.
+- Every AI-assisted package records the participating prompt-module IDs and
+  versions.
 
 ## Milestone 8 — Japanese TTS and audio cache
 

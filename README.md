@@ -4,8 +4,8 @@ Bunbun is a local-first, AI-powered Japanese-learning game. The current
 workspace includes the browser and server foundations, executable
 LessonManifest 0.1.0 contracts, a deterministic isometric park runtime, and an
 authored lesson that executes all eight fixed MVP interaction primitives.
-Milestone 6 adds local SQLite evidence, safe reload/resume, and visible local
-data controls; browser acceptance is still pending.
+Milestone 6 adds manually accepted local SQLite evidence, safe reload/resume,
+and visible local data controls.
 
 ## Requirements
 
@@ -120,7 +120,9 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   SQLite evidence repository.
 - packages/contracts — TypeBox schemas, inferred types, Ajv and semantic
   validators, generated JSON Schema, fixtures, tests, and developer inspector.
-- docs — durable product, architecture, gameplay, and state memory.
+- docs — durable product, architecture, gameplay, and state memory;
+  `docs/AI_MODULES.md` inventories Custom GPT source status and approved
+  compiler-module routing.
 - plans — live and completed ExecPlans.
 
 ## Current limitations
@@ -134,11 +136,13 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
 - Local evidence and safe checkpoints persist in SQLite. Accounts, cloud sync,
   AI compilation, production cached TTS, generated media, cross-lesson mastery,
   and scheduling are not implemented.
+- The six Custom GPT concepts are inventoried, but their actual configurations
+  have not been captured or approved; all prompt modules remain disabled.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.
 - The JavaScript build contains the WebGPU-capable Three.js renderer and emits
-  Vite's default large-chunk warning; runtime measurements are recorded during
-  manual acceptance.
+  Vite's default large-chunk warning. Browser acceptance is qualitative;
+  numeric runtime measurements remain unreported.
 - Browser and gameplay validation is manual.
 - Docker, hosting, and domain work are deferred until local release-candidate
   acceptance.
