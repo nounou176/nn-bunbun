@@ -646,6 +646,100 @@ are technical fixtures rather than production content decisions. Persistence,
 AI compilation, cached TTS, final content, and recognition-fallback execution
 remain deferred to their owning decisions or milestones.
 
+### D-021 — Persist local evidence through server-owned SQLite checkpoints
+
+- Date: 2026-08-12
+- Status: Accepted
+- Affects: Shared contracts, server, web runtime, persistence, resume, privacy,
+  learning evidence
+
+Context:
+
+Milestone 5 keeps an idempotent event map and all lesson state in browser
+memory. Reload creates a new session, so completed evidence can be lost and a
+repeated interaction can be recorded again. Milestone 6 must persist evidence,
+recover at safe interaction boundaries, distinguish assisted work, and expose
+a conservative weak-target signal. It must do so before accounts, cloud sync,
+the AI compiler, production analytics, or a final mastery model exist.
+
+SQLite could run behind the Node server or inside the browser through a second
+storage technology. Progress could be reconstructed from events alone or from
+opaque serialized controller state. A broad ORM, browser database, full
+event-sourcing framework, numeric mastery score, or analytics pipeline would
+all expand the milestone beyond its local deterministic requirement.
+
+Decision:
+
+Keep LessonManifest and CatalogSnapshot at 0.1.0. Add a separate versioned
+EvidencePersistence 0.1.0 shared contract for API payloads, persisted evidence,
+session checkpoints, resume summaries, and local progress summaries.
+
+The existing Node server owns one repository-local SQLite file and accesses it
+through Node.js 24's built-in `node:sqlite` DatabaseSync API. Use small ordered
+code-owned migrations with names and checksums; reject a database created by a
+newer schema or one whose applied migration checksum changed. Use foreign keys,
+WAL mode, a busy timeout, explicit transactions, and parameterized statements.
+Do not add an ORM, a browser database, a second persistence dependency, a new
+environment variable, or a backend framework. Tests inject temporary database
+paths; normal local development uses the ignored
+`.bunbun-data/bunbun.sqlite` path.
+
+The backend stores immutable lesson-revision snapshots, play sessions,
+append-only evidence events, one current checkpoint per active session, and a
+small local preference record. A session commit inserts new events and updates
+its checkpoint atomically. Event IDs are unique, a commit ID is idempotent, and
+checkpoint sequence uses optimistic concurrency. A stale tab receives a
+conflict instead of overwriting newer progress. The server validates payloads,
+session/lesson identity, manifest references, checkpoint references, and event
+consistency before committing.
+
+The browser calls same-origin `/api/v1` endpoints. Vite proxies this path to the
+local Node server during development. On boot, an unfinished compatible
+session produces an explicit Resume or Start again choice; it is not silently
+merged. Restart marks the old session abandoned and creates a new one. A
+completed session remains completed after reload. Runtime state is restored
+from a closed checkpoint DTO, not an arbitrary serialized LessonState object.
+Transient audio playback and movement resume at their safe awaiting phase,
+feedback settles idempotently, unsubmitted TYPE text is cleared, and authored
+world carry/transfer presentation is reconstructed from checkpoint data.
+
+Use a single anonymous local profile with no name, email, account, cookie,
+cross-device sync, IP/user-agent capture, or analytics transport. Persist only
+fields needed for resume and learning evidence. In particular, TYPE text is
+never stored in SQLite or embedded in an event ID; closed world/choice/token
+responses may store only authored stable IDs. Store server receipt time beside
+the client occurrence time. Local data remains until the user invokes a
+visible, confirmed Reset local data action; reset deletes lesson/session/event,
+checkpoint, commit, and preference rows but preserves the migration history.
+
+Do not calculate a mastery probability or schedule future lessons in this
+milestone. Derive a lesson-revision-scoped target signal from persisted
+assessment evidence:
+
+- `INSUFFICIENT_EVIDENCE` when there is no meaningful assessment or fewer than
+  two unaided correct results in distinct contexts and no weak event;
+- `NEEDS_REVIEW` after an incorrect or assisted result until it is followed by
+  at least two unaided correct results in distinct contexts; and
+- `DEVELOPING` after that conservative recovery condition is met.
+
+Exposure and heard events never clear weakness, assisted success never counts
+as unaided evidence, lesson completion never depends on this signal, and the
+runtime makes no `MASTERED` claim. Aggregate only within one lesson ID,
+revision, and target ID until a later compiler/reference decision supplies a
+reviewed cross-lesson target identity.
+
+Consequences:
+
+Reload can recover durable progress without adding cloud identity or allowing
+the browser to mutate SQLite directly. Atomic commits and optimistic sequence
+checks make duplicate delivery and multiple tabs explicit. The shared
+persistence contract and migration tests add code and validation weight, while
+synchronous SQLite is acceptable for the small single-process local workload.
+Production authentication, backup, hosting paths, multi-user ownership,
+cross-device sync, analytics, canonical cross-lesson mastery, and adaptive
+scheduling remain deferred. This decision resolves O-003, O-007, and O-011 for
+the local persistence milestone.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -654,13 +748,10 @@ These are acknowledged but not yet ready to decide:
 | --- | --- | --- |
 | O-001 | Initial learner level and support locale | First vertical-slice content |
 | O-002 | First scene, scenario, and target set | Vertical-slice ExecPlan |
-| O-003 | Mastery aggregation and weak-target scheduling policy | Persistence and adaptation milestone |
 | O-006 | Backend HTTP framework and compilation job model | Backend foundation |
-| O-007 | SQLite library, migrations, and browser/server progress ownership | Persistence foundation |
 | O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
 | O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |
 | O-010 | OpenAI model, TTS model, voice policy, and cache storage | AI and audio integration |
-| O-011 | Analytics privacy, retention, and exact metric definitions | Telemetry implementation |
 | O-012 | Deployment model and Docker topology | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should

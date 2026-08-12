@@ -4,9 +4,12 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 6 — Evidence and SQLite persistence: Next, not started.
+Milestone 6 — Evidence and SQLite persistence: In progress.
 
-Active ExecPlan: none.
+Active ExecPlan:
+
+- plans/2026-08-12-local-evidence-sqlite-persistence.md — Implemented;
+  awaiting manual acceptance
 
 Completed ExecPlans:
 
@@ -152,36 +155,73 @@ Completed ExecPlans:
   performance matrix. No numeric diagnostics or per-scenario notes were
   supplied, so the milestone is closed on qualitative acceptance without a
   wider browser/device or numeric runtime claim.
+- Accepted D-021 and added the independent EvidencePersistence 0.1.0 TypeBox
+  contract, inferred types, Ajv validators, and generated JSON Schema artifact
+  without changing LessonManifest or CatalogSnapshot 0.1.0.
+- Removed learner TYPE values and answer-derived content from durable event
+  payloads and IDs. Persisted TYPE reactions retain only correctness, authored
+  target/evidence identity, support state, attempt, active latency, and time.
+- Added built-in Node SQLite ownership with an ignored
+  `.bunbun-data/bunbun.sqlite`, checksummed forward migrations, foreign keys,
+  WAL, busy timeout, immutable lesson fingerprints, one ACTIVE session per
+  lesson revision, append-only events, versioned checkpoints, idempotent commit
+  receipts, preferences, summaries, and confirmed reset.
+- Refactored the Node HTTP process into a testable application and added the
+  closed `/api/v1` session, resume, commit, abandon, progress, preference,
+  storage-summary, and local-data routes with strict JSON validation, 256 KiB
+  body limits, stable errors, and the Vite same-origin development proxy.
+- Added a closed checkpoint serializer and fresh-state restore for attempts,
+  scaffolds, completed steps, feedback action, active time, carry, and GIVE
+  transfers. TYPE drafts clear, interrupted movement/audio normalize safely,
+  and acknowledged evidence is not replayed.
+- Added the browser EvidenceStore port and validated HTTP adapter, ordered
+  persistence gate, explicit Resume/Start again flow, abandonment on restart,
+  durable completion, visible saving/error state, and no silent memory-only
+  fallback.
+- Added a local-only data panel with ASK/AUTO_RESUME/START_NEW preference,
+  counts, conservative `INSUFFICIENT_EVIDENCE`/`NEEDS_REVIEW`/`DEVELOPING`
+  signal, privacy explanation, and two-step permanent deletion. Added
+  `persistenceFailure=1` and a privacy-safe `inspect:storage` command.
+- Passed schema drift, typecheck, lint, formatting, 55 focused tests, and the
+  production build. The two server tests exercise real temporary SQLite files,
+  reopen/migration/idempotency/reset, and the complete HTTP lifecycle over
+  loopback. Browser E2E remains manual under D-011.
 
 ## Current work
 
-- Milestone 5 is complete and has no reported blocking browser defect.
-- Milestone 6 is next but has not started. Discuss O-003 mastery aggregation,
-  O-007 SQLite tooling/progress ownership, and O-011 privacy/retention before
-  approving an ExecPlan or implementing persistence.
+- Milestone 6 implementation and static/integration verification are complete.
+- Await the user's manual browser validation of reload/resume, server restart,
+  stale-tab conflict, carry/transfer reconstruction, deletion/privacy,
+  persistence failure, renderer behavior, and the complete Milestone 5 flow.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md and five completed milestone ExecPlans;
+- .agent/PLANS.md, five completed milestone ExecPlans, and one implemented
+  Milestone 6 ExecPlan awaiting manual acceptance;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
-  deterministic eight-step/eight-primitive lesson executor, audio/world
-  adapters, task-scoped carry presentation, DOM learning shell, diagnostics,
-  and focused tests, plus apps/server;
-- packages/contracts source schemas, inferred types, validators, fixtures,
-  generated JSON Schema artifacts, inspector, and tests; and
+  deterministic eight-step/eight-primitive lesson executor, durable
+  EvidenceStore adapter, safe checkpoint restore, task-scoped carry/transfer
+  reconstruction, local data controls, DOM learning shell, diagnostics, and
+  focused tests;
+- apps/server with health and local persistence APIs, built-in SQLite database
+  lifecycle, checksummed migrations, repositories, privacy-safe inspector, and
+  temporary-database/HTTP integration tests;
+- packages/contracts source schemas for LessonManifest, CatalogSnapshot, and
+  EvidencePersistence, inferred types, validators, fixtures, generated JSON
+  Schema artifacts, inspector, and tests; and
 - package.json and package-lock.json.
 
 Not present:
 
-- database or migration files;
 - production 3D, audio, or image assets;
-- durable evidence, resume, learner identity, mastery, or analytics;
-- AI, compiler-job, TTS, or persistence integrations;
+- learner identity, cross-device sync, mastery, scheduler, or analytics
+  transport;
+- AI, compiler-job, or production TTS integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
@@ -191,7 +231,8 @@ with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
 are published at 27355c0 on origin/main. Milestone 3 is committed locally at
 6a44abd. The Milestone 4 runtime/input correction, EXPLORE UX, and closure are
 committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 implementation
-and closure changes are not yet committed.
+and closure are committed locally at `da0b519`. Milestone 6 implementation is
+not yet committed.
 
 ## Known issues
 
@@ -208,24 +249,24 @@ and closure changes are not yet committed.
    claimed.
 5. Initial learner level, support locale, scene, scenario, and target set are
    not selected.
-6. Mastery aggregation, weak-target scheduling, analytics privacy, progress
-   synchronization, and compiler-draft normalization remain deferred.
+6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
+   progress synchronization, and compiler-draft normalization remain deferred.
 7. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-9. The Milestone 5 WebGPU-capable web build is 1,254,603 bytes minified and
+9. The Milestone 6 WebGPU-capable web build is 1,273.78 kB minified and
    triggers Vite's default uncompressed chunk warning, although its measured
-   gzip size is 346.59 kB. Browser validation is qualitatively accepted, but
-   reported numeric measurements must still guide any splitting.
+   gzip size is 351.53 kB. Reported browser measurements must guide any future
+   splitting.
 10. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. It is a temporary technical adapter, not production TTS or
     an offline-audio guarantee.
-11. Milestone 5 evidence is intentionally session-local. Reload and restart use
-    a fresh session until Milestone 6 defines persistence and safe resume.
+11. Milestone 6 browser behavior is not yet manually accepted. Static and
+    integration checks do not establish actual reload/resume, server restart,
+    multi-tab conflict, deletion/privacy, or visible save-latency behavior.
 12. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
-    Milestone 5 rather than guessing behavior.
 13. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
 14. Milestone 5 browser behavior is manually accepted, but the user supplied no
@@ -234,10 +275,9 @@ and closure changes are not yet committed.
 
 ## Next recommended work
 
-Prepare a Milestone 6 overview and discuss O-003, O-007, and O-011 before
-creating or approving its persistence ExecPlan. Do not infer storage ownership,
-mastery policy, or privacy defaults merely because SQLite is the planned local
-technology.
+Run the supplied Milestone 6 manual browser matrix and report results. Do not
+begin Milestone 7 compiler decisions or implementation before persistence is
+manually accepted and this plan is complete.
 
 ## Verification status
 
@@ -245,25 +285,26 @@ technology.
   --offline` passed with Node.js 24.18.0/npm 11.16.0; 146 packages were added,
   150 packages were audited, and zero vulnerabilities were reported. The final
   lockfile also passes an in-place offline dry-run.
-- Generated artifact drift check: passed for two schemas and six invalid
+- Generated artifact drift check: passed for three schemas and six invalid
   fixtures.
 - Typecheck: passed for contracts, server, web source, and web test tooling.
 - Lint and format check: passed.
-- Tests: passed, 46 of 46: 18 contract tests and 28 web lesson/runtime tests.
+- Tests: passed, 55 of 55: 19 contract tests, 2 server SQLite/HTTP integration
+  tests, and 34 web lesson/persistence/runtime tests.
 - Fixture inspection: the valid lesson passed; all six invalid fixtures exited
   nonzero with their intended stable error codes.
 - Production build: passed for contracts, server, and web workspaces; web
-  output contains 1,254,603-byte JavaScript (346.59 kB gzip reported by Vite),
-  10,696-byte CSS (2.90 kB gzip), a 5,899-byte local glTF fixture, and 520-byte
+  output contains 1,273.78 kB JavaScript (351.53 kB gzip reported by Vite),
+  12.42 kB CSS (3.17 kB gzip), a 5.89 kB local glTF fixture, and 0.52 kB
   HTML. Vite reports the known JavaScript chunk warning.
 - HTTP regression: passed after starting temporary local Node 24 processes for
   updated web HTML, health contractVersion 0.1.0, and JSON 404. Sandbox port
   binding required approved local access; both processes were stopped cleanly.
-- Scope regression: passed; the executor is limited to the eight accepted fixed
-  primitives, in-memory events, one task-scoped carry slot, and the isolated
-  temporary browser speech adapter. No AI, provider key, persistence, analytics
-  transport, production TTS, physics runtime, Docker, deployment, or automated
-  browser E2E artifact was added. The locked `@types/three` development package
+- Scope regression: passed; the executor remains limited to the eight accepted
+  fixed primitives, one task-scoped carry slot, server-owned local persistence,
+  and the isolated temporary browser speech adapter. No AI, provider key,
+  analytics transport, production TTS, physics runtime, Docker, deployment, or
+  automated browser E2E artifact was added. The locked `@types/three` package
   has an unused transitive Rapier type dependency; Bunbun does not import or
   bundle it.
 - Docker build: not applicable; Dockerfiles intentionally do not exist.
@@ -279,6 +320,7 @@ technology.
 - Milestone 5 manual acceptance: passed by explicit user report on 2026-08-12
   for the complete supplied matrix. Acceptance is qualitative because no
   numeric diagnostics or per-scenario notes were supplied.
+- Milestone 6 manual acceptance: pending user browser validation.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -294,7 +336,6 @@ technology.
 - Manual-only browser validation depends on disciplined user reports; the
   Milestone 5 overall PASS provides no retained screenshots, numeric runtime
   measurements, or per-case evidence for later comparison.
-- Persistence introduces new correctness and privacy risks. Milestone 6 must
-  decide idempotency ownership, safe resume boundaries, retention, and the
-  distinction between assisted and unaided evidence before storing learner
-  data.
+- Persistence correctness and privacy are covered by contracts and focused
+  integration tests, but stale-tab UX, visible save latency, server restart,
+  and local deletion/privacy still require the user's browser validation.

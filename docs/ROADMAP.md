@@ -263,19 +263,35 @@ Exit criteria:
 
 ## Milestone 6 — Evidence and SQLite persistence
 
-Status: Next
+Status: In progress
 
 Purpose:
 
 Persist trustworthy learning evidence and recover sessions at safe boundaries.
 
-Decisions required:
+Decisions resolved:
 
-- O-003 initial mastery aggregation;
-- O-007 SQLite tooling and progress ownership; and
-- O-011 privacy, retention, and analytics definitions.
+- D-021 resolves O-003 with a conservative non-mastery target signal;
+- D-021 resolves O-007 with server-owned built-in SQLite and versioned
+  migrations/checkpoints; and
+- D-021 resolves O-011 for the local milestone with minimized local-only data,
+  no transport, retention until confirmed reset, and explicit deletion.
 
-Planned scope:
+Implementation note:
+
+Accepted D-021 and
+`plans/2026-08-12-local-evidence-sqlite-persistence.md` recommend a separate
+EvidencePersistence 0.1.0 contract, server-owned built-in `node:sqlite`, atomic
+append-only events plus versioned checkpoints, explicit Resume/Start again,
+privacy-minimized local-only data, confirmed reset, and a conservative
+lesson-scoped signal with no mastery claim. The user approved this direction on
+2026-08-12. Contracts, migrations, SQLite repositories, local API, checkpoint
+restore, durable browser sessions, progress/privacy controls, focused tests,
+and documentation are implemented. The milestone remains In progress until the
+user completes the manual browser reload/resume, conflict, deletion/privacy,
+renderer, and Milestone 5 regression matrix.
+
+Implemented scope:
 
 - migration-driven SQLite schema;
 - manifest, session, evidence, and preference records;

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   CatalogSnapshotSchema,
+  EvidencePersistenceSchema,
   LessonManifestSchema,
 } from "../src/schema/index.js";
 
@@ -28,6 +29,10 @@ const artifacts = new Map<string, string>([
   [
     resolve(packageDirectory, "schemas/catalog-snapshot-0.1.0.schema.json"),
     serialize(CatalogSnapshotSchema),
+  ],
+  [
+    resolve(packageDirectory, "schemas/evidence-persistence-0.1.0.schema.json"),
+    serialize(EvidencePersistenceSchema),
   ],
 ]);
 

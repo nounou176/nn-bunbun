@@ -1,30 +1,12 @@
 import type {
+  EvidenceEvent,
   EvidenceCategory,
   LessonStep,
   TargetBinding,
 } from "@bunbun/contracts";
+import { EVIDENCE_PERSISTENCE_SCHEMA_VERSION } from "@bunbun/contracts";
 
-export type SessionEventKind =
-  "EXPOSURE" | "HEARD" | "REACTION" | "STEP_COMPLETED" | "LESSON_COMPLETED";
-
-export interface SessionEvent {
-  eventId: string;
-  kind: SessionEventKind;
-  sessionId: string;
-  lessonId: string;
-  revision: number;
-  stepId: string;
-  contextId: string;
-  primitive: LessonStep["interaction"]["type"];
-  targetId?: string;
-  evidence?: EvidenceCategory;
-  submittedValue?: string;
-  correct?: boolean;
-  assisted: boolean;
-  attempt: number;
-  activeLatencyMs: number;
-  occurredAt: string;
-}
+export type SessionEvent = EvidenceEvent;
 
 export class InMemoryEventSink {
   readonly #events = new Map<string, SessionEvent>();
@@ -93,17 +75,17 @@ export function reactionEvents(
   context: EventContext,
   step: LessonStep,
   attempt: number,
-  submittedValue: string,
+  responseIds: readonly string[] | undefined,
   correct: boolean,
   assisted: boolean,
 ): SessionEvent[] {
   return assessmentBindings(step).map((binding) =>
     createEvent(context, step, {
       kind: "REACTION",
-      key: `reaction:${attempt}:${binding.targetId}:${submittedValue}`,
+      key: `reaction:${attempt}:${binding.targetId}`,
       targetId: binding.targetId,
       evidence: binding.successEvidence,
-      submittedValue,
+      ...(responseIds === undefined ? {} : { responseIds }),
       correct,
       assisted,
       attempt,
@@ -147,11 +129,11 @@ export interface EventContext {
 }
 
 interface EventFields {
-  kind: SessionEventKind;
+  kind: SessionEvent["kind"];
   key: string;
   targetId?: string;
   evidence?: EvidenceCategory;
-  submittedValue?: string;
+  responseIds?: readonly string[];
   correct?: boolean;
   assisted: boolean;
   attempt: number;
@@ -162,7 +144,8 @@ function createEvent(
   step: LessonStep,
   fields: EventFields,
 ): SessionEvent {
-  const event: SessionEvent = {
+  return {
+    schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
     eventId: `${context.sessionId}:${step.stepId}:${fields.key}`,
     kind: fields.kind,
     sessionId: context.sessionId,
@@ -175,14 +158,13 @@ function createEvent(
     attempt: fields.attempt,
     activeLatencyMs: Math.max(0, Math.round(context.activeLatencyMs)),
     occurredAt: context.occurredAt,
+    ...(fields.targetId === undefined ? {} : { targetId: fields.targetId }),
+    ...(fields.evidence === undefined ? {} : { evidence: fields.evidence }),
+    ...(fields.responseIds === undefined
+      ? {}
+      : { responseIds: [...fields.responseIds] }),
+    ...(fields.correct === undefined ? {} : { correct: fields.correct }),
   };
-  if (fields.targetId !== undefined) event.targetId = fields.targetId;
-  if (fields.evidence !== undefined) event.evidence = fields.evidence;
-  if (fields.submittedValue !== undefined) {
-    event.submittedValue = fields.submittedValue;
-  }
-  if (fields.correct !== undefined) event.correct = fields.correct;
-  return event;
 }
 
 function assessmentBindings(

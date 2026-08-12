@@ -4,6 +4,8 @@ Bunbun is a local-first, AI-powered Japanese-learning game. The current
 workspace includes the browser and server foundations, executable
 LessonManifest 0.1.0 contracts, a deterministic isometric park runtime, and an
 authored lesson that executes all eight fixed MVP interaction primitives.
+Milestone 6 adds local SQLite evidence, safe reload/resume, and visible local
+data controls; browser acceptance is still pending.
 
 ## Requirements
 
@@ -52,6 +54,8 @@ environment variables:
   consuming a learner attempt.
 - `?carryFailure=1` invalidates the world carry mirror before GIVE so the
   fail-closed recovery boundary can be tested.
+- `?persistenceFailure=1` fails the first browser write so the visible durable
+  storage error and retry path can be tested.
 
 For example, open
 http://127.0.0.1:5173/?renderer=webgl2&debug=1 to inspect the fallback backend.
@@ -86,11 +90,34 @@ npm run inspect:manifest -- \
 The earlier `valid-find-dog.json` and `valid-find-dog-loop.json` fixtures remain
 available for Milestone 2 and 4 regression inspection.
 
+## Local learning data
+
+The Node server owns `.bunbun-data/bunbun.sqlite`; this repository-local path is
+ignored by Git. The Vite development server proxies `/api/v1` to the loopback
+Node server. The browser does not use localStorage, IndexedDB, or browser
+SQLite.
+
+Use the in-game **Local data** panel to inspect counts, choose ASK/AUTO_RESUME/
+START_NEW behavior, and permanently delete local learning data with a second
+confirmation. TYPE answer text is never persisted. A privacy-safe CLI summary
+is also available:
+
+```bash
+npm run inspect:storage
+```
+
+An exact alternate database path may be supplied for inspection or tests:
+
+```bash
+npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
+```
+
 ## Workspace layout
 
 - apps/web — Vite, Three.js, the local park fixture, deterministic lesson
   controller, browser adapters, and DOM learning UI.
-- apps/server — Node.js TypeScript local health server.
+- apps/server — Node.js TypeScript health/API server and migration-owned local
+  SQLite evidence repository.
 - packages/contracts — TypeBox schemas, inferred types, Ajv and semantic
   validators, generated JSON Schema, fixtures, tests, and developer inspector.
 - docs — durable product, architecture, gameplay, and state memory.
@@ -104,8 +131,9 @@ available for Milestone 2 and 4 regression inspection.
   dog-follow presentation rather than an inventory or physics system.
 - Object, authored-location, and recipient selection are enabled only for the
   active lesson step. Characters do not have generic detail modals or popups.
-- Evidence is session-local and resets on reload. SQLite, AI compilation,
-  production cached TTS, generated media, and mastery are not implemented.
+- Local evidence and safe checkpoints persist in SQLite. Accounts, cloud sync,
+  AI compilation, production cached TTS, generated media, cross-lesson mastery,
+  and scheduling are not implemented.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.
 - The JavaScript build contains the WebGPU-capable Three.js renderer and emits

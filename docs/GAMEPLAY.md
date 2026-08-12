@@ -256,7 +256,7 @@ Initial evidence categories are:
 - typed_correctly;
 - actively_produced.
 
-Every evidence event should include:
+Every persisted EvidencePersistence 0.1.0 event includes:
 
 - stable learner, lesson, revision, session, interaction, and target context as
   available;
@@ -265,14 +265,23 @@ Every evidence event should include:
 - attempt number;
 - support level and help use;
 - response latency based on active interaction time;
-- the submitted answer or stable entity identifiers where privacy permits;
+- authored stable response identifiers for closed interactions where useful;
 - context identifier;
 - timestamp; and
 - an idempotency identifier.
 
-The mastery policy that aggregates these events is not yet accepted. It must
-favor repeated evidence and distinguish unaided performance from supported
-performance.
+Learner-entered TYPE text, normalized TYPE answers, and answer-derived event
+IDs are never persisted. The local lesson/revision/target summary distinguishes
+`INSUFFICIENT_EVIDENCE`, `NEEDS_REVIEW`, and `DEVELOPING` while keeping assisted
+and unaided performance separate. It is not mastery, a percentage, or a
+scheduler and never gates completion. Cross-lesson mastery policy remains
+deferred.
+
+Events and a closed checkpoint are committed atomically at meaningful safe
+boundaries. Reload restores acknowledged attempts, scaffolds, completed steps,
+active time, carry, and transfer projection without replaying events.
+Unsubmitted TYPE text is cleared; interrupted audio and movement return to safe
+awaiting phases. See EVIDENCE_PERSISTENCE.md.
 
 Weak targets should be scheduled for more useful exposure without causing
 immediate, repetitive failure loops.

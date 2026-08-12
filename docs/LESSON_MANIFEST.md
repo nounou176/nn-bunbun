@@ -62,7 +62,9 @@ Contract 0.1.0 rejects every graph cycle because it has no counter or condition
 language with which to prove a cycle bounded. The validator proves rules that
 can be derived from the manifest and supplied CatalogSnapshot; it does not
 claim natural-language quality, physical reachability from future 3D geometry,
-or runtime evidence persistence before those systems exist.
+or pedagogical quality beyond its authored fields. Runtime persistence is
+defined independently by EvidencePersistence 0.1.0 in
+EVIDENCE_PERSISTENCE.md; it does not add fields to LessonManifest 0.1.0.
 
 ## Root LessonManifest
 
@@ -655,7 +657,9 @@ The client MUST:
 - avoid partial world state when validation fails;
 - display a recoverable learner-facing error and a diagnostic error code;
 - never attempt to interpret unknown primitive or cue types;
-- deduplicate evidence writes with stable event IDs; and
+- deduplicate evidence writes with stable event IDs;
+- commit evidence and the resulting closed checkpoint atomically through the
+  independently versioned persistence boundary; and
 - retain the previous known-good lesson until a replacement is valid.
 
 Runtime validation is defense in depth. It does not replace backend validation.

@@ -103,7 +103,7 @@ test("orthographic sizing preserves aspect and clamps zoom", () => {
 test("runtime query controls are explicit and closed", () => {
   assert.deepEqual(
     readRuntimeConfig(
-      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1",
+      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1&persistenceFailure=1",
     ),
     {
       forceWebGL2: true,
@@ -113,6 +113,7 @@ test("runtime query controls are explicit and closed", () => {
       simulateAudioFailure: true,
       simulateMovementFailure: true,
       simulateCarryFailure: true,
+      simulatePersistenceFailure: true,
     },
   );
   assert.deepEqual(readRuntimeConfig("?renderer=webgpu&debug=yes"), {
@@ -123,6 +124,7 @@ test("runtime query controls are explicit and closed", () => {
     simulateAudioFailure: false,
     simulateMovementFailure: false,
     simulateCarryFailure: false,
+    simulatePersistenceFailure: false,
   });
 });
 

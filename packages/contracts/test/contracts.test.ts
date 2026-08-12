@@ -5,11 +5,13 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  EvidencePersistenceSchema,
   LessonManifestSchema,
   normalizeTypeAnswer,
   truncateToUnicodeCodePoints,
   unicodeCodePointLength,
   validateCatalogStructure,
+  validateEvidenceEventStructure,
   validateLessonPackage,
   validateManifestStructure,
 } from "../src/index.js";
@@ -241,14 +243,47 @@ test("interaction union is serialized with oneOf", () => {
 
 test("every TypeBox object record rejects additional properties", () => {
   const openRecords: string[] = [];
-  walkSchema(LessonManifestSchema, "", (schema, path) => {
-    const kind = Object.getOwnPropertyDescriptor(schema, "~kind")?.value;
-    if (kind === "Object" && schema.additionalProperties !== false) {
-      openRecords.push(path || "/");
-    }
-  });
+  [LessonManifestSchema, EvidencePersistenceSchema].forEach((root) =>
+    walkSchema(root, "", (schema, path) => {
+      const kind = Object.getOwnPropertyDescriptor(schema, "~kind")?.value;
+      if (kind === "Object" && schema.additionalProperties !== false) {
+        openRecords.push(path || "/");
+      }
+    }),
+  );
 
   assert.deepEqual(openRecords, []);
+});
+
+test("persistence event contract rejects learner TYPE text", () => {
+  const event = {
+    schemaVersion: "0.1.0",
+    eventId: "session_1:type_dog:reaction:1:target_inu",
+    kind: "REACTION",
+    sessionId: "session_1",
+    lessonId: "lesson_complete_primitive_loop",
+    revision: 1,
+    stepId: "type_dog",
+    contextId: "park_type_dog",
+    primitive: "TYPE",
+    targetId: "target_inu",
+    evidence: "actively_produced",
+    correct: true,
+    assisted: false,
+    attempt: 1,
+    activeLatencyMs: 500,
+    occurredAt: "2026-08-12T00:00:00.000Z",
+  };
+  assert.equal(validateEvidenceEventStructure(event).ok, true);
+
+  const leaked = { ...event, submittedText: "いぬ" };
+  const result = validateEvidenceEventStructure(leaked);
+  assert.equal(result.ok, false);
+  assert.ok(
+    result.errors.some(
+      (error) => error.code === "STRUCTURAL_ADDITIONAL_PROPERTIES",
+    ),
+  );
 });
 
 async function readJson(path: string): Promise<unknown> {

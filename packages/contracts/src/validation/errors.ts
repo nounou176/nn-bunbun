@@ -1,4 +1,4 @@
-export type ValidationSource = "CATALOG" | "MANIFEST";
+export type ValidationSource = "CATALOG" | "MANIFEST" | "PERSISTENCE";
 export type ValidationLayer = "STRUCTURAL" | "SEMANTIC";
 
 export interface BunbunValidationError {

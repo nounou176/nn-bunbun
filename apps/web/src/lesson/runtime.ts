@@ -1,12 +1,19 @@
-import type { LessonManifest } from "@bunbun/contracts";
+import {
+  EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+  type ResumableSession,
+  type ValidatedLessonPackage,
+} from "@bunbun/contracts";
 
 import type { GameRuntime } from "../game/runtime.js";
+import type { EvidenceStore } from "../persistence/port.js";
 import type { AppShell } from "../ui/shell.js";
 import { ActiveClock } from "./active-clock.js";
 import { createSpeechSynthesisAudioPort } from "./audio.js";
 import {
+  checkpointFromState,
   currentStep,
   reduceLesson,
+  restoreLesson,
   startLesson,
   type LessonEffect,
   type LessonInput,
@@ -19,23 +26,49 @@ export interface LessonRuntime {
   dispose: () => void;
 }
 
-export function createLessonRuntime(
+export interface LessonRuntimePersistence {
+  store: EvidenceStore;
+  lessonPackage: ValidatedLessonPackage;
+  packageFingerprint: string;
+  resumedSession?: ResumableSession;
+  onPersistenceStatus: (
+    status: "saved" | "saving",
+    detail: { eventCount: number; lastSavedAt: string },
+  ) => void;
+  onRestart: (
+    sessionId: string,
+    sequence: number,
+    active: boolean,
+  ) => Promise<void>;
+}
+
+export async function createLessonRuntime(
   shell: AppShell,
   world: GameRuntime,
-  manifest: LessonManifest,
+  persistence: LessonRuntimePersistence,
   simulateAudioFailure: boolean,
   firstStimulusMs: number,
   onFatalError: (error: Error) => void,
-): LessonRuntime {
+): Promise<LessonRuntime> {
+  const { manifest, catalog } = persistence.lessonPackage;
   const lifecycle = new AbortController();
   const signal = lifecycle.signal;
   const audio = createSpeechSynthesisAudioPort(
     manifest.audioAssets,
     simulateAudioFailure,
   );
-  let clock = new ActiveClock();
-  let eventSink = new InMemoryEventSink();
+  const clock = new ActiveClock(
+    undefined,
+    persistence.resumedSession?.checkpoint.activeTimeMs ?? 0,
+  );
+  const eventSink = new InMemoryEventSink();
   let state: LessonState;
+  let checkpointSequence = persistence.resumedSession?.checkpoint.sequence ?? 0;
+  let persistedEventCount = persistence.resumedSession?.storedEventCount ?? 0;
+  let lastSavedAt =
+    persistence.resumedSession?.lastSavedAt ?? new Date().toISOString();
+  let persistenceStatus: "saving" | "saved" = "saved";
+  let dispatchQueue = Promise.resolve();
   let feedbackTimer: number | undefined;
   let feedbackStartedAt = 0;
   let feedbackRemainingMs = 0;
@@ -152,7 +185,7 @@ export function createLessonRuntime(
       sessionId: state.sessionId,
       stepId: state.currentStepId,
       phase: state.phase,
-      eventCount: events.length,
+      eventCount: Math.max(persistedEventCount, events.length),
       reactionCount: reactions.length,
       correctReactionCount: reactions.filter((event) => event.correct).length,
       incorrectReactionCount: reactions.filter((event) => !event.correct)
@@ -168,6 +201,10 @@ export function createLessonRuntime(
       worldTargetMode: worldTargetMode(),
       pendingLocationId: state.pendingLocation?.locationId,
       carriedObjectId: state.carriedObjectId,
+      persistenceStatus,
+      checkpointSequence,
+      storedEventCount: persistedEventCount,
+      lastSavedAt,
     });
   };
 
@@ -265,14 +302,52 @@ export function createLessonRuntime(
 
   function safeDispatch(input: LessonInput): void {
     if (disposed) return;
-    try {
-      applyUpdate(reduceLesson(state, input));
-    } catch (error) {
-      onFatalError(
-        error instanceof Error ? error : new Error("Unknown lesson error."),
-      );
-    }
+    dispatchQueue = dispatchQueue
+      .then(() => persistUpdate(reduceLesson(state, input), input.type))
+      .catch((error: unknown) => {
+        if (disposed) return;
+        onFatalError(
+          error instanceof Error ? error : new Error("Unknown lesson error."),
+        );
+      });
   }
+
+  const persistUpdate = async (
+    update: LessonUpdate,
+    inputType: LessonInput["type"],
+  ): Promise<void> => {
+    const events = eventsFrom(update);
+    if (events.length > 0 || isCheckpointBoundary(inputType)) {
+      const nextSequence = checkpointSequence + 1;
+      persistenceStatus = "saving";
+      persistence.onPersistenceStatus(persistenceStatus, {
+        eventCount: persistedEventCount,
+        lastSavedAt,
+      });
+      updateDiagnostics();
+      const result = await persistence.store.commitSession(state.sessionId, {
+        schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+        commitId: crypto.randomUUID(),
+        expectedSequence: checkpointSequence,
+        events,
+        checkpoint: checkpointFromState(
+          update.state,
+          nextSequence,
+          clock.read(),
+        ),
+      });
+      if (disposed) return;
+      checkpointSequence = result.checkpointSequence;
+      persistedEventCount = result.storedEventCount;
+      lastSavedAt = result.lastSavedAt;
+      persistenceStatus = "saved";
+      persistence.onPersistenceStatus(persistenceStatus, {
+        eventCount: persistedEventCount,
+        lastSavedAt,
+      });
+    }
+    applyUpdate(update);
+  };
 
   const selectObject = (objectId: string) => {
     safeDispatch({ ...timed("OBJECT_SELECTED"), objectId });
@@ -313,20 +388,10 @@ export function createLessonRuntime(
   };
 
   const restart = () => {
-    clearFeedbackTimer();
-    audio.stop();
-    shell.setAudioError(undefined);
-    clock = new ActiveClock();
-    if (document.hidden) clock.pause();
-    eventSink = new InMemoryEventSink();
-    world.resetLessonWorld();
-    applyUpdate(
-      startLesson(
-        manifest,
-        crypto.randomUUID(),
-        clock.read(),
-        new Date().toISOString(),
-      ),
+    void persistence.onRestart(
+      state.sessionId,
+      checkpointSequence,
+      state.phase !== "COMPLETED",
     );
   };
 
@@ -441,14 +506,48 @@ export function createLessonRuntime(
   );
   document.addEventListener("visibilitychange", onVisibilityChange, { signal });
 
-  const initialUpdate = startLesson(
-    manifest,
-    crypto.randomUUID(),
-    clock.read(),
-    new Date().toISOString(),
-  );
-  state = initialUpdate.state;
-  applyUpdate(initialUpdate);
+  if (persistence.resumedSession !== undefined) {
+    state = restoreLesson(manifest, persistence.resumedSession.checkpoint);
+    world.restoreLessonWorld(state.carriedObjectId, state.transferredObjects);
+    applyUpdate({ state, effects: [] });
+    if (state.phase === "FEEDBACK" && state.feedback !== undefined) {
+      scheduleFeedback(state.feedback.displayMs);
+    }
+    persistence.onPersistenceStatus("saved", {
+      eventCount: persistedEventCount,
+      lastSavedAt,
+    });
+  } else {
+    const initialUpdate = startLesson(
+      manifest,
+      crypto.randomUUID(),
+      clock.read(),
+      new Date().toISOString(),
+    );
+    state = initialUpdate.state;
+    const events = eventsFrom(initialUpdate);
+    persistence.onPersistenceStatus("saving", {
+      eventCount: 0,
+      lastSavedAt,
+    });
+    const created = await persistence.store.createSession({
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      commitId: crypto.randomUUID(),
+      packageFingerprint: persistence.packageFingerprint,
+      manifest,
+      catalog,
+      events,
+      checkpoint: checkpointFromState(state, 0, clock.read()),
+    });
+    checkpointSequence = created.checkpointSequence;
+    persistedEventCount = created.storedEventCount;
+    lastSavedAt = created.lastSavedAt;
+    applyUpdate(initialUpdate);
+    persistence.onPersistenceStatus("saved", {
+      eventCount: persistedEventCount,
+      lastSavedAt,
+    });
+  }
 
   return {
     dispose: () => {
@@ -464,6 +563,21 @@ export function createLessonRuntime(
       });
     },
   };
+}
+
+function eventsFrom(update: LessonUpdate) {
+  return update.effects.flatMap((effect) =>
+    effect.type === "RECORD_EVENTS" ? [...effect.events] : [],
+  );
+}
+
+function isCheckpointBoundary(type: LessonInput["type"]): boolean {
+  return [
+    "AUDIO_ENDED",
+    "AUDIO_FAILED",
+    "HELP_REQUESTED",
+    "FEEDBACK_ELAPSED",
+  ].includes(type);
 }
 
 function tokenIdFromEvent(event: Event): string | undefined {

@@ -191,7 +191,8 @@ h1 {
 .state-panel,
 .lesson-panel,
 .world-controls,
-.diagnostics-panel {
+.diagnostics-panel,
+.local-data-panel {
   border: 1px solid rgb(75 54 38 / 14%);
   background: rgb(255 250 239 / 88%);
   box-shadow: 0 1.25rem 3.5rem rgb(40 49 35 / 20%);
@@ -211,7 +212,8 @@ h1 {
 
 .state-panel[hidden],
 .lesson-panel[hidden],
-.diagnostics-panel[hidden] {
+.diagnostics-panel[hidden],
+.local-data-panel[hidden] {
   display: none;
 }
 
@@ -527,6 +529,28 @@ h1 {
   line-height: 1.65;
 }
 
+.resume-actions,
+.delete-data-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.resume-actions[hidden] {
+  display: none;
+}
+
+.resume-actions button,
+.local-data-heading button,
+.delete-data-actions button {
+  min-height: 2.65rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgb(77 57 41 / 13%);
+  border-radius: 0.75rem;
+  background: #f3e8d8;
+  font-weight: 850;
+}
+
 .primary-button {
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
@@ -583,7 +607,7 @@ h1 {
   font-weight: 850;
 }
 
-.button-row button:last-child {
+.button-row button:nth-last-child(2) {
   margin-left: auto;
 }
 
@@ -601,6 +625,96 @@ h1 {
   padding: 1rem 1.1rem;
   overflow: auto;
   border-radius: 1rem;
+}
+
+.local-data-panel {
+  position: absolute;
+  z-index: 7;
+  right: clamp(1rem, 2.8vw, 2rem);
+  bottom: clamp(3.5rem, 6vw, 4.5rem);
+  width: min(calc(100% - 2rem), 25rem);
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+}
+
+.local-data-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.local-data-heading p:last-child {
+  margin-bottom: 0.8rem;
+  color: #65584d;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.local-data-heading button {
+  min-width: 2.4rem;
+  padding: 0.35rem;
+}
+
+.persistence-status {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #315f4b;
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.persistence-status[data-status="error"] {
+  color: #8f422f;
+}
+
+.local-data-panel dl {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+
+.local-data-panel dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgb(75 54 38 / 10%);
+}
+
+.local-data-panel dt,
+.local-data-panel dd {
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.local-data-panel dd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 800;
+}
+
+.resume-mode-label {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  color: #65584d;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.resume-mode-label select {
+  min-height: 2.65rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgb(77 57 41 / 18%);
+  border-radius: 0.65rem;
+  color: inherit;
+  background: #fffdf8;
+  font: inherit;
+}
+
+.danger-button {
+  color: #fffaf0;
+  background: #8f3428 !important;
 }
 
 .diagnostics-heading {
@@ -699,6 +813,15 @@ h1 {
     left: 1rem;
     width: auto;
     max-height: calc(100dvh - 18rem);
+  }
+
+  .local-data-panel {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    width: auto;
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
   }
 
   .world-header {

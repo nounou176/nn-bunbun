@@ -6,8 +6,10 @@ import type { LessonManifest, ValidatedLessonPackage } from "@bunbun/contracts";
 import { ActiveClock } from "../src/lesson/active-clock.js";
 import { validateRuntimeCapabilities } from "../src/lesson/capabilities.js";
 import {
+  checkpointFromState,
   currentStep,
   reduceLesson,
+  restoreLesson,
   startLesson,
   type LessonEffect,
   type LessonInput,
@@ -138,7 +140,7 @@ test("happy path completes all eight primitives with seven reactions", () => {
   const typed = eventsOfKind(harness, "REACTION").find(
     (event) => event.primitive === "TYPE",
   );
-  assert.equal(typed?.submittedValue, "いぬ");
+  assert.equal(typed?.responseIds, undefined);
 });
 
 test("ARRANGE keeps duplicate surface tokens distinct and preserves a wrong order", () => {
@@ -403,6 +405,81 @@ test("active clock excludes time while paused", () => {
   assert.equal(clock.read(), 110);
 });
 
+test("active clock resumes from a persisted active-time offset", () => {
+  let now = 1_000;
+  const clock = new ActiveClock(() => now, 4_000);
+  now = 1_250;
+  assert.equal(clock.read(), 4_250);
+});
+
+test("checkpoint restore clears unsubmitted TYPE text", () => {
+  const harness = createHarness();
+  advanceToType(harness);
+  harness.dispatch({
+    type: "TYPE_DRAFT_CHANGED",
+    value: "ねこ",
+    ...harness.tick(),
+  });
+
+  const checkpoint = checkpointFromState(harness.state, 7, harness.now);
+  assert.equal(JSON.stringify(checkpoint).includes("ねこ"), false);
+  const restored = restoreLesson(harness.state.manifest, checkpoint);
+  assert.equal(restored.currentStepId, "type_dog");
+  assert.equal(restored.phase, "AWAITING_TYPE");
+  assert.equal(restored.typeDraft, "");
+});
+
+test("checkpoint restore retains feedback, scaffolds, carry projection, and safe movement", () => {
+  const harness = createHarness();
+  advanceToFindDog(harness);
+  harness.dispatch({
+    type: "OBJECT_SELECTED",
+    objectId: "cat",
+    ...harness.tick(),
+  });
+  const feedbackCheckpoint = checkpointFromState(harness.state, 8, harness.now);
+  const feedback = restoreLesson(harness.state.manifest, feedbackCheckpoint);
+  assert.equal(feedback.phase, "FEEDBACK");
+  assert.equal(feedback.feedbackKind, "INCORRECT");
+  assert.equal(feedback.pending?.kind, "RETRY");
+  assert.deepEqual(feedback.highlightObjectIds, ["dog", "cat"]);
+
+  const movementHarness = createHarness();
+  advanceToMove(movementHarness);
+  movementHarness.dispatch({
+    type: "LOCATION_SELECTED",
+    locationId: "animal_area",
+    ...movementHarness.tick(),
+  });
+  const movement = restoreLesson(
+    movementHarness.state.manifest,
+    checkpointFromState(movementHarness.state, 9, movementHarness.now),
+  );
+  assert.equal(movement.phase, "AWAITING_LOCATION");
+  assert.equal(movement.pendingLocation, undefined);
+
+  const carryHarness = createHarness();
+  advanceToGive(carryHarness);
+  const carrying = restoreLesson(
+    carryHarness.state.manifest,
+    checkpointFromState(carryHarness.state, 10, carryHarness.now),
+  );
+  assert.equal(carrying.carriedObjectId, "dog");
+  carryHarness.dispatch({
+    type: "RECIPIENT_SELECTED",
+    entityId: "guide",
+    ...carryHarness.tick(),
+  });
+  const transferred = restoreLesson(
+    carryHarness.state.manifest,
+    checkpointFromState(carryHarness.state, 11, carryHarness.now),
+  );
+  assert.equal(transferred.carriedObjectId, undefined);
+  assert.deepEqual(transferred.transferredObjects, [
+    { objectId: "dog", recipientEntityId: "guide" },
+  ]);
+});
+
 test("event sink deduplicates stable idempotency keys", () => {
   const sink = new InMemoryEventSink();
   const event = sampleEvent();
@@ -591,6 +668,7 @@ function eventsOfKind(
 
 function sampleEvent(): SessionEvent {
   return {
+    schemaVersion: "0.1.0",
     eventId: "session:step:reaction:1",
     kind: "REACTION",
     sessionId: "session",
@@ -601,7 +679,7 @@ function sampleEvent(): SessionEvent {
     primitive: "CHOOSE",
     targetId: "target",
     evidence: "selected_correctly",
-    submittedValue: "choice",
+    responseIds: ["choice"],
     correct: true,
     assisted: false,
     attempt: 1,

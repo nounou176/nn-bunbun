@@ -3,11 +3,10 @@
 ## Status
 
 This document defines the approved architectural direction. Milestones 1
-through 5 are implemented and manually accepted: the workspace, executable
-contract boundary, technical runtime, first deterministic lesson, and complete
-eight-primitive executor all exist locally. Compiler, persistence, cached
-audio, and production asset boundaries remain planned until their roadmap
-milestones.
+through 5 are implemented and manually accepted. Milestone 6 local evidence,
+SQLite, and safe-resume implementation exists and awaits manual browser
+acceptance. Compiler, cached audio, and production asset boundaries remain
+planned until their roadmap milestones.
 
 ## Architectural goals
 
@@ -82,25 +81,41 @@ Implemented foundation responsibilities:
   keeping lesson truth outside Three.js;
 - isolate audio behind AudioPlaybackPort and use browser SpeechSynthesis only
   as the temporary Milestone 4 learner-gesture adapter; and
-- record idempotent session-local exposure, heard, reaction, step, and
-  completion events against active time that excludes hidden-tab duration.
+- record privacy-minimized exposure, heard, reaction, step, and completion
+  events against active time that excludes hidden-tab duration;
+- commit evidence plus closed safe-boundary checkpoints through an ordered
+  EvidenceStore port; and
+- restore controller, carry/transfer world projection, active-time offset, and
+  durable completion without replaying evidence.
 
-Planned responsibilities beyond Milestone 5:
+Planned responsibilities beyond Milestone 6:
 
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
 - dynamically load only the referenced scene and asset bundles;
 - replace the temporary audio adapter with reviewed cached audio;
-- promote the provisional in-memory event record into the accepted persistent
-  evidence contract; and
-- send or persist progress through an explicit storage boundary.
+- connect later compiled lesson revisions to the implemented storage boundary
+  without weakening immutable package fingerprints.
 
 The runtime must not call an LLM from the render loop. A lesson that has already
 been compiled should remain playable when no further AI response is available.
 
 ### Backend application
 
-Planned responsibilities:
+Implemented local persistence responsibilities:
+
+- own the built-in SQLite connection, migration ledger, WAL lifecycle, and
+  graceful close;
+- validate immutable lesson packages and canonical fingerprints before first
+  persistence;
+- atomically append evidence, advance checkpoints, and record idempotent commit
+  receipts;
+- expose narrow same-origin session, resume, preference, summary, inspector,
+  and confirmed-reset APIs; and
+- reject stale sequences, invalid authored references, raw TYPE text fields,
+  incompatible schema versions, and changed immutable revisions.
+
+Planned compiler and media responsibilities:
 
 - accept and normalize learner vocabulary and grammar targets;
 - invoke reusable AI prompt modules through the OpenAI Responses API;
@@ -119,7 +134,8 @@ compiler boundary. The game client should not depend on a particular model.
 ### Shared contracts and catalogs
 
 packages/contracts now provides TypeBox 1.x source schemas and inferred
-TypeScript types for LessonManifest 0.1.0 and CatalogSnapshot 0.1.0. Ajv runs
+TypeScript types for LessonManifest 0.1.0, CatalogSnapshot 0.1.0, and the
+independent EvidencePersistence 0.1.0 boundary. Ajv runs
 strict, non-coercing structural validation, while pure TypeScript validators
 check references, world compatibility, graph termination, learning coverage,
 evidence, language safety, interactions, scaffolds, provenance, and quality
@@ -234,9 +250,10 @@ should remain small and migration-driven. Likely domains are:
 - target evidence; and
 - learner preferences.
 
-The exact client/server ownership of offline progress, user identity, and
-cross-device synchronization remains open. Do not add accounts or cloud sync
-implicitly.
+For the local milestone, the server is the only SQLite owner and the browser
+uses an EvidenceStore HTTP port. Identity, remote ownership, offline browser
+storage, and cross-device synchronization remain open. Do not add accounts or
+cloud sync implicitly. See EVIDENCE_PERSISTENCE.md.
 
 Generated audio and mnemonic images should use stable cache keys derived from
 their relevant inputs and provider version. Store metadata and references in
@@ -250,9 +267,9 @@ SQLite; do not duplicate large binary data inside manifests.
 - Evidence events use stable lesson, revision, session, target, and interaction
   identifiers.
 - Saving is explicit at meaningful interaction boundaries.
-- Milestone 5 events are intentionally memory-only and reload starts a clean
-  session. Milestone 6 must make reloading idempotent without losing a completed
-  persistent interaction.
+- Milestone 6 persists acknowledged boundaries atomically. Reload restores a
+  validated checkpoint, clears unsubmitted TYPE text, normalizes interrupted
+  movement/audio, and does not replay evidence.
 - Unknown schema versions fail closed with a useful error.
 - A broken manifest must return the learner to a safe UI state, not a partially
   loaded world.
@@ -327,14 +344,32 @@ but never decides answer correctness.
 
 The boundary adds two technical park locations and a second technical NPC,
 deterministic movement/carry recovery controls, and clean world restart. It
-does not add persistence, inventory, pathfinding, physics, production content,
+does not add inventory, pathfinding, physics, production content,
 or a general world-state language. The user's manual browser `PASS` on
 2026-08-12 closes this boundary qualitatively; no unreported runtime metric or
 broader browser/device claim is inferred from that acceptance.
 
+### Milestone 6 local persistence boundary
+
+D-021 adds the independently versioned EvidencePersistence 0.1.0 contract and
+one server-owned built-in SQLite source of truth. The browser fingerprints the
+validated fixture package, resolves one compatible ACTIVE or COMPLETED session,
+and commits privacy-minimized event batches with their resulting closed
+checkpoint through an ordered HTTP adapter. Commit IDs and expected checkpoint
+sequences make retries idempotent and stale tabs fail closed.
+
+Safe restore rebuilds controller and authored world projection rather than
+deserializing application objects. It clears TYPE drafts, normalizes interrupted
+audio/movement, retains feedback pending action, active time, carry, and GIVE
+transfers, and never replays evidence. The local data panel exposes resume
+preference, conservative non-mastery summary, counts, and confirmed deletion.
+See EVIDENCE_PERSISTENCE.md. Manual browser acceptance remains pending.
+
 ## API principles
 
-No endpoint shape is accepted yet. When APIs are designed, they should:
+The local persistence endpoints are accepted and documented in
+EVIDENCE_PERSISTENCE.md. The compiler endpoint/job shape remains unaccepted.
+When compiler APIs are designed, they should:
 
 - expose resources and jobs rather than prompt internals;
 - use versioned request and response contracts;
@@ -355,8 +390,9 @@ No endpoint shape is accepted yet. When APIs are designed, they should:
 - Generated strings must not become HTML or executable code without safe
   handling.
 - Catalog and file references must not permit arbitrary path or URL access.
-- Data retention and privacy requirements must be decided before collecting
-  identifiable learner data.
+- Local non-identifiable evidence is retained until confirmed reset under
+  D-021. Requirements must be revisited before collecting identifiable or
+  remotely transported learner data.
 
 ## Architecture decisions still required
 
@@ -365,11 +401,9 @@ Before implementation reaches the relevant boundary, decide:
 - HTTP framework and compilation job model;
 - the broader production browser/device support matrix beyond the accepted
   Milestone 3 desktop Chromium reference environment;
-- SQLite access and migration tools;
-- progress ownership and offline behavior;
 - initial reference datasets and licenses;
 - OpenAI model, TTS model, voice policy, and cache invalidation inputs; and
-- observability and privacy rules for learning analytics.
+- observability and privacy rules for any remote learning analytics.
 
 The contract validation and schema-generation direction was resolved by D-017.
 The remaining choices are intentionally deferred until their owning milestone.

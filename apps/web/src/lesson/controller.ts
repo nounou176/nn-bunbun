@@ -1,12 +1,15 @@
 import {
+  EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
   normalizeTypeAnswer,
   truncateToUnicodeCodePoints,
   unicodeCodePointLength,
   type ChoiceOption,
   type FeedbackMessage,
   type LessonManifest,
+  type SessionCheckpoint,
   type LessonStep,
   type Scaffold,
+  type TransferredObject,
   type TransitionTarget,
 } from "@bunbun/contracts";
 
@@ -68,7 +71,9 @@ export interface LessonState {
   movementError: string | undefined;
   pendingLocation: PendingLocation | undefined;
   carriedObjectId: string | undefined;
+  transferredObjects: readonly TransferredObject[];
   feedback: FeedbackMessage | undefined;
+  feedbackKind: FeedbackKind | undefined;
   pending: PendingAction | undefined;
   completedStepIds: readonly string[];
   stepStartedAtActiveMs: number;
@@ -122,8 +127,10 @@ interface TimedInput<Type extends string> {
   occurredAt: string;
 }
 
-type PendingAction =
+export type PendingAction =
   { kind: "RETRY" } | { kind: "TRANSITION"; target: TransitionTarget };
+
+export type FeedbackKind = "CORRECT" | "INCORRECT" | "ASSISTED";
 
 export function startLesson(
   manifest: LessonManifest,
@@ -137,6 +144,7 @@ export function startLesson(
     manifest.entryStepId,
     [],
     undefined,
+    [],
     activeTimeMs,
   );
   const step = currentStep(state);
@@ -294,7 +302,7 @@ export function reduceLesson(
       return evaluateAnswer(
         evaluatedState,
         input,
-        state.arrangedTokenIds.join(","),
+        state.arrangedTokenIds,
         correct,
       );
     }
@@ -333,7 +341,7 @@ export function reduceLesson(
         correct || step.attemptPolicy.preserveSubmittedState
           ? state
           : { ...state, typeDraft: "" };
-      return evaluateAnswer(evaluatedState, input, submitted, correct);
+      return evaluateAnswer(evaluatedState, input, undefined, correct);
     }
 
     case "OBJECT_SELECTED": {
@@ -359,7 +367,7 @@ export function reduceLesson(
       const update = evaluateAnswer(
         evaluatedState,
         input,
-        input.objectId,
+        [input.objectId],
         correct,
       );
       return isPickUp && correct
@@ -413,7 +421,7 @@ export function reduceLesson(
       return evaluateAnswer(
         { ...state, pendingLocation: undefined },
         input,
-        input.locationId,
+        [input.locationId],
         correct,
         selectionInput,
       );
@@ -459,13 +467,25 @@ export function reduceLesson(
           pair.objectId === objectId &&
           pair.recipientEntityId === input.entityId,
       );
+      const transferredObject = {
+        objectId,
+        recipientEntityId: input.entityId,
+      };
       const evaluatedState = correct
-        ? { ...state, carriedObjectId: undefined }
+        ? {
+            ...state,
+            carriedObjectId: undefined,
+            transferredObjects: state.transferredObjects.some(
+              (item) => item.objectId === objectId,
+            )
+              ? state.transferredObjects
+              : [...state.transferredObjects, transferredObject],
+          }
         : state;
       const update = evaluateAnswer(
         evaluatedState,
         input,
-        `${objectId}->${input.entityId}`,
+        [objectId, input.entityId],
         correct,
       );
       return correct
@@ -490,7 +510,7 @@ export function reduceLesson(
       return evaluateAnswer(
         state,
         input,
-        input.optionId,
+        [input.optionId],
         step.interaction.acceptedOptionIds.includes(input.optionId),
       );
 
@@ -504,6 +524,7 @@ export function reduceLesson(
             ...state,
             phase: inputPhase(step),
             feedback: undefined,
+            feedbackKind: undefined,
             pending: undefined,
           },
           effects: [],
@@ -526,7 +547,7 @@ export function currentStep(state: LessonState): LessonStep {
 function evaluateAnswer(
   state: LessonState,
   input: LessonInput,
-  submittedValue: string,
+  responseIds: readonly string[] | undefined,
   correct: boolean,
   reactionInput: Pick<
     TimedInput<string>,
@@ -543,7 +564,7 @@ function evaluateAnswer(
     eventContext(state, reactionInput),
     step,
     attempt,
-    submittedValue,
+    responseIds,
     correct,
     assisted,
   );
@@ -587,6 +608,7 @@ function evaluateAnswer(
   return feedbackUpdate(
     supportedState,
     step.feedback.incorrect,
+    "INCORRECT",
     { kind: "RETRY" },
     reaction,
     step.presentation.onFailureCueIds,
@@ -632,6 +654,11 @@ function finishStep(
   return feedbackUpdate(
     { ...state, completedStepIds: completed },
     feedback,
+    outcome === "SUCCESS"
+      ? "CORRECT"
+      : outcome === "ASSISTED"
+        ? "ASSISTED"
+        : "INCORRECT",
     { kind: "TRANSITION", target },
     [...precedingEvents, terminalEvent],
     cueIds,
@@ -641,6 +668,7 @@ function finishStep(
 function feedbackUpdate(
   state: LessonState,
   feedback: FeedbackMessage,
+  feedbackKind: FeedbackKind,
   pending: PendingAction,
   events: readonly SessionEvent[],
   cueIds: readonly string[],
@@ -651,7 +679,7 @@ function feedbackUpdate(
   ];
   if (cueIds.length > 0) effects.push({ type: "APPLY_CUES", cueIds });
   return {
-    state: { ...state, phase: "FEEDBACK", feedback, pending },
+    state: { ...state, phase: "FEEDBACK", feedback, feedbackKind, pending },
     effects,
   };
 }
@@ -683,6 +711,7 @@ function followTransition(
         phase: "COMPLETED",
         carriedObjectId: undefined,
         feedback: undefined,
+        feedbackKind: undefined,
         pending: undefined,
       },
       effects,
@@ -695,6 +724,7 @@ function followTransition(
     target.stepId,
     state.completedStepIds,
     state.carriedObjectId,
+    state.transferredObjects,
     input.activeTimeMs,
   );
   const nextStep = currentStep(nextState);
@@ -715,6 +745,7 @@ function createStepState(
   stepId: string,
   completedStepIds: readonly string[],
   carriedObjectId: string | undefined,
+  transferredObjects: readonly TransferredObject[],
   activeTimeMs: number,
 ): LessonState {
   const step = manifest.steps.find((candidate) => candidate.stepId === stepId);
@@ -757,10 +788,138 @@ function createStepState(
     movementError: undefined,
     pendingLocation: undefined,
     carriedObjectId,
+    transferredObjects: [...transferredObjects],
     feedback: undefined,
+    feedbackKind: undefined,
     pending: undefined,
     completedStepIds: [...completedStepIds],
     stepStartedAtActiveMs: activeTimeMs,
+  };
+}
+
+export function checkpointFromState(
+  state: LessonState,
+  sequence: number,
+  activeTimeMs: number,
+): SessionCheckpoint {
+  return {
+    schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+    sessionId: state.sessionId,
+    lessonId: state.manifest.lessonId,
+    revision: state.manifest.revision,
+    sequence,
+    status: state.phase === "COMPLETED" ? "COMPLETED" : "ACTIVE",
+    currentStepId: state.currentStepId,
+    phase: state.phase,
+    attempt: state.attempt,
+    helpUsed: state.helpUsed,
+    audioFailed: state.audioFailed,
+    activeScaffoldIds: [...state.activeScaffoldIds],
+    arrangedTokenIds: [...state.arrangedTokenIds],
+    completedStepIds: [...state.completedStepIds],
+    ...(state.carriedObjectId === undefined
+      ? {}
+      : { carriedObjectId: state.carriedObjectId }),
+    transferredObjects: state.transferredObjects.map((transfer) => ({
+      ...transfer,
+    })),
+    ...(state.feedbackKind === undefined
+      ? {}
+      : { feedbackKind: state.feedbackKind }),
+    ...(state.pending === undefined
+      ? {}
+      : {
+          pendingAction:
+            state.pending.kind === "RETRY"
+              ? { kind: "RETRY" as const }
+              : {
+                  kind: "TRANSITION" as const,
+                  target: state.pending.target,
+                },
+        }),
+    activeTimeMs: Math.max(0, Math.round(activeTimeMs)),
+    stepStartedAtActiveMs: Math.max(
+      0,
+      Math.min(
+        Math.round(activeTimeMs),
+        Math.round(state.stepStartedAtActiveMs),
+      ),
+    ),
+  };
+}
+
+export function restoreLesson(
+  manifest: LessonManifest,
+  checkpoint: SessionCheckpoint,
+): LessonState {
+  let state = createStepState(
+    manifest,
+    checkpoint.sessionId,
+    checkpoint.currentStepId,
+    checkpoint.completedStepIds,
+    checkpoint.carriedObjectId,
+    checkpoint.transferredObjects,
+    checkpoint.stepStartedAtActiveMs,
+  );
+  const step = currentStep(state);
+  const activeScaffolds = checkpoint.activeScaffoldIds.map((scaffoldId) => {
+    const scaffold = step.scaffolds.find(
+      (candidate) => candidate.scaffoldId === scaffoldId,
+    );
+    if (scaffold === undefined) {
+      throw new Error(`Checkpoint scaffold '${scaffoldId}' was not authored.`);
+    }
+    return scaffold;
+  });
+  state = applyScaffolds(state, activeScaffolds, checkpoint.attempt);
+
+  if (step.interaction.type === "ARRANGE") {
+    const arranged = [...checkpoint.arrangedTokenIds];
+    const arrangedSet = new Set(arranged);
+    state = {
+      ...state,
+      arrangedTokenIds: arranged,
+      availableTokenIds: orderedArrangeTokens(step, manifest.randomSeed)
+        .map((token) => token.tokenId)
+        .filter((tokenId) => !arrangedSet.has(tokenId)),
+    };
+  }
+
+  const phase =
+    checkpoint.phase === "MOVING_TO_LOCATION"
+      ? "AWAITING_LOCATION"
+      : checkpoint.phase === "PLAYING_AUDIO"
+        ? "AWAITING_CONTINUE"
+        : checkpoint.phase;
+  const feedback =
+    checkpoint.feedbackKind === "CORRECT"
+      ? step.feedback.correct
+      : checkpoint.feedbackKind === "ASSISTED"
+        ? step.feedback.assisted
+        : checkpoint.feedbackKind === "INCORRECT"
+          ? step.feedback.incorrect
+          : undefined;
+
+  return {
+    ...state,
+    phase,
+    attempt: checkpoint.attempt,
+    helpUsed: checkpoint.helpUsed,
+    audioFailed: checkpoint.audioFailed,
+    pendingLocation: undefined,
+    typeDraft: "",
+    feedback,
+    feedbackKind: checkpoint.feedbackKind,
+    pending:
+      checkpoint.pendingAction === undefined
+        ? undefined
+        : checkpoint.pendingAction.kind === "RETRY"
+          ? { kind: "RETRY" }
+          : {
+              kind: "TRANSITION",
+              target: checkpoint.pendingAction.target,
+            },
+    stepStartedAtActiveMs: checkpoint.stepStartedAtActiveMs,
   };
 }
 

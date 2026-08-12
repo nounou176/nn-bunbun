@@ -1,5 +1,7 @@
 import { Object3D, Raycaster, Vector2, Vector3 } from "three";
 
+import type { TransferredObject } from "@bunbun/contracts";
+
 import type { AppShell, DiagnosticsSnapshot } from "../ui/shell.js";
 import {
   clampZoom,
@@ -42,6 +44,10 @@ export interface GameRuntime {
   transferCarriedObject: (objectId: string, recipientEntityId: string) => void;
   clearCarriedObject: () => void;
   resetLessonWorld: () => void;
+  restoreLessonWorld: (
+    carriedObjectId: string | undefined,
+    transferredObjects: readonly TransferredObject[],
+  ) => void;
   applyCues: (cueIds: readonly string[]) => void;
   dispose: () => void;
 }
@@ -510,6 +516,20 @@ export async function createGameRuntime(
     marker?.position.set(object.position.x, 0.04, object.position.z);
   };
 
+  const restoreLessonWorld = (
+    restoredCarriedObjectId: string | undefined,
+    transferredObjects: readonly TransferredObject[],
+  ) => {
+    resetLessonWorld();
+    transferredObjects.forEach(({ objectId, recipientEntityId }) => {
+      setCarriedObject(objectId);
+      transferCarriedObject(objectId, recipientEntityId);
+    });
+    if (restoredCarriedObjectId !== undefined) {
+      setCarriedObject(restoredCarriedObjectId);
+    }
+  };
+
   const applyCues = (cueIds: readonly string[]) => {
     const highlightedIds = cueIds.flatMap((cueId) => {
       switch (cueId) {
@@ -601,6 +621,7 @@ export async function createGameRuntime(
     transferCarriedObject,
     clearCarriedObject,
     resetLessonWorld,
+    restoreLessonWorld,
     applyCues,
     dispose,
   };

@@ -5,13 +5,14 @@ This directory stores live and completed ExecPlans created according to
 
 ## Current status
 
-Milestones 1 through 5 are complete. Milestone 6 is next but has no approved
-ExecPlan and has not started.
+Milestones 1 through 5 are complete. Milestone 6 implementation is ready for
+manual browser acceptance under its persistence ExecPlan.
 
 ## Index
 
 | Plan | Status | Outcome |
 | --- | --- | --- |
+| 2026-08-12-local-evidence-sqlite-persistence.md | Implemented; awaiting manual acceptance | Persist evidence and resume one local lesson safely through server-owned SQLite |
 | 2026-08-12-complete-mvp-primitive-runtime.md | Complete | Played one authored lesson through all eight fixed MVP primitives |
 | 2026-08-11-first-deterministic-learning-loop.md | Complete | Play one authored LISTEN → CLICK_OBJECT → CHOOSE lesson deterministically |
 | 2026-08-11-isometric-runtime-foundation.md | Complete | Walk through and inspect one reusable isometric park runtime |

@@ -6,10 +6,38 @@ import Ajv2020Module, {
 import addFormatsModule from "ajv-formats";
 
 import {
+  AbandonSessionRequestSchema,
+  AbandonSessionResultSchema,
   CatalogSnapshotSchema,
+  EvidenceEventSchema,
+  LocalPreferencesSchema,
   LessonManifestSchema,
+  ProgressSummaryResultSchema,
+  ResetLocalDataRequestSchema,
+  ResetLocalDataResultSchema,
+  ResumableSessionResultSchema,
+  SessionCheckpointSchema,
+  SessionCommitRequestSchema,
+  SessionCommitResultSchema,
+  SessionCreateRequestSchema,
+  StorageSummarySchema,
+  UpdatePreferencesRequestSchema,
+  type AbandonSessionRequest,
+  type AbandonSessionResult,
   type CatalogSnapshot,
+  type EvidenceEvent,
+  type LocalPreferences,
   type LessonManifest,
+  type ProgressSummaryResult,
+  type ResetLocalDataRequest,
+  type ResetLocalDataResult,
+  type ResumableSessionResult,
+  type SessionCheckpoint,
+  type SessionCommitRequest,
+  type SessionCommitResult,
+  type SessionCreateRequest,
+  type StorageSummary,
+  type UpdatePreferencesRequest,
 } from "../schema/index.js";
 import {
   type BunbunValidationError,
@@ -41,6 +69,48 @@ const catalogValidator = ajv.compile<CatalogSnapshot>(
 const manifestValidator = ajv.compile<LessonManifest>(
   LessonManifestSchema as AnySchema,
 );
+const evidenceEventValidator = ajv.compile<EvidenceEvent>(
+  EvidenceEventSchema as AnySchema,
+);
+const sessionCheckpointValidator = ajv.compile<SessionCheckpoint>(
+  SessionCheckpointSchema as AnySchema,
+);
+const sessionCreateRequestValidator = ajv.compile<SessionCreateRequest>(
+  SessionCreateRequestSchema as AnySchema,
+);
+const sessionCommitRequestValidator = ajv.compile<SessionCommitRequest>(
+  SessionCommitRequestSchema as AnySchema,
+);
+const sessionCommitResultValidator = ajv.compile<SessionCommitResult>(
+  SessionCommitResultSchema as AnySchema,
+);
+const resumableSessionResultValidator = ajv.compile<ResumableSessionResult>(
+  ResumableSessionResultSchema as AnySchema,
+);
+const abandonSessionRequestValidator = ajv.compile<AbandonSessionRequest>(
+  AbandonSessionRequestSchema as AnySchema,
+);
+const abandonSessionResultValidator = ajv.compile<AbandonSessionResult>(
+  AbandonSessionResultSchema as AnySchema,
+);
+const localPreferencesValidator = ajv.compile<LocalPreferences>(
+  LocalPreferencesSchema as AnySchema,
+);
+const updatePreferencesRequestValidator = ajv.compile<UpdatePreferencesRequest>(
+  UpdatePreferencesRequestSchema as AnySchema,
+);
+const progressSummaryResultValidator = ajv.compile<ProgressSummaryResult>(
+  ProgressSummaryResultSchema as AnySchema,
+);
+const storageSummaryValidator = ajv.compile<StorageSummary>(
+  StorageSummarySchema as AnySchema,
+);
+const resetLocalDataRequestValidator = ajv.compile<ResetLocalDataRequest>(
+  ResetLocalDataRequestSchema as AnySchema,
+);
+const resetLocalDataResultValidator = ajv.compile<ResetLocalDataResult>(
+  ResetLocalDataResultSchema as AnySchema,
+);
 
 export function validateCatalogStructure(
   input: unknown,
@@ -52,6 +122,138 @@ export function validateManifestStructure(
   input: unknown,
 ): ValidationResult<LessonManifest> {
   return runStructuralValidation(input, manifestValidator, "MANIFEST");
+}
+
+export function validateEvidenceEventStructure(
+  input: unknown,
+): ValidationResult<EvidenceEvent> {
+  return runStructuralValidation(input, evidenceEventValidator, "PERSISTENCE");
+}
+
+export function validateSessionCheckpointStructure(
+  input: unknown,
+): ValidationResult<SessionCheckpoint> {
+  return runStructuralValidation(
+    input,
+    sessionCheckpointValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateSessionCreateRequestStructure(
+  input: unknown,
+): ValidationResult<SessionCreateRequest> {
+  return runStructuralValidation(
+    input,
+    sessionCreateRequestValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateSessionCommitRequestStructure(
+  input: unknown,
+): ValidationResult<SessionCommitRequest> {
+  return runStructuralValidation(
+    input,
+    sessionCommitRequestValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateSessionCommitResultStructure(
+  input: unknown,
+): ValidationResult<SessionCommitResult> {
+  return runStructuralValidation(
+    input,
+    sessionCommitResultValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateResumableSessionResultStructure(
+  input: unknown,
+): ValidationResult<ResumableSessionResult> {
+  return runStructuralValidation(
+    input,
+    resumableSessionResultValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateAbandonSessionRequestStructure(
+  input: unknown,
+): ValidationResult<AbandonSessionRequest> {
+  return runStructuralValidation(
+    input,
+    abandonSessionRequestValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateAbandonSessionResultStructure(
+  input: unknown,
+): ValidationResult<AbandonSessionResult> {
+  return runStructuralValidation(
+    input,
+    abandonSessionResultValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateLocalPreferencesStructure(
+  input: unknown,
+): ValidationResult<LocalPreferences> {
+  return runStructuralValidation(
+    input,
+    localPreferencesValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateUpdatePreferencesRequestStructure(
+  input: unknown,
+): ValidationResult<UpdatePreferencesRequest> {
+  return runStructuralValidation(
+    input,
+    updatePreferencesRequestValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateProgressSummaryResultStructure(
+  input: unknown,
+): ValidationResult<ProgressSummaryResult> {
+  return runStructuralValidation(
+    input,
+    progressSummaryResultValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateStorageSummaryStructure(
+  input: unknown,
+): ValidationResult<StorageSummary> {
+  return runStructuralValidation(input, storageSummaryValidator, "PERSISTENCE");
+}
+
+export function validateResetLocalDataRequestStructure(
+  input: unknown,
+): ValidationResult<ResetLocalDataRequest> {
+  return runStructuralValidation(
+    input,
+    resetLocalDataRequestValidator,
+    "PERSISTENCE",
+  );
+}
+
+export function validateResetLocalDataResultStructure(
+  input: unknown,
+): ValidationResult<ResetLocalDataResult> {
+  return runStructuralValidation(
+    input,
+    resetLocalDataResultValidator,
+    "PERSISTENCE",
+  );
 }
 
 function runStructuralValidation<Value>(

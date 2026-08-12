@@ -20,9 +20,16 @@ export interface AppShell {
   viewport: HTMLElement;
   canvas: HTMLCanvasElement;
   retryButton: HTMLButtonElement;
+  resumeButton: HTMLButtonElement;
+  startAgainButton: HTMLButtonElement;
   zoomInButton: HTMLButtonElement;
   zoomOutButton: HTMLButtonElement;
   diagnosticsButton: HTMLButtonElement;
+  localDataButton: HTMLButtonElement;
+  closeLocalDataButton: HTMLButtonElement;
+  deleteLocalDataButton: HTMLButtonElement;
+  confirmDeleteLocalDataButton: HTMLButtonElement;
+  resumeModeSelect: HTMLSelectElement;
   audioButton: HTMLButtonElement;
   continueButton: HTMLButtonElement;
   helpButton: HTMLButtonElement;
@@ -35,6 +42,12 @@ export interface AppShell {
   typeForm: HTMLFormElement;
   typeInput: HTMLInputElement;
   setLoading: () => void;
+  setResumePrompt: (
+    lessonTitle: string,
+    stepId: string,
+    lastSavedAt: string,
+  ) => void;
+  setDataDeleted: () => void;
   setReady: (backend: RendererBackend, recoveredWithWebGL2: boolean) => void;
   setError: (code: string, message: string) => void;
   setPaused: (paused: boolean) => void;
@@ -43,8 +56,23 @@ export interface AppShell {
   setAudioError: (message?: string) => void;
   renderLesson: (state: LessonState) => void;
   setDiagnosticsOpen: (open: boolean) => void;
+  setLocalDataOpen: (open: boolean) => void;
+  setPersistenceStatus: (
+    status: "saving" | "saved" | "error",
+    detail?: string,
+  ) => void;
+  renderLocalData: (snapshot: LocalDataSnapshot) => void;
+  setDeleteConfirmation: (visible: boolean) => void;
   updateDiagnostics: (snapshot: DiagnosticsSnapshot) => void;
   updateLessonDiagnostics: (snapshot: LessonDiagnosticsSnapshot) => void;
+}
+
+export interface LocalDataSnapshot {
+  resumeMode: "ASK" | "AUTO_RESUME" | "START_NEW";
+  sessionCount: number;
+  eventCount: number;
+  activeSessionCount: number;
+  targetSignal: string;
 }
 
 export interface LessonDiagnosticsSnapshot {
@@ -66,6 +94,10 @@ export interface LessonDiagnosticsSnapshot {
   worldTargetMode: "none" | "object" | "location" | "recipient";
   pendingLocationId: string | undefined;
   carriedObjectId: string | undefined;
+  persistenceStatus: "saving" | "saved";
+  checkpointSequence: number;
+  storedEventCount: number;
+  lastSavedAt: string;
 }
 
 export function createAppShell(app: HTMLDivElement): AppShell {
@@ -90,7 +122,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         </header>
 
         <section class="state-panel" data-role="state" aria-live="polite">
-          <p class="eyebrow" data-role="state-label">Milestone 5</p>
+          <p class="eyebrow" data-role="state-label">Milestone 6</p>
           <h2 data-role="state-title">Preparing the lesson…</h2>
           <p data-role="state-message">
             Validating the authored lesson before initializing the park.
@@ -98,6 +130,12 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           <button class="primary-button" data-role="retry" type="button" hidden>
             Retry runtime
           </button>
+          <div class="resume-actions" data-role="resume-actions" hidden>
+            <button class="primary-button" data-role="resume" type="button">
+              Resume lesson
+            </button>
+            <button data-role="start-again" type="button">Start again</button>
+          </div>
         </section>
 
         <section class="lesson-panel" data-role="lesson" aria-label="Japanese lesson" aria-live="polite" hidden>
@@ -160,6 +198,40 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <button type="button" data-role="diagnostics" aria-expanded="false">
               Diagnostics
             </button>
+            <button type="button" data-role="local-data" aria-expanded="false">
+              Local data
+            </button>
+          </div>
+        </aside>
+
+        <aside class="local-data-panel" data-role="local-data-panel" aria-label="Local learning data" hidden>
+          <div class="local-data-heading">
+            <div>
+              <p class="eyebrow">Local learning data</p>
+              <p>Stored only by this Bunbun server. Typed answers are never saved.</p>
+            </div>
+            <button type="button" data-role="local-data-close" aria-label="Close local data panel">×</button>
+          </div>
+          <output class="persistence-status" data-role="persistence-status">Preparing local storage…</output>
+          <dl>
+            <div><dt>Sessions</dt><dd data-local-data="sessions">—</dd></div>
+            <div><dt>Evidence events</dt><dd data-local-data="events">—</dd></div>
+            <div><dt>Active sessions</dt><dd data-local-data="active">—</dd></div>
+            <div><dt>Current target</dt><dd data-local-data="signal">—</dd></div>
+          </dl>
+          <label class="resume-mode-label">
+            On next visit
+            <select data-role="resume-mode">
+              <option value="ASK">Ask me</option>
+              <option value="AUTO_RESUME">Resume automatically</option>
+              <option value="START_NEW">Always start again</option>
+            </select>
+          </label>
+          <div class="delete-data-actions">
+            <button type="button" data-role="delete-local-data">Delete local learning data</button>
+            <button class="danger-button" type="button" data-role="confirm-delete-local-data" hidden>
+              Confirm permanent deletion
+            </button>
           </div>
         </aside>
 
@@ -191,6 +263,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <div><dt>World target</dt><dd data-diagnostic="lesson-world-target">—</dd></div>
             <div><dt>Pending location</dt><dd data-diagnostic="lesson-pending-location">—</dd></div>
             <div><dt>Carried object</dt><dd data-diagnostic="lesson-carried-object">—</dd></div>
+            <div><dt>Persistence</dt><dd data-diagnostic="persistence-status">—</dd></div>
+            <div><dt>Checkpoint</dt><dd data-diagnostic="checkpoint-sequence">—</dd></div>
+            <div><dt>Stored events</dt><dd data-diagnostic="stored-events">—</dd></div>
+            <div><dt>Last saved</dt><dd data-diagnostic="last-saved">—</dd></div>
             <div><dt>Session</dt><dd data-diagnostic="lesson-session">—</dd></div>
           </dl>
         </aside>
@@ -198,6 +274,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         <footer class="world-footer">
           <span>park_small</span>
           <span data-role="runtime-state">loading</span>
+          <span data-role="persistence-state">storage: loading</span>
         </footer>
       </section>
     </main>
@@ -213,6 +290,15 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     '[data-role="state-message"]',
   );
   const retryButton = required<HTMLButtonElement>(app, '[data-role="retry"]');
+  const resumeActions = required<HTMLElement>(
+    app,
+    '[data-role="resume-actions"]',
+  );
+  const resumeButton = required<HTMLButtonElement>(app, '[data-role="resume"]');
+  const startAgainButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="start-again"]',
+  );
   const zoomInButton = required<HTMLButtonElement>(
     app,
     '[data-role="zoom-in"]',
@@ -228,6 +314,38 @@ export function createAppShell(app: HTMLDivElement): AppShell {
   const diagnosticsPanel = required<HTMLElement>(
     app,
     '[data-role="diagnostics-panel"]',
+  );
+  const localDataButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="local-data"]',
+  );
+  const localDataPanel = required<HTMLElement>(
+    app,
+    '[data-role="local-data-panel"]',
+  );
+  const closeLocalDataButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="local-data-close"]',
+  );
+  const deleteLocalDataButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="delete-local-data"]',
+  );
+  const confirmDeleteLocalDataButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="confirm-delete-local-data"]',
+  );
+  const resumeModeSelect = required<HTMLSelectElement>(
+    app,
+    '[data-role="resume-mode"]',
+  );
+  const persistenceStatus = required<HTMLOutputElement>(
+    app,
+    '[data-role="persistence-status"]',
+  );
+  const persistenceState = required<HTMLElement>(
+    app,
+    '[data-role="persistence-state"]',
   );
   const rendererPill = required<HTMLElement>(app, '[data-role="renderer"]');
   const selectionOutput = required<HTMLOutputElement>(
@@ -344,13 +462,25 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     diagnosticsButton.setAttribute("aria-expanded", String(open));
   }
 
+  function setLocalDataOpen(open: boolean): void {
+    localDataPanel.hidden = !open;
+    localDataButton.setAttribute("aria-expanded", String(open));
+  }
+
   return {
     viewport,
     canvas,
     retryButton,
+    resumeButton,
+    startAgainButton,
     zoomInButton,
     zoomOutButton,
     diagnosticsButton,
+    localDataButton,
+    closeLocalDataButton,
+    deleteLocalDataButton,
+    confirmDeleteLocalDataButton,
+    resumeModeSelect,
     audioButton,
     continueButton,
     helpButton,
@@ -364,17 +494,46 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     typeInput,
     setLoading: () => {
       statePanel.hidden = false;
-      stateLabel.textContent = "Milestone 5";
+      stateLabel.textContent = "Milestone 6";
       stateTitle.textContent = "Preparing the lesson…";
       stateMessage.textContent =
         "Validating the authored lesson before initializing the park.";
       retryButton.hidden = true;
+      retryButton.textContent = "Retry runtime";
+      resumeActions.hidden = true;
       rendererPill.textContent = "Starting…";
       rendererPill.dataset.backend = "loading";
       runtimeState.textContent = "loading";
       lessonPanel.hidden = true;
       delete viewport.dataset.lessonMode;
       delete viewport.dataset.worldInput;
+    },
+    setResumePrompt: (lessonTitle, stepId, lastSavedAt) => {
+      statePanel.hidden = false;
+      stateLabel.textContent = "LOCAL SAVE";
+      stateTitle.textContent = "Continue your lesson?";
+      stateMessage.textContent = `${lessonTitle} is saved at step ${stepId}. Last local save: ${new Date(lastSavedAt).toLocaleString()}.`;
+      retryButton.hidden = true;
+      resumeActions.hidden = false;
+      lessonPanel.hidden = true;
+      resumeButton.focus({ preventScroll: true });
+    },
+    setDataDeleted: () => {
+      statePanel.hidden = false;
+      stateLabel.textContent = "LOCAL DATA";
+      stateTitle.textContent = "Local learning data deleted";
+      stateMessage.textContent =
+        "Lesson revisions, sessions, evidence, checkpoints, commits, and preferences were removed. Start fresh when you are ready.";
+      retryButton.textContent = "Start fresh";
+      retryButton.hidden = false;
+      resumeActions.hidden = true;
+      rendererPill.textContent = "Ready";
+      rendererPill.dataset.backend = "loading";
+      runtimeState.textContent = "reset";
+      lessonPanel.hidden = true;
+      delete viewport.dataset.lessonMode;
+      delete viewport.dataset.worldInput;
+      retryButton.focus({ preventScroll: true });
     },
     setReady: (backend, recoveredWithWebGL2) => {
       statePanel.hidden = true;
@@ -391,6 +550,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       stateTitle.textContent = "The park could not start";
       stateMessage.textContent = message;
       retryButton.hidden = false;
+      resumeActions.hidden = true;
       rendererPill.textContent = "Error";
       rendererPill.dataset.backend = "error";
       runtimeState.textContent = "error";
@@ -569,6 +729,32 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       restartLessonButton.hidden = state.phase !== "COMPLETED";
     },
     setDiagnosticsOpen,
+    setLocalDataOpen,
+    setPersistenceStatus: (status, detail) => {
+      persistenceStatus.dataset.status = status;
+      persistenceStatus.textContent =
+        detail ??
+        (status === "saving"
+          ? "Saving locally…"
+          : status === "saved"
+            ? "Saved locally"
+            : "Local storage error");
+      persistenceState.textContent = `storage: ${status}`;
+    },
+    renderLocalData: (snapshot) => {
+      resumeModeSelect.value = snapshot.resumeMode;
+      localDataValue("sessions").textContent = String(snapshot.sessionCount);
+      localDataValue("events").textContent = String(snapshot.eventCount);
+      localDataValue("active").textContent = String(
+        snapshot.activeSessionCount,
+      );
+      localDataValue("signal").textContent = snapshot.targetSignal;
+    },
+    setDeleteConfirmation: (visible) => {
+      confirmDeleteLocalDataButton.hidden = !visible;
+      deleteLocalDataButton.disabled = visible;
+      if (visible) confirmDeleteLocalDataButton.focus({ preventScroll: true });
+    },
     updateDiagnostics: (snapshot) => {
       diagnostic("renderer").textContent = snapshot.renderer;
       diagnostic("fps").textContent = snapshot.fps.toFixed(0);
@@ -613,12 +799,26 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         snapshot.pendingLocationId ?? "—";
       diagnostic("lesson-carried-object").textContent =
         snapshot.carriedObjectId ?? "—";
+      diagnostic("persistence-status").textContent = snapshot.persistenceStatus;
+      diagnostic("checkpoint-sequence").textContent = String(
+        snapshot.checkpointSequence,
+      );
+      diagnostic("stored-events").textContent = String(
+        snapshot.storedEventCount,
+      );
+      diagnostic("last-saved").textContent = new Date(
+        snapshot.lastSavedAt,
+      ).toLocaleTimeString();
       diagnostic("lesson-session").textContent = snapshot.sessionId.slice(
         0,
         12,
       );
     },
   };
+
+  function localDataValue(name: string): HTMLElement {
+    return required<HTMLElement>(app, `[data-local-data="${name}"]`);
+  }
 }
 
 function appendTokenButtons(
