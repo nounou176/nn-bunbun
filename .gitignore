@@ -7,3 +7,6 @@ dist/
 .DS_Store
 
 .bunbun-data/
+
+# User-owned Custom GPT source exports and reference assets stay local.
+/gpts/

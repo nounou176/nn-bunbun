@@ -239,14 +239,27 @@ modules behind the compiler boundary. It must not be treated as hidden external
 project memory or copied into separate services by default.
 
 `docs/AI_MODULES.md` is the source-capture and routing registry for these
-behaviors. As of 2026-08-12, only the six conceptual names are documented; no
-exact GPT editor configuration, knowledge file, example set, or approved
-Bunbun adaptation has been captured. All six modules therefore remain disabled.
-Story Coach, Reverse Trainer, and Tutor are proposed inputs to the Milestone 7
-lesson-authoring request, but that proposal cannot become a prompt
-implementation until the source configurations are reviewed, versioned, and
-approved. A missing module must not be replaced by an undocumented generic
-prompt.
+behaviors. On 2026-08-12, the user supplied six local GPT configurations and
+their Knowledge assets. They do not match the conceptual list one-to-one:
+Tutor and JLPT assessment are absent, while Story Sheet and HTML Anki are
+additional sources and two GPTs overlap on Anki generation. D-023 confirms that
+this is the complete intended set and accepts the Milestone 7 mapping: Story
+Sheet owns premise/story/setting content, Story Coach owns bounded hint,
+scaffold, pedagogical-cadence, and feedback content, and Reverse Trainer owns
+phrase analysis, reverse recall, and practice content. One composed structured
+request uses these responsibilities only after their typed adaptations and
+versions are approved. Deterministic code continues to own primitive order,
+difficulty progression, IDs, transitions, attempt/timing limits, and hard
+budgets. No source has an approved Bunbun adaptation yet, so the three selected
+prompt modules remain disabled. A missing or unapproved behavior must not be
+replaced by an undocumented generic prompt.
+
+The captured images and APKG are local style/output examples only. They are not
+linguistic references, lesson-content sources, or evaluation fixtures, and the
+Milestone 7 compiler must not upload them to the lesson provider. Text
+evaluation fixtures are authored and reviewed separately. A later visual or
+Anki workflow requires its own approval before using the files as style
+examples.
 
 ## Data and persistence
 

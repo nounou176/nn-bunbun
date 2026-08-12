@@ -767,10 +767,13 @@ cannot support an unbounded claim about arbitrary Japanese targets or licensed
 external linguistic data.
 
 The original Bunbun source names Story Coach, Reverse Trainer, Visual Mnemonic,
-Tutor, Anki content generator, and JLPT assessment generator, but it does not
-contain their actual Custom GPT configurations. `docs/AI_MODULES.md` records
-that source gap and keeps every module disabled until its source, examples,
-adaptation, version, and routing are reviewed and approved.
+Tutor, Anki content generator, and JLPT assessment generator. The user later
+supplied six local GPT configurations, but the sets do not match one-to-one:
+Tutor and JLPT assessment are absent, while Story Sheet and HTML Anki appear and
+two GPTs overlap on Anki generation. `docs/AI_MODULES.md` records the captured
+sources and keeps every module disabled until its source revision,
+capabilities, examples, adaptation, version, and routing are reviewed and
+approved.
 
 Decision:
 
@@ -799,12 +802,16 @@ Select the existing park_small runtime profile and a compatible initial
 scenario deterministically before asking AI for content. The model receives
 only normalized targets, a compact allowlist of reviewed local world IDs,
 primitive capabilities, quality budgets, a versioned compiler envelope, and
-only the approved prompt modules registered in `docs/AI_MODULES.md`. The
-initial proposal composes Story Coach, Reverse Trainer, and Tutor in one
-structured lesson request; it does not run independent agents. A required
-module that remains missing or unapproved fails clearly rather than being
-replaced by an undocumented generic prompt. The model cannot invent assets,
-mechanics, paths, URLs, or executable behavior.
+only the approved prompt modules registered in `docs/AI_MODULES.md`. D-023
+accepts the Milestone 7 responsibility map: Story Sheet authors premise,
+story, and setting/context; Story Coach authors bounded hints, scaffold
+wording, pedagogical cadence, and feedback; Reverse Trainer authors phrase
+analysis, reverse recall, and practice content. These responsibilities are
+composed in one structured lesson request rather than run as independent
+agents. Deterministic code owns primitive order, difficulty progression, IDs,
+transitions, and hard budgets. A required module that remains unapproved fails
+clearly rather than being replaced by an undocumented generic prompt. The
+model cannot invent assets, mechanics, paths, URLs, or executable behavior.
 
 Use the official OpenAI JavaScript SDK and Responses API with strict Structured
 Outputs through a separate all-required LessonContentDraft 0.1.0 schema. The
@@ -855,6 +862,63 @@ quality and Japanese naturalness still require reviewed examples and manual
 acceptance because schema and semantic validators cannot prove them. O-006 and
 the initial text-model portion of O-010 are resolved only if this proposal is
 accepted; TTS model, voice, and cache choices remain owned by Milestone 8.
+
+### D-023 — Accept the confirmed Custom GPT set and Milestone 7 routing
+
+- Date: 2026-08-12
+- Status: Accepted
+- Affects: AI modules, compiler routing, prompt review, evaluation fixtures,
+  local source assets
+
+Context:
+
+The original Bunbun concepts and the six supplied Custom GPT configurations do
+not match one-to-one. The supplied set has no standalone Tutor or JLPT
+assessment GPT, while Story Sheet and HTML Anki are present. Story Coach,
+Reverse Trainer, and Story Sheet also overlap in sentence and lesson-support
+behavior. Separately, the captured source library contains images and an APKG
+whose linguistic contents and provenance have not been accepted as reference
+or evaluation data.
+
+Decision:
+
+The six supplied GPT configurations are the exact complete intended source set
+for current planning. Do not wait for or invent a separate Tutor or JLPT
+assessment GPT.
+
+For Milestone 7, map responsibilities as follows:
+
+- Story Sheet authors the premise, story, and setting/context inside a
+  compiler-selected scene and scenario profile.
+- Story Coach authors bounded hint and scaffold wording, pedagogical cadence,
+  and feedback inside code-owned slots and budgets.
+- Reverse Trainer authors phrase analysis, reverse-recall material, and
+  practice content.
+- deterministic code chooses primitive sequence, difficulty progression, IDs,
+  transitions, attempt/timing limits, and hard quality/runtime budgets.
+
+Compose the three approved responsibilities into one structured lesson request
+after their individual Bunbun adaptations and versions are approved. Do not
+call the Custom GPTs as independent agents or treat their ChatGPT links as API
+dependencies.
+
+All supplied images and the APKG are style/output examples only. Do not extract
+their linguistic content for lessons, treat them as reference truth, or use
+them as evaluation fixtures. Author and review text evaluation fixtures
+separately.
+
+Consequences:
+
+The source-to-module mapping gate is closed, but all three selected prompt
+modules remain disabled until their typed responsibilities, exclusions,
+versions, content hashes, source metadata, and text-only success/failure
+evaluations are reviewed and approved. Story Coach can shape pedagogical rhythm
+without controlling the deterministic lesson graph. Visual Mnemonic and both
+Anki workflows remain deferred, and JLPT assessment remains a later capability
+requiring a new decision. Binary examples are not inputs to the Milestone 7
+lesson provider and cannot be promoted into compiler/reference/evaluation data.
+A later visual or Anki workflow may use them only as style/output examples
+after its own review and approval.
 
 ## Deferred decisions
 

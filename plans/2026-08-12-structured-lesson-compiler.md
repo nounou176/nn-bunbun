@@ -3,7 +3,7 @@
 Status: Proposed
 Owner: Codex and user
 Created: 2026-08-12
-Last updated: 2026-08-12 13:20 Asia/Ho_Chi_Minh
+Last updated: 2026-08-12 18:43 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -65,19 +65,20 @@ fixed primitives. They are a technical compiler target, not a product content
 library or resolution of O-001/O-002.
 
 `docs/AI_MODULES.md` inventories the six Custom GPT concepts named by the
-original Bunbun source. Its source audit found no exact GPT configurations,
-knowledge files, evaluation examples, or accepted gameplay routing in the
-repository, known local attachments, or shared memory. Story Coach, Reverse
-Trainer, and Tutor are proposed Milestone 7 authoring modules, but all six
-remain disabled until their source packages and Bunbun adaptations are
-reviewed, versioned, and approved.
+original Bunbun source. On 2026-08-12, the user supplied six local GPT
+configurations plus Knowledge assets under the Git-ignored `gpts/` directory.
+The supplied set contains Story Coach, Reverse Trainer, Story Sheet, Visual
+Mnemonic, HTML Anki, and JLPT N3 Anki Deck Generator. It does not contain a
+distinct Tutor or JLPT assessment GPT. D-023 confirms this is the complete
+intended set and accepts the Milestone 7 responsibility mapping. No selected
+prompt-module adaptation or version is approved yet.
 
-D-001 through D-008, D-010 through D-013, D-015 through D-021, and proposed
-D-022 govern the work. Implementation must not begin until the user accepts
-D-022, this ExecPlan, the required prompt-module adaptations and routing, and
+D-001 through D-008, D-010 through D-013, D-015 through D-021, accepted D-023,
+and proposed D-022 govern the work. Implementation must not begin until the
+user accepts D-022, this ExecPlan, the required prompt-module adaptations, and
 the environment-variable name `OPENAI_API_KEY`. Real provider/prompt work also
-must not begin while Story Coach, Reverse Trainer, or Tutor remains missing or
-unapproved.
+must not begin until the selected source revisions, capabilities, references,
+text-only evaluations, adaptations, and versions are approved.
 
 Official OpenAI documentation consulted on 2026-08-12 states that Structured
 Outputs should be used instead of JSON mode where possible, that Responses API
@@ -98,9 +99,19 @@ model and confirms Responses API and Structured Outputs support:
 - Add a separately versioned LessonCompilation 0.1.0 API contract with inferred
   types, strict validators, normalized errors, generated JSON Schema, and drift
   checks.
-- Capture the complete source configurations, reference files, representative
-  examples, and failure examples for Story Coach, Reverse Trainer, and Tutor
-  under the process defined by `docs/AI_MODULES.md`.
+- Review the captured local configurations and reference files under the
+  process defined by `docs/AI_MODULES.md`. Collect their missing source
+  revisions, capabilities/actions, knowledge ownership/licenses,
+  representative successful examples, and failure examples.
+- Apply the accepted D-023 mapping: Story Sheet owns premise/story/setting,
+  Story Coach owns bounded hints/scaffolds/pedagogical cadence/feedback, and
+  Reverse Trainer owns phrase analysis/reverse recall/practice content.
+- Keep primitive sequence, difficulty progression, IDs, transitions,
+  attempt/timing limits, and hard budgets deterministic. Do not delegate those
+  responsibilities to a prompt module.
+- Treat every supplied image and the APKG only as a style/output example. Do
+  not extract lesson/reference content from them, send them to the provider, or
+  use them as evaluation fixtures.
 - Define and approve a narrow, versioned Bunbun prompt-module adaptation for
   each captured module, including typed responsibility, allowed data,
   exclusions, validators, fallback behavior, and composition order.
@@ -147,11 +158,11 @@ model and confirms Responses API and Structured Outputs support:
   the official JavaScript SDK, Responses API, strict `text.format`, model
   `gpt-5.6-terra`, and `reasoning.effort: medium`.
 - Keep one versioned code-owned compiler envelope and compose only the
-  approved Story Coach, Reverse Trainer, and Tutor prompt modules required for
-  the selected lesson profile. Send only normalized targets, the compact
-  compiler profile, budgets, and explicit data/instruction boundaries. Record
-  every participating module ID and version. Do not enable model tools, web
-  search, file search, or function calling.
+  approved `story_sheet`, `reverse_trainer`, and `story_coach` prompt modules
+  required for the selected lesson profile. Send only normalized targets, the
+  compact compiler profile, budgets, and explicit data/instruction boundaries.
+  Record every participating module ID and version. Do not enable model tools,
+  web search, file search, or function calling.
 - Read the provider credential server-side only from `OPENAI_API_KEY`; never
   log, persist, return, document, or send its value to the browser.
 - Treat a missing key as `COMPILER_NOT_CONFIGURED` while keeping the server,
@@ -254,6 +265,8 @@ model and confirms Responses API and Structured Outputs support:
   semantics.
 - Proposed D-022 resolves O-006, O-009 for the technical slice, and the initial
   text-model/prompt portion of O-010 only after explicit user approval.
+- D-023 accepts the complete Custom GPT source set, M7 responsibility map, and
+  style-only treatment of supplied images/APKG.
 - `docs/AI_MODULES.md` governs Custom GPT source capture and module activation.
   A concept name or inferred purpose is insufficient; missing or unapproved
   behavior cannot be implemented as a generic substitute.
@@ -284,11 +297,12 @@ An idempotent request ID returns its existing job. Otherwise the server commits
 a QUEUED row and lets the single worker process it after the HTTP response.
 
 The worker resolves reviewed references, rejects unsupported or incomplete
-targets, selects the technical scene/scenario profile, and builds a small
-provider request from the approved compiler envelope and the versioned Story
-Coach, Reverse Trainer, and Tutor modules required by that profile. These are
-composed into one Responses request, not invoked as independent agents. The
-provider returns LessonContentDraft 0.1.0 through strict Structured Outputs.
+targets, selects the technical scene/scenario profile and deterministic
+primitive/difficulty progression, and builds a small provider request from the
+approved compiler envelope and the versioned Story Sheet, Reverse Trainer, and
+Story Coach modules required by that profile. These are composed into one
+Responses request, not invoked as independent agents. The provider returns
+LessonContentDraft 0.1.0 through strict Structured Outputs.
 The server explicitly handles refusal, incomplete output, transport failure,
 missing parsed content, and missing required module configuration.
 
@@ -309,11 +323,13 @@ loop know which model compiled the manifest.
 
 ### 0. Capture and approve lesson-authoring modules
 
-Collect the actual source packages for Story Coach, Reverse Trainer, and Tutor
-using `docs/AI_MODULES.md`. Review instructions, reference files,
-capabilities/actions, representative successes, failures, privacy, and overlap.
-Define their narrow Bunbun adaptations, composition order, semantic versions,
-content hashes, and evaluation fixtures, then obtain explicit user approval.
+Review the six captured source packages using `docs/AI_MODULES.md`. The user
+has confirmed the intended set and D-023 resolves the mismatch with the earlier
+Tutor/JLPT assessment concepts. Collect missing revision, capability/action,
+knowledge-ownership, representative text success/failure, and privacy metadata.
+Define the three selected Milestone 7 modules' narrow Bunbun adaptations,
+semantic versions, content hashes, and text-only evaluation fixtures, then
+obtain explicit user approval.
 
 Observable checkpoint: every required module is `Approved`, its source revision
 and evaluation examples are traceable, conflicts are resolved, and the user can
@@ -411,11 +427,19 @@ acceptance checklist.
   local attachments, and shared memory for the six named Custom GPT concepts;
   create `docs/AI_MODULES.md` with their source status, proposed routing,
   capture template, privacy boundary, and activation gates.
-- [ ] Obtain and review the source packages for Story Coach, Reverse Trainer,
-  and Tutor; define and obtain approval for their Bunbun adaptations, versions,
-  evaluation fixtures, and composition order.
+- [x] 2026-08-12 17:16 — Read and inventory the six user-supplied local GPT
+  configurations, three Knowledge text specs, 57 PNG files, and one example
+  APKG; preserve raw inputs and add a Git-ignored normalized local index with
+  six source summaries.
+- [x] 2026-08-12 18:43 — Record D-023 after the user confirmed the exact
+  six-GPT set, accepted the Story Sheet/Story Coach/Reverse Trainer mapping,
+  retained deterministic primitive/difficulty control, and restricted all
+  supplied images/APKG to style/output examples only.
+- [ ] Collect missing source metadata and knowledge ownership; then define and
+  obtain approval for the three selected typed adaptations, versions, content
+  hashes, and separately authored text evaluation fixtures.
 - [ ] Obtain explicit user approval for D-022, this ExecPlan, the approved
-  prompt-module routing and versions,
+  prompt-module adaptations and versions,
   `gpt-5.6-terra`, `reasoning.effort: medium`, and the environment-variable
   name `OPENAI_API_KEY`.
 - [ ] Implement milestones 0 through 7 in dependency order, updating this plan
@@ -443,11 +467,20 @@ acceptance checklist.
 - Current official OpenAI documentation recommends Structured Outputs over
   JSON mode and describes `gpt-5.6-terra` as the balanced GPT-5.6 option. Model
   access for the user's account is not established by documentation.
-- The original 504-line Bunbun source names six conceptual GPT modules but does
-  not contain their actual GPT editor fields, knowledge files, examples,
-  versions, links, capabilities, actions, or accepted gameplay routing. No
-  additional local attachment or shared-memory record supplied those missing
-  details. The module names alone cannot serve as prompt specifications.
+- The original 504-line Bunbun source names six conceptual GPT modules but did
+  not contain their actual source packages. The later local capture supplies
+  six configurations, but not the same six concepts: Tutor and JLPT assessment
+  are absent, Story Sheet and HTML Anki are additional, and Anki responsibilities
+  overlap. D-023 confirms that this is intentional and closes the M7 mapping
+  question. Recommended models, capabilities/actions, source revisions,
+  knowledge ownership, and representative text evaluations are still missing.
+- The standalone Reverse Trainer and Visual Mnemonic configurations differ from
+  the older/partial copies embedded in the Anki generator's Knowledge folder.
+  The user must identify the intended source revision before adaptation.
+- The HTML Anki source has a four-column table header with a five-column data
+  row. The Anki generator advertises APKG/TSV, later requires APKG only, while
+  its embedded builder spec permits a CSV/media ZIP fallback. These conflicts
+  require explicit resolution rather than silent normalization.
 
 ## Plan decisions
 
@@ -471,6 +504,11 @@ acceptance checklist.
   behavior. Do not replace a missing module with an undocumented generic
   prompt. Compose approved M7 modules in one structured request rather than
   running separate agents.
+- 2026-08-12 — Accept D-023: use Story Sheet for premise/story/setting, Story
+  Coach for bounded hints/scaffolds/pedagogical cadence/feedback, and Reverse
+  Trainer for phrase analysis/reverse recall/practice content. Keep primitive
+  sequence and difficulty progression deterministic. Keep images/APKG as
+  style/output examples only, never lesson/reference/evaluation data.
 
 ## Validation
 
@@ -630,9 +668,11 @@ an applied migration. A later cleanup requires a new forward migration.
 ## Outcomes
 
 No implementation outcome yet. D-022 and this ExecPlan are Proposed. Milestone
-7 remains unstarted. The six Custom GPT concepts are inventoried, but their
-source configurations are not available and every module remains disabled.
-Story Coach, Reverse Trainer, and Tutor must first be captured, adapted,
-versioned, evaluated, and approved. The user must then explicitly approve the
-recommended job, reference, prompt-module routing, model, retry, privacy,
-temporary-audio, and environment-name boundaries.
+7 remains unstarted. Six local GPT source configurations and Knowledge assets
+are captured and normalized for review. D-023 resolves their identity set,
+Milestone 7 routing, deterministic sequencing boundary, and binary-example
+policy. The three selected modules remain disabled because their revisions,
+capabilities, references, typed adaptations, versions, and text-only
+evaluations are not yet approved. The user must approve those adaptations and
+then the recommended job, reference, model, retry, privacy, temporary-audio,
+and environment-name boundaries.

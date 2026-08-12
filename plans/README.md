@@ -6,9 +6,11 @@ This directory stores live and completed ExecPlans created according to
 ## Current status
 
 Milestones 1 through 6 are complete. The Milestone 7 Structured Outputs lesson
-compiler ExecPlan is Proposed. Its six Custom GPT concepts are inventoried, but
-Story Coach, Reverse Trainer, and Tutor source capture and approval are required
-before real provider/prompt implementation and final plan approval.
+compiler ExecPlan is Proposed. D-023 confirms the supplied six-GPT set and
+accepts the Story Sheet + Story Coach + Reverse Trainer responsibility map.
+Their typed adaptations, text-only evaluation fixtures, versions, and user
+approval are still required before real provider/prompt implementation and
+final plan approval; binary examples are style references only.
 
 ## Index
 

@@ -198,14 +198,23 @@ Completed ExecPlans:
 - Proposed D-022 and the Milestone 7 ExecPlan define a durable node:http/SQLite
   compilation job, strict Structured Outputs draft normalization, a small
   project-authored reference fixture, and validated dynamic lesson loading.
-- Added `docs/AI_MODULES.md` after auditing the original Bunbun source, current
-  repository, known local attachments, and shared memory. It inventories the
-  six named Custom GPT concepts, but their exact configurations are absent, so
-  all six are marked `Missing source` and `Disabled`.
-- Capture, review, version, and approve Story Coach, Reverse Trainer, and Tutor
-  before real Milestone 7 provider/prompt work. Then obtain explicit approval
-  of D-022, the ExecPlan, model/reasoning setting, prompt-module routing, and
-  environment-variable name before implementation.
+- Captured six user-owned Custom GPT configurations and their Knowledge assets
+  in the Git-ignored local `gpts/` library. Added a normalized index and six
+  source summaries without changing the raw inputs. The source set contains six
+  configs, three Knowledge text specs, 57 PNG files representing 53 unique
+  images, and one example APKG with 42 notes/cards and 38 mapped media files.
+- Accepted D-023 after the user confirmed that the supplied six GPTs are the
+  exact complete set. Milestone 7 maps Story Sheet to premise/story/setting,
+  Story Coach to bounded hints/scaffolds/pedagogical cadence/feedback, and
+  Reverse Trainer to phrase analysis/reverse recall/practice content. Code
+  retains primitive sequence, difficulty progression, IDs, transitions, and
+  hard budgets.
+- Classified every supplied image and the APKG as a local style/output example
+  only. They cannot supply lesson/reference content or evaluation fixtures.
+- All three selected M7 prompt modules remain disabled pending typed
+  adaptation, missing source metadata, separately authored text evaluations,
+  versioning, and explicit approval. D-022, the ExecPlan, model/reasoning
+  setting, and environment-variable name also remain proposed.
 
 ## Repository inventory
 
@@ -290,28 +299,34 @@ proposed Milestone 7 planning records are currently uncommitted.
 14. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
-15. The six Custom GPT concept names are documented, but their actual editor
-    configurations, knowledge files, evaluation examples, and approved Bunbun
-    adaptations are not available. Their proposed gameplay mapping is not an
-    accepted implementation specification, and no generic prompt may silently
-    replace the missing source.
+15. Six Custom GPT configurations and their local Knowledge assets are
+    captured and their Milestone 7 mapping is accepted, but recommended models,
+    enabled capabilities/actions, exact source revisions, knowledge ownership/
+    licenses, typed adaptations, and representative text-only success/failure
+    examples are not documented. The selected prompt modules therefore remain
+    disabled. Supplied images and the APKG cannot fill these gaps because they
+    are style/output examples only.
 
 ## Next recommended work
 
 Review the Milestone 7 proposal before implementation:
 
-1. Supply the source packages described in `docs/AI_MODULES.md` for Story
-   Coach, Reverse Trainer, and Tutor without credentials or other secret
-   values.
-2. Review and approve each module's Bunbun adaptation, responsibility,
-   conflicts, data disclosure, evaluation examples, and version.
-3. Approve or revise proposed D-022 and
+1. Define the typed Bunbun adaptations for Story Sheet, Story Coach, and
+   Reverse Trainer using the accepted D-023 responsibility map.
+2. Supply or confirm each selected GPT's source revision, recommended model,
+   enabled capabilities/actions, and Knowledge ownership/license without
+   credentials or secrets.
+3. Author separate text-only success/failure evaluation fixtures; do not derive
+   them from the supplied images or APKG.
+4. Review and approve each selected module's adaptation, data
+   disclosure, evaluation fixtures, composition order, and version.
+5. Approve or revise proposed D-022 and
    `plans/2026-08-12-structured-lesson-compiler.md`.
-4. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
+6. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
    setting.
-5. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
+7. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
    provide or store its value in repository documentation or shared memory.
-6. Start implementation only after those decisions and the ExecPlan are
+8. Start implementation only after those decisions and the ExecPlan are
    explicitly approved.
 
 ## Verification status

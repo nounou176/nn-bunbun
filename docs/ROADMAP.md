@@ -324,6 +324,12 @@ Decisions required:
 - the initial OpenAI model and prompt-module versions from O-010; and
 - input normalization and compiler retry policy.
 
+Decision resolved:
+
+- D-023 confirms the complete six-GPT source set and assigns Milestone 7
+  lesson-authoring responsibilities while keeping primitive sequence and
+  difficulty progression deterministic.
+
 Planning note:
 
 Proposed D-022 and
@@ -335,13 +341,19 @@ project-authored technical reference fixture. The proposal also recommends the
 single environment-variable name `OPENAI_API_KEY`. No compiler implementation
 has started; all of these boundaries await explicit user approval.
 
-`docs/AI_MODULES.md` inventories the six named Custom GPT concepts and records
-that their exact configurations are not present in the repository, known local
-attachments, or shared memory. Capturing, reviewing, versioning, and approving
-Story Coach, Reverse Trainer, and Tutor is a prerequisite to real Milestone 7
-provider/prompt work. Visual Mnemonic, Anki content, and JLPT assessment remain
-deferred. Missing behavior must not be replaced by an undocumented generic
-prompt.
+`docs/AI_MODULES.md` inventories the original concepts and six user-supplied
+local GPT configurations. The supplied set contains Story Coach, Reverse
+Trainer, Story Sheet, Visual Mnemonic, HTML Anki, and JLPT N3 Anki Deck
+Generator; D-023 confirms this is the complete intended set, with no distinct
+Tutor or JLPT assessment GPT. The accepted M7 composition uses Story Sheet for
+premise/story/setting, Story Coach for bounded hints/scaffolds/pedagogical
+cadence/feedback, and Reverse Trainer for phrase analysis/reverse recall/
+practice content. Code deterministically owns primitive order, difficulty, IDs,
+transitions, and hard budgets. The three prompt modules still require typed
+adaptations, text-only evaluation fixtures, versioning, and user approval
+before provider/prompt work. Supplied images and the APKG are style/output
+examples only, not content, reference data, or evaluation fixtures. Visual
+Mnemonic and both Anki workflows remain deferred.
 
 Planned scope:
 
