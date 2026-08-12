@@ -3,18 +3,31 @@ import type { LessonManifest, ValidatedLessonPackage } from "@bunbun/contracts";
 const SUPPORTED_SCENE_ID = "park_small";
 const SUPPORTED_CAMERA_ID = "park_isometric_default";
 const SUPPORTED_ASSET_IDS = new Set(["park_core", "animals_basic"]);
-const SUPPORTED_PRIMITIVES = new Set(["LISTEN", "CLICK_OBJECT", "CHOOSE"]);
+const SUPPORTED_PRIMITIVES = new Set([
+  "LISTEN",
+  "CLICK_OBJECT",
+  "CHOOSE",
+  "ARRANGE",
+  "TYPE",
+  "MOVE_TO",
+  "PICK_UP",
+  "GIVE",
+]);
 const SUPPORTED_SCAFFOLDS = new Set([
   "REPLAY_AUDIO",
   "SHOW_JAPANESE_TEXT",
   "HIGHLIGHT_OBJECTS",
+  "HIGHLIGHT_ENTITIES",
   "REDUCE_OBJECT_CANDIDATES",
   "REDUCE_CHOICE_CANDIDATES",
   "SHOW_READING",
+  "SHOW_MEANING",
+  "SHOW_PATTERN",
 ]);
 const SUPPORTED_CUES = new Set(["guide_gesture", "dog_happy", "dog_highlight"]);
 const SUPPORTED_AUDIO_IDS = new Set(["audio_find_dog"]);
-const SUPPORTED_WORLD_IDS = new Set(["guide", "dog", "cat"]);
+const SUPPORTED_WORLD_IDS = new Set(["guide", "visitor", "dog", "cat"]);
+const SUPPORTED_LOCATION_IDS = new Set(["animal_area", "bench_area"]);
 
 export interface RuntimeCapabilityError {
   code: string;
@@ -62,7 +75,7 @@ export function validateRuntimeCapabilities(
         errors,
         "UNSUPPORTED_RUNTIME_AUDIO",
         `/audioAssets/${index}/audioAssetId`,
-        `Audio '${audio.audioAssetId}' has no Milestone 4 playback adapter.`,
+        `Audio '${audio.audioAssetId}' has no local playback adapter.`,
       );
     }
   });
@@ -73,7 +86,7 @@ export function validateRuntimeCapabilities(
         errors,
         "UNSUPPORTED_RUNTIME_PRIMITIVE",
         `/steps/${stepIndex}/interaction/type`,
-        `Primitive '${step.interaction.type}' is not implemented in Milestone 4.`,
+        `Primitive '${step.interaction.type}' has no local executor.`,
       );
     }
     step.scaffolds.forEach((scaffold, scaffoldIndex) => {
@@ -82,7 +95,7 @@ export function validateRuntimeCapabilities(
           errors,
           "UNSUPPORTED_RUNTIME_SCAFFOLD",
           `/steps/${stepIndex}/scaffolds/${scaffoldIndex}/kind`,
-          `Scaffold '${scaffold.kind}' is not implemented in Milestone 4.`,
+          `Scaffold '${scaffold.kind}' has no local executor.`,
         );
       }
     });
@@ -104,12 +117,56 @@ export function validateRuntimeCapabilities(
       }
     });
   });
+  validateCarrySequence(manifest, errors);
 
   return errors.sort(
     (left, right) =>
       left.path.localeCompare(right.path) ||
       left.code.localeCompare(right.code),
   );
+}
+
+function validateCarrySequence(
+  manifest: LessonManifest,
+  errors: RuntimeCapabilityError[],
+): void {
+  const guaranteedCarriedObjects = new Set<string>();
+
+  manifest.steps.forEach((step, stepIndex) => {
+    if (
+      step.interaction.type === "PICK_UP" &&
+      step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED"
+    ) {
+      const deterministicObject = step.scaffolds.find(
+        (scaffold) =>
+          scaffold.kind === "REDUCE_OBJECT_CANDIDATES" &&
+          scaffold.afterAttempt === step.attemptPolicy.maximumAttempts &&
+          scaffold.objectIds.length === 1 &&
+          step.interaction.type === "PICK_UP" &&
+          step.interaction.acceptedObjectIds.includes(
+            scaffold.objectIds[0] ?? "",
+          ),
+      );
+      if (
+        deterministicObject?.kind === "REDUCE_OBJECT_CANDIDATES" &&
+        deterministicObject.objectIds[0] !== undefined
+      ) {
+        guaranteedCarriedObjects.add(deterministicObject.objectIds[0]);
+      }
+    }
+
+    if (step.interaction.type !== "GIVE") return;
+    step.interaction.acceptedPairs.forEach((pair, pairIndex) => {
+      if (!guaranteedCarriedObjects.has(pair.objectId)) {
+        addError(
+          errors,
+          "UNSUPPORTED_RUNTIME_CARRY_PATH",
+          `/steps/${stepIndex}/interaction/acceptedPairs/${pairIndex}/objectId`,
+          `GIVE object '${pair.objectId}' is not guaranteed by an earlier deterministic PICK_UP step.`,
+        );
+      }
+    });
+  });
 }
 
 function validateWorldIds(
@@ -133,6 +190,16 @@ function validateWorldIds(
         "UNSUPPORTED_RUNTIME_OBJECT",
         `/objects/${index}/objectId`,
         `Object '${object.objectId}' has no local world placement.`,
+      );
+    }
+  });
+  manifest.locations.forEach((location, index) => {
+    if (!SUPPORTED_LOCATION_IDS.has(location.locationId)) {
+      addError(
+        errors,
+        "UNSUPPORTED_RUNTIME_LOCATION",
+        `/locations/${index}/locationId`,
+        `Location '${location.locationId}' has no local world target.`,
       );
     }
   });

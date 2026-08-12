@@ -2,8 +2,8 @@
 
 Bunbun is a local-first, AI-powered Japanese-learning game. The current
 workspace includes the browser and server foundations, executable
-LessonManifest 0.1.0 contracts, a deterministic isometric park runtime, and the
-first authored LISTEN → CLICK_OBJECT → CHOOSE learning loop.
+LessonManifest 0.1.0 contracts, a deterministic isometric park runtime, and an
+authored lesson that executes all eight fixed MVP interaction primitives.
 
 ## Requirements
 
@@ -38,7 +38,7 @@ environment variable:
 PORT=3100 npm run dev:server
 ```
 
-Milestones 3 and 4 expose explicit local query controls without adding
+Milestones 3 through 5 expose explicit local query controls without adding
 environment variables:
 
 - `?debug=1` opens runtime diagnostics.
@@ -48,6 +48,10 @@ environment variables:
   the validation retry path can be tested.
 - `?audioFailure=1` makes Japanese speech unavailable so the assisted text path
   can be tested without recording heard evidence.
+- `?movementFailure=1` fails the first authored MOVE_TO request without
+  consuming a learner attempt.
+- `?carryFailure=1` invalidates the world carry mirror before GIVE so the
+  fail-closed recovery boundary can be tested.
 
 For example, open
 http://127.0.0.1:5173/?renderer=webgl2&debug=1 to inspect the fallback backend.
@@ -71,8 +75,16 @@ npm run inspect:manifest -- \
   packages/contracts/fixtures/catalogs/basic-catalog.json
 ```
 
-Replace `valid-find-dog.json` with `valid-find-dog-loop.json` to inspect the
-Milestone 4 three-step fixture.
+Inspect the Milestone 5 eight-primitive fixture with:
+
+```bash
+npm run inspect:manifest -- \
+  packages/contracts/fixtures/manifests/valid-complete-primitive-loop.json \
+  packages/contracts/fixtures/catalogs/basic-catalog.json
+```
+
+The earlier `valid-find-dog.json` and `valid-find-dog-loop.json` fixtures remain
+available for Milestone 2 and 4 regression inspection.
 
 ## Workspace layout
 
@@ -86,13 +98,12 @@ Milestone 4 three-step fixture.
 
 ## Current limitations
 
-- The park and three-step lesson are technical fixtures, not the final product
+- The park and eight-step lesson are technical fixtures, not the final product
   scene, learner level, or content set.
-- Only LISTEN, CLICK_OBJECT, and CHOOSE execute in Milestone 4; the other five
-  accepted primitives remain planned for Milestone 5.
-- Dog and cat selection is active only during the second lesson step. The guide
-  character is presentation-only, and Milestone 4 does not define generic
-  animal/character detail modals or popups.
+- All eight accepted primitives execute, but PICK_UP uses one task-scoped
+  dog-follow presentation rather than an inventory or physics system.
+- Object, authored-location, and recipient selection are enabled only for the
+  active lesson step. Characters do not have generic detail modals or popups.
 - Evidence is session-local and resets on reload. SQLite, AI compilation,
   production cached TTS, generated media, and mastery are not implemented.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by

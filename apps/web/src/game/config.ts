@@ -4,6 +4,8 @@ export interface RuntimeConfig {
   simulateAssetFailure: boolean;
   simulateManifestFailure: boolean;
   simulateAudioFailure: boolean;
+  simulateMovementFailure: boolean;
+  simulateCarryFailure: boolean;
 }
 
 export function readRuntimeConfig(search: string): RuntimeConfig {
@@ -14,5 +16,7 @@ export function readRuntimeConfig(search: string): RuntimeConfig {
     simulateAssetFailure: parameters.get("assetFailure") === "1",
     simulateManifestFailure: parameters.get("manifestFailure") === "1",
     simulateAudioFailure: parameters.get("audioFailure") === "1",
+    simulateMovementFailure: parameters.get("movementFailure") === "1",
+    simulateCarryFailure: parameters.get("carryFailure") === "1",
   };
 }

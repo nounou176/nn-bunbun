@@ -15,11 +15,18 @@ export const PARK_SCENE_DEFINITION = {
     minZ: -2.65,
     maxZ: 2.65,
   },
-  guide: {
-    localId: "guide",
-    catalogId: "npc_guide_basic",
-    position: { x: -2.4, y: 0, z: -1.6 },
-  },
+  entities: [
+    {
+      localId: "guide",
+      catalogId: "npc_guide_basic",
+      position: { x: -2.4, y: 0, z: -1.6 },
+    },
+    {
+      localId: "visitor",
+      catalogId: "npc_visitor_basic",
+      position: { x: 2.95, y: 0, z: 1.85 },
+    },
+  ],
   objects: [
     {
       localId: "dog",
@@ -30,6 +37,18 @@ export const PARK_SCENE_DEFINITION = {
       localId: "cat",
       catalogId: "animal_cat_small",
       position: { x: 2.75, y: 0, z: 1.25 },
+    },
+  ],
+  locations: [
+    {
+      localId: "animal_area",
+      catalogId: "park_animal_area",
+      position: { x: 2.1, y: 0, z: -0.75 },
+    },
+    {
+      localId: "bench_area",
+      catalogId: "park_bench_area",
+      position: { x: -2.25, y: 0, z: 1.3 },
     },
   ],
 } as const satisfies ParkSceneDefinition;

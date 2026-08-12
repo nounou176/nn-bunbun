@@ -572,12 +572,10 @@ so this is not the production audio implementation. O-001 and O-002 remain open
 because park_small and Vietnamese support are technical fixture choices, not
 the first product vertical slice.
 
-## Proposed decisions
-
 ### D-020 — Complete the primitive runtime with task-scoped carry state
 
 - Date: 2026-08-12
-- Status: Proposed
+- Status: Accepted
 - Affects: Web runtime, lesson execution, world input, fixtures, UX
 
 Context:

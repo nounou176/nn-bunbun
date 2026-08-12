@@ -103,7 +103,7 @@ test("orthographic sizing preserves aspect and clamps zoom", () => {
 test("runtime query controls are explicit and closed", () => {
   assert.deepEqual(
     readRuntimeConfig(
-      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1",
+      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1",
     ),
     {
       forceWebGL2: true,
@@ -111,6 +111,8 @@ test("runtime query controls are explicit and closed", () => {
       simulateAssetFailure: true,
       simulateManifestFailure: true,
       simulateAudioFailure: true,
+      simulateMovementFailure: true,
+      simulateCarryFailure: true,
     },
   );
   assert.deepEqual(readRuntimeConfig("?renderer=webgpu&debug=yes"), {
@@ -119,6 +121,8 @@ test("runtime query controls are explicit and closed", () => {
     simulateAssetFailure: false,
     simulateManifestFailure: false,
     simulateAudioFailure: false,
+    simulateMovementFailure: false,
+    simulateCarryFailure: false,
   });
 });
 
@@ -135,28 +139,53 @@ test("frame meter reports stable average, FPS, and p95", () => {
   });
 });
 
-test("lesson world input routes an accepted animal selection exactly once", () => {
+test("lesson world input isolates object, location, and recipient targets", () => {
   const gate = new LessonWorldInputGate();
   const selected: string[] = [];
   gate.configure({
-    enabled: true,
-    candidateObjectIds: ["dog", "cat"],
+    mode: "OBJECT",
+    candidateIds: ["dog", "cat"],
     highlightObjectIds: [],
-    onObjectSelected: (objectId) => selected.push(objectId),
+    highlightEntityIds: [],
+    onSelected: (objectId) => selected.push(`object:${objectId}`),
   });
 
-  assert.equal(gate.routeSelection("dog"), true);
-  assert.deepEqual(selected, ["dog"]);
-  assert.equal(gate.routeSelection("guide"), false);
-  assert.deepEqual(selected, ["dog"]);
+  assert.equal(gate.routeObject("dog"), true);
+  assert.equal(gate.routeLocation("animal_area"), false);
+  assert.equal(gate.routeRecipient("guide"), false);
+  assert.deepEqual(selected, ["object:dog"]);
 
   gate.configure({
-    enabled: false,
-    candidateObjectIds: [],
+    mode: "LOCATION",
+    candidateIds: ["animal_area"],
     highlightObjectIds: [],
+    highlightEntityIds: [],
+    onSelected: (locationId) => selected.push(`location:${locationId}`),
   });
-  assert.equal(gate.routeSelection("dog"), false);
-  assert.deepEqual(selected, ["dog"]);
+  assert.equal(gate.routeObject("dog"), false);
+  assert.equal(gate.routeLocation("bench_area"), false);
+  assert.equal(gate.routeLocation("animal_area"), true);
+
+  gate.configure({
+    mode: "RECIPIENT",
+    candidateIds: ["guide", "visitor"],
+    highlightObjectIds: [],
+    highlightEntityIds: [],
+    onSelected: (entityId) => selected.push(`recipient:${entityId}`),
+  });
+  assert.equal(gate.routeRecipient("guide"), true);
+
+  gate.configure({
+    mode: "NONE",
+    highlightObjectIds: [],
+    highlightEntityIds: [],
+  });
+  assert.equal(gate.routeRecipient("visitor"), false);
+  assert.deepEqual(selected, [
+    "object:dog",
+    "location:animal_area",
+    "recipient:guide",
+  ]);
 });
 
 class TestProgressEvent extends Event {

@@ -301,8 +301,11 @@ h1 {
 }
 
 .lesson-reading,
+.lesson-pattern,
+.lesson-meaning,
 .lesson-support,
 .lesson-world-action,
+.lesson-movement-error,
 .lesson-audio-error,
 .lesson-feedback {
   display: block;
@@ -314,6 +317,19 @@ h1 {
 .lesson-reading {
   color: #7a4f2c;
   font-weight: 850;
+}
+
+.lesson-pattern {
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.6rem;
+  color: #6d4329;
+  background: #f2e4cf;
+  font-weight: 800;
+}
+
+.lesson-meaning {
+  color: #665b50;
+  font-weight: 750;
 }
 
 .lesson-support {
@@ -340,7 +356,8 @@ h1 {
   line-height: 1.35;
 }
 
-.lesson-audio-error {
+.lesson-audio-error,
+.lesson-movement-error {
   padding: 0.6rem 0.75rem;
   border-radius: 0.65rem;
   color: #853c2b;
@@ -355,12 +372,103 @@ h1 {
 
 .lesson-feedback[hidden],
 .lesson-reading[hidden],
+.lesson-pattern[hidden],
+.lesson-meaning[hidden],
 .lesson-support[hidden],
 .lesson-world-action[hidden],
+.lesson-movement-error[hidden],
 .lesson-audio-error[hidden],
 .lesson-speaker[hidden],
 .lesson-utterance[hidden] {
   display: none;
+}
+
+.arrange-control,
+.type-control {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+.arrange-control[hidden],
+.type-control[hidden] {
+  display: none;
+}
+
+.control-label,
+.type-control label {
+  margin: 0;
+  color: #665b50;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.token-list {
+  display: flex;
+  min-height: 3.4rem;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.45rem;
+  padding: 0.55rem;
+  border: 1px dashed rgb(77 57 41 / 24%);
+  border-radius: 0.75rem;
+}
+
+.token-answer {
+  border-style: solid;
+  background: rgb(239 231 214 / 64%);
+}
+
+.arrange-token,
+.arrange-actions button {
+  min-height: 2.45rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgb(77 57 41 / 14%);
+  border-radius: 0.65rem;
+  background: #f3e8d8;
+  font-weight: 850;
+}
+
+.arrange-token:hover,
+.arrange-actions button:not(.primary-button):hover {
+  background: #ead9c3;
+}
+
+.arrange-actions,
+.type-input-row {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.arrange-actions button:disabled,
+.arrange-token:disabled,
+.type-input-row button:disabled {
+  cursor: default;
+  opacity: 0.52;
+}
+
+.type-input-row input {
+  min-width: 0;
+  min-height: 2.8rem;
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgb(77 57 41 / 22%);
+  border-radius: 0.7rem;
+  color: #241d17;
+  background: #fffdf8;
+  font: inherit;
+  font-size: 1.05rem;
+}
+
+.type-input-row input:focus-visible {
+  border-color: #f2a65a;
+  outline: 3px solid rgb(242 166 90 / 34%);
+}
+
+.type-control small {
+  color: #716459;
+  text-align: right;
 }
 
 .choice-list {

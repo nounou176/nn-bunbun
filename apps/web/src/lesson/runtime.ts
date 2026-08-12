@@ -86,7 +86,7 @@ export function createLessonRuntime(
   };
 
   const focusActiveInput = () => {
-    const stateKey = `${state.currentStepId}:${state.phase}`;
+    const stateKey = `${state.currentStepId}:${state.phase}:${state.availableTokenIds.length}:${state.arrangedTokenIds.length}`;
     if (stateKey === focusedStateKey) return;
     focusedStateKey = stateKey;
 
@@ -98,7 +98,20 @@ export function createLessonRuntime(
         shell.continueButton.focus({ preventScroll: true });
         break;
       case "AWAITING_OBJECT":
+      case "AWAITING_LOCATION":
+      case "AWAITING_PICK_UP":
+      case "AWAITING_RECIPIENT":
         shell.canvas.focus({ preventScroll: true });
+        break;
+      case "AWAITING_ARRANGE":
+        (
+          shell.arrangeBank.querySelector<HTMLButtonElement>(
+            "[data-token-id]",
+          ) ?? shell.arrangeSubmitButton
+        ).focus({ preventScroll: true });
+        break;
+      case "AWAITING_TYPE":
+        shell.typeInput.focus({ preventScroll: true });
         break;
       case "AWAITING_CHOICE":
         shell.choiceList
@@ -109,6 +122,7 @@ export function createLessonRuntime(
         shell.restartLessonButton.focus({ preventScroll: true });
         break;
       case "PLAYING_AUDIO":
+      case "MOVING_TO_LOCATION":
       case "FEEDBACK":
         break;
     }
@@ -119,14 +133,7 @@ export function createLessonRuntime(
     if (step.interaction.type !== "LISTEN") {
       shell.setAudioError(undefined);
     }
-    const worldEnabled =
-      step.mode === "EXPLORE" && state.phase === "AWAITING_OBJECT";
-    world.configureLessonInput({
-      enabled: worldEnabled,
-      candidateObjectIds: worldEnabled ? state.visibleObjectIds : [],
-      highlightObjectIds: state.highlightObjectIds,
-      onObjectSelected: worldEnabled ? selectObject : undefined,
-    });
+    world.configureLessonInput(worldInputConfiguration());
     shell.renderLesson(state);
     focusActiveInput();
     updateDiagnostics();
@@ -158,7 +165,57 @@ export function createLessonRuntime(
       activeTimeMs: clock.read(),
       lastReactionMs: lastReaction?.activeLatencyMs,
       firstStimulusMs,
+      worldTargetMode: worldTargetMode(),
+      pendingLocationId: state.pendingLocation?.locationId,
+      carriedObjectId: state.carriedObjectId,
     });
+  };
+
+  const worldTargetMode = (): "none" | "object" | "location" | "recipient" => {
+    switch (state.phase) {
+      case "AWAITING_OBJECT":
+      case "AWAITING_PICK_UP":
+        return "object";
+      case "AWAITING_LOCATION":
+        return "location";
+      case "AWAITING_RECIPIENT":
+        return "recipient";
+      default:
+        return "none";
+    }
+  };
+
+  const worldInputConfiguration = () => {
+    const base = {
+      highlightObjectIds: state.highlightObjectIds,
+      highlightEntityIds: state.highlightEntityIds,
+    };
+    switch (state.phase) {
+      case "AWAITING_OBJECT":
+      case "AWAITING_PICK_UP":
+        return {
+          ...base,
+          mode: "OBJECT" as const,
+          candidateIds: state.visibleObjectIds,
+          onSelected: selectObject,
+        };
+      case "AWAITING_LOCATION":
+        return {
+          ...base,
+          mode: "LOCATION" as const,
+          candidateIds: state.visibleLocationIds,
+          onSelected: selectLocation,
+        };
+      case "AWAITING_RECIPIENT":
+        return {
+          ...base,
+          mode: "RECIPIENT" as const,
+          candidateIds: state.visibleRecipientEntityIds,
+          onSelected: selectRecipient,
+        };
+      default:
+        return { ...base, mode: "NONE" as const };
+    }
   };
 
   const applyEffects = (effects: readonly LessonEffect[]) => {
@@ -172,6 +229,28 @@ export function createLessonRuntime(
           break;
         case "SCHEDULE_FEEDBACK":
           scheduleFeedback(effect.delayMs);
+          break;
+        case "REQUEST_LOCATION_MOVEMENT":
+          world.requestLocationMovement(
+            effect.locationId,
+            effect.arrivalRadius,
+            (locationId) =>
+              safeDispatch({ ...timed("LOCATION_REACHED"), locationId }),
+            (locationId) =>
+              safeDispatch({ ...timed("MOVEMENT_FAILED"), locationId }),
+          );
+          break;
+        case "SET_CARRIED_OBJECT":
+          world.setCarriedObject(effect.objectId);
+          break;
+        case "TRANSFER_CARRIED_OBJECT":
+          world.transferCarriedObject(
+            effect.objectId,
+            effect.recipientEntityId,
+          );
+          break;
+        case "CLEAR_CARRIED_OBJECT":
+          world.clearCarriedObject();
           break;
       }
     });
@@ -197,6 +276,14 @@ export function createLessonRuntime(
 
   const selectObject = (objectId: string) => {
     safeDispatch({ ...timed("OBJECT_SELECTED"), objectId });
+  };
+
+  const selectLocation = (locationId: string) => {
+    safeDispatch({ ...timed("LOCATION_SELECTED"), locationId });
+  };
+
+  const selectRecipient = (entityId: string) => {
+    safeDispatch({ ...timed("RECIPIENT_SELECTED"), entityId });
   };
 
   const playAudio = () => {
@@ -232,6 +319,7 @@ export function createLessonRuntime(
     clock = new ActiveClock();
     if (document.hidden) clock.pause();
     eventSink = new InMemoryEventSink();
+    world.resetLessonWorld();
     applyUpdate(
       startLesson(
         manifest,
@@ -283,6 +371,74 @@ export function createLessonRuntime(
     },
     { signal },
   );
+  shell.arrangeBank.addEventListener(
+    "click",
+    (event) => {
+      const tokenId = tokenIdFromEvent(event);
+      if (tokenId !== undefined) {
+        safeDispatch({ ...timed("ARRANGE_TOKEN_ADDED"), tokenId });
+      }
+    },
+    { signal },
+  );
+  shell.arrangeAnswer.addEventListener(
+    "click",
+    (event) => {
+      const tokenId = tokenIdFromEvent(event);
+      if (tokenId !== undefined) {
+        safeDispatch({ ...timed("ARRANGE_TOKEN_REMOVED"), tokenId });
+      }
+    },
+    { signal },
+  );
+  shell.arrangeSubmitButton.addEventListener(
+    "click",
+    () => safeDispatch(timed("ARRANGE_SUBMITTED")),
+    { signal },
+  );
+  shell.arrangeResetButton.addEventListener(
+    "click",
+    () => safeDispatch(timed("ARRANGE_RESET")),
+    { signal },
+  );
+  let composingTypeInput = false;
+  shell.typeInput.addEventListener(
+    "compositionstart",
+    () => {
+      composingTypeInput = true;
+    },
+    { signal },
+  );
+  shell.typeInput.addEventListener(
+    "compositionend",
+    () => {
+      composingTypeInput = false;
+      safeDispatch({
+        ...timed("TYPE_DRAFT_CHANGED"),
+        value: shell.typeInput.value,
+      });
+    },
+    { signal },
+  );
+  shell.typeInput.addEventListener(
+    "input",
+    () => {
+      if (composingTypeInput) return;
+      safeDispatch({
+        ...timed("TYPE_DRAFT_CHANGED"),
+        value: shell.typeInput.value,
+      });
+    },
+    { signal },
+  );
+  shell.typeForm.addEventListener(
+    "submit",
+    (event) => {
+      event.preventDefault();
+      if (!composingTypeInput) safeDispatch(timed("TYPE_SUBMITTED"));
+    },
+    { signal },
+  );
   document.addEventListener("visibilitychange", onVisibilityChange, { signal });
 
   const initialUpdate = startLesson(
@@ -302,10 +458,16 @@ export function createLessonRuntime(
       clearFeedbackTimer();
       audio.dispose();
       world.configureLessonInput({
-        enabled: false,
-        candidateObjectIds: [],
+        mode: "NONE",
         highlightObjectIds: [],
+        highlightEntityIds: [],
       });
     },
   };
+}
+
+function tokenIdFromEvent(event: Event): string | undefined {
+  const target = event.target;
+  if (!(target instanceof Element)) return undefined;
+  return target.closest<HTMLButtonElement>("[data-token-id]")?.dataset.tokenId;
 }

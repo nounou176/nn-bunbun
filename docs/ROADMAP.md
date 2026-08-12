@@ -219,23 +219,30 @@ Exit criteria:
 
 ## Milestone 5 — Complete MVP primitive runtime
 
-Status: Next
+Status: Complete
 
 Purpose:
 
 Implement the remaining fixed interaction vocabulary without expanding game
 scope.
 
-Planning note:
+Implementation note:
 
-Proposed D-020 and
+Accepted D-020 and
 plans/2026-08-12-complete-mvp-primitive-runtime.md define one authored
 eight-step regression fixture, shared exact TYPE normalization, authored
 MOVE_TO arrival, and one task-scoped carry/escort slot for PICK_UP and GIVE.
-The proposal is awaiting user approval; no Milestone 5 implementation has
-started.
+The user approved the proposal with `PASS` on 2026-08-12. The shared TYPE
+normalizer, expanded technical catalog, authored eight-step fixture, all five
+remaining controller executors, DOM ARRANGE/TYPE controls, authored MOVE_TO,
+task-scoped PICK_UP/GIVE, state-scoped world input, failure controls,
+diagnostics, and reset behavior are implemented. Schema drift, typecheck, lint,
+formatting, 46 focused tests, manifest inspection, production build, and local
+HTTP smoke checks pass. The user supplied an explicit `PASS` on 2026-08-12 for
+the full manual browser/gameplay matrix. No numeric performance values were
+reported, so closure is qualitative and does not create a broader device claim.
 
-Planned scope:
+Implemented scope:
 
 - ARRANGE;
 - deterministic TYPE normalization;
@@ -256,7 +263,7 @@ Exit criteria:
 
 ## Milestone 6 — Evidence and SQLite persistence
 
-Status: Planned
+Status: Next
 
 Purpose:
 

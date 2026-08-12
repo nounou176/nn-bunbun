@@ -1,9 +1,9 @@
 # Complete the fixed MVP interaction runtime
 
-Status: Proposed
+Status: Complete
 Owner: Codex and user
 Created: 2026-08-12
-Last updated: 2026-08-12 01:07 Asia/Ho_Chi_Minh
+Last updated: 2026-08-12 11:22 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -56,9 +56,9 @@ destinations and GIVE can exercise a wrong recipient. These remain technical
 fixtures and do not resolve the product content choices in O-001 or O-002.
 
 D-001 through D-005, D-007, D-011, D-013, D-015, D-017, D-018, and D-019
-govern the work. Proposed D-020 defines the remaining executor, arrival, carry,
-normalization, fixture, and recovery semantics. Implementation must not begin
-until the user accepts that decision and this ExecPlan.
+govern the work. D-020 defines the executor, arrival, carry, normalization,
+fixture, and recovery semantics; it was accepted with this ExecPlan before
+implementation began.
 
 The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. Planning began
 from a clean main worktree at local commit 8184ce3. origin/main remains behind
@@ -152,8 +152,8 @@ the accepted local Milestone 3 and 4 commits; publishing is outside this plan.
 
 ## Decisions and constraints
 
-- Proposed D-020 is the only approval blocker. It must become Accepted and this
-  plan must become Approved before implementation starts.
+- Accepted D-020 governs the approved implementation. The user approved the
+  decision and this plan with `PASS` on 2026-08-12.
 - The authored technical flow uses all eight primitives in one forward-only
   graph. This tests composition and avoids five disconnected demos.
 - Contract 0.1.0 remains authoritative. Runtime capability validation narrows
@@ -400,18 +400,26 @@ results.
   remaining primitives and identify the exact runtime, fixture, location,
   recipient, normalization, carry, and recovery gaps.
 - [x] 2026-08-12 01:07 — Draft proposed D-020 and this self-contained ExecPlan.
-- [ ] Await user acceptance of D-020 and this plan; make no Milestone 5 runtime
-  implementation changes before approval.
-- [ ] Implement milestone 1: shared semantics, catalog, fixture, and capability
+- [x] 2026-08-12 10:20 — User approved D-020 and this ExecPlan with `PASS`;
+  changed the decision to Accepted and the plan to Approved.
+- [x] 2026-08-12 10:20 — Implemented milestone 1: shared TYPE normalization,
+  expanded catalog, eight-step fixture, package export, and closed capability
   gate.
-- [ ] Implement milestone 2: pure ARRANGE and TYPE controller behavior.
-- [ ] Implement milestone 3: ARRANGE and TYPE DOM interaction.
-- [ ] Implement milestone 4: authored MOVE_TO execution and recovery.
-- [ ] Implement milestone 5: task-scoped PICK_UP and GIVE.
-- [ ] Implement milestone 6: integration, static checks, documentation, and
-  manual handoff.
-- [ ] Record only the user's actual manual results and close Milestone 5 after
-  explicit acceptance.
+- [x] 2026-08-12 10:20 — Implemented milestone 2: pure ARRANGE and TYPE state,
+  exact normalization, Unicode limits, preservation, scaffolds, and events.
+- [x] 2026-08-12 10:20 — Implemented milestone 3: accessible token controls,
+  TYPE form, IME composition isolation, responsive styling, and focus routing.
+- [x] 2026-08-12 10:20 — Implemented milestone 4: authored location targets,
+  MOVE_TO request/arrival/failure behavior, cancellation, and diagnostics.
+- [x] 2026-08-12 10:20 — Implemented milestone 5: one carry/escort slot,
+  deterministic assisted PICK_UP, recipient input, GIVE transfer/recovery, and
+  clean restart.
+- [x] 2026-08-12 10:20 — Implemented milestone 6 code and verification: schema
+  check, typecheck, lint, formatting, 46 focused tests, production build,
+  manifest inspection, HTTP smoke checks, durable docs, and manual handoff.
+- [x] 2026-08-12 11:22 — User supplied an explicit `PASS` for the complete
+  manual browser/gameplay matrix. Recorded the qualitative result without
+  inventing diagnostics values and closed Milestone 5.
 
 ## Surprises and discoveries
 
@@ -436,20 +444,32 @@ results.
 - RECOGNITION_FALLBACK has a valid contract and graph edge but no accepted
   runtime rejoin semantics. It is unnecessary for the proposed fixture and
   remains explicitly capability-rejected rather than being guessed in M5.
+- The login shell still resolved child npm scripts through system Node.js 18,
+  so the first root `npm test` did not recognize Node 24's test flag. The same
+  workspace suites were run directly with the pinned Node.js 24.18.0 binary and
+  passed 46 of 46. Production compilation and Vite build were also run directly
+  with the pinned binary.
+- Sandbox networking blocked local port binding. The HTTP smoke check was
+  rerun with approved local process access, then both temporary processes were
+  stopped cleanly.
+- Milestone 5 adds only 25,358 minified JavaScript bytes and 1,521 CSS bytes
+  over the recorded Milestone 4 build. The existing single-chunk Vite warning
+  remains; no new performance regression claim is made before manual browser
+  measurements.
 
 ## Plan decisions
 
-- 2026-08-12 — Propose one eight-step HELP_SOMEONE technical fixture rather
+- 2026-08-12 — Adopt one eight-step HELP_SOMEONE technical fixture rather
   than five disconnected primitive demos. This exercises composition and
   regresses every Milestone 4 primitive in one manual run.
-- 2026-08-12 — Propose retaining LessonManifest 0.1.0 and sharing the existing
+- 2026-08-12 — Retain LessonManifest 0.1.0 and share the existing
   normalization semantics instead of modifying or duplicating the contract.
-- 2026-08-12 — Propose one task-scoped carry/escort slot with no inventory UI,
-  physics, or general world-state language. See proposed D-020.
-- 2026-08-12 — Propose evaluating MOVE_TO only after confirmed arrival while
+- 2026-08-12 — Adopt one task-scoped carry/escort slot with no inventory UI,
+  physics, or general world-state language. See accepted D-020.
+- 2026-08-12 — Evaluate MOVE_TO only after confirmed arrival while
   measuring reaction latency from the location selection. Runtime movement
   failure is not a learner attempt.
-- 2026-08-12 — Propose keeping RECOGNITION_FALLBACK outside this milestone and
+- 2026-08-12 — Keep RECOGNITION_FALLBACK outside this milestone and
   rejecting it through capability validation until its execution semantics are
   reviewed separately.
 
@@ -570,12 +590,12 @@ Node.js 24.18.0 and npm 11.16.0:
 
 | Scenario | Tester | Date | Result | Evidence or notes |
 | --- | --- | --- | --- | --- |
-| Happy path for all eight primitives | Pending | Pending | Not run | Awaiting implementation and user validation |
-| ARRANGE and TYPE edge matrix | Pending | Pending | Not run | Awaiting implementation and user validation |
-| MOVE_TO and movement recovery | Pending | Pending | Not run | Awaiting implementation and user validation |
-| PICK_UP, GIVE, and invalid carry | Pending | Pending | Not run | Awaiting implementation and user validation |
-| M4 lesson/input/audio regressions | Pending | Pending | Not run | Awaiting implementation and user validation |
-| Renderer, lifecycle, and performance regression | Pending | Pending | Not run | Awaiting implementation and user validation |
+| Happy path for all eight primitives | User | 2026-08-12 | PASS | Explicit overall PASS; no per-scenario notes supplied |
+| ARRANGE and TYPE edge matrix | User | 2026-08-12 | PASS | Explicit overall PASS; no per-scenario notes supplied |
+| MOVE_TO and movement recovery | User | 2026-08-12 | PASS | Explicit overall PASS; no per-scenario notes supplied |
+| PICK_UP, GIVE, and invalid carry | User | 2026-08-12 | PASS | Explicit overall PASS; no per-scenario notes supplied |
+| M4 lesson/input/audio regressions | User | 2026-08-12 | PASS | Explicit overall PASS; no per-scenario notes supplied |
+| Renderer, lifecycle, and performance regression | User | 2026-08-12 | PASS | Qualitative acceptance; no numeric diagnostics supplied |
 
 ## Recovery and compatibility
 
@@ -620,9 +640,18 @@ durable user data exists. Do not reset or overwrite unrelated user changes.
 
 ## Outcomes
 
-Planning outcome: proposed D-020 and this ExecPlan define one complete authored
-eight-primitive flow, exact DOM and world execution semantics, a bounded carry
-model, failure recovery, focused automated checks, and a manual acceptance
-matrix. No Milestone 5 runtime implementation has begun. Complete this section
-after implementation with delivered behavior, checks, actual user-reported
-manual results, remaining issues, and recommended Milestone 6 work.
+Implementation outcome: accepted D-020 now exists as one complete authored
+eight-primitive flow with shared exact TYPE normalization, stable duplicate
+ARRANGE tokens, authored MOVE_TO arrival, one task-scoped dog escort slot,
+recoverable PICK_UP/GIVE, state-scoped world targets, IME-safe DOM controls,
+failure queries, diagnostics, and clean restart. Schema check, typecheck, lint,
+formatting, 18 contract tests, 28 web tests, manifest inspection, production
+build, and local HTTP boundaries pass. The build is 1,254,603 bytes JavaScript
+(346.59 kB gzip reported by Vite), 10,696 bytes CSS (2.90 kB gzip), 5,899 bytes
+glTF, and 520 bytes HTML; the known large-chunk warning remains.
+
+The user supplied an explicit `PASS` on 2026-08-12 for the complete manual
+browser/gameplay matrix under D-011. No per-scenario notes or numeric runtime
+diagnostics were supplied, so the closure records qualitative acceptance only.
+Milestone 5 and this plan are Complete. Milestone 6 persistence remains
+unstarted and requires its deferred decisions and a separately approved plan.

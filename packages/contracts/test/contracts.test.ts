@@ -6,6 +6,9 @@ import { fileURLToPath } from "node:url";
 
 import {
   LessonManifestSchema,
+  normalizeTypeAnswer,
+  truncateToUnicodeCodePoints,
+  unicodeCodePointLength,
   validateCatalogStructure,
   validateLessonPackage,
   validateManifestStructure,
@@ -23,6 +26,10 @@ const validManifestPath = resolve(
 const validLoopManifestPath = resolve(
   packageDirectory,
   "fixtures/manifests/valid-find-dog-loop.json",
+);
+const validCompleteLoopManifestPath = resolve(
+  packageDirectory,
+  "fixtures/manifests/valid-complete-primitive-loop.json",
 );
 
 const invalidCases = [
@@ -66,6 +73,62 @@ test("valid three-step learning loop passes contract validation", async () => {
       ["LISTEN", "CLICK_OBJECT", "CHOOSE"],
     );
   }
+});
+
+test("valid complete primitive loop passes contract validation", async () => {
+  const [manifest, catalog] = await Promise.all([
+    readJson(validCompleteLoopManifestPath),
+    readJson(catalogPath),
+  ]);
+
+  const result = validateLessonPackage(manifest, catalog);
+
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(
+      result.value.manifest.lessonId,
+      "lesson_complete_primitive_loop",
+    );
+    assert.deepEqual(
+      result.value.manifest.steps.map((step) => step.interaction.type),
+      [
+        "LISTEN",
+        "ARRANGE",
+        "CLICK_OBJECT",
+        "TYPE",
+        "MOVE_TO",
+        "PICK_UP",
+        "GIVE",
+        "CHOOSE",
+      ],
+    );
+  }
+});
+
+test("TYPE normalization is ordered, exact, and shared", () => {
+  assert.equal(
+    normalizeTypeAnswer("　イヌ。　", [
+      "UNICODE_NFKC",
+      "TRIM",
+      "IGNORE_JAPANESE_PUNCTUATION",
+      "KANA_EQUIVALENCE",
+    ]),
+    "いぬ",
+  );
+  assert.equal(
+    normalizeTypeAnswer("い  \n  ぬ", ["COLLAPSE_WHITESPACE"]),
+    "い ぬ",
+  );
+  assert.notEqual(
+    normalizeTypeAnswer("犬", ["UNICODE_NFKC", "KANA_EQUIVALENCE"]),
+    "いぬ",
+  );
+});
+
+test("TYPE length helpers count and truncate Unicode code points", () => {
+  assert.equal(unicodeCodePointLength("犬🐕"), 2);
+  assert.equal(truncateToUnicodeCodePoints("犬🐕公園", 3), "犬🐕公");
+  assert.equal(truncateToUnicodeCodePoints("犬", 0), "");
 });
 
 for (const [fileName, expectedCode] of invalidCases) {

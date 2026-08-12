@@ -3,7 +3,7 @@ import {
   type ValidatedLessonPackage,
 } from "@bunbun/contracts";
 import catalogFixture from "@bunbun/contracts/fixtures/basic-catalog" with { type: "json" };
-import manifestFixture from "@bunbun/contracts/fixtures/valid-find-dog-loop" with { type: "json" };
+import manifestFixture from "@bunbun/contracts/fixtures/valid-complete-primitive-loop" with { type: "json" };
 
 import { validateRuntimeCapabilities } from "./capabilities.js";
 

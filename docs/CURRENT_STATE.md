@@ -4,12 +4,9 @@ Last updated: 2026-08-12
 
 ## Current milestone
 
-Milestone 5 — Complete MVP primitive runtime: Proposed planning; awaiting user
-approval. No Milestone 5 runtime implementation has started.
+Milestone 6 — Evidence and SQLite persistence: Next, not started.
 
-Active ExecPlan:
-
-- plans/2026-08-12-complete-mvp-primitive-runtime.md — Proposed
+Active ExecPlan: none.
 
 Completed ExecPlans:
 
@@ -17,6 +14,7 @@ Completed ExecPlans:
 - plans/2026-08-10-contracts-and-catalog-fixtures.md
 - plans/2026-08-11-isometric-runtime-foundation.md
 - plans/2026-08-11-first-deterministic-learning-loop.md
+- plans/2026-08-12-complete-mvp-primitive-runtime.md
 
 ## Completed work
 
@@ -122,28 +120,58 @@ Completed ExecPlans:
   EXPLORE presentation and the complete Milestone 4 manual happy-path,
   edge-case, failure-control, renderer, resize, and regression checklist.
   Milestone 4 is closed.
+- Accepted D-020 after the user's Milestone 5 plan approval and kept
+  LessonManifest/CatalogSnapshot at 0.1.0 while completing the remaining fixed
+  primitive executors.
+- Promoted exact TYPE normalization and Unicode code-point helpers into one
+  browser-safe contracts utility shared by semantic validation and gameplay.
+- Added a valid eight-step HELP_SOMEONE fixture that executes LISTEN, ARRANGE,
+  CLICK_OBJECT, TYPE, MOVE_TO, PICK_UP, GIVE, and CHOOSE in one acyclic required
+  path while preserving both earlier valid fixtures.
+- Expanded the technical catalog and code-owned park registry with animal and
+  bench locations plus a second visitor NPC. The new content remains a
+  technical fixture and does not resolve O-001 or O-002.
+- Extended the pure lesson controller with stable duplicate ARRANGE token IDs,
+  seeded ordering, exact normalized TYPE answers, Unicode input limits,
+  preserveSubmittedState, authored location arrival, deterministic movement
+  failure recovery, one task-scoped carry slot, assisted PICK_UP, wrong-recipient
+  retention, correct GIVE transfer, and invalid-carry rejection.
+- Added accessible DOM token and Japanese TYPE controls with pointer, keyboard,
+  deterministic focus, and IME composition isolation. Added dynamic compact
+  EXPLORE action cues for objects, locations, pickup, movement, and recipients.
+- Generalized the atomic lesson input gate into isolated OBJECT, LOCATION, and
+  RECIPIENT modes. Added authored location markers, arrival-radius movement,
+  guide/visitor selection, dog follow/escort presentation, transfer placement,
+  and clean world restart without inventory, physics, collision, or pathfinding.
+- Added `movementFailure=1` and `carryFailure=1` one-shot local controls and
+  diagnostics for world target mode, pending location, and carried object.
+- Passed schema drift, typecheck, lint, formatting, 46 focused tests, manifest
+  inspection, the production build, and local web/health/404 HTTP smoke checks.
+- Received the user's explicit `PASS` on 2026-08-12 for the complete Milestone 5
+  manual happy-path, edge-case, failure-control, renderer, lifecycle, and
+  performance matrix. No numeric diagnostics or per-scenario notes were
+  supplied, so the milestone is closed on qualitative acceptance without a
+  wider browser/device or numeric runtime claim.
 
 ## Current work
 
-- Review proposed D-020 and the Milestone 5 ExecPlan. The proposal keeps
-  LessonManifest 0.1.0, uses one authored eight-step flow to exercise all fixed
-  primitives, shares deterministic TYPE normalization, adds authored location
-  targets, and uses one task-scoped carry/escort slot for PICK_UP and GIVE.
-- Await explicit user approval before changing contracts fixtures, the lesson
-  controller, DOM interaction, or Three.js world behavior.
+- Milestone 5 is complete and has no reported blocking browser defect.
+- Milestone 6 is next but has not started. Discuss O-003 mastery aggregation,
+  O-007 SQLite tooling/progress ownership, and O-011 privacy/retention before
+  approving an ExecPlan or implementing persistence.
 
 ## Repository inventory
 
 Present:
 
 - AGENTS.md and the required docs/ durable project records;
-- .agent/PLANS.md, four completed milestone ExecPlans, and one proposed
-  Milestone 5 ExecPlan;
+- .agent/PLANS.md and five completed milestone ExecPlans;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
-  deterministic three-step lesson executor, audio/world adapters, DOM learning
-  shell, diagnostics, and focused tests, plus apps/server;
+  deterministic eight-step/eight-primitive lesson executor, audio/world
+  adapters, task-scoped carry presentation, DOM learning shell, diagnostics,
+  and focused tests, plus apps/server;
 - packages/contracts source schemas, inferred types, validators, fixtures,
   generated JSON Schema artifacts, inspector, and tests; and
 - package.json and package-lock.json.
@@ -152,7 +180,6 @@ Not present:
 
 - database or migration files;
 - production 3D, audio, or image assets;
-- executors for ARRANGE, TYPE, MOVE_TO, PICK_UP, or GIVE;
 - durable evidence, resume, learner identity, mastery, or analytics;
 - AI, compiler-job, TTS, or persistence integrations;
 - automated browser E2E configuration or tests;
@@ -163,8 +190,8 @@ The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
 with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
 are published at 27355c0 on origin/main. Milestone 3 is committed locally at
 6a44abd. The Milestone 4 runtime/input correction, EXPLORE UX, and closure are
-committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 planning changes
-are not yet committed.
+committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 implementation
+and closure changes are not yet committed.
 
 ## Known issues
 
@@ -187,25 +214,30 @@ are not yet committed.
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-9. The Milestone 4 WebGPU-capable web build is 1,229,245 bytes minified and
+9. The Milestone 5 WebGPU-capable web build is 1,254,603 bytes minified and
    triggers Vite's default uncompressed chunk warning, although its measured
-   gzip size is 340.84 kB. Full browser validation intentionally introduced
-   validator weight; first-stimulus measurements must guide splitting.
+   gzip size is 346.59 kB. Browser validation is qualitatively accepted, but
+   reported numeric measurements must still guide any splitting.
 10. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. It is a temporary technical adapter, not production TTS or
     an offline-audio guarantee.
-11. Milestone 4 evidence is intentionally session-local. Reload and restart use
+11. Milestone 5 evidence is intentionally session-local. Reload and restart use
     a fresh session until Milestone 6 defines persistence and safe resume.
 12. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
-    runtime rejoin semantics. Proposed D-020 keeps it capability-rejected in
+    runtime rejoin semantics. D-020 keeps it capability-rejected in
     Milestone 5 rather than guessing behavior.
+13. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
+    it is not production animal handling, an inventory, or a physics system.
+14. Milestone 5 browser behavior is manually accepted, but the user supplied no
+    numeric diagnostics, named-device details, or per-scenario evidence. The
+    result does not establish broader browser, mobile, or touch support.
 
 ## Next recommended work
 
-Review and either accept or revise proposed D-020 and
-plans/2026-08-12-complete-mvp-primitive-runtime.md. If accepted, change the
-decision and plan statuses before implementing the first fixture/contracts
-checkpoint.
+Prepare a Milestone 6 overview and discuss O-003, O-007, and O-011 before
+creating or approving its persistence ExecPlan. Do not infer storage ownership,
+mastery policy, or privacy defaults merely because SQLite is the planned local
+technology.
 
 ## Verification status
 
@@ -217,23 +249,23 @@ checkpoint.
   fixtures.
 - Typecheck: passed for contracts, server, web source, and web test tooling.
 - Lint and format check: passed.
-- Tests: passed, 38 of 38: 15 contract tests and 23 web lesson/runtime tests.
+- Tests: passed, 46 of 46: 18 contract tests and 28 web lesson/runtime tests.
 - Fixture inspection: the valid lesson passed; all six invalid fixtures exited
   nonzero with their intended stable error codes.
 - Production build: passed for contracts, server, and web workspaces; web
-  output contains 1,229,245-byte JavaScript (340.84 kB gzip), 9,175-byte CSS
-  (2.58 kB gzip), a 5,899-byte local glTF fixture, and 520-byte HTML. Vite
-  reports the known JavaScript chunk warning.
-- HTTP regression: passed against the already-running local processes for
-  updated web HTML/module/asset output, health contractVersion 0.1.0, and JSON
-  404. A second combined startup correctly reported that the user's existing
-  ports were occupied; those processes were preserved.
-- Scope regression: passed; the executor remains limited to LISTEN,
-  CLICK_OBJECT, and CHOOSE, in-memory events, and the isolated temporary browser
-  speech adapter. No AI, provider key, persistence, analytics transport,
-  production TTS, physics runtime, Docker, deployment, or automated browser E2E
-  artifact was added. The locked `@types/three` development package has an
-  unused transitive Rapier type dependency; Bunbun does not import or bundle it.
+  output contains 1,254,603-byte JavaScript (346.59 kB gzip reported by Vite),
+  10,696-byte CSS (2.90 kB gzip), a 5,899-byte local glTF fixture, and 520-byte
+  HTML. Vite reports the known JavaScript chunk warning.
+- HTTP regression: passed after starting temporary local Node 24 processes for
+  updated web HTML, health contractVersion 0.1.0, and JSON 404. Sandbox port
+  binding required approved local access; both processes were stopped cleanly.
+- Scope regression: passed; the executor is limited to the eight accepted fixed
+  primitives, in-memory events, one task-scoped carry slot, and the isolated
+  temporary browser speech adapter. No AI, provider key, persistence, analytics
+  transport, production TTS, physics runtime, Docker, deployment, or automated
+  browser E2E artifact was added. The locked `@types/three` development package
+  has an unused transitive Rapier type dependency; Bunbun does not import or
+  bundle it.
 - Docker build: not applicable; Dockerfiles intentionally do not exist.
 - Milestone 1 manual browser test: passed by user report on 2026-08-10.
 - Milestone 2 manual acceptance: passed by user report on 2026-08-11; the valid
@@ -244,6 +276,9 @@ checkpoint.
   reference-environment and numeric diagnostics remain unreported.
 - Milestone 4 manual acceptance: passed by explicit user report on 2026-08-12
   after the world-input and EXPLORE-affordance corrections.
+- Milestone 5 manual acceptance: passed by explicit user report on 2026-08-12
+  for the complete supplied matrix. Acceptance is qualitative because no
+  numeric diagnostics or per-scenario notes were supplied.
 - Automated browser E2E tooling: intentionally excluded by D-011.
 
 ## Risks
@@ -256,4 +291,10 @@ checkpoint.
 - Milestone 4 preserves partial screenshot metrics, but browser version,
   device/GPU identity, display details, warm/cold split, and audio-start latency
   remain unreported despite qualitative acceptance.
-- Manual-only browser validation depends on disciplined, recorded user results.
+- Manual-only browser validation depends on disciplined user reports; the
+  Milestone 5 overall PASS provides no retained screenshots, numeric runtime
+  measurements, or per-case evidence for later comparison.
+- Persistence introduces new correctness and privacy risks. Milestone 6 must
+  decide idempotency ownership, safe resume boundaries, retention, and the
+  distinction between assisted and unaided evidence before storing learner
+  data.

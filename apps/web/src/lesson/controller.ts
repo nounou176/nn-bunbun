@@ -1,10 +1,13 @@
-import type {
-  ChoiceOption,
-  FeedbackMessage,
-  LessonManifest,
-  LessonStep,
-  Scaffold,
-  TransitionTarget,
+import {
+  normalizeTypeAnswer,
+  truncateToUnicodeCodePoints,
+  unicodeCodePointLength,
+  type ChoiceOption,
+  type FeedbackMessage,
+  type LessonManifest,
+  type LessonStep,
+  type Scaffold,
+  type TransitionTarget,
 } from "@bunbun/contracts";
 
 import {
@@ -16,18 +19,30 @@ import {
   type EventContext,
   type SessionEvent,
 } from "./events.js";
-import { orderedChoiceOptions } from "./shuffle.js";
+import { orderedArrangeTokens, orderedChoiceOptions } from "./shuffle.js";
 
 export type LessonPhase =
   | "AWAITING_AUDIO"
   | "PLAYING_AUDIO"
   | "AWAITING_CONTINUE"
+  | "AWAITING_ARRANGE"
   | "AWAITING_OBJECT"
+  | "AWAITING_TYPE"
+  | "AWAITING_LOCATION"
+  | "MOVING_TO_LOCATION"
+  | "AWAITING_PICK_UP"
+  | "AWAITING_RECIPIENT"
   | "AWAITING_CHOICE"
   | "FEEDBACK"
   | "COMPLETED";
 
 export type LessonOutcome = "SUCCESS" | "FAILURE" | "ASSISTED";
+
+export interface PendingLocation {
+  locationId: string;
+  activeTimeMs: number;
+  occurredAt: string;
+}
 
 export interface LessonState {
   manifest: LessonManifest;
@@ -39,9 +54,20 @@ export interface LessonState {
   audioFailed: boolean;
   activeScaffoldIds: readonly string[];
   visibleObjectIds: readonly string[];
+  visibleLocationIds: readonly string[];
+  visibleRecipientEntityIds: readonly string[];
   visibleOptions: readonly ChoiceOption[];
+  availableTokenIds: readonly string[];
+  arrangedTokenIds: readonly string[];
+  typeDraft: string;
   highlightObjectIds: readonly string[];
+  highlightEntityIds: readonly string[];
   readingHint: string | undefined;
+  meaningHint: string | undefined;
+  patternHint: string | undefined;
+  movementError: string | undefined;
+  pendingLocation: PendingLocation | undefined;
+  carriedObjectId: string | undefined;
   feedback: FeedbackMessage | undefined;
   pending: PendingAction | undefined;
   completedStepIds: readonly string[];
@@ -54,14 +80,36 @@ export type LessonInput =
   | TimedInput<"AUDIO_FAILED">
   | TimedInput<"CONTINUE">
   | TimedInput<"HELP_REQUESTED">
+  | (TimedInput<"ARRANGE_TOKEN_ADDED"> & { tokenId: string })
+  | (TimedInput<"ARRANGE_TOKEN_REMOVED"> & { tokenId: string })
+  | TimedInput<"ARRANGE_RESET">
+  | TimedInput<"ARRANGE_SUBMITTED">
+  | (TimedInput<"TYPE_DRAFT_CHANGED"> & { value: string })
+  | TimedInput<"TYPE_SUBMITTED">
   | (TimedInput<"OBJECT_SELECTED"> & { objectId: string })
+  | (TimedInput<"LOCATION_SELECTED"> & { locationId: string })
+  | (TimedInput<"LOCATION_REACHED"> & { locationId: string })
+  | (TimedInput<"MOVEMENT_FAILED"> & { locationId: string })
+  | (TimedInput<"RECIPIENT_SELECTED"> & { entityId: string })
   | (TimedInput<"OPTION_SELECTED"> & { optionId: string })
   | TimedInput<"FEEDBACK_ELAPSED">;
 
 export type LessonEffect =
   | { type: "RECORD_EVENTS"; events: readonly SessionEvent[] }
   | { type: "APPLY_CUES"; cueIds: readonly string[] }
-  | { type: "SCHEDULE_FEEDBACK"; delayMs: number };
+  | { type: "SCHEDULE_FEEDBACK"; delayMs: number }
+  | {
+      type: "REQUEST_LOCATION_MOVEMENT";
+      locationId: string;
+      arrivalRadius: number;
+    }
+  | { type: "SET_CARRIED_OBJECT"; objectId: string }
+  | {
+      type: "TRANSFER_CARRIED_OBJECT";
+      objectId: string;
+      recipientEntityId: string;
+    }
+  | { type: "CLEAR_CARRIED_OBJECT" };
 
 export interface LessonUpdate {
   state: LessonState;
@@ -88,6 +136,7 @@ export function startLesson(
     sessionId,
     manifest.entryStepId,
     [],
+    undefined,
     activeTimeMs,
   );
   const step = currentStep(state);
@@ -170,20 +219,263 @@ export function reduceLesson(
         state.helpUsed || state.audioFailed ? "ASSISTED" : "SUCCESS",
       );
 
-    case "OBJECT_SELECTED":
+    case "ARRANGE_TOKEN_ADDED":
       if (
-        step.interaction.type !== "CLICK_OBJECT" ||
-        state.phase !== "AWAITING_OBJECT" ||
+        step.interaction.type !== "ARRANGE" ||
+        state.phase !== "AWAITING_ARRANGE" ||
+        !state.availableTokenIds.includes(input.tokenId)
+      ) {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          availableTokenIds: state.availableTokenIds.filter(
+            (tokenId) => tokenId !== input.tokenId,
+          ),
+          arrangedTokenIds: [...state.arrangedTokenIds, input.tokenId],
+        },
+        effects: [],
+      };
+
+    case "ARRANGE_TOKEN_REMOVED":
+      if (
+        step.interaction.type !== "ARRANGE" ||
+        state.phase !== "AWAITING_ARRANGE" ||
+        !state.arrangedTokenIds.includes(input.tokenId)
+      ) {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          availableTokenIds: [...state.availableTokenIds, input.tokenId],
+          arrangedTokenIds: state.arrangedTokenIds.filter(
+            (tokenId) => tokenId !== input.tokenId,
+          ),
+        },
+        effects: [],
+      };
+
+    case "ARRANGE_RESET":
+      if (
+        step.interaction.type !== "ARRANGE" ||
+        state.phase !== "AWAITING_ARRANGE"
+      ) {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          availableTokenIds: orderedArrangeTokens(
+            step,
+            state.manifest.randomSeed,
+          ).map((token) => token.tokenId),
+          arrangedTokenIds: [],
+        },
+        effects: [],
+      };
+
+    case "ARRANGE_SUBMITTED": {
+      if (
+        step.interaction.type !== "ARRANGE" ||
+        state.phase !== "AWAITING_ARRANGE" ||
+        state.availableTokenIds.length > 0
+      ) {
+        return unchanged(state);
+      }
+      const correct = step.interaction.acceptedSequences.some((sequence) =>
+        sameSequence(sequence, state.arrangedTokenIds),
+      );
+      const evaluatedState =
+        correct || step.attemptPolicy.preserveSubmittedState
+          ? state
+          : resetArrangeState(state, step);
+      return evaluateAnswer(
+        evaluatedState,
+        input,
+        state.arrangedTokenIds.join(","),
+        correct,
+      );
+    }
+
+    case "TYPE_DRAFT_CHANGED":
+      if (step.interaction.type !== "TYPE" || state.phase !== "AWAITING_TYPE") {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          typeDraft: truncateToUnicodeCodePoints(
+            input.value,
+            step.interaction.maximumLength,
+          ),
+        },
+        effects: [],
+      };
+
+    case "TYPE_SUBMITTED": {
+      if (
+        step.interaction.type !== "TYPE" ||
+        state.phase !== "AWAITING_TYPE" ||
+        state.typeDraft.length === 0 ||
+        unicodeCodePointLength(state.typeDraft) > step.interaction.maximumLength
+      ) {
+        return unchanged(state);
+      }
+      const normalization = step.interaction.normalization;
+      const submitted = normalizeTypeAnswer(state.typeDraft, normalization);
+      if (submitted.length === 0) return unchanged(state);
+      const correct = step.interaction.acceptedAnswers.some(
+        (answer) => normalizeTypeAnswer(answer, normalization) === submitted,
+      );
+      const evaluatedState =
+        correct || step.attemptPolicy.preserveSubmittedState
+          ? state
+          : { ...state, typeDraft: "" };
+      return evaluateAnswer(evaluatedState, input, submitted, correct);
+    }
+
+    case "OBJECT_SELECTED": {
+      const isClick =
+        step.interaction.type === "CLICK_OBJECT" &&
+        state.phase === "AWAITING_OBJECT";
+      const isPickUp =
+        step.interaction.type === "PICK_UP" &&
+        state.phase === "AWAITING_PICK_UP";
+      if (
+        (!isClick && !isPickUp) ||
         !state.visibleObjectIds.includes(input.objectId)
       ) {
         return unchanged(state);
       }
-      return evaluateAnswer(
-        state,
+      const correct = step.interaction.acceptedObjectIds.includes(
+        input.objectId,
+      );
+      const evaluatedState =
+        isPickUp && correct
+          ? { ...state, carriedObjectId: input.objectId }
+          : state;
+      const update = evaluateAnswer(
+        evaluatedState,
         input,
         input.objectId,
-        step.interaction.acceptedObjectIds.includes(input.objectId),
+        correct,
       );
+      return isPickUp && correct
+        ? addEffect(update, {
+            type: "SET_CARRIED_OBJECT",
+            objectId: input.objectId,
+          })
+        : update;
+    }
+
+    case "LOCATION_SELECTED":
+      if (
+        step.interaction.type !== "MOVE_TO" ||
+        state.phase !== "AWAITING_LOCATION" ||
+        !state.visibleLocationIds.includes(input.locationId)
+      ) {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          phase: "MOVING_TO_LOCATION",
+          movementError: undefined,
+          pendingLocation: {
+            locationId: input.locationId,
+            activeTimeMs: input.activeTimeMs,
+            occurredAt: input.occurredAt,
+          },
+        },
+        effects: [
+          {
+            type: "REQUEST_LOCATION_MOVEMENT",
+            locationId: input.locationId,
+            arrivalRadius: step.interaction.arrivalRadius,
+          },
+        ],
+      };
+
+    case "LOCATION_REACHED": {
+      if (
+        step.interaction.type !== "MOVE_TO" ||
+        state.phase !== "MOVING_TO_LOCATION" ||
+        state.pendingLocation?.locationId !== input.locationId
+      ) {
+        return unchanged(state);
+      }
+      const selectionInput = state.pendingLocation;
+      const correct = step.interaction.acceptedLocationIds.includes(
+        input.locationId,
+      );
+      return evaluateAnswer(
+        { ...state, pendingLocation: undefined },
+        input,
+        input.locationId,
+        correct,
+        selectionInput,
+      );
+    }
+
+    case "MOVEMENT_FAILED":
+      if (
+        step.interaction.type !== "MOVE_TO" ||
+        state.phase !== "MOVING_TO_LOCATION" ||
+        state.pendingLocation?.locationId !== input.locationId
+      ) {
+        return unchanged(state);
+      }
+      return {
+        state: {
+          ...state,
+          phase: "AWAITING_LOCATION",
+          pendingLocation: undefined,
+          movementError: "移動できませんでした。もう一度場所を選んでください。",
+        },
+        effects: [],
+      };
+
+    case "RECIPIENT_SELECTED": {
+      if (
+        step.interaction.type !== "GIVE" ||
+        state.phase !== "AWAITING_RECIPIENT" ||
+        !state.visibleRecipientEntityIds.includes(input.entityId)
+      ) {
+        return unchanged(state);
+      }
+      const objectId = state.carriedObjectId;
+      if (
+        objectId === undefined ||
+        !step.interaction.candidateObjectIds.includes(objectId)
+      ) {
+        throw new Error(
+          `GIVE step '${step.stepId}' has no compatible carried object.`,
+        );
+      }
+      const correct = step.interaction.acceptedPairs.some(
+        (pair) =>
+          pair.objectId === objectId &&
+          pair.recipientEntityId === input.entityId,
+      );
+      const evaluatedState = correct
+        ? { ...state, carriedObjectId: undefined }
+        : state;
+      const update = evaluateAnswer(
+        evaluatedState,
+        input,
+        `${objectId}->${input.entityId}`,
+        correct,
+      );
+      return correct
+        ? addEffect(update, {
+            type: "TRANSFER_CARRIED_OBJECT",
+            objectId,
+            recipientEntityId: input.entityId,
+          })
+        : update;
+    }
 
     case "OPTION_SELECTED":
       if (
@@ -233,9 +525,13 @@ export function currentStep(state: LessonState): LessonStep {
 
 function evaluateAnswer(
   state: LessonState,
-  input: Extract<LessonInput, { type: "OBJECT_SELECTED" | "OPTION_SELECTED" }>,
+  input: LessonInput,
   submittedValue: string,
   correct: boolean,
+  reactionInput: Pick<
+    TimedInput<string>,
+    "activeTimeMs" | "occurredAt"
+  > = input,
 ): LessonUpdate {
   const step = currentStep(state);
   const attempt = state.attempt + 1;
@@ -244,7 +540,7 @@ function evaluateAnswer(
   );
   const assisted = state.helpUsed || state.activeScaffoldIds.length > 0;
   const reaction = reactionEvents(
-    eventContext(state, input),
+    eventContext(state, reactionInput),
     step,
     attempt,
     submittedValue,
@@ -261,13 +557,31 @@ function evaluateAnswer(
     );
   }
 
-  const supportedState = applyScaffolds(state, activeScaffolds, attempt);
+  let supportedState = applyScaffolds(state, activeScaffolds, attempt);
   if (attempt >= step.attemptPolicy.maximumAttempts) {
     const outcome: LessonOutcome =
       step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED"
         ? "ASSISTED"
         : "FAILURE";
-    return finishStep(supportedState, input, outcome, reaction);
+    let statefulEffect: LessonEffect | undefined;
+    if (outcome === "ASSISTED" && step.interaction.type === "PICK_UP") {
+      const objectId = supportedState.visibleObjectIds[0];
+      if (
+        supportedState.visibleObjectIds.length !== 1 ||
+        objectId === undefined ||
+        !step.interaction.acceptedObjectIds.includes(objectId)
+      ) {
+        throw new Error(
+          `PICK_UP step '${step.stepId}' cannot resolve assisted carry state.`,
+        );
+      }
+      supportedState = { ...supportedState, carriedObjectId: objectId };
+      statefulEffect = { type: "SET_CARRIED_OBJECT", objectId };
+    }
+    const update = finishStep(supportedState, input, outcome, reaction);
+    return statefulEffect === undefined
+      ? update
+      : addEffect(update, statefulEffect);
   }
 
   return feedbackUpdate(
@@ -357,18 +671,21 @@ function followTransition(
         `Lesson reached COMPLETE before required steps: ${missingRequired.join(", ")}.`,
       );
     }
+    const effects: LessonEffect[] = [
+      record([lessonCompletedEvent(eventContext(state, input), previousStep)]),
+    ];
+    if (state.carriedObjectId !== undefined) {
+      effects.push({ type: "CLEAR_CARRIED_OBJECT" });
+    }
     return {
       state: {
         ...state,
         phase: "COMPLETED",
+        carriedObjectId: undefined,
         feedback: undefined,
         pending: undefined,
       },
-      effects: [
-        record([
-          lessonCompletedEvent(eventContext(state, input), previousStep),
-        ]),
-      ],
+      effects,
     };
   }
 
@@ -377,6 +694,7 @@ function followTransition(
     state.sessionId,
     target.stepId,
     state.completedStepIds,
+    state.carriedObjectId,
     input.activeTimeMs,
   );
   const nextStep = currentStep(nextState);
@@ -396,16 +714,25 @@ function createStepState(
   sessionId: string,
   stepId: string,
   completedStepIds: readonly string[],
+  carriedObjectId: string | undefined,
   activeTimeMs: number,
 ): LessonState {
   const step = manifest.steps.find((candidate) => candidate.stepId === stepId);
-  if (step === undefined)
+  if (step === undefined) {
     throw new Error(`Lesson step '${stepId}' was not found.`);
-  const visibleObjectIds =
-    step.interaction.type === "CLICK_OBJECT"
-      ? [...step.interaction.candidateObjectIds]
+  }
+  const visibleObjectIds = objectCandidates(step);
+  const visibleLocationIds =
+    step.interaction.type === "MOVE_TO"
+      ? [...step.interaction.candidateLocationIds]
       : [];
-  const visibleOptions = orderedChoiceOptions(step, manifest.randomSeed);
+  const visibleRecipientEntityIds =
+    step.interaction.type === "GIVE"
+      ? [...step.interaction.candidateRecipientEntityIds]
+      : [];
+  const availableTokenIds = orderedArrangeTokens(step, manifest.randomSeed).map(
+    (token) => token.tokenId,
+  );
   return {
     manifest,
     sessionId,
@@ -416,9 +743,20 @@ function createStepState(
     audioFailed: false,
     activeScaffoldIds: [],
     visibleObjectIds,
-    visibleOptions,
+    visibleLocationIds,
+    visibleRecipientEntityIds,
+    visibleOptions: orderedChoiceOptions(step, manifest.randomSeed),
+    availableTokenIds,
+    arrangedTokenIds: [],
+    typeDraft: "",
     highlightObjectIds: [],
+    highlightEntityIds: [],
     readingHint: undefined,
+    meaningHint: undefined,
+    patternHint: undefined,
+    movementError: undefined,
+    pendingLocation: undefined,
+    carriedObjectId,
     feedback: undefined,
     pending: undefined,
     completedStepIds: [...completedStepIds],
@@ -434,12 +772,18 @@ function applyScaffolds(
   let visibleObjectIds = state.visibleObjectIds;
   let visibleOptions = state.visibleOptions;
   let highlightObjectIds = state.highlightObjectIds;
+  let highlightEntityIds = state.highlightEntityIds;
   let readingHint = state.readingHint;
+  let meaningHint = state.meaningHint;
+  let patternHint = state.patternHint;
 
   scaffolds.forEach((scaffold) => {
     switch (scaffold.kind) {
       case "HIGHLIGHT_OBJECTS":
         highlightObjectIds = [...scaffold.objectIds];
+        break;
+      case "HIGHLIGHT_ENTITIES":
+        highlightEntityIds = [...scaffold.entityIds];
         break;
       case "REDUCE_OBJECT_CANDIDATES":
         visibleObjectIds = [...scaffold.objectIds];
@@ -453,11 +797,14 @@ function applyScaffolds(
       case "SHOW_READING":
         readingHint = scaffold.textJa;
         break;
+      case "SHOW_MEANING":
+        meaningHint = scaffold.supportText;
+        break;
+      case "SHOW_PATTERN":
+        patternHint = scaffold.textJa;
+        break;
       case "REPLAY_AUDIO":
       case "SHOW_JAPANESE_TEXT":
-      case "HIGHLIGHT_ENTITIES":
-      case "SHOW_MEANING":
-      case "SHOW_PATTERN":
       case "RECOGNITION_FALLBACK":
         break;
     }
@@ -470,7 +817,10 @@ function applyScaffolds(
     visibleObjectIds,
     visibleOptions,
     highlightObjectIds,
+    highlightEntityIds,
     readingHint,
+    meaningHint,
+    patternHint,
   };
 }
 
@@ -478,14 +828,20 @@ function inputPhase(step: LessonStep): LessonPhase {
   switch (step.interaction.type) {
     case "LISTEN":
       return "AWAITING_AUDIO";
+    case "ARRANGE":
+      return "AWAITING_ARRANGE";
     case "CLICK_OBJECT":
       return "AWAITING_OBJECT";
+    case "TYPE":
+      return "AWAITING_TYPE";
+    case "MOVE_TO":
+      return "AWAITING_LOCATION";
+    case "PICK_UP":
+      return "AWAITING_PICK_UP";
+    case "GIVE":
+      return "AWAITING_RECIPIENT";
     case "CHOOSE":
       return "AWAITING_CHOICE";
-    default:
-      throw new Error(
-        `Primitive '${step.interaction.type}' passed the Milestone 4 capability gate unexpectedly.`,
-      );
   }
 }
 
@@ -520,6 +876,42 @@ function eventContext(
     activeLatencyMs: input.activeTimeMs - state.stepStartedAtActiveMs,
     occurredAt: input.occurredAt,
   };
+}
+
+function objectCandidates(step: LessonStep): string[] {
+  switch (step.interaction.type) {
+    case "CLICK_OBJECT":
+    case "PICK_UP":
+    case "GIVE":
+      return [...step.interaction.candidateObjectIds];
+    default:
+      return [];
+  }
+}
+
+function resetArrangeState(state: LessonState, step: LessonStep): LessonState {
+  return {
+    ...state,
+    availableTokenIds: orderedArrangeTokens(
+      step,
+      state.manifest.randomSeed,
+    ).map((token) => token.tokenId),
+    arrangedTokenIds: [],
+  };
+}
+
+function sameSequence(
+  left: readonly string[],
+  right: readonly string[],
+): boolean {
+  return (
+    left.length === right.length &&
+    left.every((value, index) => value === right[index])
+  );
+}
+
+function addEffect(update: LessonUpdate, effect: LessonEffect): LessonUpdate {
+  return { ...update, effects: [...update.effects, effect] };
 }
 
 function record(events: readonly SessionEvent[]): LessonEffect {

@@ -2,12 +2,12 @@
 
 ## Status
 
-This document defines the approved architectural direction. The Milestone 1
-filesystem foundation, Milestone 2 executable contract boundary, and
-Milestone 3 technical runtime boundary are implemented. The Milestone 4
-three-step lesson executor is implemented and awaiting manual browser
-acceptance. The complete primitive set, compiler, persistence, and production
-asset boundaries remain planned until their roadmap milestones.
+This document defines the approved architectural direction. Milestones 1
+through 5 are implemented and manually accepted: the workspace, executable
+contract boundary, technical runtime, first deterministic lesson, and complete
+eight-primitive executor all exist locally. Compiler, persistence, cached
+audio, and production asset boundaries remain planned until their roadmap
+milestones.
 
 ## Architectural goals
 
@@ -74,23 +74,22 @@ Implemented foundation responsibilities:
 - validate the complete authored LessonManifest and CatalogSnapshot before
   activating the renderer, then reject capabilities outside the closed local
   executor allowlist;
-- run a pure deterministic LISTEN, CLICK_OBJECT, and CHOOSE controller with
-  bounded attempts, authored scaffolds, seeded choice order, transitions, and
-  required-step completion checks;
-- present Japanese-first stimulus, help, feedback, choices, completion, and
-  focus transitions through DOM controls while keeping lesson truth outside
-  Three.js;
+- run a pure deterministic controller for all eight fixed primitives with
+  bounded attempts, authored scaffolds, seeded ordering, task-scoped carry,
+  explicit transitions, and required-step completion checks;
+- present Japanese-first stimulus, help, feedback, choices, token arrangement,
+  Japanese typing, completion, and focus transitions through DOM controls while
+  keeping lesson truth outside Three.js;
 - isolate audio behind AudioPlaybackPort and use browser SpeechSynthesis only
   as the temporary Milestone 4 learner-gesture adapter; and
 - record idempotent session-local exposure, heard, reaction, step, and
   completion events against active time that excludes hidden-tab duration.
 
-Planned responsibilities beyond Milestone 4:
+Planned responsibilities beyond Milestone 5:
 
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
 - dynamically load only the referenced scene and asset bundles;
-- execute ARRANGE, TYPE, MOVE_TO, PICK_UP, and GIVE;
 - replace the temporary audio adapter with reviewed cached audio;
 - promote the provisional in-memory event record into the accepted persistent
   evidence contract; and
@@ -251,7 +250,7 @@ SQLite; do not duplicate large binary data inside manifests.
 - Evidence events use stable lesson, revision, session, target, and interaction
   identifiers.
 - Saving is explicit at meaningful interaction boundaries.
-- Milestone 4 events are intentionally memory-only and reload starts a clean
+- Milestone 5 events are intentionally memory-only and reload starts a clean
   session. Milestone 6 must make reloading idempotent without losing a completed
   persistent interaction.
 - Unknown schema versions fail closed with a useful error.
@@ -315,6 +314,23 @@ records `heard` only after the browser reports playback start. Failure reveals
 an assisted text route and never claims heard evidence. No browser storage,
 backend evidence transport, learner identity, mastery, production TTS, AI, or
 network dependency is introduced by this boundary.
+
+### Milestone 5 complete primitive boundary
+
+D-020 retains LessonManifest 0.1.0 and executes all eight fixed primitives in
+one validated forward-only HELP_SOMEONE fixture. ARRANGE compares stable token
+IDs, TYPE shares the contract normalizer and remains IME-safe, MOVE_TO resolves
+only after authored location arrival, and PICK_UP/GIVE share one controller-
+owned task carry slot. Object, location, and recipient inputs use isolated
+atomic target modes; the Three.js world mirrors movement and carry presentation
+but never decides answer correctness.
+
+The boundary adds two technical park locations and a second technical NPC,
+deterministic movement/carry recovery controls, and clean world restart. It
+does not add persistence, inventory, pathfinding, physics, production content,
+or a general world-state language. The user's manual browser `PASS` on
+2026-08-12 closes this boundary qualitatively; no unreported runtime metric or
+broader browser/device claim is inferred from that acceptance.
 
 ## API principles
 

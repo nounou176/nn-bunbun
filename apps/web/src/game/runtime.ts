@@ -23,8 +23,25 @@ const MOVEMENT_SPEED = 3.4;
 const MAXIMUM_FRAME_DELTA_SECONDS = 0.05;
 const DIAGNOSTIC_UPDATE_INTERVAL_MS = 250;
 
+interface LessonMovementRequest {
+  locationId: string;
+  arrivalRadius: number;
+  onReached: (locationId: string) => void;
+  onFailure: (locationId: string) => void;
+}
+
 export interface GameRuntime {
   configureLessonInput: (configuration: LessonWorldInputConfiguration) => void;
+  requestLocationMovement: (
+    locationId: string,
+    arrivalRadius: number,
+    onReached: (locationId: string) => void,
+    onFailure: (locationId: string) => void,
+  ) => void;
+  setCarriedObject: (objectId: string) => void;
+  transferCarriedObject: (objectId: string, recipientEntityId: string) => void;
+  clearCarriedObject: () => void;
+  resetLessonWorld: () => void;
   applyCues: (cueIds: readonly string[]) => void;
   dispose: () => void;
 }
@@ -70,9 +87,7 @@ export async function createGameRuntime(
     throw new BunbunRuntimeError(
       "RUNTIME_ASSET_LOAD_FAILED",
       messageOf(error),
-      {
-        cause: error,
-      },
+      { cause: error },
     );
   }
 
@@ -83,14 +98,28 @@ export async function createGameRuntime(
   const frameMeter = new FrameMeter();
   const lessonInput = new LessonWorldInputGate();
   const worldPosition = new Vector3();
+  const initialObjectPositions = new Map<string, Vector3>(
+    PARK_SCENE_DEFINITION.objects.map((placement) => [
+      placement.localId,
+      new Vector3(
+        placement.position.x,
+        placement.position.y,
+        placement.position.z,
+      ),
+    ]),
+  );
   let zoom = DEFAULT_ZOOM;
   let destination: Vector2 | undefined;
+  let lessonMovement: LessonMovementRequest | undefined;
+  let carriedObjectId: string | undefined;
   let selectedId: string | undefined;
   let latestPickingMs: number | undefined;
   let lastFrameTime = performance.now();
   let lastDiagnosticUpdate = 0;
   let sceneReadyMs = 0;
   let disposed = false;
+  let movementFailureUsed = false;
+  let carryFailureUsed = false;
   let movement: DiagnosticsSnapshot["movement"] = "idle";
 
   const resize = () => {
@@ -114,10 +143,33 @@ export async function createGameRuntime(
     }
   };
 
+  const updateCarriedPresentation = () => {
+    if (carriedObjectId === undefined) return;
+    const object = world.objectRoots.get(carriedObjectId);
+    if (object === undefined) return;
+    object.position.set(
+      world.player.position.x + 0.58,
+      initialObjectPositions.get(carriedObjectId)?.y ?? 0,
+      world.player.position.z + 0.38,
+    );
+    const marker = world.highlightMarkers.get(carriedObjectId);
+    marker?.position.set(object.position.x, 0.04, object.position.z);
+  };
+
+  const completeLessonMovement = () => {
+    const request = lessonMovement;
+    if (request === undefined) return;
+    lessonMovement = undefined;
+    destination = undefined;
+    world.destinationMarker.visible = false;
+    setMovement("idle");
+    queueMicrotask(() => {
+      if (!disposed) request.onReached(request.locationId);
+    });
+  };
+
   const renderFrame = (time: DOMHighResTimeStamp) => {
-    if (disposed) {
-      return;
-    }
+    if (disposed) return;
 
     const frameMs = Math.max(0.01, time - lastFrameTime);
     const deltaSeconds = Math.min(frameMs / 1000, MAXIMUM_FRAME_DELTA_SECONDS);
@@ -138,7 +190,16 @@ export async function createGameRuntime(
         world.player.rotation.y = Math.atan2(facingX, facingZ);
       }
 
-      if (step.arrived) {
+      const remaining = Math.hypot(
+        destination.x - world.player.position.x,
+        destination.y - world.player.position.z,
+      );
+      if (
+        lessonMovement !== undefined &&
+        remaining <= lessonMovement.arrivalRadius
+      ) {
+        completeLessonMovement();
+      } else if (step.arrived) {
         destination = undefined;
         world.destinationMarker.visible = false;
         setMovement("idle");
@@ -147,6 +208,7 @@ export async function createGameRuntime(
       }
     }
 
+    updateCarriedPresentation();
     renderer.render(world.scene, camera);
 
     if (time - lastDiagnosticUpdate >= DIAGNOSTIC_UPDATE_INTERVAL_MS) {
@@ -174,17 +236,49 @@ export async function createGameRuntime(
     });
   };
 
-  const selectObject = (root: Object3D, startedPickingAt: number) => {
-    selectedId = String(root.userData.selectableId);
+  const showSelection = (root: Object3D, localId: string) => {
+    selectedId = localId;
     const catalogId = String(root.userData.catalogId);
     root.getWorldPosition(worldPosition);
     world.selectionMarker.position.set(worldPosition.x, 0.035, worldPosition.z);
     world.selectionMarker.visible = true;
     shell.setSelection(selectedId, catalogId);
-    lessonInput.routeSelection(selectedId);
+  };
+
+  const finishPickingMeasurement = (startedPickingAt: number) => {
     requestAnimationFrame(() => {
       latestPickingMs = performance.now() - startedPickingAt;
     });
+  };
+
+  const routeObject = (root: Object3D, startedPickingAt: number) => {
+    const objectId = String(root.userData.selectableObjectId);
+    showSelection(root, objectId);
+    lessonInput.routeObject(objectId);
+    finishPickingMeasurement(startedPickingAt);
+  };
+
+  const routeLocation = (root: Object3D, startedPickingAt: number) => {
+    const locationId = String(root.userData.selectableLocationId);
+    showSelection(root, locationId);
+    lessonInput.routeLocation(locationId);
+    finishPickingMeasurement(startedPickingAt);
+  };
+
+  const routeRecipient = (root: Object3D, startedPickingAt: number) => {
+    const entityId = String(root.userData.selectableEntityId);
+    showSelection(root, entityId);
+    if (carriedObjectId === undefined) {
+      onFatalError(
+        new BunbunRuntimeError(
+          "RUNTIME_CARRY_STATE_INVALID",
+          "The world has no carried object for the active GIVE interaction.",
+        ),
+      );
+      return;
+    }
+    lessonInput.routeRecipient(entityId);
+    finishPickingMeasurement(startedPickingAt);
   };
 
   const requestMovement = (point: Vector3, startedPickingAt: number) => {
@@ -196,39 +290,59 @@ export async function createGameRuntime(
     ) {
       return;
     }
+    lessonMovement = undefined;
     destination = new Vector2(point.x, point.z);
     world.destinationMarker.position.set(point.x, 0.03, point.z);
     world.destinationMarker.visible = true;
     setMovement("moving");
-    requestAnimationFrame(() => {
-      latestPickingMs = performance.now() - startedPickingAt;
-    });
+    finishPickingMeasurement(startedPickingAt);
   };
 
   const onPointerDown = (event: PointerEvent) => {
-    if (event.button !== 0 || !lessonInput.enabled) {
-      return;
-    }
+    if (event.button !== 0 || !lessonInput.enabled) return;
     const startedPickingAt = performance.now();
     const bounds = shell.canvas.getBoundingClientRect();
     pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
     pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
 
-    const objectHit = raycaster.intersectObjects(
-      [...world.selectableRoots],
-      true,
-    )[0];
-    const selectableRoot = findSelectableRoot(objectHit?.object);
-    if (selectableRoot !== undefined) {
-      selectObject(selectableRoot, startedPickingAt);
+    if (lessonInput.mode === "OBJECT") {
+      const hit = raycaster.intersectObjects(
+        [...world.objectRoots.values()],
+        true,
+      )[0];
+      const root = findTargetRoot(hit?.object, "selectableObjectId");
+      if (root !== undefined) {
+        routeObject(root, startedPickingAt);
+        return;
+      }
+    }
+
+    if (lessonInput.mode === "LOCATION") {
+      const hit = raycaster.intersectObjects(
+        [...world.locationRoots.values()],
+        true,
+      )[0];
+      const root = findTargetRoot(hit?.object, "selectableLocationId");
+      if (root !== undefined) routeLocation(root, startedPickingAt);
       return;
     }
 
-    const groundHit = raycaster.intersectObject(world.walkableGround, true)[0];
-    if (groundHit !== undefined) {
-      requestMovement(groundHit.point, startedPickingAt);
+    if (lessonInput.mode === "RECIPIENT") {
+      const hit = raycaster.intersectObjects(
+        [...world.entityRoots.values()],
+        true,
+      )[0];
+      const root = findTargetRoot(hit?.object, "selectableEntityId");
+      if (root !== undefined) {
+        routeRecipient(root, startedPickingAt);
+        return;
+      }
     }
+
+    const groundHit = raycaster.intersectObject(world.walkableGround, true)[0];
+    if (groundHit !== undefined)
+      requestMovement(groundHit.point, startedPickingAt);
   };
 
   const changeZoom = (amount: number) => {
@@ -250,25 +364,150 @@ export async function createGameRuntime(
     void renderer.setAnimationLoop(renderFrame);
   };
 
-  const dispose = () => {
-    if (disposed) {
-      return;
+  const cancelMovement = () => {
+    destination = undefined;
+    lessonMovement = undefined;
+    world.destinationMarker.visible = false;
+    setMovement("idle");
+  };
+
+  const restoreObject = (objectId: string) => {
+    const object = world.objectRoots.get(objectId);
+    const initial = initialObjectPositions.get(objectId);
+    if (object !== undefined && initial !== undefined)
+      object.position.copy(initial);
+    const marker = world.highlightMarkers.get(objectId);
+    if (marker !== undefined && initial !== undefined) {
+      marker.position.set(initial.x, 0.04, initial.z);
     }
-    disposed = true;
-    abortController.abort();
-    resizeObserver.disconnect();
-    void renderer.setAnimationLoop(null);
-    world.dispose();
-    renderer.dispose();
+  };
+
+  const clearCarriedObject = () => {
+    if (carriedObjectId !== undefined) restoreObject(carriedObjectId);
+    carriedObjectId = undefined;
+  };
+
+  const resetLessonWorld = () => {
+    cancelMovement();
+    carriedObjectId = undefined;
+    world.player.position.set(
+      PARK_SCENE_DEFINITION.playerSpawn.x,
+      PARK_SCENE_DEFINITION.playerSpawn.y,
+      PARK_SCENE_DEFINITION.playerSpawn.z,
+    );
+    PARK_SCENE_DEFINITION.objects.forEach((placement) =>
+      restoreObject(placement.localId),
+    );
+    world.selectionMarker.visible = false;
+    world.locationRoots.forEach((root) => {
+      root.visible = false;
+    });
+    world.highlightMarkers.forEach((marker) => {
+      marker.visible = false;
+    });
+    selectedId = undefined;
+    shell.setSelection();
   };
 
   const configureLessonInput = (
     configuration: LessonWorldInputConfiguration,
   ) => {
     lessonInput.configure(configuration);
-    world.highlightMarkers.forEach((marker, objectId) => {
-      marker.visible = configuration.highlightObjectIds.includes(objectId);
+    world.highlightMarkers.forEach((marker, targetId) => {
+      marker.visible =
+        configuration.highlightObjectIds.includes(targetId) ||
+        configuration.highlightEntityIds.includes(targetId);
     });
+    world.locationRoots.forEach((root, locationId) => {
+      root.visible =
+        configuration.mode === "LOCATION" &&
+        configuration.candidateIds.includes(locationId);
+    });
+    if (
+      configuration.mode === "RECIPIENT" &&
+      config.simulateCarryFailure &&
+      !carryFailureUsed
+    ) {
+      carryFailureUsed = true;
+      carriedObjectId = undefined;
+    }
+  };
+
+  const requestLocationMovement = (
+    locationId: string,
+    arrivalRadius: number,
+    onReached: (resolvedLocationId: string) => void,
+    onFailure: (failedLocationId: string) => void,
+  ) => {
+    const location = world.locationRoots.get(locationId);
+    if (location === undefined) {
+      throw new BunbunRuntimeError(
+        "RUNTIME_LOCATION_UNKNOWN",
+        `Location '${locationId}' has no authored world target.`,
+      );
+    }
+    cancelMovement();
+    if (config.simulateMovementFailure && !movementFailureUsed) {
+      movementFailureUsed = true;
+      queueMicrotask(() => {
+        if (!disposed) onFailure(locationId);
+      });
+      return;
+    }
+    destination = new Vector2(location.position.x, location.position.z);
+    lessonMovement = { locationId, arrivalRadius, onReached, onFailure };
+    world.destinationMarker.position.set(
+      location.position.x,
+      0.03,
+      location.position.z,
+    );
+    world.destinationMarker.visible = true;
+    setMovement("moving");
+  };
+
+  const setCarriedObject = (objectId: string) => {
+    if (!world.objectRoots.has(objectId)) {
+      throw new BunbunRuntimeError(
+        "RUNTIME_CARRY_OBJECT_UNKNOWN",
+        `Object '${objectId}' cannot enter carry state.`,
+      );
+    }
+    if (carriedObjectId !== undefined && carriedObjectId !== objectId) {
+      throw new BunbunRuntimeError(
+        "RUNTIME_CARRY_SLOT_OCCUPIED",
+        `Object '${carriedObjectId}' already occupies the task carry slot.`,
+      );
+    }
+    carriedObjectId = objectId;
+    updateCarriedPresentation();
+  };
+
+  const transferCarriedObject = (
+    objectId: string,
+    recipientEntityId: string,
+  ) => {
+    const object = world.objectRoots.get(objectId);
+    const recipient = world.entityRoots.get(recipientEntityId);
+    if (carriedObjectId !== objectId || object === undefined) {
+      throw new BunbunRuntimeError(
+        "RUNTIME_CARRY_STATE_INVALID",
+        `Object '${objectId}' is not in the task carry slot.`,
+      );
+    }
+    if (recipient === undefined) {
+      throw new BunbunRuntimeError(
+        "RUNTIME_RECIPIENT_UNKNOWN",
+        `Recipient '${recipientEntityId}' has no world placement.`,
+      );
+    }
+    carriedObjectId = undefined;
+    object.position.set(
+      recipient.position.x + 0.58,
+      initialObjectPositions.get(objectId)?.y ?? 0,
+      recipient.position.z + 0.35,
+    );
+    const marker = world.highlightMarkers.get(objectId);
+    marker?.position.set(object.position.x, 0.04, object.position.z);
   };
 
   const applyCues = (cueIds: readonly string[]) => {
@@ -283,10 +522,21 @@ export async function createGameRuntime(
           return [];
       }
     });
-    highlightedIds.forEach((objectId) => {
-      const marker = world.highlightMarkers.get(objectId);
+    highlightedIds.forEach((targetId) => {
+      const marker = world.highlightMarkers.get(targetId);
       if (marker !== undefined) marker.visible = true;
     });
+  };
+
+  const dispose = () => {
+    if (disposed) return;
+    disposed = true;
+    abortController.abort();
+    resizeObserver.disconnect();
+    cancelMovement();
+    void renderer.setAnimationLoop(null);
+    world.dispose();
+    renderer.dispose();
   };
 
   shell.canvas.addEventListener("pointerdown", onPointerDown, { signal });
@@ -344,17 +594,26 @@ export async function createGameRuntime(
   lastFrameTime = performance.now();
   void renderer.setAnimationLoop(renderFrame);
 
-  return { configureLessonInput, applyCues, dispose };
+  return {
+    configureLessonInput,
+    requestLocationMovement,
+    setCarriedObject,
+    transferCarriedObject,
+    clearCarriedObject,
+    resetLessonWorld,
+    applyCues,
+    dispose,
+  };
 }
 
-function findSelectableRoot(
+function findTargetRoot(
   object: Object3D | undefined,
+  metadataKey:
+    "selectableObjectId" | "selectableLocationId" | "selectableEntityId",
 ): Object3D | undefined {
   let current = object;
   while (current !== undefined && current !== null) {
-    if (typeof current.userData.selectableId === "string") {
-      return current;
-    }
+    if (typeof current.userData[metadataKey] === "string") return current;
     current = current.parent ?? undefined;
   }
   return undefined;

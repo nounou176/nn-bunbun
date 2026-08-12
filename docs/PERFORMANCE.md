@@ -7,7 +7,7 @@ picking, and excessive travel all reduce meaningful Japanese reactions per
 minute even when the educational content is sound.
 
 This document defines initial reference budgets. They are design constraints,
-and the Milestone 3 and 4 sections distinguish measured build facts from
+and the Milestone 3 through 5 sections distinguish measured build facts from
 runtime measurements that still require manual browser acceptance.
 
 ## Reference target
@@ -116,6 +116,34 @@ reports a plausible frame-local value. The user supplied an explicit `PASS` on
 4 manual checklist. Acceptance is qualitative beyond these screenshot values:
 browser version, device/GPU identity, display details, cold/warm split, and
 audio-start latency were not reported and are not reconstructed.
+
+## Milestone 5 complete primitive prototype
+
+D-020 extends the same park and validated browser boundary with one eight-step
+fixture, DOM ARRANGE and TYPE, authored location targets, task-scoped dog escort
+presentation, recipient selection, and three additional diagnostic fields. Its
+static production-build measurements from 2026-08-12 are:
+
+| Artifact | Measured size |
+| --- | --- |
+| Web JavaScript | 1,254,603 bytes minified; 346.59 kB gzip reported by Vite |
+| Web CSS | 10,696 bytes minified; 2.90 kB gzip reported by Vite |
+| Local park glTF | 5,899 bytes |
+| Web HTML | 520 bytes |
+| Eight-step LessonManifest fixture | 20,432 bytes authored JSON |
+| CatalogSnapshot fixture | 2,795 bytes authored JSON |
+
+Compared with the recorded Milestone 4 build, the implementation adds 25,358
+minified JavaScript bytes and 1,521 CSS bytes. The existing single-chunk Vite
+warning remains visible. This static increase does not establish a browser
+performance regression or acceptance result.
+
+The diagnostics panel now also reports the current world target mode, pending
+location, and carried object. The user supplied an explicit `PASS` on
+2026-08-12 for the full Milestone 5 happy-path, edge-case, failure-control,
+renderer, lifecycle, and performance matrix. No diagnostics values, named
+device details, or per-scenario notes accompanied that result, so acceptance is
+recorded as qualitative and no numeric runtime claim is inferred.
 
 ## Scene budgets
 

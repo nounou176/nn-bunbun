@@ -22,6 +22,12 @@
           "exclusiveOccupancy": true
         },
         {
+          "spawnPointId": "visitor_spot",
+          "kind": "ENTITY",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
           "spawnPointId": "animal_spot_a",
           "kind": "OBJECT",
           "reachableFromPlayer": true,
@@ -46,10 +52,27 @@
       "sceneIds": ["park_small"]
     }
   ],
-  "locations": [],
+  "locations": [
+    {
+      "catalogLocationId": "park_animal_area",
+      "sceneId": "park_small",
+      "stateIds": []
+    },
+    {
+      "catalogLocationId": "park_bench_area",
+      "sceneId": "park_small",
+      "stateIds": []
+    }
+  ],
   "entities": [
     {
       "catalogEntityId": "npc_guide_basic",
+      "roles": ["NPC"],
+      "sceneIds": ["park_small"],
+      "stateIds": ["idle"]
+    },
+    {
+      "catalogEntityId": "npc_visitor_basic",
       "roles": ["NPC"],
       "sceneIds": ["park_small"],
       "stateIds": ["idle"]

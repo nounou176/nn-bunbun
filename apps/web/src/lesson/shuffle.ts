@@ -1,4 +1,4 @@
-import type { ChoiceOption, LessonStep } from "@bunbun/contracts";
+import type { ArrangeToken, ChoiceOption, LessonStep } from "@bunbun/contracts";
 
 export function orderedChoiceOptions(
   step: LessonStep,
@@ -8,17 +8,35 @@ export function orderedChoiceOptions(
   const options = [...step.interaction.options];
   if (!step.interaction.shuffle) return options;
 
-  const random = mulberry32((manifestSeed ^ hashString(step.stepId)) >>> 0);
-  for (let index = options.length - 1; index > 0; index -= 1) {
+  return seededOrder(options, manifestSeed, step.stepId);
+}
+
+export function orderedArrangeTokens(
+  step: LessonStep,
+  manifestSeed: number,
+): readonly ArrangeToken[] {
+  if (step.interaction.type !== "ARRANGE") return [];
+  const tokens = [...step.interaction.tokens];
+  if (!step.interaction.shuffle) return tokens;
+  return seededOrder(tokens, manifestSeed, step.stepId);
+}
+
+function seededOrder<Value>(
+  values: Value[],
+  manifestSeed: number,
+  stepId: string,
+): Value[] {
+  const random = mulberry32((manifestSeed ^ hashString(stepId)) >>> 0);
+  for (let index = values.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(random() * (index + 1));
-    const current = options[index];
-    const swap = options[swapIndex];
+    const current = values[index];
+    const swap = values[swapIndex];
     if (current !== undefined && swap !== undefined) {
-      options[index] = swap;
-      options[swapIndex] = current;
+      values[index] = swap;
+      values[swapIndex] = current;
     }
   }
-  return options;
+  return values;
 }
 
 function hashString(value: string): number {

@@ -28,6 +28,12 @@ export interface AppShell {
   helpButton: HTMLButtonElement;
   restartLessonButton: HTMLButtonElement;
   choiceList: HTMLElement;
+  arrangeBank: HTMLElement;
+  arrangeAnswer: HTMLElement;
+  arrangeSubmitButton: HTMLButtonElement;
+  arrangeResetButton: HTMLButtonElement;
+  typeForm: HTMLFormElement;
+  typeInput: HTMLInputElement;
   setLoading: () => void;
   setReady: (backend: RendererBackend, recoveredWithWebGL2: boolean) => void;
   setError: (code: string, message: string) => void;
@@ -57,6 +63,9 @@ export interface LessonDiagnosticsSnapshot {
   activeTimeMs: number;
   lastReactionMs: number | undefined;
   firstStimulusMs: number;
+  worldTargetMode: "none" | "object" | "location" | "recipient";
+  pendingLocationId: string | undefined;
+  carriedObjectId: string | undefined;
 }
 
 export function createAppShell(app: HTMLDivElement): AppShell {
@@ -66,7 +75,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         <canvas
           class="world-canvas"
           tabindex="0"
-          aria-label="Bunbun isometric park. Click the ground to move and click an animal to select it."
+          aria-label="Bunbun isometric park. Follow the current Japanese instruction to select an object, location, or person."
         ></canvas>
 
         <header class="world-header">
@@ -81,7 +90,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         </header>
 
         <section class="state-panel" data-role="state" aria-live="polite">
-          <p class="eyebrow" data-role="state-label">Milestone 4</p>
+          <p class="eyebrow" data-role="state-label">Milestone 5</p>
           <h2 data-role="state-title">Preparing the lesson…</h2>
           <p data-role="state-message">
             Validating the authored lesson before initializing the park.
@@ -100,12 +109,33 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           <h2 class="lesson-instruction" data-role="lesson-instruction"></h2>
           <p class="lesson-utterance" data-role="lesson-utterance"></p>
           <p class="lesson-reading" data-role="lesson-reading" hidden></p>
+          <p class="lesson-pattern" data-role="lesson-pattern" hidden></p>
+          <p class="lesson-meaning" data-role="lesson-meaning" hidden></p>
           <p class="lesson-support" data-role="lesson-support" hidden></p>
           <p class="lesson-world-action" data-role="lesson-world-action" hidden>
-            <span>公園の動物をクリック</span>
-            <small>Chọn một con vật trực tiếp trong công viên</small>
+            <span data-role="lesson-world-action-ja"></span>
+            <small data-role="lesson-world-action-support"></small>
           </p>
+          <p class="lesson-movement-error" data-role="lesson-movement-error" hidden></p>
           <p class="lesson-audio-error" data-role="lesson-audio-error" hidden></p>
+          <section class="arrange-control" data-role="arrange-control" aria-label="Sentence arrangement" hidden>
+            <p class="control-label">ことば</p>
+            <div class="token-list token-bank" data-role="arrange-bank"></div>
+            <p class="control-label">文</p>
+            <div class="token-list token-answer" data-role="arrange-answer"></div>
+            <div class="arrange-actions">
+              <button class="primary-button" data-role="arrange-submit" type="button">答える</button>
+              <button data-role="arrange-reset" type="button">リセット</button>
+            </div>
+          </section>
+          <form class="type-control" data-role="type-form" hidden>
+            <label for="lesson-type-input">日本語で入力</label>
+            <div class="type-input-row">
+              <input id="lesson-type-input" data-role="type-input" type="text" inputmode="text" lang="ja" autocomplete="off" autocapitalize="off" spellcheck="false">
+              <button class="primary-button" type="submit">答える</button>
+            </div>
+            <small data-role="type-limit"></small>
+          </form>
           <div class="choice-list" data-role="choice-list"></div>
           <output class="lesson-feedback" data-role="lesson-feedback"></output>
           <div class="lesson-actions">
@@ -121,8 +151,8 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         </section>
 
         <aside class="world-controls" aria-label="World controls">
-          <p class="instruction-ja">日本語を聞いて、犬を探そう。</p>
-          <p class="instruction-support">Listen, inspect the park, and respond to the authored lesson.</p>
+          <p class="instruction-ja">日本語を使って、ゆきを助けよう。</p>
+          <p class="instruction-support">Complete the authored Japanese actions in the park.</p>
           <output class="selection-output" data-role="selection">Nothing selected</output>
           <div class="button-row">
             <button type="button" data-role="zoom-out" aria-label="Zoom out">−</button>
@@ -158,6 +188,9 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <div><dt>Lesson active</dt><dd data-diagnostic="lesson-active">—</dd></div>
             <div><dt>Last reaction</dt><dd data-diagnostic="lesson-reaction">—</dd></div>
             <div><dt>First stimulus</dt><dd data-diagnostic="lesson-first-stimulus">—</dd></div>
+            <div><dt>World target</dt><dd data-diagnostic="lesson-world-target">—</dd></div>
+            <div><dt>Pending location</dt><dd data-diagnostic="lesson-pending-location">—</dd></div>
+            <div><dt>Carried object</dt><dd data-diagnostic="lesson-carried-object">—</dd></div>
             <div><dt>Session</dt><dd data-diagnostic="lesson-session">—</dd></div>
           </dl>
         </aside>
@@ -228,6 +261,14 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     app,
     '[data-role="lesson-reading"]',
   );
+  const lessonPattern = required<HTMLElement>(
+    app,
+    '[data-role="lesson-pattern"]',
+  );
+  const lessonMeaning = required<HTMLElement>(
+    app,
+    '[data-role="lesson-meaning"]',
+  );
   const lessonSupport = required<HTMLElement>(
     app,
     '[data-role="lesson-support"]',
@@ -235,6 +276,18 @@ export function createAppShell(app: HTMLDivElement): AppShell {
   const lessonWorldAction = required<HTMLElement>(
     app,
     '[data-role="lesson-world-action"]',
+  );
+  const lessonWorldActionJa = required<HTMLElement>(
+    app,
+    '[data-role="lesson-world-action-ja"]',
+  );
+  const lessonWorldActionSupport = required<HTMLElement>(
+    app,
+    '[data-role="lesson-world-action-support"]',
+  );
+  const lessonMovementError = required<HTMLElement>(
+    app,
+    '[data-role="lesson-movement-error"]',
   );
   const lessonAudioError = required<HTMLElement>(
     app,
@@ -245,6 +298,26 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     '[data-role="lesson-feedback"]',
   );
   const choiceList = required<HTMLElement>(app, '[data-role="choice-list"]');
+  const arrangeControl = required<HTMLElement>(
+    app,
+    '[data-role="arrange-control"]',
+  );
+  const arrangeBank = required<HTMLElement>(app, '[data-role="arrange-bank"]');
+  const arrangeAnswer = required<HTMLElement>(
+    app,
+    '[data-role="arrange-answer"]',
+  );
+  const arrangeSubmitButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="arrange-submit"]',
+  );
+  const arrangeResetButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="arrange-reset"]',
+  );
+  const typeForm = required<HTMLFormElement>(app, '[data-role="type-form"]');
+  const typeInput = required<HTMLInputElement>(app, '[data-role="type-input"]');
+  const typeLimit = required<HTMLElement>(app, '[data-role="type-limit"]');
   const audioButton = required<HTMLButtonElement>(
     app,
     '[data-role="lesson-audio"]',
@@ -283,9 +356,15 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     helpButton,
     restartLessonButton,
     choiceList,
+    arrangeBank,
+    arrangeAnswer,
+    arrangeSubmitButton,
+    arrangeResetButton,
+    typeForm,
+    typeInput,
     setLoading: () => {
       statePanel.hidden = false;
-      stateLabel.textContent = "Milestone 4";
+      stateLabel.textContent = "Milestone 5";
       stateTitle.textContent = "Preparing the lesson…";
       stateMessage.textContent =
         "Validating the authored lesson before initializing the park.";
@@ -346,8 +425,13 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         state.phase === "COMPLETED" ? "COMPLETED" : step.mode;
       lessonPanel.dataset.phase = state.phase;
       viewport.dataset.lessonMode = lessonPanel.dataset.mode;
-      const awaitingWorldObject = state.phase === "AWAITING_OBJECT";
-      viewport.dataset.worldInput = awaitingWorldObject ? "active" : "locked";
+      const worldInputActive = [
+        "AWAITING_OBJECT",
+        "AWAITING_LOCATION",
+        "AWAITING_PICK_UP",
+        "AWAITING_RECIPIENT",
+      ].includes(state.phase);
+      viewport.dataset.worldInput = worldInputActive ? "active" : "locked";
       lessonMode.textContent =
         state.phase === "COMPLETED" ? "COMPLETE" : step.mode;
       lessonProgress.textContent = `${Math.max(1, stepIndex + 1)} / ${state.manifest.steps.length}`;
@@ -387,6 +471,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
 
       lessonReading.textContent = state.readingHint ?? "";
       lessonReading.hidden = state.readingHint === undefined;
+      lessonPattern.textContent = state.patternHint ?? "";
+      lessonPattern.hidden = state.patternHint === undefined;
+      lessonMeaning.textContent = state.meaningHint ?? "";
+      lessonMeaning.hidden = state.meaningHint === undefined;
       const showSupport =
         state.phase === "COMPLETED" ||
         step.stimulus.supportVisibility === "ALWAYS" ||
@@ -397,13 +485,65 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           ? (step.stimulus.supportText ?? "")
           : "";
       lessonSupport.hidden = lessonSupport.textContent.length === 0;
-      lessonWorldAction.hidden = !awaitingWorldObject;
+      const worldAction = worldActionCopy(state.phase);
+      lessonWorldActionJa.textContent = worldAction?.ja ?? "";
+      lessonWorldActionSupport.textContent = worldAction?.support ?? "";
+      lessonWorldAction.hidden = worldAction === undefined;
+      lessonMovementError.textContent = state.movementError ?? "";
+      lessonMovementError.hidden = state.movementError === undefined;
       lessonAudioError.textContent = audioErrorMessage ?? "";
       lessonAudioError.hidden = audioErrorMessage === undefined;
 
       lessonFeedback.textContent =
         state.feedback?.textJa ?? state.feedback?.supportText ?? "";
       lessonFeedback.hidden = state.feedback === undefined;
+
+      arrangeBank.replaceChildren();
+      arrangeAnswer.replaceChildren();
+      const isArrange = step.interaction.type === "ARRANGE";
+      arrangeControl.hidden = !isArrange || state.phase === "COMPLETED";
+      if (isArrange) {
+        const tokens = new Map(
+          step.interaction.tokens.map((token) => [token.tokenId, token]),
+        );
+        appendTokenButtons(
+          arrangeBank,
+          state.availableTokenIds,
+          tokens,
+          "Add",
+          state.phase !== "AWAITING_ARRANGE",
+        );
+        appendTokenButtons(
+          arrangeAnswer,
+          state.arrangedTokenIds,
+          tokens,
+          "Remove",
+          state.phase !== "AWAITING_ARRANGE",
+        );
+      }
+      arrangeSubmitButton.disabled =
+        state.phase !== "AWAITING_ARRANGE" ||
+        state.availableTokenIds.length > 0;
+      arrangeResetButton.disabled =
+        state.phase !== "AWAITING_ARRANGE" ||
+        state.arrangedTokenIds.length === 0;
+
+      const isType = step.interaction.type === "TYPE";
+      typeForm.hidden = !isType || state.phase === "COMPLETED";
+      if (isType) {
+        if (typeInput.value !== state.typeDraft) {
+          typeInput.value = state.typeDraft;
+        }
+        typeInput.disabled = state.phase !== "AWAITING_TYPE";
+        typeForm.querySelector<HTMLButtonElement>(
+          'button[type="submit"]',
+        )!.disabled =
+          state.phase !== "AWAITING_TYPE" || state.typeDraft.length === 0;
+        typeLimit.textContent = `${[...state.typeDraft].length} / ${step.interaction.maximumLength}`;
+      } else {
+        typeInput.value = "";
+        typeLimit.textContent = "";
+      }
 
       choiceList.replaceChildren();
       if (state.phase === "AWAITING_CHOICE") {
@@ -468,12 +608,72 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           : `${snapshot.lastReactionMs.toFixed(0)} ms`;
       diagnostic("lesson-first-stimulus").textContent =
         `${snapshot.firstStimulusMs.toFixed(0)} ms`;
+      diagnostic("lesson-world-target").textContent = snapshot.worldTargetMode;
+      diagnostic("lesson-pending-location").textContent =
+        snapshot.pendingLocationId ?? "—";
+      diagnostic("lesson-carried-object").textContent =
+        snapshot.carriedObjectId ?? "—";
       diagnostic("lesson-session").textContent = snapshot.sessionId.slice(
         0,
         12,
       );
     },
   };
+}
+
+function appendTokenButtons(
+  parent: HTMLElement,
+  tokenIds: readonly string[],
+  tokens: ReadonlyMap<string, { tokenId: string; textJa: string }>,
+  action: "Add" | "Remove",
+  disabled: boolean,
+): void {
+  tokenIds.forEach((tokenId, index) => {
+    const token = tokens.get(tokenId);
+    if (token === undefined) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "arrange-token";
+    button.dataset.tokenId = token.tokenId;
+    button.textContent = token.textJa;
+    button.disabled = disabled;
+    button.setAttribute(
+      "aria-label",
+      `${action} token ${index + 1}: ${token.textJa}`,
+    );
+    parent.append(button);
+  });
+}
+
+function worldActionCopy(
+  phase: LessonState["phase"],
+): { ja: string; support: string } | undefined {
+  switch (phase) {
+    case "AWAITING_OBJECT":
+      return {
+        ja: "公園の動物をクリック",
+        support: "Chọn một con vật trực tiếp trong công viên",
+      };
+    case "AWAITING_LOCATION":
+      return {
+        ja: "場所のマーカーをクリック",
+        support: "Chọn một địa điểm được đánh dấu trong công viên",
+      };
+    case "MOVING_TO_LOCATION":
+      return { ja: "移動中…", support: "Bunbun đang đi đến địa điểm đã chọn" };
+    case "AWAITING_PICK_UP":
+      return {
+        ja: "連れていく動物をクリック",
+        support: "Chọn con vật sẽ đi cùng Bunbun",
+      };
+    case "AWAITING_RECIPIENT":
+      return {
+        ja: "渡す相手をクリック",
+        support: "Chọn người sẽ nhận con vật đang đi cùng",
+      };
+    default:
+      return undefined;
+  }
 }
 
 function required<ElementType extends Element>(

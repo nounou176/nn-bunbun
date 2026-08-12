@@ -20,6 +20,12 @@ export interface WorldPlacement {
   position: Point3;
 }
 
+export interface LocationPlacement {
+  localId: string;
+  catalogId: string;
+  position: Point3;
+}
+
 export interface ParkSceneDefinition {
   sceneId: "park_small";
   assetBundleId: "park_core";
@@ -28,6 +34,7 @@ export interface ParkSceneDefinition {
   playerSpawn: Point3;
   cameraTarget: Point3;
   walkableBounds: WalkableBounds;
-  guide: WorldPlacement;
-  objects: readonly [WorldPlacement, WorldPlacement];
+  entities: readonly WorldPlacement[];
+  objects: readonly WorldPlacement[];
+  locations: readonly LocationPlacement[];
 }

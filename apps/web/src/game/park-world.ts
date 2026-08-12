@@ -1,6 +1,7 @@
 import {
   AmbientLight,
   BoxGeometry,
+  CircleGeometry,
   Color,
   ConeGeometry,
   CylinderGeometry,
@@ -19,6 +20,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import { disposeObjectTree } from "./dispose.js";
 import type {
+  LocationPlacement,
   ParkSceneDefinition,
   WorldPlacement,
 } from "./scene-definition.js";
@@ -27,7 +29,9 @@ export interface ParkWorld {
   scene: Scene;
   walkableGround: Object3D;
   player: Group;
-  selectableRoots: readonly Group[];
+  objectRoots: ReadonlyMap<string, Group>;
+  entityRoots: ReadonlyMap<string, Group>;
+  locationRoots: ReadonlyMap<string, Group>;
   destinationMarker: Mesh;
   selectionMarker: Mesh;
   highlightMarkers: ReadonlyMap<string, Mesh>;
@@ -80,13 +84,26 @@ export async function loadParkWorld(
     );
     scene.add(player);
 
-    const guide = createGuide(definition.guide);
-    scene.add(guide);
+    const entityRoots = new Map<string, Group>();
+    definition.entities.forEach((placement) => {
+      const entity = createEntity(placement);
+      entityRoots.set(placement.localId, entity);
+      scene.add(entity);
+    });
 
-    const selectableRoots = definition.objects.map((placement) => {
-      const animal = createAnimal(placement);
-      scene.add(animal);
-      return animal;
+    const objectRoots = new Map<string, Group>();
+    definition.objects.forEach((placement) => {
+      const object = createAnimal(placement);
+      objectRoots.set(placement.localId, object);
+      scene.add(object);
+    });
+
+    const locationRoots = new Map<string, Group>();
+    definition.locations.forEach((placement) => {
+      const location = createLocationTarget(placement);
+      location.visible = false;
+      locationRoots.set(placement.localId, location);
+      scene.add(location);
     });
 
     const destinationMarker = createMarker("#f1b45c", 0.17, 0.25);
@@ -101,7 +118,9 @@ export async function loadParkWorld(
       scene,
       walkableGround,
       player,
-      selectableRoots,
+      objectRoots,
+      entityRoots,
+      locationRoots,
       destinationMarker,
       selectionMarker,
       highlightMarkers,
@@ -119,7 +138,7 @@ function createHighlightMarkers(
   definition: ParkSceneDefinition,
 ): ReadonlyMap<string, Mesh> {
   const markers = new Map<string, Mesh>();
-  [definition.guide, ...definition.objects].forEach((placement) => {
+  [...definition.entities, ...definition.objects].forEach((placement) => {
     const marker = createMarker("#f3b24d", 0.45, 0.54);
     marker.name = `highlight_${placement.localId}`;
     marker.position.set(placement.position.x, 0.04, placement.position.z);
@@ -151,13 +170,18 @@ function createBunbunPlayer(): Group {
   return root;
 }
 
-function createGuide(placement: WorldPlacement): Group {
+function createEntity(placement: WorldPlacement): Group {
   const root = new Group();
   root.name = placement.localId;
   root.userData.localId = placement.localId;
+  root.userData.selectableEntityId = placement.localId;
   root.userData.catalogId = placement.catalogId;
 
-  const coat = new MeshStandardMaterial({ color: "#315f68", roughness: 0.85 });
+  const isGuide = placement.localId === "guide";
+  const coat = new MeshStandardMaterial({
+    color: isGuide ? "#315f68" : "#825c78",
+    roughness: 0.85,
+  });
   const skin = new MeshStandardMaterial({ color: "#e8b995", roughness: 0.9 });
   const body = new Mesh(new CylinderGeometry(0.24, 0.34, 0.8, 10), coat);
   body.position.y = 0.42;
@@ -176,7 +200,7 @@ function createAnimal(placement: WorldPlacement): Group {
   const isDog = placement.localId === "dog";
   const root = new Group();
   root.name = placement.localId;
-  root.userData.selectableId = placement.localId;
+  root.userData.selectableObjectId = placement.localId;
   root.userData.catalogId = placement.catalogId;
 
   const coat = new MeshStandardMaterial({
@@ -202,6 +226,32 @@ function createAnimal(placement: WorldPlacement): Group {
     placement.position.y,
     placement.position.z,
   );
+  return root;
+}
+
+function createLocationTarget(placement: LocationPlacement): Group {
+  const root = new Group();
+  root.name = placement.localId;
+  root.userData.selectableLocationId = placement.localId;
+  root.userData.catalogId = placement.catalogId;
+  root.position.set(
+    placement.position.x,
+    placement.position.y + 0.035,
+    placement.position.z,
+  );
+
+  const surface = new Mesh(
+    new CircleGeometry(0.72, 32),
+    new MeshBasicMaterial({
+      color: placement.localId === "animal_area" ? "#4f8362" : "#926a4f",
+      transparent: true,
+      opacity: 0.42,
+      depthWrite: false,
+    }),
+  );
+  surface.rotation.x = -Math.PI / 2;
+  surface.renderOrder = 8;
+  root.add(surface);
   return root;
 }
 
