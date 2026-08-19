@@ -122,7 +122,8 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   validators, generated JSON Schema, fixtures, tests, and developer inspector.
 - docs — durable product, architecture, gameplay, and state memory;
   `docs/AI_MODULES.md` inventories Custom GPT source status and approved
-  compiler-module routing.
+  compiler-module routing, and `docs/M7_VARIANTS.md` separates the three
+  compiler strategies.
 - plans — live and completed ExecPlans.
 
 ## Current limitations
@@ -143,6 +144,10 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   Pack 0.1.0 under `docs/ai-modules/`, including the typed contract, exact
   prompt fragments/hashes, and fifteen text-only fixtures. The modules are
   Approved for implementation but remain inactive because no compiler/provider
+  is implemented. D-027 preserves Responses API as inactive M7 v1, local
+  self-built LLM work as M7 v2 research, and the Custom GPT browser bridge as
+  active M7 v3 research. V3 currently proposes only a manual no-key feasibility
+  gate; no browser automation, GPT edit, connection, or learner-data transfer
   is implemented. Supplied images/APKG are style examples only.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.

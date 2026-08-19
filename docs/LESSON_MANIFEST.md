@@ -46,7 +46,8 @@ schema artifact is generated from the TypeBox source and checked for drift.
 
 1. The backend normalizes learner input.
 2. The compiler selects valid catalog identifiers.
-3. Structured Outputs returns a schema-conforming draft.
+3. The selected M7 strategy supplies a versioned untrusted contribution draft;
+   Structured Outputs is only the preserved M7 v1 transport.
 4. Deterministic schema validation runs.
 5. Semantic, reference, reachability, coverage, language, and budget validation
    run.
@@ -57,6 +58,11 @@ schema artifact is generated from the TypeBox source and checked for drift.
 
 A schema-valid draft is not necessarily playable. Only a manifest that passes
 all deterministic validators may reach the runtime.
+
+D-027 does not change contract 0.1.0. OpenAI API, local-LLM, or browser-mediated
+compiler strategies must all normalize into this same playable contract and
+must never place provider, browser-session, Custom GPT link, token, or transport
+state in a manifest.
 
 Contract 0.1.0 rejects every graph cycle because it has no counter or condition
 language with which to prove a cycle bounded. The validator proves rules that

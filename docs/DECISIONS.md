@@ -740,7 +740,7 @@ cross-device sync, analytics, canonical cross-lesson mastery, and adaptive
 scheduling remain deferred. This decision resolves O-003, O-007, and O-011 for
 the local persistence milestone.
 
-### D-022 — Compile lessons through durable local jobs and a strict draft boundary
+### D-022 — Preserve M7 v1 as the OpenAI Responses compiler proposal
 
 - Date: 2026-08-12
 - Status: Proposed
@@ -748,6 +748,11 @@ the local persistence milestone.
   configuration
 
 Context:
+
+D-027 later names this proposal **M7 v1** and makes it an inactive preserved
+candidate while M7 v3 research is active. Its proposed model, credential,
+provider, job, and Structured Outputs details remain intact for comparison;
+none are approved or implemented by that reclassification.
 
 Milestones 2 through 6 prove the strict playable LessonManifest 0.1.0,
 deterministic runtime, complete fixed primitive vocabulary, and local evidence
@@ -1115,12 +1120,92 @@ or the full extracted corpus are not imported by this decision.
 Consequences:
 
 O-001 and O-002 are resolved for the first vertical slice. M7 remains the next
-milestone; this decision does not approve proposed D-022, its model/reasoning
-setting, or `OPENAI_API_KEY`. M8 must replace SpeechSynthesis with a reviewed
-cached speech and audio-runtime boundary before M9 can satisfy the complete
-showcase. O-010 remains open for text model, TTS provider/model, voice policy,
-cache storage, and invalidation details. Every production world and audio asset
-requires source, license, hash, processing, and measured-runtime intake.
+milestone; this decision does not select or approve an M7 strategy. D-027 later
+separates those strategies and makes v3 research active. M8 must replace
+SpeechSynthesis with a reviewed cached speech and audio-runtime boundary before
+M9 can satisfy the complete showcase. O-010 remains open for any applicable
+text-model choice, TTS provider/model, voice policy, cache storage, and
+invalidation details. Every production world and audio asset requires source,
+license, hash, processing, and measured-runtime intake.
+
+### D-027 — Track three M7 compiler strategies and research v3 first
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: Compiler planning, AI modules, roadmap, local research, privacy,
+  browser integration
+
+Context:
+
+The original Milestone 7 proposal tied the lesson-compiler outcome to one
+OpenAI Responses API implementation using `gpt-5.6-terra` and
+`OPENAI_API_KEY`. The user wants to preserve that proposal without activating
+it, keep a second local self-built LLM direction under research, and now study
+a third route that can reuse the user's existing Custom GPTs through a browser
+or another reviewed ChatGPT-side bridge. The local repository already owns the
+six captured GPT configurations, the accepted three-module responsibility map,
+Prompt Adaptation Pack 0.1.0, and a strict model-to-runtime contribution
+contract. No compiler implementation exists, so the strategies can be split
+without migration or rollback.
+
+Decision:
+
+Milestone 7 remains one product outcome: learner vocabulary and grammar become
+a validated, revisioned LessonManifest that ordinary gameplay can execute
+deterministically. Track three alternative implementation strategies:
+
+1. **M7 v1 — OpenAI Responses API.** Preserve proposed D-022 and
+   `plans/2026-08-12-structured-lesson-compiler.md` as the inactive v1
+   candidate. It retains the proposed `gpt-5.6-terra`, medium reasoning,
+   Structured Outputs, and `OPENAI_API_KEY` design for later comparison. It is
+   neither approved nor active.
+2. **M7 v2 — self-built local LLM.** Preserve a research direction for a
+   locally hosted, locally adapted, or locally trained open-weight language
+   model. Model family, hardware floor, inference runtime, fine-tuning versus
+   training scope, structured-output enforcement, licenses, and evaluation
+   thresholds remain unselected. It is not the active implementation plan.
+3. **M7 v3 — Custom GPT browser bridge.** Make this the active research
+   direction. It must not use `gpt-5.6-terra` or `OPENAI_API_KEY`. Research
+   user-authorized browser-assisted, file/clipboard handoff, ChatGPT plugin or
+   MCP, Custom GPT action, and other documented routes that might reuse the
+   captured GPT behavior without weakening Bunbun's local deterministic
+   boundary.
+
+All three strategies must converge on the same code-owned authoring envelope,
+typed contribution boundary, deterministic references, catalog allowlists,
+normalization, LessonManifest validation, persistence, provenance, and
+provider-independent runtime. External output is always untrusted and never
+playable directly. No strategy may add an LLM to ordinary gameplay or the
+render loop.
+
+M7 v3 research is authorized, but implementation is not. Research does not
+authorize programmatic login, cookie or session extraction, a persistent
+browser profile, browser automation, a public tunnel, a new credential or
+environment variable, changes to the user's GPTs, or transmission of learner
+data. D-011 still excludes automated browser E2E. D-023 and D-024 continue to
+govern module ownership and the approved local adaptations. In particular,
+D-023's one-composed-request rule remains in force until a later accepted
+decision explicitly permits sequential direct calls to separate Custom GPTs.
+
+Consequences:
+
+The repository can compare provider API, local-model, and browser-mediated
+paths without erasing prior research or binding the runtime to one provider.
+M7 v1 no longer blocks work by asking for an API-key-name approval, but it
+cannot be implemented accidentally. M7 v2 needs a separate hardware, model,
+license, inference, and evaluation study before an ExecPlan. M7 v3 receives a
+focused proposed ExecPlan whose first gate is a manual, no-secret feasibility
+spike against the existing GPT configurations and approved evaluation
+fixtures.
+
+The initial recommendation for v3 is a human-in-the-loop browser bridge:
+Bunbun creates a versioned prompt packet, the user deliberately opens the
+corresponding GPT and transfers the packet, then imports its structured result
+for local deterministic validation. Direct UI automation, a browser extension,
+ChatGPT-side MCP/action delivery, or workspace-agent triggering remain
+conditional candidates until the manual bridge proves the output contract and
+the user separately approves their authentication, privacy, networking, and
+maintenance costs.
 
 ## Deferred decisions
 
@@ -1131,7 +1216,7 @@ These are acknowledged but not yet ready to decide:
 | O-006 | Backend HTTP framework and compilation job model | Backend foundation |
 | O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
 | O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |
-| O-010 | OpenAI model, TTS model, voice policy, and cache storage | AI and audio integration |
+| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage | AI and audio integration |
 | O-012 | Deployment model and Docker topology | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should

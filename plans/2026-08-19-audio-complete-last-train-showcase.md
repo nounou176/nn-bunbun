@@ -1,9 +1,9 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Approved; queued after Milestone 7
+Status: Approved; queued after an accepted Milestone 7 implementation
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 16:35 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19 21:10 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -35,10 +35,11 @@ local evidence persistence, safe resume, and a temporary browser
 SpeechSynthesis `AudioPlaybackPort`. There are no production world or audio
 assets.
 
-Milestone 7 is next and has a separate proposed ExecPlan at
-`plans/2026-08-12-structured-lesson-compiler.md`. D-022, its model/reasoning
-setting, and `OPENAI_API_KEY` remain unapproved. This plan does not bypass or
-silently approve those gates.
+Milestone 7 is next. D-027 preserves the old Responses API proposal as inactive
+M7 v1, keeps self-built local LLM work as M7 v2 research, and makes the Custom
+GPT browser bridge the active M7 v3 research direction. Its separate proposed
+ExecPlan is `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`. No M7
+implementation is approved. This plan does not choose or bypass an M7 strategy.
 
 D-025 approves the GLB-first world-authoring pipeline and initial Kenney CC0
 asset candidates. D-026 resolves O-001 and O-002 for this vertical slice and
@@ -184,11 +185,12 @@ Observable checkpoint: repository documentation identifies one exact first
 showcase, target set, character set, world variant, audio-complete definition,
 and remaining provider/asset gates without claiming implementation.
 
-### 1. Complete the lesson compiler prerequisite
+### 1. Complete the selected lesson compiler prerequisite
 
-Approve and deliver the Milestone 7 ExecPlan independently. Ensure compiled
+Approve and deliver one Milestone 7 strategy independently. Ensure compiled
 utterances retain exact validated audio metadata while the technical runtime
-continues using its declared temporary adapter.
+continues using its declared temporary adapter. M7 v1, v2, and v3 remain
+alternative transports and do not alter this plan's manifest/audio boundary.
 
 Observable checkpoint: reviewed vocabulary and grammar targets compile into a
 validated playable technical lesson without production audio or world claims.
@@ -251,7 +253,7 @@ reproducible acceptance checklist.
 - [x] 2026-08-19 16:35 — Record D-026 and update affected product,
   architecture, gameplay, manifest, world, performance, state, roadmap, and
   plan records.
-- [ ] Approve and complete the separate Milestone 7 compiler plan.
+- [ ] Select, approve, and complete one Milestone 7 compiler strategy.
 - [ ] Approve O-010 audio provider/model/voice/cache and non-speech source
   decisions.
 - [ ] Implement milestones 2 through 6 in dependency order.
@@ -384,4 +386,5 @@ set or invalid world package is never published as playable.
 The product, content, world, and audio-complete outcome is approved and
 documented. No runtime, compiler, production world, or production audio code or
 asset has been implemented by this approval checkpoint. Milestone 7 remains
-the next implementation gate; O-010 and production source intake remain open.
+the next implementation gate; M7 v3 research is active but unimplemented, and
+O-010 plus production source intake remain open.

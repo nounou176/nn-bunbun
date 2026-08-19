@@ -5,14 +5,20 @@ This directory stores live and completed ExecPlans created according to
 
 ## Current status
 
-Milestones 1 through 6 are complete. The Milestone 7 Structured Outputs lesson
-compiler ExecPlan is Proposed. D-023 confirms the supplied six-GPT set and
-accepts the Story Sheet + Story Coach + Reverse Trainer responsibility map.
-D-024 approves Prompt Adaptation Pack 0.1.0: its typed contract, exact prompt
-fragments/hashes, composition order, and fifteen text-only evaluation fixtures
-under `docs/ai-modules/`. Phase 0 is complete, but D-022, the ExecPlan,
-model/reasoning setting, and environment-variable name still require approval
-before implementation. Binary examples are style references only.
+Milestones 1 through 6 are complete. D-027 now tracks three Milestone 7
+strategies. The former Structured Outputs proposal is preserved unchanged as
+inactive M7 v1, the self-built local LLM direction is M7 v2 research, and the
+Custom GPT browser bridge is the active M7 v3 research direction. Its ExecPlan
+is Proposed for implementation and starts with a no-code, user-operated Story
+Sheet feasibility gate. No compiler, browser bridge, provider connection,
+environment variable, or learner-data transmission is approved or implemented.
+
+D-023 confirms the supplied six-GPT set and accepts the Story Sheet + Story
+Coach + Reverse Trainer responsibility map. D-024 approves Prompt Adaptation
+Pack 0.1.0: its typed contract, exact prompt fragments/hashes, composition
+order, and fifteen text-only evaluation fixtures under `docs/ai-modules/`.
+Binary examples are style references only. Sequential direct calls to the
+three original GPTs would revise D-023 and remain a post-feasibility decision.
 
 D-026 also approves the N5 Vietnamese `Three Minutes to the Last Train`
 vertical-slice outcome and complete authored-audio boundary. Its ExecPlan is
@@ -23,8 +29,9 @@ dialogue, and measurable acceptance gates remain open.
 
 | Plan | Status | Outcome |
 | --- | --- | --- |
-| 2026-08-19-audio-complete-last-train-showcase.md | Approved; queued after M7 | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
-| 2026-08-12-structured-lesson-compiler.md | Proposed | Capture approved lesson-authoring modules, then compile learner vocabulary and grammar into a strictly validated playable local lesson |
+| 2026-08-19-m7-v3-custom-gpt-browser-bridge.md | Proposed for implementation; research active | Prove a manual local-first Custom GPT contribution bridge without an API key, login automation, or runtime AI |
+| 2026-08-19-audio-complete-last-train-showcase.md | Approved; queued after an accepted M7 implementation | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
+| 2026-08-12-structured-lesson-compiler.md | Proposed M7 v1; inactive | Preserve the OpenAI Responses/Structured Outputs compiler candidate for later comparison |
 | 2026-08-12-local-evidence-sqlite-persistence.md | Complete | Persist evidence and resume one local lesson safely through server-owned SQLite |
 | 2026-08-12-complete-mvp-primitive-runtime.md | Complete | Played one authored lesson through all eight fixed MVP primitives |
 | 2026-08-11-first-deterministic-learning-loop.md | Complete | Play one authored LISTEN → CLICK_OBJECT → CHOOSE lesson deterministically |

@@ -8,7 +8,9 @@ technical runtime, complete eight-primitive executor, and local evidence/
 safe-resume boundary all exist locally. Compiler, cached audio, and production
 asset implementation remain planned until their roadmap milestones. D-025
 defines the production world-authoring and asset-intake boundary, and D-026
-defines the first N5 audio-complete product vertical slice.
+defines the first N5 audio-complete product vertical slice. D-027 separates
+Milestone 7 into three provider strategies and makes the Custom GPT browser
+bridge the active research direction; no compiler strategy is implemented.
 
 ## Architectural goals
 
@@ -44,7 +46,7 @@ The primary flow is:
 
 Learner targets
 → lesson compilation request
-→ AI-assisted structured draft
+→ provider-specific untrusted authored contribution
 → deterministic validation and enrichment
 → versioned LessonManifest
 → local game runtime
@@ -124,8 +126,8 @@ Implemented local persistence responsibilities:
 Planned compiler and media responsibilities:
 
 - accept and normalize learner vocabulary and grammar targets;
-- invoke reusable AI prompt modules through the OpenAI Responses API;
-- request data that conforms to a strict Structured Outputs schema;
+- produce one code-owned authoring envelope independent of provider strategy;
+- obtain typed contributions through the explicitly selected M7 strategy;
 - validate, reject, or repair structured drafts deterministically;
 - resolve scene, entity, object, and interaction references against catalogs;
 - enforce content, coverage, graph, and performance constraints;
@@ -134,8 +136,9 @@ Planned compiler and media responsibilities:
 - store local/MVP lesson data, cache metadata, and progress in SQLite; and
 - expose narrow APIs to the web client.
 
-Model selection, prompt composition, and retry policy belong behind the lesson
-compiler boundary. The game client should not depend on a particular model.
+Model or browser strategy, prompt composition, transport, and retry policy
+belong behind the lesson compiler boundary. The game client should not depend
+on a particular model, provider, Custom GPT, or browser session.
 
 ### Shared contracts and catalogs
 
@@ -217,6 +220,25 @@ The compiler is a pipeline, not a runtime game programmer:
 Schema-valid data can still be pedagogically or logically invalid. The
 compiler therefore needs semantic validators in addition to JSON validation.
 
+### Milestone 7 strategy boundary
+
+D-027 keeps the compiler outcome stable while preserving three alternative
+authoring transports:
+
+- M7 v1 is the inactive proposed OpenAI Responses API and Structured Outputs
+  path in D-022 and `plans/2026-08-12-structured-lesson-compiler.md`.
+- M7 v2 is a research-only self-built/local LLM path with no selected model,
+  runtime, hardware floor, training method, or license set.
+- M7 v3 is the active Custom GPT browser-bridge research path in
+  `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`; it uses neither
+  `gpt-5.6-terra` nor `OPENAI_API_KEY`.
+
+`docs/M7_VARIANTS.md` is the strategy registry. Every route must consume the
+same deterministic compiler envelope and return untrusted typed contributions
+that pass local normalization, LessonManifest validation, and runtime
+capability checks. Provider-specific browser, API, token, or model state must
+not leak into gameplay or the manifest.
+
 ## AI boundary
 
 Approved AI uses:
@@ -241,9 +263,10 @@ Anki content generator, and JLPT assessment generator are reusable behaviors.
 They are not separate services or models unless future evidence justifies that
 architecture.
 
-Existing Custom GPT behavior may later be ported into versioned reusable prompt
-modules behind the compiler boundary. It must not be treated as hidden external
-project memory or copied into separate services by default.
+Existing Custom GPT behavior may be ported into versioned reusable prompt
+modules or, under the active M7 v3 research, evaluated through an explicit
+user-mediated browser bridge. It must not be treated as hidden external project
+memory, an undocumented API, or a runtime dependency.
 
 `docs/AI_MODULES.md` is the source-capture and routing registry for these
 behaviors. On 2026-08-12, the user supplied six local GPT configurations and
@@ -253,8 +276,9 @@ additional sources and two GPTs overlap on Anki generation. D-023 confirms that
 this is the complete intended set and accepts the Milestone 7 mapping: Story
 Sheet owns premise/story/setting content, Story Coach owns bounded hint,
 scaffold, pedagogical-cadence, and feedback content, and Reverse Trainer owns
-phrase analysis, reverse recall, and practice content. One composed structured
-request uses the typed adaptations and versions approved by D-024.
+phrase analysis, reverse recall, and practice content. For the accepted D-023
+route, one composed structured request uses the typed adaptations and versions
+approved by D-024.
 Deterministic code continues to own primitive order, difficulty progression,
 IDs, transitions, attempt/timing limits, and hard budgets. The three selected
 prompt modules are Approved for implementation but are not implemented or
@@ -266,7 +290,9 @@ typed: the compiler envelope owns every runtime and reference decision; Story
 Sheet, Reverse Trainer, and Story Coach own disjoint contribution fields in one
 LessonContentDraft. Exact approved prompt fragments, content hashes, and fifteen
 text-only evaluation fixtures are versioned together. Pack approval does not
-activate a provider or approve the remaining Milestone 7 decisions.
+activate a provider or approve an M7 implementation. Sequential direct use of
+the three existing Custom GPTs would change D-023 and therefore requires a new
+accepted decision after the M7 v3 feasibility gate.
 
 The captured images and APKG are local style/output examples only. They are not
 linguistic references, lesson-content sources, or evaluation fixtures, and the
@@ -476,7 +502,8 @@ Before implementation reaches the relevant boundary, decide:
 - the broader production browser/device support matrix beyond the accepted
   Milestone 3 desktop Chromium reference environment;
 - initial reference datasets and licenses;
-- OpenAI model, TTS model, voice policy, and cache invalidation inputs; and
+- text-model strategy when applicable, TTS model, voice policy, and cache
+  invalidation inputs; and
 - observability and privacy rules for any remote learning analytics.
 
 The contract validation and schema-generation direction was resolved by D-017.

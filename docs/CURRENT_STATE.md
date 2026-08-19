@@ -4,13 +4,19 @@ Last updated: 2026-08-19
 
 ## Current milestone
 
-Milestone 7 — Lesson compiler with Structured Outputs: phase 0 prompt pack
-approved; remaining architecture and ExecPlan gates await user approval. No
-compiler implementation has started.
+Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
+v3, and the Custom GPT browser bridge is now the active v3 research direction.
+Prompt Adaptation Pack 0.1.0 remains approved. No compiler implementation,
+browser experiment, provider connection, or environment variable has started.
 
 Active ExecPlan:
 
-- plans/2026-08-12-structured-lesson-compiler.md — Proposed
+- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Proposed for
+  implementation; research direction active
+
+Preserved inactive candidate:
+
+- plans/2026-08-12-structured-lesson-compiler.md — Proposed M7 v1; inactive
 
 Completed ExecPlans:
 
@@ -196,9 +202,19 @@ Completed ExecPlans:
 ## Current work
 
 - Milestone 6 is closed with no blocking defect reported in the user's approval.
-- Proposed D-022 and the Milestone 7 ExecPlan define a durable node:http/SQLite
-  compilation job, strict Structured Outputs draft normalization, a small
-  project-authored reference fixture, and validated dynamic lesson loading.
+- Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
+  inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
+  plan; M7 v2 preserves self-built local LLM research; active M7 v3 researches
+  a user-mediated Custom GPT browser bridge without `gpt-5.6-terra` or
+  `OPENAI_API_KEY`.
+- The proposed v3 ExecPlan recommends a manual file/clipboard feasibility gate
+  against Story Sheet before code. It explicitly excludes programmatic login,
+  cookies, persistent browser profiles, UI scraping, browser automation,
+  extensions, actions, tunnels, MCP connections, GPT edits, provider keys, and
+  learner-data transmission until separately approved.
+- The old M7 v1 plan remains intact as a comparison baseline. None of its
+  D-022, model, reasoning, environment-name, provider, job, or implementation
+  gates are approved.
 - Captured six user-owned Custom GPT configurations and their Knowledge assets
   in the Git-ignored local `gpts/` library. Added a normalized index and six
   source summaries without changing the raw inputs. The source set contains six
@@ -216,9 +232,10 @@ Completed ExecPlans:
   shared contract, three exact prompt fragments and hashes, fixed composition
   order, deterministic failure/privacy boundaries, and fifteen text-only
   fixtures are now approved. Milestone 7 phase 0 is complete.
-- All three selected M7 prompt modules are Approved for implementation but are
-  not implemented or runtime-active. D-022, the ExecPlan, model/reasoning
-  setting, and environment-variable name remain proposed.
+- All three selected M7 prompt modules are Approved as local adaptations but
+  are not implemented or runtime-active. Sequential direct use of the three
+  original GPTs would conflict with D-023's one-composed-request rule and needs
+  a new accepted orchestration decision after the v3 feasibility gate.
 - Added the approved `docs/ai-modules/` adaptation pack: one shared typed
   contribution contract, three exact lean prompt fragments, source and prompt
   hashes, three module adaptation records, and fifteen text-only evaluation
@@ -247,8 +264,9 @@ Present:
 
 - AGENTS.md, `docs/AI_MODULES.md`, `docs/WORLD_AUTHORING.md`, and the required
   docs/ durable project records;
-- .agent/PLANS.md, six completed milestone ExecPlans, one proposed Milestone 7
-  ExecPlan, and one approved queued audio-complete showcase ExecPlan;
+- .agent/PLANS.md, six completed milestone ExecPlans, one proposed active-
+  research M7 v3 ExecPlan, one preserved inactive M7 v1 proposal, and one
+  approved queued audio-complete showcase ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -274,14 +292,10 @@ Not present:
 - Dockerfiles; and
 - deployment configuration.
 
-The canonical repository is /home/nunu/Desktop/nnlab/nn-bunbun. It is on main
-with origin set to https://github.com/nounou176/nn-bunbun.git. Milestones 0–2
-are published at 27355c0 on origin/main. Milestone 3 is committed locally at
-6a44abd. The Milestone 4 runtime/input correction, EXPLORE UX, and closure are
-committed locally at 963fae3, 2aa07f6, and 8184ce3. Milestone 5 implementation
-and closure are committed locally at `da0b519`. Milestone 6 implementation is
-committed locally at `a69e82a`; its acceptance-closure documentation and the
-proposed Milestone 7 planning records are currently uncommitted.
+The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
+`main` at `6cd5d9a`, two commits ahead of `origin/main`. The D-027 decision,
+M7 strategy registry, affected specification updates, and proposed M7 v3
+ExecPlan are currently uncommitted.
 
 ## Known issues
 
@@ -304,8 +318,9 @@ proposed Milestone 7 planning records are currently uncommitted.
    reviewed reference fixture, production asset files, and measured acceptance
    thresholds are not yet selected or implemented.
 6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
-   and progress synchronization remain deferred. Compiler-draft normalization
-   is proposed in D-022 but is not approved or implemented.
+   and progress synchronization remain deferred. Provider-independent
+   compiler-draft normalization is required by D-027 but is not approved or
+   implemented under any M7 strategy.
 7. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
@@ -331,25 +346,32 @@ proposed Milestone 7 planning records are currently uncommitted.
     result does not establish broader browser, mobile, or touch support.
 15. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
-    0.1.0 is approved. The three selected modules are Approved for
-    implementation but remain inactive because the compiler/provider does not
-    exist. GPT-editor model, capability/action, and version-history metadata was
-    not supplied and is not inherited; config hashes identify the reviewed
-    local source snapshots. Supplied images and the APKG remain style/output
-    examples only.
+    0.1.0 is approved. The three selected modules remain inactive because the
+    compiler/provider does not exist. GPT-editor model, capability/action, and
+    version-history metadata was not supplied and is not inherited; config
+    hashes identify the reviewed local source snapshots. Supplied images and
+    the APKG remain style/output examples only.
+16. M7 v3 cannot assume that the original GPTs satisfy the approved typed
+    adaptations. Story Sheet normally generates worksheets/images, while
+    Reverse Trainer and Story Coach are long interactive flows. Direct JSON
+    contribution quality and the D-023 orchestration conflict require manual
+    evidence and a new decision before implementation.
 
 ## Next recommended work
 
-Complete the remaining Milestone 7 approval gates before implementation:
+Advance M7 v3 without activating M7 v1 or v2:
 
-1. Approve or revise proposed D-022 and
-   `plans/2026-08-12-structured-lesson-compiler.md`.
-2. Confirm or change the proposed `gpt-5.6-terra` model and medium reasoning
-   setting.
-3. Confirm or change the environment-variable name `OPENAI_API_KEY`; never
-   provide or store its value in repository documentation or shared memory.
-4. Start implementation only after those decisions and the ExecPlan are
-   explicitly approved.
+1. Review and explicitly approve or revise
+   `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`.
+2. Run its no-code, user-operated Story Sheet feasibility gate using one exact
+   local packet and the approved expected/rejected fixtures. Do not capture
+   login/session data or unrelated private conversation history.
+3. Based on observed output, accept a new orchestration decision choosing
+   sequential direct GPTs, a dedicated bridge-mode GPT, or one composed manual
+   prompt-pack conversation. Explicitly resolve the D-023 conflict, JSON import,
+   repair count, target disclosure, and local GPT-link handling.
+4. Start packet/import/compiler implementation only after that decision and
+   the ExecPlan are approved.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -361,6 +383,9 @@ non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
 
+- D-027/M7 strategy documentation: `git diff --check` passed, and Prettier
+  passed for all twelve changed or new Markdown files. This documentation-only
+  change did not run code tests, browser checks, or builds.
 - Dependency installation: an isolated clean `npm ci --ignore-scripts
   --offline` passed with Node.js 24.18.0/npm 11.16.0; 146 packages were added,
   150 packages were audited, and zero vulnerabilities were reported. The final
@@ -406,9 +431,10 @@ non-speech asset, and measurable audio acceptance choices.
 
 ## Risks
 
-- Later compiler Structured Outputs may need a separate all-required draft
-  schema and deterministic normalization into the playable contract; it must
-  not weaken LessonManifest 0.1.0.
+- Any selected M7 strategy needs a typed draft contribution and deterministic
+  normalization into the playable contract; it must not weaken LessonManifest
+  0.1.0. The all-required Structured Outputs schema remains specific to
+  inactive M7 v1.
 - Catalog capability checks do not replace Milestone 3 measurements of
   navigation, object overlap, renderer compatibility, or real asset budgets.
 - Milestone 4 preserves partial screenshot metrics, but browser version,

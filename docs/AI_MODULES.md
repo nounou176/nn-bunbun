@@ -7,7 +7,9 @@ and the user confirmed that they are the complete intended set. This document
 is the durable inventory and routing boundary for those sources and Bunbun's
 earlier conceptual modules. The Milestone 7 responsibility map is accepted,
 and Prompt Adaptation Pack 0.1.0 is approved. No prompt module has been
-implemented or activated.
+implemented or activated. D-027 now preserves the Responses integration as M7
+v1, records the local-LLM path as M7 v2 research, and makes the Custom GPT
+browser bridge the active M7 v3 research direction.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -32,13 +34,14 @@ This registry separates three things:
 3. **Game capability** — deterministic runtime behavior represented by a
    validated LessonManifest and fixed interaction primitives.
 
-A Custom GPT is not a game service and is not called by GPT link or GPT ID.
-OpenAI's current documentation states that GPTs are designed to run in ChatGPT
-and that an external product should use the API. Bunbun therefore ports only
-approved behavior into prompt modules and keeps the game runtime independent:
+The current public OpenAI API reference does not document an endpoint that
+invokes one of the captured user Custom GPT IDs. M7 v1 therefore ports approved
+behavior into prompt modules, while M7 v3 researches an explicit
+human-in-the-loop browser handoff. Neither route may make ordinary gameplay
+depend on ChatGPT:
 
-- https://help.openai.com/en/articles/8554407-gpts-in-chatgpt
-- https://help.openai.com/en/articles/8554397-creating-a-gpt
+- https://developers.openai.com/api/reference/overview
+- `docs/M7_VARIANTS.md`
 
 ## Source audit
 
@@ -150,9 +153,10 @@ module.
 | `anki_content` | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg` | Later opportunity | Captured; mapping review pending | Disabled |
 | `jlpt_assessment` | JLPT assessment generator | Earlier concept only; no standalone GPT exists in the confirmed source set | Deferred capability requiring a later reference, content, and routing decision | Later opportunity | Not part of confirmed source set | Not selected |
 
-## Accepted Milestone 7 compiler routing
+## Accepted composed compiler routing
 
-Milestone 7 should not run six independent agents. The compiler will compose
+Under D-023, Milestone 7 should not run six independent agents. The compiler
+will compose
 only the three reviewed prompt modules required for one structured lesson
 request. Deterministic stages do not use an AI module. There is no standalone
 Tutor module in this composition.
@@ -177,6 +181,29 @@ manifest provenance. A module that is missing, unapproved, incompatible with
 the target, or outside its roadmap owner is omitted. The compiler must fail
 clearly if an approved lesson profile requires a module that is unavailable;
 it must not substitute an undocumented generic prompt.
+
+## M7 v3 direct-GPT research boundary
+
+D-027 authorizes research into reusing the three existing GPTs through a
+user-mediated browser bridge without `gpt-5.6-terra` or `OPENAI_API_KEY`.
+Research starts with an exact prompt packet and manual response import; it does
+not authorize a provider call, programmatic login, cookie/session access,
+browser automation, extension, GPT action, public tunnel, MCP connection, or
+GPT editor change.
+
+Direct original-GPT use is not assumed to behave like Prompt Adaptation Pack
+0.1.0. Story Sheet normally continues into worksheet/image creation, Reverse
+Trainer emits long sentence analysis, and Story Coach expects an iterative
+coaching loop. The first proposed gate therefore evaluates Story Sheet against
+its existing three expected and two rejected text fixtures and the exact typed
+contribution boundary. Results must be observed rather than inferred.
+
+Sequential direct browser use of Story Sheet, Reverse Trainer, and Story Coach
+would conflict with D-023's one-composed-request rule. The feasibility gate may
+study that option, but full implementation requires a new accepted decision
+choosing sequential GPTs, a dedicated bridge-mode GPT, or one manually operated
+composed prompt-pack conversation. D-024 remains the responsibility, privacy,
+version, and evaluation baseline for every option.
 
 ## Approved Milestone 7 adaptation pack
 
@@ -368,7 +395,8 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Decide proposed D-022, the Milestone 7 ExecPlan, the model/reasoning setting,
-and the environment-variable name before code implementation. Prompt
-Adaptation Pack 0.1.0 is already approved; keep Visual Mnemonic and both Anki
-workflows deferred.
+Review and approve or revise
+`plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`, then run its no-code
+single-module feasibility gate before choosing the v3 orchestration. Keep
+inactive M7 v1, research-only M7 v2, Visual Mnemonic, and both Anki workflows
+out of implementation until their own decisions are accepted.

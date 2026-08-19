@@ -1,11 +1,18 @@
-# Compile learner targets into a validated playable lesson
+# M7 v1 — Compile learner targets through OpenAI Responses
 
-Status: Proposed
+Status: Proposed; preserved inactive under D-027
 Owner: Codex and user
 Created: 2026-08-12
-Last updated: 2026-08-19 16:35 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19 21:10 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
+
+This document is the frozen **M7 v1** provider strategy. D-027 preserves it as
+the OpenAI Responses API comparison candidate while M7 v3 browser-bridge
+research is active. Its proposed model, environment-variable name, Structured
+Outputs boundary, and implementation checkpoints remain unchanged and
+unapproved. Do not implement this plan unless the user explicitly reactivates
+and approves M7 v1.
 
 Add the first real lesson compiler boundary to Bunbun. At completion, the user
 can enter one to three Japanese vocabulary or grammar targets in a small local
@@ -74,11 +81,12 @@ distinct Tutor or JLPT assessment GPT. D-023 confirms this is the complete
 intended set and accepts the Milestone 7 responsibility mapping. D-024 approves
 Prompt Adaptation Pack 0.1.0 and its three selected module versions.
 
-D-001 through D-008, D-010 through D-013, D-015 through D-021, accepted D-023
-and D-024, and proposed D-022 govern the work. Implementation must not begin
-until the user accepts D-022, this ExecPlan, the model/reasoning setting, and
-the environment-variable name `OPENAI_API_KEY`. Prompt adaptations, source
-snapshot identities, and text-only evaluations are already approved by D-024.
+D-001 through D-008, D-010 through D-013, D-015 through D-021, accepted D-023,
+D-024, and D-027, and proposed D-022 govern the work. Implementation must not
+begin unless the user first reactivates M7 v1 and then accepts D-022, this
+ExecPlan, the model/reasoning setting, and the environment-variable name
+`OPENAI_API_KEY`. Prompt adaptations, source snapshot identities, and text-only
+evaluations are already approved by D-024.
 
 Official OpenAI documentation consulted on 2026-08-12 states that Structured
 Outputs should be used instead of JSON mode where possible, that Responses API
@@ -454,7 +462,10 @@ acceptance checklist.
 - [x] 2026-08-19 16:35 — Record D-026 and the approved queued audio-complete
   last-train showcase plan; keep M7's technical park and temporary audio scope
   unchanged.
-- [ ] Obtain explicit user approval for D-022, this ExecPlan,
+- [x] 2026-08-19 21:10 — Preserve this proposal as inactive M7 v1 under D-027;
+  move active research to the separate M7 v3 browser-bridge ExecPlan.
+- [ ] If the user later reactivates M7 v1, obtain explicit approval for D-022,
+  this ExecPlan,
   `gpt-5.6-terra`, `reasoning.effort: medium`, and the environment-variable
   name `OPENAI_API_KEY`.
 - [ ] Implement milestones 1 through 7 in dependency order, updating this plan
@@ -691,12 +702,13 @@ an applied migration. A later cleanup requires a new forward migration.
 
 ## Outcomes
 
-No compiler implementation outcome yet. D-022 and this ExecPlan remain
-Proposed. D-026 and the later audio-complete showcase plan are approved but do
-not authorize or reorder this milestone. Milestone 7 phase 0 is complete: six
-local GPT source configurations and Knowledge assets are captured, D-023 resolves their identity set and
+No compiler implementation outcome exists. D-027 preserves D-022 and this
+ExecPlan as inactive M7 v1; neither is approved, superseded, or eligible for
+implementation while M7 v3 research is active. D-026 and the later
+audio-complete showcase plan remain approved but do not select an M7 provider
+strategy. Milestone 7 phase 0 is complete: six local GPT source configurations
+and Knowledge assets are captured, D-023 resolves their identity set and
 routing, and D-024 approves Prompt Adaptation Pack 0.1.0. Story Sheet, Reverse
-Trainer, and Story Coach are Approved for implementation but are not active.
-The user must still approve or revise the recommended job, reference, model,
-reasoning, retry, privacy, temporary-audio, environment-name, and overall
-ExecPlan boundaries before phase 1 starts.
+Trainer, and Story Coach are Approved as local adaptations but are not active.
+If the user later reactivates v1, all original D-022, model, reasoning,
+environment-name, and ExecPlan approval gates still apply.

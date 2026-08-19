@@ -309,19 +309,22 @@ Exit criteria:
 - Lesson completion does not require correct mastery.
 - Learner-facing UI does not expose raw analytics unintentionally.
 
-## Milestone 7 — Lesson compiler with Structured Outputs
+## Milestone 7 — Provider-independent lesson compiler
 
-Status: Next
+Status: In progress — M7 v3 research; implementation unapproved
 
 Purpose:
 
 Compile learner targets into the already proven deterministic runtime.
 
-Decisions required:
+Decisions still required:
 
-- O-006 HTTP and compilation job model;
+- the active v3 orchestration and browser handoff boundary;
+- whether sequential direct GPT use may revise D-023;
+- exact import, repair, disclosure, and local-link configuration rules;
+- O-006 HTTP and compilation job model for the selected strategy;
 - O-009 reference datasets and licenses;
-- the initial OpenAI model and prompt-module versions from O-010; and
+- a model/provider choice only if a later strategy requires one; and
 - input normalization and compiler retry policy.
 
 Decision resolved:
@@ -332,17 +335,30 @@ Decision resolved:
 - D-024 approves Prompt Adaptation Pack 0.1.0, its shared contribution
   contract, three exact prompt fragments and hashes, fixed composition order,
   privacy/failure boundaries, and fifteen text-only fixtures.
+- D-027 preserves three implementation strategies, freezes the old Responses
+  proposal as inactive M7 v1, keeps local self-built LLM work as M7 v2
+  research, and makes the Custom GPT browser bridge the active M7 v3 research
+  direction.
 
-Planning note:
+Strategy note:
 
-Proposed D-022 and
-`plans/2026-08-12-structured-lesson-compiler.md` recommend retaining node:http,
-adding durable single-process SQLite compilation jobs, using a separate strict
-all-required model draft plus deterministic LessonManifest normalization,
-starting with `gpt-5.6-terra` at medium reasoning, and using a small
-project-authored technical reference fixture. The proposal also recommends the
-single environment-variable name `OPENAI_API_KEY`. No compiler implementation
-has started; all of these boundaries await explicit user approval.
+`docs/M7_VARIANTS.md` is the strategy registry:
+
+- M7 v1 preserves proposed D-022 and
+  `plans/2026-08-12-structured-lesson-compiler.md` with
+  `gpt-5.6-terra`, medium reasoning, Structured Outputs, and the proposed
+  `OPENAI_API_KEY`. It is inactive and unapproved.
+- M7 v2 preserves the self-built/local LLM research direction. No model,
+  hardware floor, inference runtime, training method, or license set is
+  selected.
+- M7 v3 is the active research direction. Its proposed ExecPlan is
+  `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`. It uses no
+  `gpt-5.6-terra` or `OPENAI_API_KEY` and begins with a manual, no-secret Story
+  Sheet feasibility gate before any code or three-GPT orchestration decision.
+
+No compiler implementation, browser launch, automation, GPT edit, external
+connection, dependency, environment variable, or learner-data transmission is
+approved by this status change.
 
 `docs/AI_MODULES.md` inventories the original concepts and six user-supplied
 local GPT configurations. The supplied set contains Story Coach, Reverse
@@ -362,16 +378,17 @@ The approved `docs/ai-modules/` pack provides the shared typed
 contribution contract, exact 0.1.0 prompt fragments and hashes, disjoint module
 ownership, deterministic failure/privacy rules, fixed composition order, and
 fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. The
-pack does not activate the modules or satisfy the remaining D-022, ExecPlan,
-model, reasoning-setting, and environment-name approval gates.
+pack does not activate the modules or approve a provider strategy. Direct
+sequential use of the three GPTs would revise D-023 and therefore remains a
+separate decision after the v3 feasibility gate.
 
 Planned scope:
 
 - vocabulary and grammar request normalization;
 - deterministic reference lookup;
 - scene and scenario compatibility selection;
-- OpenAI Responses API integration;
-- strict Structured Outputs;
+- a provider-independent authoring envelope and typed contribution contract;
+- the explicitly approved API, local-model, or browser-mediated transport;
 - schema and semantic validation;
 - bounded repair or retry behavior;
 - revisioned manifest persistence;
@@ -383,7 +400,8 @@ Exit criteria:
 - Valid user targets produce a playable manifest using catalog identifiers.
 - Invalid, impossible, unsafe, or uncovered output never reaches the runtime.
 - Cached or already compiled lessons play without an LLM.
-- Model unavailability has a clear recoverable state.
+- Unavailable model, browser handoff, or authoring transport has a clear
+  recoverable state.
 - Every AI-assisted package records the participating prompt-module IDs and
   versions.
 
