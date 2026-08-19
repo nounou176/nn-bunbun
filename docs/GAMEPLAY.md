@@ -218,6 +218,61 @@ collision events, physics outcomes, or scripts.
 The story provides a reason to react. It should not add cutscenes, traversal,
 dialogue, or puzzles that do not improve the language experience.
 
+## First product showcase
+
+D-026 selects `Three Minutes to the Last Train` as the first product vertical
+slice. The learner helps Aoi, an anxious and impulsive student, recover a
+missing wallet before leaving for the last train. Tanaka, a formal and
+rule-bound convenience-store clerk, protects a staff-only area. Momo, a cat,
+leads the learner toward the umbrella stand and the clue that reveals a
+mistaken umbrella rather than a theft.
+
+The slice uses the rainy-evening neighborhood variant with the convenience-
+store frontage, short road, and park edge. The station may be suggested by
+distant authored cues; it is not a second loaded scene. The primary scenario
+template is SOLVE_SMALL_PROBLEM. The initial requested targets are:
+
+- `財布（さいふ）`;
+- `探す（さがす）`; and
+- `～てください`.
+
+Reviewed supporting targets may include `駅`, `雨`, `傘`, `待つ`, `急ぐ`,
+`交番`, `～てはいけない`, `～ませんか`, and `なくてはいけない`. Supporting
+targets must be explicit in the manifest and must not be reported as requested-
+target coverage. The N5 extraction outside this repository may guide local
+research, but shipped reference records and Vietnamese support copy must be
+reviewed, repository-owned content with documented provenance.
+
+The title's three-minute pressure is narrative. It must not create a hard
+realtime failure timer, HP loss, punitive replay, or an inaccessible ending.
+Wrong language choices change immediate NPC reactions and scaffolding while
+keeping the situation recoverable.
+
+## Audio presentation
+
+The D-026 vertical slice is audio-complete at acceptance:
+
+- every learner-relevant Japanese NPC or narration utterance has reviewed,
+  cacheable speech and an exact text match;
+- each named NPC retains one consistent approved voice profile;
+- scene ambience communicates rain, the street, the convenience store, and the
+  distant station without masking speech;
+- meaningful movement, object, animal, discovery, feedback, and transition
+  beats use registered deterministic sound cues;
+- restrained music or stings may support tension and resolution, with automatic
+  ducking while speech plays;
+- master, voice, ambience, effects, and music controls remain learner-owned;
+  and
+- captions, replay, and assisted text keep the lesson completable when audio is
+  disabled, unavailable, interrupted, or missing.
+
+One explicit learner gesture may unlock browser audio before the scenario
+starts. Replaying audio does not create another learning reaction or duplicate
+heard evidence. Backgrounding, resume, restart, and disposal stop or restore
+audio at the same safe deterministic boundaries as other transient runtime
+presentation. The audio system does not add microphone capture, voice cloning,
+realtime TTS, realtime NPC conversation, pronunciation scoring, or SPEAK.
+
 ## Difficulty and scaffolding
 
 Reuse the same world while increasing the language demand. A target may

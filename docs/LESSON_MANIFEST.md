@@ -269,6 +269,15 @@ resolves audioAssetId through the application asset boundary.
 Two references to the same speech inputs SHOULD share a cacheKey and cached
 asset.
 
+Contract 0.1.0 uses `AudioAsset` only for exact spoken Japanese attached to a
+lesson utterance. D-026 does not put ambience, footsteps, animal sounds,
+feedback effects, or music inside this array. Reusable ambience is owned by the
+selected scene's application metadata, while step-specific non-speech sounds
+are deterministic effects of registered presentation cues. Those registries
+must resolve reviewed local or cached assets and MUST NOT let a manifest supply
+an arbitrary URL, path, volume, loop, or playback script. This clarification
+does not change the 0.1.0 schema.
+
 ## Lesson step
 
 LessonStep contains:

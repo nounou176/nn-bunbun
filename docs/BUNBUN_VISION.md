@@ -115,6 +115,21 @@ a convenience-store area, a small park, two NPCs, and one animal. Lessons reuse
 only the relevant chunks and catalog content; this does not turn the MVP into a
 seamless or always-loaded city.
 
+D-026 selects the first product vertical slice inside that envelope. It is an
+N5, Vietnamese-supported rainy-evening scenario titled "Three Minutes to the
+Last Train" (`Ba phút trước chuyến tàu cuối`), centered on a missing wallet,
+two contrasting NPCs, and a cat that exposes the decisive clue. The apparent
+deadline creates narrative urgency but is not a punitive realtime countdown or
+game-over condition.
+
+The vertical slice is audio-complete: Japanese character and narration lines
+are voiced, the scene has authored ambience, meaningful world and feedback
+actions have deterministic sound effects, and restrained music supports the
+opening and resolution. Voice remains intelligible through mix priority,
+captions, replay, and recoverable text fallback. Audio is prepared and cached
+outside ordinary gameplay; this decision does not add microphone input,
+realtime conversation, or a SPEAK primitive.
+
 During normal exploration, the interface stays minimal. Short DOM overlays
 appear for dialogue, choices, word arrangement, typing, help, and language
 information, then disappear promptly so the learner returns to the world.

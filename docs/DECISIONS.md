@@ -1037,7 +1037,90 @@ and provenance work, and representative assets still require a focused
 ExecPlan, download review, conversion, optimization, registration, tests, and
 manual browser acceptance. O-002 is narrowed to the exact first lesson scene
 variant, scenario, and target set rather than the general world-authoring
-direction. No dependency or asset is added by this decision alone.
+direction; D-026 later resolves that slice. No dependency or asset is added by
+this decision alone.
+
+### D-026 — Select an N5 last-train showcase with complete authored audio
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: Product vertical slice, learning content, gameplay, world authoring,
+  audio, performance, roadmap
+
+Context:
+
+D-025 selects a bounded Japanese-neighborhood production envelope but leaves
+the first learner level, support locale, scene variant, scenario, and language
+targets open. The user wants the first showcase to demonstrate more than a
+quiet object-finding tutorial: it should combine narrative pressure, contrasting
+NPC personalities, an animal, vocabulary, and grammar in one recoverable
+situation. The user also requires character voices, environmental sound, and
+meaningful gameplay effects rather than a silent 3D scene or browser-dependent
+technical speech alone.
+
+The current runtime has an `AudioPlaybackPort` backed only by browser
+SpeechSynthesis after a learner gesture. LessonManifest 0.1.0 already models
+exact spoken Japanese, approved voice profile IDs, deterministic cache keys,
+and replay. Registered presentation cues can identify deterministic scene
+effects, but no production speech, ambience, effect, music, mix, cache, or audio
+asset exists yet. O-010 still owns provider/model/voice/cache selection.
+
+Decision:
+
+Use an N5 lesson with Vietnamese support as the first product vertical slice.
+Its title is `Three Minutes to the Last Train` (`Ba phút trước chuyến tàu cuối`;
+Japanese display title `終電まであと3分`). Use a rainy-evening variant of the
+D-025 neighborhood with the convenience-store frontage, short road, park edge,
+two NPCs, one cat, and distant station cues rather than a second loaded station
+scene.
+
+The learner helps Aoi, an anxious and impulsive student, recover a missing
+wallet before leaving for the last train. Tanaka is a formal, rule-bound clerk
+who protects a staff-only area. Momo the cat leads the learner toward an
+umbrella-stand clue. The resolution reveals a mistaken umbrella and dropped
+wallet rather than a theft. The primary template is `SOLVE_SMALL_PROBLEM` and
+the initial requested targets are `財布（さいふ）`, `探す（さがす）`, and
+`～てください`. Reviewed supporting targets may include `駅`, `雨`, `傘`,
+`待つ`, `急ぐ`, `交番`, `～てはいけない`, `～ませんか`, and
+`なくてはいけない`.
+
+The apparent three-minute deadline is narrative pressure, not a hard realtime
+countdown, game-over condition, or punishment. Wrong responses produce bounded
+NPC reactions, feedback, and scaffolding while preserving a completable path.
+The complete scenario still uses only the eight accepted primitives.
+
+The vertical slice is audio-complete. Every learner-relevant Japanese NPC or
+narration utterance has reviewed cached speech that exactly matches its text;
+each named NPC keeps a consistent approved voice profile. The scene has
+authored rain, street, convenience-store, and distant-station ambience.
+Meaningful movement, object, animal, clue, feedback, and transition beats use
+registered deterministic sound cues. Restrained music or stings may support
+tension and resolution. Voice receives mix priority and ducks competing layers.
+The learner controls master, voice, ambience, effects, and music levels and can
+use captions, replay, mute, and recoverable text fallback.
+
+Keep LessonManifest 0.1.0 unchanged. Spoken lines continue through
+`AudioAsset`; application-owned scene metadata owns ambience; registered
+presentation cues own non-speech effects and musical stings. No manifest may
+supply an arbitrary media URL, file path, mix value, or playback script. TTS is
+prepared and cached outside ordinary gameplay. This decision adds no
+microphone, realtime TTS, realtime NPC conversation, voice cloning,
+pronunciation scoring, SPEAK primitive, or runtime LLM call.
+
+Treat the sibling N5 extraction as local research input only. Shipped target
+records, Vietnamese support copy, dialogue, and examples must be reviewed,
+repository-owned content with documented provenance; Bunpro meanings, links,
+or the full extracted corpus are not imported by this decision.
+
+Consequences:
+
+O-001 and O-002 are resolved for the first vertical slice. M7 remains the next
+milestone; this decision does not approve proposed D-022, its model/reasoning
+setting, or `OPENAI_API_KEY`. M8 must replace SpeechSynthesis with a reviewed
+cached speech and audio-runtime boundary before M9 can satisfy the complete
+showcase. O-010 remains open for text model, TTS provider/model, voice policy,
+cache storage, and invalidation details. Every production world and audio asset
+requires source, license, hash, processing, and measured-runtime intake.
 
 ## Deferred decisions
 
@@ -1045,8 +1128,6 @@ These are acknowledged but not yet ready to decide:
 
 | ID | Decision needed | Resolve before |
 | --- | --- | --- |
-| O-001 | Initial learner level and support locale | First vertical-slice content |
-| O-002 | Exact first lesson scene variant, scenario, and target set inside the D-025 neighborhood envelope | Vertical-slice ExecPlan |
 | O-006 | Backend HTTP framework and compilation job model | Backend foundation |
 | O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
 | O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |

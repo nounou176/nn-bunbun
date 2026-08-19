@@ -232,6 +232,14 @@ Completed ExecPlans:
   GLB chunks, and code-owned world metadata. The first production-world
   envelope is a small Japanese neighborhood with road, convenience-store, and
   park areas, two NPCs, and one animal. No asset or dependency has been added.
+- Accepted D-026 after the user approved the audio-complete showcase plan. The
+  first product vertical slice is now an N5, Vietnamese-supported rainy-evening
+  `Three Minutes to the Last Train` scenario with Aoi, Tanaka, Momo the cat,
+  requested `財布`, `探す`, and `～てください` targets, recoverable narrative
+  pressure, voiced Japanese, authored ambience, deterministic effects, and
+  restrained music or stings. O-001 and O-002 are resolved for this slice.
+  Exact production assets, TTS/provider/voice/cache choices, dialogue, and
+  acceptance thresholds remain unimplemented or open.
 
 ## Repository inventory
 
@@ -239,8 +247,8 @@ Present:
 
 - AGENTS.md, `docs/AI_MODULES.md`, `docs/WORLD_AUTHORING.md`, and the required
   docs/ durable project records;
-- .agent/PLANS.md, six completed milestone ExecPlans, and one proposed
-  Milestone 7 ExecPlan;
+- .agent/PLANS.md, six completed milestone ExecPlans, one proposed Milestone 7
+  ExecPlan, and one approved queued audio-complete showcase ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -291,9 +299,10 @@ proposed Milestone 7 planning records are currently uncommitted.
    passed by user report, but numeric runtime measurements and named-device
    details were not supplied. No wider browser, mobile, or touch support is
    claimed.
-5. Initial learner level, support locale, exact lesson scene variant, scenario,
-   and target set are not selected. D-025 selects only the broader Japanese-
-   neighborhood production envelope.
+5. D-026 selects the first learner level, Vietnamese support locale, rainy-
+   evening scene variant, scenario, and initial target set, but exact dialogue,
+   reviewed reference fixture, production asset files, and measured acceptance
+   thresholds are not yet selected or implemented.
 6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. Compiler-draft normalization
    is proposed in D-022 but is not approved or implemented.
@@ -342,11 +351,13 @@ Complete the remaining Milestone 7 approval gates before implementation:
 4. Start implementation only after those decisions and the ExecPlan are
    explicitly approved.
 
-D-025 is approved groundwork for the later production vertical slice and does
-not reorder Milestone 7. Before world asset implementation begins, approve a
-focused ExecPlan covering source/license intake, reproducible GLB export, one
-representative neighborhood chunk, catalog registration, performance, and
-manual browser validation.
+D-025 and D-026 now have an approved queued implementation plan at
+`plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
+audio source/license intake, reproducible GLB export, the representative
+neighborhood chunk, catalog registration, audio completeness, performance, and
+manual browser validation. It does not reorder Milestone 7, and production
+work remains gated by the still-open Milestone 8 provider, voice, cache,
+non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
 

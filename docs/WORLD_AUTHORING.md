@@ -2,8 +2,9 @@
 
 ## Status
 
-This document defines the approved world-authoring direction under D-025. The
-pipeline is approved, but no production asset, terrain tool, navigation
+This document defines the approved world-authoring direction under D-025 and
+the first production variant selected by D-026. The pipeline and variant scope
+are approved, but no production asset, audio asset, terrain tool, navigation
 dependency, or world chunk has been imported or implemented yet.
 
 ## Outcome
@@ -22,9 +23,11 @@ neighborhood containing:
 - two active NPCs; and
 - one active animal.
 
-This envelope does not select the first lesson scenario, learner level,
-support locale, vocabulary, or grammar targets. It is not a seamless open
-world.
+D-026 selects the first lesson inside this envelope: an N5 rainy-evening
+Vietnamese-supported `Three Minutes to the Last Train` variant using the
+convenience-store frontage, short road, park edge, Aoi, Tanaka, Momo the cat,
+and an umbrella-stand clue. It is still one bounded micro-scene, not a seamless
+open world or a second station scene.
 
 ## Approved authoring stack
 
@@ -64,6 +67,13 @@ and catalogs own:
 - navigation bounds or reviewed navmesh references;
 - deterministic initial placements and states; and
 - mappings from lesson capabilities to fixed runtime behavior.
+
+The scene audio registry similarly owns reviewed ambience, loop boundaries,
+spatial placement, distance behavior, and mix-bus assignment. Registered
+presentation cues own deterministic effects and musical stings. Character
+speech remains a separate cached lesson-audio asset keyed by exact Japanese and
+an approved voice profile. Neither GLB nor LessonManifest may hide arbitrary
+audio URLs or executable playback behavior.
 
 LessonManifest continues to select registered IDs only. It cannot contain
 asset paths, arbitrary URLs, Three.js code, transforms, scripts, terrain
@@ -118,14 +128,21 @@ Before a source asset ships, record at least:
 - stable catalog IDs and owning scene chunk; and
 - measured size and representative runtime observations.
 
+For audio sources, also record the original audio format, sample rate and
+channels, edit or loop processing, encoded runtime format and bitrate, duration,
+normalization or loudness treatment, and whether the asset is ambience, an
+effect, music, or speech. A generated voice record must identify the approved
+provider/model/voice/settings inputs without storing a credential or cloning a
+real person.
+
 Do not combine assets with incompatible redistribution terms. Do not import a
 complete external city engine when an asset or offline authoring result is the
 actual requirement.
 
 ## Initial implementation gate
 
-Before implementation starts, create or approve a focused ExecPlan that
-covers:
+The approved queued plan at
+`plans/2026-08-19-audio-complete-last-train-showcase.md` covers:
 
 - source download and license capture;
 - the physical source/processed/runtime asset layout;
@@ -136,6 +153,10 @@ covers:
 - asset and scene-budget measurements;
 - static, unit, build, and manual browser verification; and
 - recovery or removal of any asset that fails license or technical review.
+
+The plan remains queued after Milestone 7. Exact source selections, retained
+licenses, hashes, and audio/provider choices are still implementation gates;
+plan approval alone does not authorize an unreviewed download or asset import.
 
 Docker, hosting, a large open world, runtime procedural generation, Yuka,
 Recast, and production crowd simulation remain outside this gate.

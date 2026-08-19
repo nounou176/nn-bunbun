@@ -387,29 +387,41 @@ Exit criteria:
 - Every AI-assisted package records the participating prompt-module IDs and
   versions.
 
-## Milestone 8 — Japanese TTS and audio cache
+## Milestone 8 — Japanese voice and complete audio runtime
 
 Status: Planned
 
 Purpose:
 
-Make audio a reliable cached lesson asset rather than a runtime dependency.
+Make speech, ambience, effects, and restrained music reliable authored assets
+rather than provider or browser-speech dependencies during gameplay.
+
+Decision resolved:
+
+- D-026 requires the first vertical slice to be audio-complete, keeps spoken
+  Japanese in LessonManifest `AudioAsset`, and assigns ambience and non-speech
+  effects to application-owned scene and cue registries.
 
 Decisions required:
 
 - TTS model, voice profiles, cache storage, and invalidation inputs from O-010;
 - pronunciation review process; and
-- audio fallback behavior.
+- exact non-speech source assets, licenses, mix targets, and fallback behavior.
 
 Planned scope:
 
 - queued TTS generation outside gameplay;
 - normalized, versioned cache keys;
+- stable character-to-voice-profile assignment;
 - duration metadata;
 - lesson audio readiness checks;
 - preload for first stimuli;
+- a learner-unlocked mixer with master, voice, ambience, effects, and music
+  controls;
+- voice-priority ducking;
+- scene-owned ambience and cue-owned deterministic effects or musical stings;
 - replay behavior; and
-- missing or failed audio recovery.
+- captions and missing, disabled, interrupted, or failed audio recovery.
 
 Exit criteria:
 
@@ -417,6 +429,10 @@ Exit criteria:
 - Changed relevant inputs invalidate the cache.
 - Audio failure does not produce a blank or trapped interaction.
 - Japanese text and audio match exactly where required by the manifest.
+- Named NPC voices remain consistent throughout a lesson.
+- Ambience, effects, and music do not mask speech or stall the render loop.
+- Background, resume, replay, mute, and disposal preserve deterministic state
+  and do not duplicate heard evidence.
 
 ## Milestone 9 — First product vertical slice
 
@@ -431,23 +447,28 @@ Decision resolved:
 - D-025 selects the GLB-first Three.js world-authoring pipeline, initial Kenney
   CC0 asset candidates, optional authoring-time THREE.Terrain, and a bounded
   Japanese-neighborhood production envelope.
+- D-026 selects an N5 lesson with Vietnamese support, the rainy-evening `Three
+  Minutes to the Last Train` scenario, its requested and supporting target set,
+  Aoi, Tanaka, Momo, narrative-only time pressure, and audio-complete acceptance
+  boundary.
 
 Decisions required:
 
-- O-001 learner level and support locale;
-- O-002 exact lesson scene variant, scenario, vocabulary, and grammar targets
-  inside the accepted neighborhood envelope; and
-- explicit qualitative and quantitative acceptance criteria.
+- exact production asset choices and intake records;
+- exact dialogue and reference review; and
+- explicit qualitative and quantitative acceptance thresholds.
 
 Planned scope:
 
 - source/license/hash and conversion provenance for every selected asset;
 - one reusable stylized Japanese-neighborhood chunk with road,
   convenience-store, and park areas, two NPCs, and one animal;
-- one coherent scenario;
-- selected vocabulary and grammar across repeated contexts;
+- the D-026 rainy-evening last-train scenario;
+- requested `財布`, `探す`, and `～てください` targets plus reviewed supporting
+  N5 content across repeated contexts;
 - multiple reaction difficulty levels;
-- all required audio;
+- all required character speech, ambience, meaningful effects, and restrained
+  music or stings;
 - evidence and resume;
 - interaction-density measurement;
 - visual and input polish;

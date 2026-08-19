@@ -3,7 +3,7 @@
 Status: Proposed
 Owner: Codex and user
 Created: 2026-08-12
-Last updated: 2026-08-12 19:26 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19 16:35 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -28,9 +28,10 @@ progress are not sent. The existing authored eight-primitive demo remains an
 explicit local regression option and is not silently replaced.
 
 This milestone proves the AI-to-deterministic-runtime boundary. It does not
-add production content breadth, external dictionaries, kanji decomposition,
-production TTS, adaptive scheduling, accounts, cloud sync, deployment, or an
-LLM call during ordinary gameplay.
+implement the D-026 production vertical slice, production content breadth,
+external dictionaries, kanji decomposition, production TTS, adaptive
+scheduling, accounts, cloud sync, deployment, or an LLM call during ordinary
+gameplay.
 
 ## Repository context
 
@@ -61,8 +62,8 @@ resume, and evidence boundaries.
 
 The basic catalog and code-owned park expose one scene, two NPCs, dog and cat
 objects, two locations, three cues, one technical voice profile, and the eight
-fixed primitives. They are a technical compiler target, not a product content
-library or resolution of O-001/O-002.
+fixed primitives. They are a technical compiler target, not an implementation
+of the D-026 product vertical slice.
 
 `docs/AI_MODULES.md` inventories the six Custom GPT concepts named by the
 original Bunbun source. On 2026-08-12, the user supplied six local GPT
@@ -217,7 +218,7 @@ model and confirms Responses API and Structured Outputs support:
 ### Out of scope
 
 - Production asset expansion, new scenes, more world objects, polished lesson
-  content, or resolution of the first product vertical slice in O-001/O-002.
+  content, or implementation of the D-026 first product vertical slice.
 - Porting or invoking Visual Mnemonic, Anki content generator, or JLPT
   assessment generator; their workflows remain deferred to later roadmap
   decisions.
@@ -268,6 +269,9 @@ model and confirms Responses API and Structured Outputs support:
 - D-024 approves Prompt Adaptation Pack 0.1.0, its three exact prompt hashes,
   contribution contract, fixed composition, privacy/failure behavior, and
   fifteen text-only evaluation fixtures.
+- D-026 resolves O-001 and O-002 for the later first product vertical slice but
+  does not broaden this technical compiler milestone or approve production
+  audio.
 - `docs/AI_MODULES.md` governs Custom GPT source capture and module activation.
   A concept name or inferred purpose is insufficient; missing or unapproved
   behavior cannot be implemented as a generic substitute.
@@ -447,6 +451,9 @@ acceptance checklist.
 - [x] 2026-08-12 19:26 — Record D-024 after the user explicitly approved Prompt
   Adaptation Pack 0.1.0; close phase 0 and mark the three selected modules
   Approved for implementation but not runtime-active.
+- [x] 2026-08-19 16:35 — Record D-026 and the approved queued audio-complete
+  last-train showcase plan; keep M7's technical park and temporary audio scope
+  unchanged.
 - [ ] Obtain explicit user approval for D-022, this ExecPlan,
   `gpt-5.6-terra`, `reasoning.effort: medium`, and the environment-variable
   name `OPENAI_API_KEY`.
@@ -507,8 +514,9 @@ acceptance checklist.
   until their content and license are reviewed.
 - 2026-08-12 — Recommend the single environment name `OPENAI_API_KEY`; it is
   not approved or used until the user explicitly confirms it.
-- 2026-08-12 — Keep the technical support locale `vi` and park_small profile
-  without claiming the final learner/content decisions O-001/O-002.
+- 2026-08-12 — Keep the technical support locale `vi` and park_small profile as
+  M7 fixtures. D-026 separately owns the later N5 Vietnamese production
+  vertical slice.
 - 2026-08-12 — Require source capture, review, versioning, evaluation fixtures,
   and user approval through `docs/AI_MODULES.md` before porting a Custom GPT
   behavior. Do not replace a missing module with an undocumented generic
@@ -684,8 +692,9 @@ an applied migration. A later cleanup requires a new forward migration.
 ## Outcomes
 
 No compiler implementation outcome yet. D-022 and this ExecPlan remain
-Proposed. Milestone 7 phase 0 is complete: six local GPT source configurations
-and Knowledge assets are captured, D-023 resolves their identity set and
+Proposed. D-026 and the later audio-complete showcase plan are approved but do
+not authorize or reorder this milestone. Milestone 7 phase 0 is complete: six
+local GPT source configurations and Knowledge assets are captured, D-023 resolves their identity set and
 routing, and D-024 approves Prompt Adaptation Pack 0.1.0. Story Sheet, Reverse
 Trainer, and Story Coach are Approved for implementation but are not active.
 The user must still approve or revise the recommended job, reference, model,

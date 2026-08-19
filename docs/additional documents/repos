@@ -1,0 +1,532 @@
+Có. Tôi đã lọc theo tiêu chí **“có thể lấy code/architecture để dựng world bằng Three.js”**, không chỉ demo đẹp. Dưới đây là **65 repo/project** chia theo subsystem.
+
+Quy ước: **A = ưu tiên clone/thử ngay**, **B = lấy subsystem/thuật toán**, **C = chủ yếu nghiên cứu kiến trúc**.
+
+## 1. Core + procedural terrain + open world
+
+Đây là nhóm nên xem đầu tiên. Đáng chú ý nhất hiện tại là ProceduralTerrains, Beyond Fable và LAAS: chúng đã đi xa hơn demo terrain đơn giản, có chunk/LOD/world generation và các hệ thống môi trường. ([GitHub][1])
+
+| #  | Repo                                                                                                  |     Mức | Có thể lấy                                                                                                 |
+| -- | ----------------------------------------------------------------------------------------------------- | ------: | ---------------------------------------------------------------------------------------------------------- |
+| 1  | [mrdoob/three.js](https://github.com/mrdoob/three.js)                                                 |       A | Renderer WebGL/WebGPU, loaders, animation, shader, instancing, official examples. ([GitHub][2])            |
+| 2  | [ZyFou/ProceduralTerrains](https://github.com/ZyFou/ProceduralTerrains)                               | **A++** | Tile terrain, infinite world, planet mode, water, volumetric cloud, GLB export. ([GitHub][1])              |
+| 3  | [obecerra3/OpenWorldJS](https://github.com/obecerra3/OpenWorldJS)                                     |   **A** | Chunk terrain, GPUCompute, fBM/noise, procedural terrain textures. ([GitHub][3])                           |
+| 4  | [dimartarmizi/threejs-procedural-terrain](https://github.com/dimartarmizi/threejs-procedural-terrain) |       A | Base nhỏ để học chunk + biome + vegetation. ([GitHub][4])                                                  |
+| 5  | [reality2-roycdavies/vr-forest](https://github.com/reality2-roycdavies/vr-forest)                     | **A++** | Infinite chunk streaming, biome, mountain, river, day/night, wildlife. ([GitHub][5])                       |
+| 6  | [xikhar/beyond-fable](https://github.com/xikhar/fable)                                                | **A++** | Open world hoàn chỉnh: mountains, lakes, forests, weather, water, swimming, LOD, instancing. ([GitHub][6]) |
+| 7  | [Braffolk/fable5-world-demo](https://github.com/Braffolk/fable5-world-demo)                           | **A++** | Three.js WebGPU/TSL/WGSL, procedural 4×4 km world, GPU-oriented architecture. ([GitHub][7])                |
+| 8  | [IceCreamYou/THREE.Terrain](https://github.com/IceCreamYou/THREE.Terrain)                             |       B | Heightmaps, Diamond-Square, noise và các thuật toán terrain cổ điển. ([GitHub][8])                         |
+| 9  | [djmartin2019/davey-maps](https://github.com/djmartin2019/davey-maps)                                 |       B | Rust terrain generation + Three.js frontend. ([GitHub][9])                                                 |
+| 10 | [Sunwood-ai-labs/threejs-voxel-frontier](https://github.com/Sunwood-ai-labs/threejs-voxel-frontier)   |       A | Voxel world, mining/building, first-person gameplay. ([GitHub][10])                                        |
+| 11 | [nimadez/voxel-builder](https://github.com/nimadez/voxel-builder)                                     |       B | High-performance voxel engine, editing, terrain generation, GLB/GLTF export. ([GitHub][11])                |
+
+---
+
+# 2. Procedural city / roads / buildings
+
+`city-tour` đặc biệt đáng đọc vì pipeline của nó khá đúng thứ bạn cần:
+
+**terrain → road network → lots → buildings → Three.js scene**. ([GitHub][12])
+
+| #  | Repo                                                                                                                    |     Mức | Có thể lấy                                                                                            |
+| -- | ----------------------------------------------------------------------------------------------------------------------- | ------: | ----------------------------------------------------------------------------------------------------- |
+| 12 | [jstrait/city-tour](https://github.com/jstrait/city-tour)                                                               | **A++** | City blueprint, roads theo terrain, lots, procedural buildings. ([GitHub][12])                        |
+| 13 | [jeromeetienne/threex.proceduralcity](https://github.com/jeromeetienne/threex.proceduralcity)                           |       B | Procedural city cực đơn giản để hiểu nguyên lý. ([GitHub][13])                                        |
+| 14 | [MHillier98/IntroToComputerGraphics-CityGenerator](https://github.com/MHillier98/IntroToComputerGraphics-CityGenerator) |       B | Procedural road placement + city generation. ([GitHub][14])                                           |
+| 15 | [alexwgraves/ville](https://github.com/alexwgraves/ville)                                                               |       C | User-driven procedural city generator. ([GitHub][15])                                                 |
+| 16 | [neki-dev/gen-city](https://github.com/neki-dev/gen-city)                                                               |       B | Data representation cho buildings, vertices, size, paths. ([GitHub][16])                              |
+| 17 | [jjmontesl/ddd](https://github.com/jjmontesl/ddd)                                                                       |       B | Procedural generation của 2D/3D geometry/scenes; hữu ích để preprocess urban geometry. ([GitHub][17]) |
+
+**`city-tour` là repo tôi sẽ mổ đầu tiên nếu muốn tự sinh thành phố.**
+
+---
+
+# 3. Thành phố thật / Earth / OpenStreetMap
+
+Nếu sau này bạn muốn:
+
+> HCMC → bản đồ thật → buildings → roads → NPC → game world
+
+thì nhóm này quan trọng hơn procedural terrain thuần túy.
+
+| #  | Repo                                                                            |     Mức | Có thể lấy                                                                        |
+| -- | ------------------------------------------------------------------------------- | ------: | --------------------------------------------------------------------------------- |
+| 18 | [StrandedKitty/streets-gl](https://github.com/StrandedKitty/streets-gl)         | **A++** | OSM → real-time 3D city renderer, TypeScript. ([GitHub][18])                      |
+| 19 | [tentone/geo-three](https://github.com/tentone/geo-three)                       |     A/B | World-scale tiled map, height terrain → Three.js geometry. ([GitHub][19])         |
+| 20 | [felixpalmer/procedural-gl-js](https://github.com/felixpalmer/procedural-gl-js) |       B | 3D geographic landscapes built on Three.js; mobile-oriented. ([GitHub][20])       |
+| 21 | [NASA-AMMOS/3DTilesRendererJS](https://github.com/NASA-AMMOS/3DTilesRendererJS) | **A++** | Streaming massive 3D Tiles datasets trực tiếp với Three.js. ([GitHub][21])        |
+| 22 | [CesiumGS/cesium](https://github.com/CesiumGS/cesium)                           |     C/A | Reference architecture cho Earth-scale streaming/geospatial world. ([GitHub][22]) |
+| 23 | [felixpalmer/new-zealand-3d](https://github.com/felixpalmer/new-zealand-3d)     |       B | Ví dụ hoàn chỉnh geographic 3D world trên browser. ([GitHub][23])                 |
+
+Tôi sẽ không dùng Cesium thay Three.js ngay. Tôi sẽ **học cách Cesium giải quyết quadtree/tiles/LOD/coordinate precision**, rồi dùng Three.js nếu game của bạn vẫn là Three.js.
+
+---
+
+# 4. Trees / vegetation / natural world
+
+| #  | Repo                                                                              |     Mức | Có thể lấy                                                                                                |
+| -- | --------------------------------------------------------------------------------- | ------: | --------------------------------------------------------------------------------------------------------- |
+| 24 | [SkyeShark/SeedThree](https://github.com/SkyeShark/SeedThree)                     | **A++** | Procedural trees/plants, species parameters, wind animation, glTF export, Three.js WebGPU. ([GitHub][24]) |
+| 25 | [reality2-roycdavies/vr-forest](https://github.com/reality2-roycdavies/vr-forest) |       A | Forest placement, biomes, procedural wildlife/environment. ([GitHub][5])                                  |
+| 26 | [Braffolk/fable5-world-demo](https://github.com/Braffolk/fable5-world-demo)       |       A | Grass/blades, tree variation, LOD/impostor architecture. ([GitHub][25])                                   |
+| 27 | [xikhar/beyond-fable](https://github.com/xikhar/fable)                            |       A | Vegetation LOD, batched distant trees, instancing. ([GitHub][6])                                          |
+
+`SeedThree` đặc biệt thú vị vì bạn không cần một asset cây cố định: **species + seed → unique plant**. ([GitHub][24])
+
+Đó chính xác là philosophy nên dùng cho world generation:
+
+```text
+Tree {
+    species
+    seed
+    age
+    health
+    position
+}
+```
+
+thay vì:
+
+```text
+tree_01.glb
+tree_02.glb
+tree_03.glb
+...
+```
+
+---
+
+# 5. Sky / water / weather / atmosphere
+
+| #  | Repo                                                                                                    |   Mức | Có thể lấy                                                                                    |
+| -- | ------------------------------------------------------------------------------------------------------- | ----: | --------------------------------------------------------------------------------------------- |
+| 28 | [achrefelouafi/WaterThreeJS](https://github.com/achrefelouafi/WaterThreeJS)                             |   A/B | Water + analytic atmosphere + clouds + time of day. ([GitHub][26])                            |
+| 29 | [Dante83/A-Starry-Sky](https://github.com/Dante83/A-Starry-Sky)                                         |     B | Realistic sky, atmospheric effects và ray-marched clouds. ([GitHub][27])                      |
+| 30 | [three.js Ocean example](https://github.com/mrdoob/three.js/blob/dev/examples/webgl_shaders_ocean.html) | **A** | Official ocean shader implementation. ([GitHub][28])                                          |
+| 31 | [vvanhee/earth-wallpaper](https://github.com/vvanhee/earth-wallpaper)                                   |     B | Earth atmosphere/lighting shaders. ([GitHub][29])                                             |
+| 32 | [matteason/live-cloud-maps](https://github.com/matteason/live-cloud-maps)                               |     B | Near-real-time Earth cloud textures, usable trực tiếp với Three TextureLoader. ([GitHub][30]) |
+| 33 | [erichlof/THREE.js-PathTracing-Renderer](https://github.com/erichlof/THREE.js-PathTracing-Renderer)     |     C | Reference cho realistic sky/ocean/procedural clouds. ([GitHub][31])                           |
+
+---
+
+# 6. Particle / environmental effects
+
+Khói, mưa, tuyết, lá, bụi, fireflies, sparks, magic, fog particles... không nên viết lại từ zero.
+
+| #  | Repo                                                                                |     Mức | Có thể lấy                                                                           |
+| -- | ----------------------------------------------------------------------------------- | ------: | ------------------------------------------------------------------------------------ |
+| 34 | [Alchemist0823/three.quarks](https://github.com/Alchemist0823/three.quarks)         | **A++** | High-performance VFX/particle system + editor. ([GitHub][32])                        |
+| 35 | [NewKrok/three-particles](https://github.com/NewKrok/three-particles)               |   **A** | CPU/GPU particles, emitters, force fields, collisions, serialization. ([GitHub][33]) |
+| 36 | [NewKrok/three-particles-editor](https://github.com/NewKrok/three-particles-editor) |       A | Unity-like visual editor cho particle effects. ([GitHub][34])                        |
+| 37 | [creativelifeform/three-nebula](https://github.com/creativelifeform/three-nebula)   |       B | Three.js particle engine. ([GitHub][35])                                             |
+| 38 | [mustache-dev/Three-VFX](https://github.com/mustache-dev/Three-VFX)                 |       A | GPU particle system dùng Three.js WebGPU. ([GitHub][36])                             |
+| 39 | [lightest/gpuparticles](https://github.com/lightest/gpuparticles)                   |       B | GPU particles + 3D noise. ([GitHub][37])                                             |
+
+---
+
+# 7. NPC brain / Game AI
+
+Đây là phần rất sát với world có NPC tự sinh.
+
+| #  | Repo                                                                      |               Mức | Có thể lấy                                                                                      |
+| -- | ------------------------------------------------------------------------- | ----------------: | ----------------------------------------------------------------------------------------------- |
+| 40 | [Mugen87/yuka](https://github.com/Mugen87/yuka)                           |           **A++** | Agent, goals, state machine, steering, navigation, perception, memory, triggers. ([GitHub][38]) |
+| 41 | [Mugen87/dive](https://github.com/Mugen87/dive)                           | **A++ reference** | Game hoàn chỉnh minh họa shooter AI bằng Yuka + Three.js. ([GitHub][39])                        |
+| 42 | [ssethsara/react-three-npc](https://github.com/ssethsara/react-three-npc) |                 B | NPC wandering/follow system xây trên Yuka. ([GitHub][40])                                       |
+
+Yuka rất đáng quan tâm vì nó tách:
+
+```text
+NPC visual representation
+        ↓
+Three.js
+
+NPC logic
+        ↓
+Yuka
+```
+
+Yuka bản thân độc lập với renderer, còn các example/showcase sử dụng Three.js. ([Mugen87][41])
+
+---
+
+# 8. NPC pathfinding / NavMesh / crowds
+
+Nếu thành phố có 100–1.000 NPC thì đây là subsystem không thể thiếu.
+
+| #  | Repo                                                                                    |     Mức | Có thể lấy                                                                                                 |
+| -- | --------------------------------------------------------------------------------------- | ------: | ---------------------------------------------------------------------------------------------------------- |
+| 43 | [isaac-mason/recast-navigation-js](https://github.com/isaac-mason/recast-navigation-js) | **A++** | Runtime navmesh, pathfinding, Detour, crowd simulation, tiled navmesh, temporary obstacles. ([GitHub][42]) |
+| 44 | [isaac-mason/navcat](https://github.com/isaac-mason/navcat)                             | **A++** | Pure JS navmesh generation/query + jump/ladder/teleport links. ([GitHub][43])                              |
+| 45 | [donmccurdy/three-pathfinding](https://github.com/donmccurdy/three-pathfinding)         |       A | Lightweight Three.js navmesh querying/path following. ([GitHub][44])                                       |
+| 46 | [vincent/recast.js](https://github.com/vincent/recast.js)                               |     C/B | Older Recast implementation/reference với crowd agents. ([GitHub][45])                                     |
+
+### Tôi chọn
+
+**`recast-navigation-js`** nếu world procedural.
+
+Vì nó có thể generate navmesh **runtime**, rất phù hợp:
+
+```text
+Chunk generated
+      ↓
+Terrain
+Buildings
+Roads
+      ↓
+generateNavMesh(chunk)
+      ↓
+NPC can walk
+```
+
+([GitHub][42])
+
+---
+
+# 9. Character animation / IK
+
+| #  | Repo                                                                                            | Mức | Có thể lấy                                                                                                               |
+| -- | ----------------------------------------------------------------------------------------------- | --: | ------------------------------------------------------------------------------------------------------------------------ |
+| 47 | [jsantell/THREE.IK](https://github.com/jsantell/THREE.IK)                                       |   B | FABRIK inverse kinematics cho Three.js. ([GitHub][46])                                                                   |
+| 48 | [Lacamoura48/CCDIKSolver-Mixamo-model](https://github.com/Lacamoura48/CCDIKSolver-Mixamo-model) |   B | Mixamo + Three.js CCDIKSolver example. ([GitHub][47])                                                                    |
+| 49 | [posecode-dev/posecode](https://github.com/posecode-dev/posecode)                               | C/B | Text-based human movement + Three.js renderer + basic IK; rất thú vị nếu sau này AI sinh chuyển động NPC. ([GitHub][48]) |
+
+---
+
+# 10. Physics / player movement / vehicles
+
+Rapier là lựa chọn tôi ưu tiên. Lưu ý repo `rapier.js` riêng đã được archive tháng 7/2026 vì JS bindings được chuyển vào **main Rapier repository**, không phải project bị bỏ. ([GitHub][49])
+
+| #  | Repo                                                                                                                |     Mức | Có thể lấy                                                                        |
+| -- | ------------------------------------------------------------------------------------------------------------------- | ------: | --------------------------------------------------------------------------------- |
+| 50 | [dimforge/rapier](https://github.com/dimforge/rapier)                                                               | **A++** | 2D/3D physics, Rust/WASM, web support. ([GitHub][50])                             |
+| 51 | [pmndrs/cannon-es](https://github.com/pmndrs/cannon-es)                                                             |       A | Pure JS lightweight physics. ([GitHub][51])                                       |
+| 52 | [pmndrs/ecctrl](https://github.com/pmndrs/ecctrl)                                                                   | **A/B** | Character, car, drone, custom gravity controllers trên Rapier/R3F. ([GitHub][52]) |
+| 53 | [doppl3r/kinematic-character-controller-example](https://github.com/doppl3r/kinematic-character-controller-example) |   **A** | Vanilla Three.js + Rapier character controller. ([GitHub][53])                    |
+| 54 | [icurtis1/character-controller-sample-project](https://github.com/icurtis1/character-controller-sample-project)     |       B | Third-person character controller + Rapier. ([GitHub][54])                        |
+
+Nếu bạn đang dùng **vanilla Three.js**, repo #53 hữu ích hơn `ecctrl` vì `ecctrl` nghiêng về React Three Fiber.
+
+---
+
+# 11. ECS — quản lý hàng nghìn NPC / animals / objects
+
+Khi world lớn, đừng để:
+
+```text
+class NPC
+class Dog
+class Tree
+class Car
+class Shop
+...
+```
+
+phình vô hạn.
+
+Dùng:
+
+```text
+Entity
+ ├─ position
+ ├─ renderable
+ ├─ npc
+ ├─ movement
+ ├─ hunger
+ ├─ schedule
+ ├─ conversation
+ └─ memory
+```
+
+Các ECS JS/TS đáng xem hiện nay gồm Miniplex, bitECS và Becsy. ([GitHub][55])
+
+| #  | Repo                                                            |     Mức | Tôi dùng khi                                                          |
+| -- | --------------------------------------------------------------- | ------: | --------------------------------------------------------------------- |
+| 55 | [hmans/miniplex](https://github.com/hmans/miniplex)             | **A++** | Prototype nhanh, API dễ hiểu. ([GitHub][55])                          |
+| 56 | [NateTheGreatt/bitECS](https://github.com/NateTheGreatt/bitECS) | **A++** | Muốn data-oriented/high-volume entities. ([GitHub][56])               |
+| 57 | [LastOliveGames/becsy](https://github.com/LastOliveGames/becsy) |     A/B | Muốn ECS thiên về performant/multithread architecture. ([GitHub][57]) |
+| 58 | [NSSTC/sim-ecs](https://github.com/NSSTC/sim-ecs)               |       B | ECS TypeScript thiên simulation. ([GitHub][58])                       |
+| 59 | [phughesmcr/Miski](https://github.com/phughesmcr/Miski)         |       B | Alternative archetypal/high-performance TS ECS. ([GitHub][59])        |
+
+**Phase đầu:** Miniplex.
+
+**Nếu sau này 10k–100k simulation entities:** benchmark bitECS/Becsy.
+
+---
+
+# 12. Multiplayer / persistent world
+
+| #  | Repo                                                                            |               Mức | Có thể lấy                                                                        |
+| -- | ------------------------------------------------------------------------------- | ----------------: | --------------------------------------------------------------------------------- |
+| 60 | [colyseus/colyseus](https://github.com/colyseus/colyseus)                       |           **A++** | Authoritative multiplayer, synchronized state, rooms, matchmaking. ([GitHub][60]) |
+| 61 | [colyseus/realtime-tanks-demo](https://github.com/colyseus/realtime-tanks-demo) |                 A | Clean authoritative multiplayer reference. ([GitHub][61])                         |
+| 62 | [tech-leads-club/nj-mmo](https://github.com/tech-leads-club/nj-mmo)             | **A++ reference** | Browser MMORPG: authoritative Colyseus server + Three.js client. ([GitHub][62])   |
+
+`nj-mmo` đặc biệt đáng đọc nếu sau này world của bạn trở thành **persistent online world**.
+
+---
+
+# 13. Editor / game engine architecture
+
+| #  | Repo                                                                          |     Mức | Có thể lấy                                                              |
+| -- | ----------------------------------------------------------------------------- | ------: | ----------------------------------------------------------------------- |
+| 63 | [tentone/nunuStudio](https://github.com/tentone/nunuStudio)                   | **A/B** | Open-source Three.js game engine + visual editor. ([GitHub][63])        |
+| 64 | [doppl3r/level-editor](https://github.com/doppl3r/level-editor)               |   **A** | Simple Three.js 3D level editor; dễ fork hơn engine lớn. ([GitHub][64]) |
+| 65 | [SterlyDolce/Infinite-Engine](https://github.com/SterlyDolce/Infinite-Engine) |       C | Three.js engine architecture/reference. ([GitHub][65])                  |
+
+---
+
+# Nhưng còn 3 thư viện tôi xem là bắt buộc
+
+Tôi không tính chúng vào 65 world repos ở trên theo nghĩa content-generation, nhưng thực tế **nên có trong stack**.
+
+### three-mesh-bvh
+
+[gkjohnson/three-mesh-bvh](https://github.com/gkjohnson/three-mesh-bvh)
+
+BVH tăng tốc raycasting và spatial query trên mesh Three.js; repo minh họa raycasting trên mesh lớn ở tốc độ realtime. ([GitHub][66])
+
+Dùng cho:
+
+```text
+bullet raycast
+mouse picking
+ground detection
+visibility
+collision query
+NPC perception
+terrain query
+```
+
+---
+
+### glTF Transform
+
+[donmccurdy/glTF-Transform](https://github.com/donmccurdy/glTF-Transform)
+
+Read/edit/write/optimize glTF bằng JS/TS. ([GitHub][67])
+
+Ví dụ pipeline:
+
+```text
+Raw GLB
+ ↓
+deduplicate
+ ↓
+simplify
+ ↓
+texture compress
+ ↓
+meshopt
+ ↓
+optimized GLB
+ ↓
+Three.js world
+```
+
+---
+
+### meshoptimizer / gltfpack
+
+[zeux/meshoptimizer](https://github.com/zeux/meshoptimizer)
+
+Có `gltfpack` để tự động tối ưu glTF, giảm download size và cải thiện loading/rendering. ([GitHub][68])
+
+World lớn mà bỏ asset optimization thì rất nhanh gặp bottleneck.
+
+---
+
+# Nếu là tôi build project này
+
+Tôi sẽ **không merge 65 repo**.
+
+Tôi sẽ dùng khoảng **8 mảnh**:
+
+```text
+                    WORLD ENGINE
+
+                     Three.js
+                        │
+        ┌───────────────┼────────────────┐
+        │               │                │
+        ▼               ▼                ▼
+ WorldGenerator      Rendering        Simulation
+        │               │                │
+        │         three-mesh-bvh       Miniplex
+        │                                 │
+ ┌──────┴──────┐                    ┌─────┴─────┐
+ ▼             ▼                    ▼           ▼
+Terrain       City                  NPC        Animals
+ │             │                     │
+ │             │                ┌────┴────┐
+Procedural   OSM/city-tour       │         │
+Terrains                       Yuka      Recast
+                                 │         │
+                                 ▼         ▼
+                              Behavior   Movement
+
+                    Physics
+                       │
+                     Rapier
+```
+
+### Stack Phase 1 tôi chọn
+
+```text
+Three.js
++
+ProceduralTerrains
++
+city-tour algorithms
++
+Miniplex
++
+Rapier
++
+recast-navigation-js
++
+Yuka
++
+three-mesh-bvh
+```
+
+Nếu dùng **Hồ Chí Minh thật**:
+
+```text
+                 OpenStreetMap
+                      │
+          ┌───────────┼───────────┐
+          ↓           ↓           ↓
+        Roads      Buildings     POI
+          │           │           │
+          └───── World Builder ───┘
+                      │
+                   chunks
+                      │
+                  Three.js
+                      │
+       ┌──────────────┼──────────────┐
+       ↓              ↓              ↓
+   rendering        navmesh          ECS
+                       │              │
+                    NPC paths      NPC state
+                       │              │
+                    Yuka AI     daily schedule
+```
+
+## Và đây là thứ tôi nghĩ bạn nên làm trước
+
+**Không làm “world engine” ngay.**
+
+Làm một **1 km × 1 km sandbox**.
+
+```text
+1 km²
+│
+├── terrain
+├── 10 roads
+├── 100 buildings
+├── 500 trees
+├── 20 NPC
+├── 5 animals
+├── day/night
+├── player
+└── NPC walking + talking
+```
+
+Sau đó world chỉ còn là bài toán:
+
+```text
+1 chunk hoạt động
+        ↓
+10 chunks
+        ↓
+stream chunks
+        ↓
+100 chunks
+        ↓
+procedural/infinite world
+```
+
+Đây là kiến trúc thực tế hơn nhiều so với cố dựng toàn thành phố trước.
+
+**5 repo tôi muốn bạn clone trước tiên:**
+
+1. `xikhar/beyond-fable`
+2. `ZyFou/ProceduralTerrains`
+3. `jstrait/city-tour`
+4. `isaac-mason/recast-navigation-js`
+5. `Mugen87/yuka`
+
+Sau đó tôi sẽ lấy **Beyond Fable làm “bộ xương world”**, `city-tour` làm tư duy sinh thành phố, Recast làm hệ giao thông cho NPC, Yuka làm brain và Rapier làm physics. Beyond Fable hiện đã có chunk streaming, instancing, vegetation LOD và adaptive rendering nên đặc biệt tốt để mổ kiến trúc open-world browser. ([GitHub][6])
+
+**Bước tiếp theo có giá trị nhất:** tôi có thể đi sâu vào **source code của 5 repo trên**, chỉ ra chính xác **folder/file/class nào đáng copy**, rồi thiết kế cho bạn một `WorldEngine` Three.js tối giản gồm `ChunkManager`, `TerrainGenerator`, `CityGenerator`, `NPCManager`, `SpawnManager`, `NavMeshManager`, `WorldSeed` và `WorldPersistence`. Đây sẽ gần như là blueprint để bắt đầu code ngay.
+
+[1]: https://github.com/ZyFou/ProceduralTerrains?utm_source=chatgpt.com "ZyFou/ProceduralTerrains: Three.js procedural terrain ..."
+[2]: https://github.com/mrdoob/three.js/?utm_source=chatgpt.com "mrdoob/three.js: JavaScript 3D Library."
+[3]: https://github.com/obecerra3/OpenWorldJS?utm_source=chatgpt.com "obecerra3/OpenWorldJS: 3D Open World using threejs ..."
+[4]: https://github.com/dimartarmizi/threejs-procedural-terrain?utm_source=chatgpt.com "dimartarmizi/threejs-procedural-terrain"
+[5]: https://github.com/reality2-roycdavies/vr-forest?utm_source=chatgpt.com "reality2-roycdavies/vr-forest"
+[6]: https://github.com/xikhar/fable?utm_source=chatgpt.com "xikhar/beyond-fable: A world beyond the story..."
+[7]: https://github.com/Braffolk/fable5-world-demo?utm_source=chatgpt.com "Braffolk/fable5-world-demo: Laas: 3D ..."
+[8]: https://github.com/IceCreamYou/THREE.Terrain?utm_source=chatgpt.com "IceCreamYou/THREE.Terrain: A procedural ..."
+[9]: https://github.com/djmartin2019/davey-maps?utm_source=chatgpt.com "djmartin2019/davey-maps"
+[10]: https://github.com/Sunwood-ai-labs/threejs-voxel-frontier?utm_source=chatgpt.com "Sunwood-ai-labs/threejs-voxel-frontier"
+[11]: https://github.com/nimadez/voxel-builder?utm_source=chatgpt.com "nimadez/voxel-builder: Voxel-based 3D modeling application"
+[12]: https://github.com/jstrait/city-tour?utm_source=chatgpt.com "jstrait/city-tour: A procedurally generated ..."
+[13]: https://github.com/jeromeetienne/threex.proceduralcity?utm_source=chatgpt.com "jeromeetienne/threex.proceduralcity: a procedural city ..."
+[14]: https://github.com/MHillier98/IntroToComputerGraphics-CityGenerator?utm_source=chatgpt.com "A Procedural City Generator built in Three.js ..."
+[15]: https://github.com/alexwgraves/ville?utm_source=chatgpt.com "alexwgraves/ville: A user input-based procedural city generator"
+[16]: https://github.com/neki-dev/gen-city?utm_source=chatgpt.com "neki-dev/gen-city: 🧩 Procedural city generation"
+[17]: https://github.com/jjmontesl/ddd?utm_source=chatgpt.com "jjmontesl/ddd: Procedural generation of 2D and 3D ..."
+[18]: https://github.com/strandedkitty/streets-gl?utm_source=chatgpt.com "StrandedKitty/streets-gl: 🗺 OpenStreetMap 3D renderer ..."
+[19]: https://github.com/tentone/geo-three?utm_source=chatgpt.com "tentone/geo-three: Tile based geographic world map ..."
+[20]: https://github.com/felixpalmer/procedural-gl-js?utm_source=chatgpt.com "felixpalmer/procedural-gl-js: Mobile-first 3D mapping ..."
+[21]: https://github.com/NASA-AMMOS/3DTilesRendererJS?utm_source=chatgpt.com "Renderer for 3D Tiles in Javascript using three.js, Babylon. ..."
+[22]: https://github.com/cesiumgs/cesium?utm_source=chatgpt.com "CesiumGS/cesium: An open-source JavaScript library for ..."
+[23]: https://github.com/felixpalmer/new-zealand-3d/?utm_source=chatgpt.com "felixpalmer/new-zealand-3d"
+[24]: https://github.com/SkyeShark/SeedThree?utm_source=chatgpt.com "SkyeShark/SeedThree: Open-source procedural tree & ..."
+[25]: https://github.com/Braffolk/fable5-world-demo/blob/main/PROJECT_LAAS_v2.md?utm_source=chatgpt.com "fable5-world-demo/PROJECT_LAAS_v2.md at main"
+[26]: https://github.com/achrefelouafi/WaterThreeJS?utm_source=chatgpt.com "achrefelouafi/WaterThreeJS"
+[27]: https://github.com/Dante83/A-Starry-Sky?utm_source=chatgpt.com "Dante83/A-Starry-Sky: A Realistic Skybox for A Frame!"
+[28]: https://github.com/mrdoob/three.js/blob/dev/examples/webgl_shaders_ocean.html?utm_source=chatgpt.com "webgl_shaders_ocean.html - three.js"
+[29]: https://github.com/vvanhee/earth-wallpaper?utm_source=chatgpt.com "vvanhee/earth-wallpaper: Photorealistic, real-time WebGL ..."
+[30]: https://github.com/matteason/live-cloud-maps?utm_source=chatgpt.com "matteason/live-cloud-maps: Near real-time ..."
+[31]: https://github.com/erichlof/THREE.js-PathTracing-Renderer?utm_source=chatgpt.com "THREE.js-PathTracing-Renderer"
+[32]: https://github.com/Alchemist0823/three.quarks?utm_source=chatgpt.com "Three.quarks is a general purpose particle system / VFX ..."
+[33]: https://github.com/NewKrok/three-particles?utm_source=chatgpt.com "NewKrok/three-particles: Just one more particle system for ..."
+[34]: https://github.com/NewKrok/three-particles-editor?utm_source=chatgpt.com "NewKrok/three-particles-editor"
+[35]: https://github.com/creativelifeform/three-nebula?utm_source=chatgpt.com "creativelifeform/three-nebula: WebGL based particle ..."
+[36]: https://github.com/mustache-dev/Three-VFX?utm_source=chatgpt.com "mustache-dev/Three-VFX"
+[37]: https://github.com/lightest/gpuparticles?utm_source=chatgpt.com "lightest/gpuparticles: GPU particles using THREE.js"
+[38]: https://github.com/Mugen87/yuka?utm_source=chatgpt.com "Mugen87/yuka: JavaScript library for developing Game AI."
+[39]: https://github.com/Mugen87/dive?utm_source=chatgpt.com "Mugen87/dive: Shooter AI showcase with Yuka."
+[40]: https://github.com/ssethsara/react-three-npc?utm_source=chatgpt.com "ssethsara/react-three-npc: This is a non playable character ..."
+[41]: https://mugen87.github.io/yuka/?utm_source=chatgpt.com "Yuka | A JavaScript library for developing Game AI"
+[42]: https://github.com/isaac-mason/recast-navigation-js?utm_source=chatgpt.com "isaac-mason/recast-navigation-js: WebAssembly port of ..."
+[43]: https://github.com/isaac-mason/navcat?utm_source=chatgpt.com "isaac-mason/navcat"
+[44]: https://github.com/donmccurdy/three-pathfinding?utm_source=chatgpt.com "donmccurdy/three-pathfinding: Navigation mesh utilities for ..."
+[45]: https://github.com/vincent/recast.js/?utm_source=chatgpt.com "vincent/recast.js: A wrapper for the RecastDetour ..."
+[46]: https://github.com/jsantell/THREE.IK?utm_source=chatgpt.com "jsantell/THREE.IK: inverse kinematics for three.js"
+[47]: https://github.com/Lacamoura48/CCDIKSolver-Mixamo-model?utm_source=chatgpt.com "CCDIKSolver + Mixamo 3D Model Example"
+[48]: https://github.com/posecode-dev/posecode?utm_source=chatgpt.com "Posecode"
+[49]: https://github.com/dimforge/rapier.js/?utm_source=chatgpt.com "GitHub - dimforge/rapier.js: Official JavaScript bindings for ..."
+[50]: https://github.com/dimforge/rapier?utm_source=chatgpt.com "dimforge/rapier: 2D and 3D physics engines focused on ..."
+[51]: https://github.com/pmndrs/cannon-es?utm_source=chatgpt.com "pmndrs/cannon-es: 💣 A lightweight 3D physics ..."
+[52]: https://github.com/pmndrs/ecctrl?utm_source=chatgpt.com "pmndrs/ecctrl: 🕹️ A physics-driven controller toolkit ..."
+[53]: https://github.com/doppl3r/kinematic-character-controller-example?utm_source=chatgpt.com "doppl3r/kinematic-character-controller-example"
+[54]: https://github.com/icurtis1/character-controller-sample-project?utm_source=chatgpt.com "icurtis1/character-controller-sample-project: A 3D ..."
+[55]: https://github.com/hmans/miniplex?utm_source=chatgpt.com "hmans/miniplex: A 👩‍💻 developer-friendly entity ..."
+[56]: https://github.com/NateTheGreatt/bitECS?utm_source=chatgpt.com "NateTheGreatt/bitECS: Flexible, minimal, data-oriented ..."
+[57]: https://github.com/lastolivegames/becsy?utm_source=chatgpt.com "LastOliveGames/becsy"
+[58]: https://github.com/NSSTC/sim-ecs?utm_source=chatgpt.com "NSSTC/sim-ecs: Batteries included TypeScript ECS"
+[59]: https://github.com/phughesmcr/Miski?utm_source=chatgpt.com "phughesmcr/Miski: An Archetypal Entity Component ..."
+[60]: https://github.com/colyseus/colyseus?utm_source=chatgpt.com "colyseus/colyseus: ⚔ Multiplayer Framework for Node.js"
+[61]: https://github.com/colyseus/realtime-tanks-demo?utm_source=chatgpt.com "Demo: Realtime Tanks Multiplayer using Colyseus (0.17)"
+[62]: https://github.com/tech-leads-club/nj-mmo?utm_source=chatgpt.com "tech-leads-club/nj-mmo: A fully playable, low- ..."
+[63]: https://github.com/tentone/nunuStudio?utm_source=chatgpt.com "tentone/nunuStudio: Web powered cross-platform 3D ..."
+[64]: https://github.com/doppl3r/level-editor?utm_source=chatgpt.com "doppl3r/level-editor: Design 3D platform levels."
+[65]: https://github.com/SterlyDolce/Infinite-Engine?utm_source=chatgpt.com "Infinite Engine (IE)"
+[66]: https://github.com/gkjohnson/three-mesh-bvh?utm_source=chatgpt.com "gkjohnson/three-mesh-bvh: A BVH implementation to ..."
+[67]: https://github.com/donmccurdy/glTF-Transform?utm_source=chatgpt.com "donmccurdy/glTF-Transform: glTF 2.0 SDK for JavaScript ..."
+[68]: https://github.com/zeux/meshoptimizer?utm_source=chatgpt.com "GitHub - zeux/meshoptimizer: Mesh optimization library ..."

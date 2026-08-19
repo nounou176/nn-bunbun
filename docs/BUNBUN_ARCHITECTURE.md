@@ -6,8 +6,9 @@ This document defines the approved architectural direction. Milestones 1
 through 6 are implemented and manually accepted: the workspace, contracts,
 technical runtime, complete eight-primitive executor, and local evidence/
 safe-resume boundary all exist locally. Compiler, cached audio, and production
-asset implementation remain planned until their roadmap milestones. D-025 now
-defines the production world-authoring and asset-intake boundary.
+asset implementation remain planned until their roadmap milestones. D-025
+defines the production world-authoring and asset-intake boundary, and D-026
+defines the first N5 audio-complete product vertical slice.
 
 ## Architectural goals
 
@@ -94,7 +95,11 @@ Planned responsibilities beyond Milestone 6:
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
 - dynamically load only the referenced scene and asset bundles;
-- replace the temporary audio adapter with reviewed cached audio;
+- replace the temporary audio adapter with reviewed cached Japanese speech;
+- mix voice, scene ambience, deterministic cue-owned effects, and restrained
+  music through learner-controlled audio buses;
+- preload speech and sound assets required for the first interaction while
+  preserving captions, replay, and a recoverable text fallback; and
 - connect later compiled lesson revisions to the implemented storage boundary
   without weakening immutable package fingerprints.
 
@@ -290,6 +295,15 @@ cloud sync implicitly. See EVIDENCE_PERSISTENCE.md.
 Generated audio and mnemonic images should use stable cache keys derived from
 their relevant inputs and provider version. Store metadata and references in
 SQLite; do not duplicate large binary data inside manifests.
+
+Under D-026, spoken Japanese remains manifest-addressed through `AudioAsset`
+and approved voice profiles. Scene ambience belongs to the code-owned scene
+audio registry. World, feedback, and musical stings belong to registered
+presentation cues. The runtime resolves all three through application-owned
+asset metadata; a manifest cannot provide an audio URL, file path, mix value,
+or arbitrary playback instruction. Character speech receives mix priority and
+may temporarily duck ambience and music. Exact TTS provider, model, voice
+profiles, cache storage, and licensed non-speech sources remain O-010 decisions.
 
 ## Runtime determinism and recovery
 

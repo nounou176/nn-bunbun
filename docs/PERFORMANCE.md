@@ -272,6 +272,15 @@ The TTS cache key must include all inputs that can change the spoken output,
 such as normalized Japanese text, voice profile, model version, and relevant
 generation settings.
 
+The D-026 audio-complete vertical slice must additionally measure first-voice
+readiness, playback-start latency after the learner gesture, encoded bytes by
+voice/ambience/effects/music category, simultaneous source count, decode or
+mixing stalls, and behavior during background/resume. Voice must remain
+intelligible over rain, station, street, effect, and music layers. Preloading
+must prioritize the first required speech and ambience instead of blocking the
+first interaction on every later sound. Audio replay, ducking, and scene-loop
+updates must not create persistent frame drops or duplicate heard evidence.
+
 ## Runtime loop
 
 - AI and network compilation work never runs in the frame loop.
