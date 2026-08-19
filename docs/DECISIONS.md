@@ -1210,7 +1210,7 @@ maintenance costs.
 ### D-028 — Sequence M7 v3 through manual, WXT, then MCP bridge stages
 
 - Date: 2026-08-19
-- Status: Accepted
+- Status: Superseded by D-031
 - Affects: M7 v3 sequencing, browser integration, open-source intake,
   authentication, privacy, M7 v2 fallback
 
@@ -1323,7 +1323,7 @@ local-link rules. D-028's later WXT and MCP gates remain unchanged.
 ### D-030 — Use one dedicated bridge-mode GPT for the manual compiler
 
 - Date: 2026-08-19
-- Status: Proposed
+- Status: Rejected by D-031
 - Affects: M7 v3.1 orchestration, GPT configuration, prompt composition,
   privacy disclosure, manual import, D-023
 
@@ -1387,6 +1387,94 @@ composed bridge prompt, deterministic normalization, and authored tests. It
 would not authorize creating/editing the external GPT automatically,
 deployment, MCP, WXT, browser automation, or learner-data transmission without
 the explicit export disclosure.
+
+This proposal was not accepted. D-031 instead selects a repository-owned,
+Skills-only personal plugin and avoids creating another hosted Custom GPT.
+
+### D-031 — Select a Skills-only personal plugin for M7 v3.2
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: M7 v3 sequencing, AI-module orchestration, ChatGPT/Codex plugin,
+  Custom GPT reuse, browser integration, cost, privacy
+- Supersedes: D-028's WXT v3.2 stage and proposed D-030
+
+Context:
+
+The v3.1 Story Sheet experiment established that a hosted Custom GPT can return
+the requested JSON shape, but its incomplete two-of-five evidence does not
+justify building a browser extension around ChatGPT's DOM. Reviewing all six
+captured GPTs also showed that their durable value is their user-owned behavior
+and source material, not their hosted GPT identities: only Story Sheet, Reverse
+Trainer, and Story Coach belong to the Milestone 7 lesson compiler, while
+Visual Mnemonic and both Anki-oriented GPTs belong to later workflows.
+
+A WXT extension would automate transfer but would add browser permissions,
+loopback authentication, packaging, installation, and ongoing ChatGPT DOM
+maintenance. A second hosted `Bunbun Lesson Bridge` GPT would create another
+external configuration that could drift from the repository. Current ChatGPT
+and Codex plugin support can package Skills without requiring an MCP server,
+which provides a smaller way to make the reviewed Bunbun behavior reusable in
+the user's existing ChatGPT subscription.
+
+Decision:
+
+Make **M7 v3.2 a local personal ChatGPT/Codex plugin containing Skills only**.
+This is the selected next implementation direction for M7. The initial plugin
+contains one learner-facing lesson-authoring skill that composes the approved
+`story_sheet@0.1.0`, `reverse_trainer@0.1.0`, and `story_coach@0.1.0`
+responsibilities in D-024 order. It does not expose or run six independent
+agents. The remaining captured GPT behaviors stay disabled for Milestone 7 and
+may become separately reviewed mnemonic or Anki skills only in their owning
+later milestones.
+
+The plugin reuses the captured GPT behavior through repository-owned,
+versioned instructions, references, hashes, contracts, and fixtures. It does
+not invoke the original hosted Custom GPT IDs, depend on their editor state, or
+make hidden ChatGPT configuration authoritative. Bunbun's deterministic
+compiler envelope and validators continue to own world facts, target truth,
+primitive order, difficulty, IDs, transitions, attempts, timing, budgets,
+normalization, publication, and gameplay.
+
+The v3.2 boundary is:
+
+- no `OPENAI_API_KEY`, provider SDK, programmatic login, cookie/session access,
+  browser automation, WXT extension, public endpoint, tunnel, or MCP server;
+- one explicit user-triggered authoring operation, with learner targets and
+  compact authoring facts disclosed before they enter ChatGPT/Codex;
+- exact typed output treated as untrusted and accepted only after the same
+  local structural, semantic, catalog, and runtime-capability validation;
+- no learner identity, progress, evidence, TYPE response, checkpoint, secret,
+  or private chat history as authoring input; and
+- ordinary gameplay remains completely local and deterministic after lesson
+  publication.
+
+Keep M7 v3.1 as historical feasibility evidence rather than the active
+implementation route. Move WXT to research-only fallback status; it may be
+reconsidered only if the Skills-only route is unavailable or a measured
+transfer problem remains and a new permissions/security decision is accepted.
+Keep M7 v3.3 as the conditional MCP stage for a future direct ChatGPT-to-Bunbun
+connection; it still requires a separate endpoint, authentication, privacy,
+confirmation, and infrastructure decision.
+
+No separate OpenAI plugin surcharge was identified in the official pricing and
+plugin documentation reviewed on this date. The selected route is expected to
+use the allowance of the user's existing ChatGPT plan, but it is not an
+unlimited-cost guarantee: normal plan limits or credits still apply, exact
+availability depends on the account/workspace, and optional extra credits or
+future third-party infrastructure can cost money. API-key billing is outside
+this decision.
+
+Consequences:
+
+D-023's one-composed-request rule remains intact, and proposed D-030 is
+rejected. A new self-contained ExecPlan must define and receive approval for
+the personal plugin manifest, skill interface, authoritative repository
+references, packet/output contracts, disclosure, validation handoff, fixtures,
+and manual acceptance before implementation. Creating the plugin, installing
+it, changing a ChatGPT account, transmitting real learner targets, adding MCP,
+or implementing compiler/runtime code is not authorized merely by this
+architecture decision.
 
 ## Deferred decisions
 

@@ -10,10 +10,11 @@ keeps the alternative compiler strategies distinct so research on one path
 does not silently approve, erase, or implement another.
 
 D-027 accepts the three-strategy registry and makes M7 v3 the active research
-direction. D-028 accepts the internal M7 v3 sequence and approves v3.1 through
-its manual Story Sheet feasibility gate. D-029 closes that gate early after two
-of five fixtures as provisionally viable for orchestration planning; it does
-not claim complete qualification. Later stages remain conditional.
+direction. D-029 closes the v3.1 manual Story Sheet gate early after two of five
+fixtures as provisionally viable evidence; it does not claim complete
+qualification. D-031 supersedes D-028's WXT stage and selects a Skills-only
+personal ChatGPT/Codex plugin as M7 v3.2 and the next implementation direction.
+MCP remains conditional v3.3 work.
 
 ## Shared outcome and invariants
 
@@ -49,7 +50,7 @@ rules:
 | --- | --- | --- | --- | --- |
 | M7 v1 | OpenAI Responses API with strict Structured Outputs | Preserved inactive proposal | Proposed `OPENAI_API_KEY`; not approved | D-022 and `plans/2026-08-12-structured-lesson-compiler.md` |
 | M7 v2 | Self-built or locally adapted open-weight LLM running locally | Research backlog | No remote provider credential assumed | This registry; a future research record and ExecPlan are required |
-| M7 v3 | Existing Custom GPT behavior through a user-authorized browser or ChatGPT-side bridge | V3.1 feasibility closed provisionally; orchestration decision next; v3.2/v3.3 conditional | No `OPENAI_API_KEY`; any later token, tunnel, or browser-session access needs separate approval | D-027, D-028, D-029, and `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md` |
+| M7 v3 | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 Skills-only direction accepted; implementation ExecPlan proposed; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031, and `plans/2026-08-19-m7-v3-skills-plugin.md` |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -84,7 +85,7 @@ select them or any other model:
 
 - https://developers.openai.com/api/docs/models/gpt-oss-120b
 
-## M7 v3 — Custom GPT browser bridge
+## M7 v3 — ChatGPT/Codex authoring bridge
 
 ### Local evidence available
 
@@ -122,12 +123,19 @@ existing Custom GPTs:
 
 - https://developers.openai.com/workspace-agents/trigger-runs
 
-ChatGPT plugins can connect to an MCP server in developer mode. Current
-documentation requires either a reachable public HTTPS endpoint or Secure MCP
-Tunnel for ChatGPT access. This may later support a ChatGPT-to-Bunbun delivery
-path, but it introduces account/workspace availability, networking,
-authentication, disclosure, and maintenance decisions that the local-first
-project has not approved:
+ChatGPT plugins may contain Skills, connectors, MCP servers, browser extensions,
+hooks, and tasks. The smallest selected M7 shape is a Skills-only plugin; it
+needs no Bunbun MCP endpoint. Plugin and feature availability still depends on
+the user's ChatGPT account or workspace:
+
+- https://learn.chatgpt.com/docs/plugins
+- https://learn.chatgpt.com/docs/pricing
+
+If a later stage adds MCP, current documentation requires either a reachable
+public HTTPS endpoint or Secure MCP Tunnel for ChatGPT access. That may support
+direct ChatGPT-to-Bunbun delivery, but introduces account/workspace
+availability, networking, authentication, disclosure, infrastructure cost, and
+maintenance decisions that the local-first project has not approved:
 
 - https://developers.openai.com/plugins/build/app-quickstart
 - https://developers.openai.com/plugins/deploy/connect-chatgpt
@@ -137,39 +145,43 @@ project has not approved:
 | Route | What it proves | Main cost or risk | V3 position |
 | --- | --- | --- | --- |
 | Manual file/clipboard bridge | Existing GPT can receive a bounded packet and return importable content without an API key | Human transfer, formatting errors, no unattended generation | Recommended first feasibility spike |
+| Skills-only personal plugin | Packages the reviewed GPT-derived behaviors into one versioned ChatGPT/Codex authoring skill without an API key or local endpoint | Account/workspace availability, normal plan limits, manual result handoff | **Selected M7 v3.2 direction** |
 | Browser-assisted launcher | Bunbun opens a reviewed GPT link after a user gesture and copies/downloads the packet | Popup rules, local link configuration, still manual on return | Candidate after the manual packet passes |
-| Local browser extension/userscript | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page | New extension surface, permissions, ChatGPT DOM churn | Later candidate only |
+| Local browser extension/userscript | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page | New extension surface, permissions, ChatGPT DOM churn | Research-only WXT fallback |
 | Playwright/CDP browser automation | Automates navigation, submission, and response capture | Session/cookie handling, fragile selectors, product UI changes, rate limits, new dependency; no supported Custom GPT API contract | Research-only; excluded from the first plan |
 | Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model | Conditional later spike |
 | Workspace Agent trigger | Starts a published agent from another system | Different product surface, access token required, current API cannot retrieve the response | Not selected for v3 |
 
 ### Accepted staged route
 
-D-028 orders the viable routes without approving every route at once:
+D-031 supersedes D-028's WXT stage and sets this route:
 
-1. **M7 v3.1 — manual packet and exact JSON import.** Active now. D-029 closes
-   the Story Sheet gate after two of five fixtures as provisional evidence. The
-   next gate is the orchestration decision before compiler implementation.
-2. **M7 v3.2 — WXT extension.** Promote only if v3.1 passes and measured manual
-   transfer cost justifies a local extension. WXT is the preferred framework;
-   permissions, selected-response scope, loopback authentication, packaging,
-   and ChatGPT UI churn need a separate plan.
-3. **M7 v3.3 — MCP bridge.** Promote only after earlier stages and a separate
-   decision covering GPT edit/clone scope, endpoint reachability, tunnel or
-   hosting, authentication, write confirmation, and privacy.
+1. **M7 v3.1 — manual direct-GPT feasibility.** Historical evidence only.
+   D-029 closed the Story Sheet gate after two of five fixtures as provisional,
+   with Run 001 rejected semantically, Run 002 accepted, and three fixtures
+   unexecuted.
+2. **M7 v3.2 — Skills-only personal plugin.** This is the selected next
+   implementation direction. One authoring skill composes the three D-024
+   modules in one request and emits an untrusted typed contribution for local
+   validation. It reuses reviewed behavior rather than invoking the six hosted
+   GPT objects. Initial scope has no MCP, browser extension, provider API, or
+   endpoint.
+3. **M7 v3.3 — MCP bridge.** Promote only if direct delivery becomes valuable
+   and a separate decision approves endpoint reachability, tunnel or hosting,
+   authentication, write confirmation, privacy, and cost.
 
-Playwright/Puppeteer, Playwright MCP, and agentic browser controllers remain
-research-only. LibreChat, AnythingLLM, and similar local reconstructions move
-to the M7 v2 comparison because they reuse the captured behavior rather than
-the hosted GPT object.
+WXT, Playwright/Puppeteer, Playwright MCP, and agentic browser controllers
+remain research-only. LibreChat, AnythingLLM, and similar local
+reconstructions move to the M7 v2 comparison because they replace hosted model
+execution rather than providing the selected ChatGPT/Codex skill surface.
 
 ### Open-source reference set
 
-The accepted sequence is informed by, but does not vendor or install, these
-projects:
+The research is informed by, but does not vendor or install, these projects:
 
-- M7 v3.2 preferred framework: WXT, MIT — https://github.com/wxt-dev/wxt
-- Extension references only: Plasmo, MIT — https://github.com/PlasmoHQ/plasmo
+- Skills-only plugin guidance: https://learn.chatgpt.com/docs/plugins
+- Extension fallback reference: WXT, MIT — https://github.com/wxt-dev/wxt
+- Other extension references: Plasmo, MIT — https://github.com/PlasmoHQ/plasmo
   and ChatGPT Exporter, MIT — https://github.com/pionxzh/chatgpt-exporter
 - Browser-automation research only: Playwright, Apache-2.0 —
   https://github.com/microsoft/playwright and Browser Use, MIT —
@@ -190,45 +202,36 @@ does not return the agent response.
 
 ### Recommended first vertical proof
 
-The smallest credible v3 proof is human-in-the-loop and local-first:
+The smallest credible v3.2 proof stays human-triggered and local-first:
 
-1. Bunbun creates one versioned, privacy-reviewed prompt packet from a fixed
-   authored test envelope.
-2. The user deliberately opens the corresponding Custom GPT and pastes the
-   packet.
-3. The user copies the response back into a local import field or file.
-4. Bunbun parses it as untrusted input, validates the exact module contribution
-   schema, and returns stable diagnostics.
-5. The same approved success and rejection fixtures are evaluated manually
-   unless the user explicitly stops early; any unrun fixture remains a named
-   residual risk rather than an inferred pass.
-6. Only after one module passes does the project decide whether to test all
-   three GPTs sequentially, create a dedicated bridge-mode GPT revision, or
-   stop direct-GPT reuse and use the local prompt adaptations instead.
+1. Build a local personal plugin with one lesson-authoring skill and no MCP
+   server.
+2. Give it one fixed, privacy-reviewed authored packet rather than real learner
+   history.
+3. Compose the three approved modules in one request and return exactly one
+   typed contribution object.
+4. Validate the result with repository-owned contracts and stable diagnostics;
+   never publish an invalid or partial lesson.
+5. Run the approved text fixtures and manual account-surface check without
+   inferring that the three unexecuted v3.1 fixtures passed.
 
-This proof does not require a model API, environment variable, programmatic
-login, cookie access, tunnel, browser extension, or automation dependency.
+This proof requires no model API, environment variable, programmatic login,
+cookie access, tunnel, browser extension, MCP server, or external GPT edit.
 
-### Unresolved decision gates
+### Remaining implementation gates
 
-The v3.1 Story Sheet feasibility gate is closed early under D-029 as
-`PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING`. Runs 003–005 were not
-executed, so implementation still cannot begin until the user resolves these
-choices:
+D-031 closes the transport and orchestration choice. Implementation still
+requires approval of the new ExecPlan and its concrete boundaries:
 
-- whether v3 may invoke Story Sheet, Reverse Trainer, and Story Coach as three
-  separate user-mediated conversations, explicitly revising D-023's current
-  one-composed-request rule;
-- whether the selected orchestration uses the three existing GPTs sequentially,
-  one dedicated bridge-mode GPT, or one composed prompt-pack conversation;
-- whether GPT links may be stored in a Git-ignored local configuration or the
-  user will open them independently;
-- whether imported responses must be strict JSON or may pass through a
-  deterministic text-extraction review step;
-- how many manual repair rounds are allowed;
-- whether learner-entered targets may leave the local machine through
-  ChatGPT, and what disclosure appears before export; and
-- whether any later extension, tunnel, action, session access, or browser
-  automation is acceptable.
+- plugin name, package layout, installation/reload procedure, and supported
+  ChatGPT/Codex surfaces;
+- exact skill input/output contract and whether manual clipboard/file import is
+  the first Bunbun handoff;
+- strict JSON failure and bounded repair behavior;
+- learner-target disclosure and a test-only initial data policy;
+- fixture and version-drift checks for the three composed modules; and
+- fallback behavior when the plugin surface or normal ChatGPT plan allowance
+  is unavailable.
 
-Until those gates close, v3 is research and documentation only.
+No plugin, compiler, external account change, real learner-data transmission,
+or MCP infrastructure is implemented by D-031 alone.

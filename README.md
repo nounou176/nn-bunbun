@@ -144,15 +144,14 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   Pack 0.1.0 under `docs/ai-modules/`, including the typed contract, exact
   prompt fragments/hashes, and fifteen text-only fixtures. The modules are
   Approved for implementation but remain inactive because no compiler/provider
-  is implemented. D-027 preserves Responses API as inactive M7 v1, local
-  self-built LLM work as M7 v2 research, and the Custom GPT browser bridge as
-  active M7 v3. D-028 accepts the v3.1 manual → v3.2 WXT → v3.3 MCP sequence
-  and approves only the no-key v3.1 Story Sheet feasibility gate. D-029 closes
-  that gate early after two of five fixtures as provisionally viable for
-  orchestration planning; D-030 proposes one dedicated bridge-mode GPT and is
-  not yet approved. No browser extension, automation, GPT edit, connection,
-  tunnel, or learner-data transfer is implemented. Supplied images/APKG are
-  style examples only.
+  is implemented. D-027 preserves Responses API as inactive M7 v1 and local
+  self-built LLM work as M7 v2 research. D-029 closes the no-key v3.1 Story
+  Sheet gate early after two of five fixtures as provisional evidence. D-031
+  rejects a dedicated bridge-mode GPT, supersedes WXT, and selects a
+  repository-owned Skills-only personal ChatGPT/Codex plugin as M7 v3.2. MCP
+  remains conditional v3.3 work. No plugin, browser extension, automation, GPT
+  edit, connection, tunnel, or learner-data transfer is implemented. Supplied
+  images/APKG are style examples only.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.
 - The JavaScript build contains the WebGPU-capable Three.js renderer and emits

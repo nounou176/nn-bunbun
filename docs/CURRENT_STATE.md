@@ -5,19 +5,23 @@ Last updated: 2026-08-19
 ## Current milestone
 
 Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
-v3, and D-028 accepts the M7 v3.1 manual → v3.2 WXT → v3.3 MCP sequence. The
-v3.1 no-code Story Sheet feasibility gate is closed early under D-029 after two
-of five fixtures. Run 001 passes structural/media checks but fails strict world
-facts; Run 002 passes structural, semantic, and media checks. Runs 003–005 are
-unexecuted. D-030 proposes one dedicated bridge-mode GPT as the orchestration
-shape and awaits approval. Prompt Adaptation Pack 0.1.0 remains approved. No
-compiler implementation, browser extension, automation, provider connection,
-external GPT edit, or environment variable has started.
+v3. The v3.1 Story Sheet feasibility gate is closed early under D-029 after two
+of five fixtures, with one semantic rejection, one accepted result, and three
+unexecuted fixtures. D-031 supersedes the WXT stage and rejects proposed D-030;
+M7 v3.2 is now a Skills-only personal ChatGPT/Codex plugin and the selected next
+implementation direction. Prompt Adaptation Pack 0.1.0 remains authoritative.
+No plugin, compiler implementation, MCP server, browser extension, automation,
+provider connection, external GPT edit, or environment variable has started.
 
 Active ExecPlan:
 
-- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Feasibility closed
-  provisionally; D-030 orchestration approval pending
+- plans/2026-08-19-m7-v3-skills-plugin.md — Proposed; implementation approval
+  pending
+
+Historical M7 v3.1 evidence plan:
+
+- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Superseded as the
+  implementation route; retained for provisional direct-GPT evidence
 
 Preserved inactive candidate:
 
@@ -209,14 +213,13 @@ Completed ExecPlans:
 - Milestone 6 is closed with no blocking defect reported in the user's approval.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
-  plan; M7 v2 preserves self-built local LLM research; active M7 v3 researches
-  a user-mediated Custom GPT browser bridge without `gpt-5.6-terra` or
-  `OPENAI_API_KEY`.
-- Accepted D-028 after the user approved the staged M7 v3 route: v3.1 uses a
-  manual packet and exact JSON import; v3.2 conditionally prefers a local WXT
-  extension; v3.3 conditionally considers a ChatGPT-side MCP bridge. V3.1 is
-  approved through its no-code Story Sheet gate. V3.2, v3.3, and full compiler
-  code remain gated.
+  plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
+  captured Custom GPT behavior without `gpt-5.6-terra` or `OPENAI_API_KEY`.
+- D-031 supersedes D-028's WXT stage and selects M7 v3.2 as a local personal
+  ChatGPT/Codex plugin containing one composed lesson-authoring Skill and no
+  MCP server. WXT is now a research-only fallback; v3.3 MCP remains conditional.
+  The selected route has no `OPENAI_API_KEY` and uses normal ChatGPT plan
+  allowance, subject to account/workspace availability and plan limits.
 - Prepared the first user-operated Story Sheet feasibility packet from the
   approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
   request/module/source/prompt identities, reviewed `犬` target, catalog-backed
@@ -256,14 +259,13 @@ Completed ExecPlans:
   evidence. Runs 004 and 005 were not prepared or executed.
 - Accepted D-029: stop the Story Sheet gate after two of five fixtures and
   classify it as `PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING`, not a full
-  qualification. Added proposed D-030 recommending one manually operated,
-  user-owned dedicated bridge-mode GPT that composes all three approved module
-  behaviors in one D-023-compatible request. D-030 is not approved and no GPT
-  has been created, cloned, or edited.
-- The active v3.1 ExecPlan begins with a manual file/clipboard feasibility gate
-  against Story Sheet. It explicitly excludes programmatic login,
-  cookies, persistent browser profiles, UI scraping, browser automation,
-  extensions, actions, tunnels, MCP connections, GPT edits, provider keys, and
+  qualification. D-031 keeps this as historical evidence and rejects proposed
+  D-030's dedicated bridge-mode GPT.
+- The proposed v3.2 ExecPlan packages only the three D-024-approved lesson
+  responsibilities into one repository-owned Skill. The other three captured
+  GPT behaviors remain disabled for M7. The plan excludes programmatic login,
+  cookies, persistent browser profiles, UI scraping, browser automation, WXT,
+  actions, tunnels, MCP, external GPT edits, provider keys, and real
   learner-data transmission until separately approved.
 - Playwright/Puppeteer, Playwright MCP, and browser-use remain research-only.
   LibreChat/AnythingLLM reconstruction belongs to the M7 v2 comparison because
@@ -289,9 +291,9 @@ Completed ExecPlans:
   order, deterministic failure/privacy boundaries, and fifteen text-only
   fixtures are now approved. Milestone 7 phase 0 is complete.
 - All three selected M7 prompt modules are Approved as local adaptations but
-  are not implemented or runtime-active. Sequential direct use of the three
-  original GPTs would conflict with D-023's one-composed-request rule and needs
-  a new accepted orchestration decision after the v3 feasibility gate.
+  are not implemented or runtime-active. D-031 preserves D-023's
+  one-composed-request rule through one lesson-authoring Skill and does not call
+  the three original hosted GPTs sequentially.
 - Added the approved `docs/ai-modules/` adaptation pack: one shared typed
   contribution contract, three exact lean prompt fragments, source and prompt
   hashes, three module adaptation records, and fifteen text-only evaluation
@@ -349,8 +351,8 @@ Not present:
 - deployment configuration.
 
 The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
-`main` at `c736334`, five commits ahead of `origin/main`. The Run 002/003,
-D-029, proposed D-030, and affected documentation updates are currently
+`main` at `df14be1`, six commits ahead of `origin/main`. D-031, the proposed
+Skills-only successor plan, and affected documentation updates are currently
 uncommitted.
 
 ## Known issues
@@ -409,12 +411,12 @@ uncommitted.
     the APKG remain style/output examples only.
 16. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
-    Reverse Trainer and Story Coach are long interactive flows. Direct JSON
-    contribution quality and the D-023 orchestration conflict require manual
-    evidence and a new decision before implementation. Run 001 proves strong
-    structural compliance but fails strict world-fact discipline; Run 002
-    passes. Because three fixtures are unrun, direct viability remains only
-    provisional.
+    Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
+    strong structural compliance but fails strict world-fact discipline; Run
+    002 passes; three fixtures are unrun. D-031 avoids making direct hosted-GPT
+    viability an implementation dependency by selecting the repository-owned
+    prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
+    a quality risk and must not be upgraded to a full pass.
 17. Prompt contract 0.1.0 carries per-beat text limits but has no explicit
     title, objective, premise, setting-context, or synopsis limits inside
     `LessonAuthoringEnvelopeInput`. Run 001 uses conservative feasibility-only
@@ -430,18 +432,16 @@ uncommitted.
 
 ## Next recommended work
 
-Advance approved M7 v3.1 without activating M7 v1, v2, v3.2, or v3.3:
+Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. Review and accept or reject proposed D-030. The recommendation is one
-   user-owned dedicated bridge-mode GPT, one composed request, exact JSON-only
-   import, one bounded repair, explicit target-export disclosure, no tracked GPT
-   link, and no external GPT edit by Bunbun.
-2. If D-030 is accepted, create a self-contained implementation ExecPlan for
-   provider-independent packet/import schemas, local durable compilation state,
-   manual UI, composed bridge prompt, normalization, and authored tests. Do not
-   implement before plan approval.
-3. Promote v3.2 only after a measured manual-transfer bottleneck; do not
-   consider v3.3 before its separate network/auth/privacy gate.
+1. Review and approve or revise
+   `plans/2026-08-19-m7-v3-skills-plugin.md` before implementation.
+2. After plan approval, create the smallest personal Skills-only plugin and
+   prove one fixed authored packet through the three-module composed output and
+   local validators. Do not transmit real learner history in the first proof.
+3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
+   separate endpoint, network, authentication, privacy, confirmation, and cost
+   gate.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -471,9 +471,13 @@ non-speech asset, and measurable audio acceptance choices.
   identity, exact three-target beat assignments, catalog IDs, source/prompt
   hashes, canonical input hash, packet hash, and privacy scan pass. Browser/GPT
   execution was canceled by user decision; no response or result exists.
-- D-029/D-030 documentation: the stopped 2-of-5 gate, media-observation
-  correction trail, residual unrun risks, and proposed orchestration boundary
-  are recorded without implementing code or editing an external GPT.
+- D-031 Skills-only direction: the accepted transport/orchestration decision,
+  rejected D-030 proposal, WXT fallback status, v3.3 MCP gate, pricing boundary,
+  and proposed successor ExecPlan are documented without implementing a plugin,
+  compiler, or external account change. `git diff --check`, the repository
+  format check, and explicit Prettier checks for all changed Markdown files
+  pass. This documentation-only change did not run code tests, builds, Docker,
+  or browser checks.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

@@ -36,10 +36,10 @@ SpeechSynthesis `AudioPlaybackPort`. There are no production world or audio
 assets.
 
 Milestone 7 is next. D-027 preserves the old Responses API proposal as inactive
-M7 v1, keeps self-built local LLM work as M7 v2 research, and makes the Custom
-GPT browser bridge the active M7 v3 research direction. Its separate proposed
-ExecPlan is `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`. No M7
-implementation is approved. This plan does not choose or bypass an M7 strategy.
+M7 v1 and keeps self-built local LLM work as M7 v2 research. D-031 selects the
+Skills-only personal ChatGPT/Codex plugin as M7 v3.2. Its separate proposed
+ExecPlan is `plans/2026-08-19-m7-v3-skills-plugin.md`. No M7 implementation is
+approved. This plan does not choose or bypass an M7 strategy.
 
 D-025 approves the GLB-first world-authoring pipeline and initial Kenney CC0
 asset candidates. D-026 resolves O-001 and O-002 for this vertical slice and

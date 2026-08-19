@@ -311,17 +311,17 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — D-029 closes the 2-of-5 Story Sheet gate provisionally;
-D-030 orchestration proposal awaits approval
+Status: In progress — D-031 selects M7 v3.2 Skills-only; implementation plan
+approval pending
 
 Purpose:
 
 Compile learner targets into the already proven deterministic runtime.
 
-Decisions still required after the v3.1 Story Sheet gate:
+Decisions still required before implementation:
 
-- whether sequential direct GPT use may revise D-023;
-- exact import, repair, disclosure, and local-link configuration rules;
+- exact Skill input/output, import, repair, and disclosure rules;
+- supported ChatGPT/Codex plugin surfaces and installation/reload procedure;
 - O-006 HTTP and compilation job model for the selected strategy;
 - O-009 reference datasets and licenses;
 - a model/provider choice only if a later strategy requires one; and
@@ -337,15 +337,15 @@ Decision resolved:
   privacy/failure boundaries, and fifteen text-only fixtures.
 - D-027 preserves three implementation strategies, freezes the old Responses
   proposal as inactive M7 v1, keeps local self-built LLM work as M7 v2
-  research, and makes the Custom GPT browser bridge the active M7 v3 research
-  direction.
-- D-028 accepts the v3.1 manual packet → v3.2 WXT extension → v3.3 MCP bridge
-  promotion order. It approves the v3.1 no-code Story Sheet feasibility gate;
-  later stages and full compiler implementation remain separately gated.
+  research, and makes captured Custom GPT behavior reuse the M7 v3 direction.
+- D-028 originally accepted a manual → WXT → MCP sequence and is superseded by
+  D-031.
 - D-029 stops the Story Sheet suite after two of five fixtures at the user's
   direction. Run 001 remains a semantic rejection, Run 002 is accepted, and the
   gate is provisionally viable only for orchestration planning.
-- D-030 proposes one dedicated bridge-mode GPT and remains unapproved.
+- D-031 rejects proposed D-030, selects one repository-owned Skills-only
+  personal ChatGPT/Codex plugin for v3.2, keeps one composed request, moves WXT
+  to research-only fallback, and leaves MCP conditional for v3.3.
 
 Strategy note:
 
@@ -358,15 +358,15 @@ Strategy note:
 - M7 v2 preserves the self-built/local LLM research direction. No model,
   hardware floor, inference runtime, training method, or license set is
   selected.
-- M7 v3 is the active path. Its staged ExecPlan is
-  `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`. It uses no
-  `gpt-5.6-terra` or `OPENAI_API_KEY`. V3.1 begins with the approved manual,
-  no-secret Story Sheet feasibility gate. V3.2 prefers WXT only after measured
-  manual-transfer need; v3.3 considers MCP only after a separate network,
-  authentication, privacy, and GPT edit/clone decision.
+- M7 v3 is the active path. Its selected proposed ExecPlan is
+  `plans/2026-08-19-m7-v3-skills-plugin.md`. It uses no `gpt-5.6-terra` or
+  `OPENAI_API_KEY`. V3.1 remains historical provisional evidence. V3.2 packages
+  the three approved prompt modules into one Skill; v3.3 considers MCP only
+  after a separate endpoint, network, authentication, privacy, confirmation,
+  and cost decision.
 
-No compiler implementation, browser automation, extension, GPT edit, external
-connection, dependency, environment variable, tunnel, or learner-data
+No plugin, compiler implementation, browser automation, extension, GPT edit,
+external connection, dependency, environment variable, tunnel, or learner-data
 transmission is approved by this status change.
 
 The fixed Story Sheet packets, raw responses, runbooks, and evaluations live
@@ -375,8 +375,8 @@ image/file/tool activation in Runs 001 and 002. Run 001 fails strict world-fact
 discipline; Run 002 passes every structural, semantic, and media check. Run 003
 is a validated but canceled packet, and Runs 004–005 were not run. D-029 permits
 orchestration planning from this incomplete evidence but does not fabricate a
-full qualification. D-030 now proposes the one-composed-request bridge shape;
-no compiler or external GPT change is approved yet.
+full qualification. D-031 avoids a new hosted bridge GPT and keeps the
+one-composed-request shape inside the selected Skill.
 
 `docs/AI_MODULES.md` inventories the original concepts and six user-supplied
 local GPT configurations. The supplied set contains Story Coach, Reverse
@@ -396,9 +396,9 @@ The approved `docs/ai-modules/` pack provides the shared typed
 contribution contract, exact 0.1.0 prompt fragments and hashes, disjoint module
 ownership, deterministic failure/privacy rules, fixed composition order, and
 fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. The
-pack does not activate the modules or approve a provider strategy. Direct
-sequential use of the three GPTs would revise D-023 and therefore remains a
-separate decision after the v3 feasibility gate.
+pack does not activate the modules or implement the selected plugin. D-031
+composes the three modules in one Skill and does not authorize sequential
+direct use of the hosted GPTs.
 
 Planned scope:
 

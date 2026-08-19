@@ -8,11 +8,12 @@ is the durable inventory and routing boundary for those sources and Bunbun's
 earlier conceptual modules. The Milestone 7 responsibility map is accepted,
 and Prompt Adaptation Pack 0.1.0 is approved. No prompt module has been
 implemented or activated. D-027 now preserves the Responses integration as M7
-v1, records the local-LLM path as M7 v2 research, and makes the Custom GPT
-browser bridge the active M7 v3 direction. D-028 accepts the v3.1 manual → v3.2
-WXT → v3.3 MCP sequence and approves the v3.1 Story Sheet feasibility gate.
-D-029 closes that gate after two of five fixtures as provisionally viable for
-orchestration planning; three fixtures remain explicitly unrun.
+v1, records the local-LLM path as M7 v2 research, and makes reuse of the
+captured Custom GPT behavior the M7 v3 direction. D-029 closes the v3.1 manual
+Story Sheet gate after two of five fixtures as provisionally viable evidence;
+three fixtures remain explicitly unrun. D-031 supersedes the WXT stage and
+selects a repository-owned, Skills-only personal ChatGPT/Codex plugin as M7
+v3.2 and the next implementation direction.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -39,9 +40,9 @@ This registry separates three things:
 
 The current public OpenAI API reference does not document an endpoint that
 invokes one of the captured user Custom GPT IDs. M7 v1 therefore ports approved
-behavior into prompt modules, while M7 v3 researches an explicit
-human-in-the-loop browser handoff. Neither route may make ordinary gameplay
-depend on ChatGPT:
+behavior into prompt modules, while selected M7 v3.2 packages those same
+repository-owned adaptations as one user-triggered ChatGPT/Codex skill. Neither
+route may make ordinary gameplay depend on ChatGPT:
 
 - https://developers.openai.com/api/reference/overview
 - `docs/M7_VARIANTS.md`
@@ -172,8 +173,8 @@ Tutor module in this composition.
 | Author premise, story, and setting/context | Structured lesson request | Approved `story_sheet@0.1.0`; implementation pending |
 | Author phrase analysis, reverse recall, and practice content | Structured lesson request | Approved `reverse_trainer@0.1.0`; implementation pending |
 | Author bounded hints, scaffold wording, pedagogical cadence, and feedback | Structured lesson request | Approved `story_coach@0.1.0`; implementation pending; code enforces slots and budgets |
-| Produce LessonContentDraft | One composed Responses API request | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach` |
-| Repair one invalid draft | One bounded repair request | Same module versions plus stable validator diagnostics |
+| Produce LessonContentDraft | One composed authoring request through the selected M7 transport | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach` |
+| Repair one invalid draft | One bounded repair request when approved by the transport plan | Same module versions plus stable validator diagnostics |
 | Normalize and validate LessonManifest | Deterministic contracts and runtime capability gate | None |
 | Run ordinary gameplay and record evidence | Deterministic local runtime | None |
 | Explain an open learner question during gameplay | Not approved for MVP runtime | No call until a separate decision exists |
@@ -185,14 +186,14 @@ the target, or outside its roadmap owner is omitted. The compiler must fail
 clearly if an approved lesson profile requires a module that is unavailable;
 it must not substitute an undocumented generic prompt.
 
-## M7 v3 direct-GPT research boundary
+## M7 v3 skill and direct-GPT boundary
 
-D-027 authorizes research into reusing the three existing GPTs through a
-user-mediated browser bridge without `gpt-5.6-terra` or `OPENAI_API_KEY`.
-Research starts with an exact prompt packet and manual response import; it does
-not authorize a provider call, programmatic login, cookie/session access,
-browser automation, extension, GPT action, public tunnel, MCP connection, or
-GPT editor change.
+D-027 authorized research into reusing the three existing GPTs without
+`gpt-5.6-terra` or `OPENAI_API_KEY`. V3.1 began with an exact prompt packet and
+manual response import. D-031 now selects the repository-owned Skills-only
+plugin rather than direct hosted-GPT orchestration. It does not authorize a
+provider call, programmatic login, cookie/session access, browser automation,
+extension, GPT action, public tunnel, MCP connection, or GPT editor change.
 
 Direct original-GPT use is not assumed to behave like Prompt Adaptation Pack
 0.1.0. Story Sheet normally continues into worksheet/image creation, Reverse
@@ -203,11 +204,23 @@ passes its complete expected-behavior checks. The multi-target and two rejected-
 behavior fixtures remain unrun and must not be inferred as passing.
 
 Sequential direct browser use of Story Sheet, Reverse Trainer, and Story Coach
-would conflict with D-023's one-composed-request rule. The feasibility gate may
-study that option, but full implementation requires a new accepted decision
-choosing sequential GPTs, a dedicated bridge-mode GPT, or one manually operated
-composed prompt-pack conversation. D-024 remains the responsibility, privacy,
-version, and evaluation baseline for every option.
+would conflict with D-023's one-composed-request rule. D-031 therefore does not
+select it and does not select the proposed dedicated bridge-mode GPT. M7 v3.2
+uses one Skills-only plugin authoring entry point that composes the three D-024
+modules in their accepted order. This reuses the captured behavior and source
+lineage, not the hosted GPT objects or hidden editor state.
+
+Only the three approved Milestone 7 adaptations participate in the initial
+skill. `visual_mnemonic`, `html-anki`, and `jlpt-n3-anki-deck-generator` remain
+captured but inactive because their image, HTML, file, APKG, reference, and
+workflow decisions belong to later milestones. Packaging six independent
+skills or agents into the first plugin would incorrectly broaden M7.
+
+The initial plugin has no connector, MCP server, browser extension, action,
+provider API, or external endpoint. It may prepare an untrusted typed result,
+but only Bunbun's local contracts and validators can accept and publish a
+lesson. D-024 remains the responsibility, privacy, version, and evaluation
+baseline.
 
 ## Approved Milestone 7 adaptation pack
 
@@ -399,7 +412,7 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Choose the v3.1 orchestration from the provisional Story Sheet evidence before
-compiler code. Keep inactive M7 v1, research-only M7 v2, conditional v3.2/v3.3,
-Visual Mnemonic, and both Anki workflows out of implementation until their own
-promotion decisions are accepted.
+Review and approve `plans/2026-08-19-m7-v3-skills-plugin.md` before creating the
+personal plugin or compiler handoff. Keep inactive M7 v1, research-only M7 v2,
+conditional v3.3 MCP, WXT fallback research, Visual Mnemonic, and both Anki
+workflows out of the initial implementation.

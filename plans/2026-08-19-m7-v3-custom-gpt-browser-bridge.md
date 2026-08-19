@@ -1,7 +1,7 @@
 # Prove a local-first Custom GPT browser bridge for lesson compilation
 
-Status: Feasibility closed provisionally under D-029; proposed D-030
-orchestration awaiting approval; implementation gated
+Status: Superseded as implementation route by D-031; v3.1 feasibility evidence
+retained
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-19
@@ -320,8 +320,11 @@ full bridge without sharing an account credential or API key.
 - [x] Run milestone 1 with the user and record only the supplied raw result and
   reported observations allowed by the agreed privacy boundary. The user
   explicitly stopped the suite early, so three cases remain unrun.
-- [ ] Accept the milestone 2 orchestration decision before implementation.
-- [ ] Implement milestones 3 through 7 in dependency order.
+- [x] 2026-08-19 — D-031 rejects proposed D-030, supersedes WXT as v3.2, and
+  selects the repository-owned Skills-only plugin route. This plan stops after
+  preserving the v3.1 evidence.
+- [ ] Historical only — milestones 3 through 7 were not implemented under this
+  plan; the successor plan owns any new implementation.
 
 ## Surprises and discoveries
 
@@ -380,6 +383,9 @@ full bridge without sharing an account credential or API key.
 - 2026-08-19 — Propose D-030: use one dedicated bridge-mode GPT with one
   composed manual request and keep all external GPT creation/editing
   user-operated. Await user approval before implementation.
+- 2026-08-19 — Accept D-031: reject D-030 and supersede this plan as the
+  implementation route. Preserve its v3.1 evidence without upgrading the
+  truncated fixture suite to a complete qualification.
 
 ## Validation
 
@@ -492,9 +498,10 @@ Do not weaken schemas or scrape ChatGPT to hide the failure.
 
 ## Outcomes
 
-The three M7 strategies and accepted staged v3 route are documented. V3.1 is
-approved through its no-code Story Sheet feasibility gate. No
+The three M7 strategies and v3.1 direct-GPT evidence are documented. The gate
+stopped after two of five fixtures under D-029 and remains provisional. No
 compiler, packet contract, UI, persistence migration, browser launch,
 automation, GPT edit, external connection, dependency, or environment variable
-has been implemented. The next action is to prepare and run the approved
-single-module manual feasibility gate with the user.
+was implemented under this plan. D-031 selects the Skills-only personal plugin
+route, whose proposed successor plan is
+`plans/2026-08-19-m7-v3-skills-plugin.md`.

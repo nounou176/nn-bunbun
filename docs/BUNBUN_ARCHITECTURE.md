@@ -9,8 +9,9 @@ safe-resume boundary all exist locally. Compiler, cached audio, and production
 asset implementation remain planned until their roadmap milestones. D-025
 defines the production world-authoring and asset-intake boundary, and D-026
 defines the first N5 audio-complete product vertical slice. D-027 separates
-Milestone 7 into three provider strategies and makes the Custom GPT browser
-bridge the active research direction; no compiler strategy is implemented.
+Milestone 7 into three provider strategies. D-031 selects a repository-owned,
+Skills-only personal ChatGPT/Codex plugin as M7 v3.2 and the next implementation
+direction; no compiler strategy or plugin is implemented.
 
 ## Architectural goals
 
@@ -229,16 +230,16 @@ authoring transports:
   path in D-022 and `plans/2026-08-12-structured-lesson-compiler.md`.
 - M7 v2 is a research-only self-built/local LLM path with no selected model,
   runtime, hardware floor, training method, or license set.
-- M7 v3 is the active Custom GPT browser-bridge research path in
-  `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`; it uses neither
-  `gpt-5.6-terra` nor `OPENAI_API_KEY`.
+- M7 v3 is the active captured-GPT-behavior reuse path. Its selected plan is
+  `plans/2026-08-19-m7-v3-skills-plugin.md`; it uses neither `gpt-5.6-terra`
+  nor `OPENAI_API_KEY`.
 
-D-028 sequences M7 v3 internally: v3.1 is the active manual packet/exact JSON
-path, v3.2 is a conditional WXT extension, and v3.3 is a conditional
-ChatGPT-side MCP bridge. D-029 closes the v3.1 Story Sheet gate early after two
-of five fixtures as provisionally viable for orchestration planning; the unrun
-fixtures remain explicit risks. Browser automation remains research-only, and
-reconstructing GPT behavior in a self-hosted agent runtime belongs to M7 v2.
+D-029 preserves v3.1's truncated manual direct-GPT evidence. D-031 supersedes
+D-028's WXT stage: v3.2 is now a local personal ChatGPT/Codex plugin containing
+one composed lesson-authoring skill and no MCP server. V3.3 remains a
+conditional ChatGPT-side MCP bridge. WXT and browser automation are
+research-only fallbacks, and reconstructing GPT behavior in a self-hosted
+agent runtime belongs to M7 v2.
 
 `docs/M7_VARIANTS.md` is the strategy registry. Every route must consume the
 same deterministic compiler envelope and return untrusted typed contributions
@@ -271,9 +272,9 @@ They are not separate services or models unless future evidence justifies that
 architecture.
 
 Existing Custom GPT behavior may be ported into versioned reusable prompt
-modules or, under the active M7 v3 research, evaluated through an explicit
-user-mediated browser bridge. It must not be treated as hidden external project
-memory, an undocumented API, or a runtime dependency.
+modules or packaged through the selected M7 v3.2 repository-owned Skill. It
+must not be treated as hidden external project memory, an undocumented API, a
+hosted-GPT dependency, or a runtime dependency.
 
 `docs/AI_MODULES.md` is the source-capture and routing registry for these
 behaviors. On 2026-08-12, the user supplied six local GPT configurations and
@@ -297,9 +298,9 @@ typed: the compiler envelope owns every runtime and reference decision; Story
 Sheet, Reverse Trainer, and Story Coach own disjoint contribution fields in one
 LessonContentDraft. Exact approved prompt fragments, content hashes, and fifteen
 text-only evaluation fixtures are versioned together. Pack approval does not
-activate a provider or approve an M7 implementation. Sequential direct use of
-the three existing Custom GPTs would change D-023 and therefore requires a new
-accepted decision after the M7 v3 feasibility gate.
+activate a provider or approve an M7 implementation. D-031 preserves the
+one-request rule by composing the three modules inside one Skill; it does not
+authorize sequential direct use of the three hosted Custom GPTs.
 
 The captured images and APKG are local style/output examples only. They are not
 linguistic references, lesson-content sources, or evaluation fixtures, and the
