@@ -1,12 +1,18 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
   CatalogSnapshotSchema,
   EvidencePersistenceSchema,
+  LessonAuthoringRequestSchema,
+  LessonAuthoringResultSchema,
   LessonManifestSchema,
 } from "../src/schema/index.js";
+import {
+  validAuthoringRequest,
+  validAuthoringResult,
+} from "./authoring-fixtures.js";
 
 type JsonObject = Record<string, unknown>;
 
@@ -34,7 +40,98 @@ const artifacts = new Map<string, string>([
     resolve(packageDirectory, "schemas/evidence-persistence-0.1.0.schema.json"),
     serialize(EvidencePersistenceSchema),
   ],
+  [
+    resolve(
+      packageDirectory,
+      "schemas/lesson-authoring-request-0.1.0.schema.json",
+    ),
+    serialize(LessonAuthoringRequestSchema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "schemas/lesson-authoring-result-0.1.0.schema.json",
+    ),
+    serialize(LessonAuthoringResultSchema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-request-0.1.0.schema.json",
+    ),
+    serialize(LessonAuthoringRequestSchema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-result-0.1.0.schema.json",
+    ),
+    serialize(LessonAuthoringResultSchema),
+  ],
 ]);
+
+const authoringFixtureDirectory = resolve(
+  packageDirectory,
+  "fixtures/authoring",
+);
+artifacts.set(
+  resolve(authoringFixtureDirectory, "valid-request.json"),
+  serialize(validAuthoringRequest),
+);
+artifacts.set(
+  resolve(authoringFixtureDirectory, "valid-result.json"),
+  serialize(validAuthoringResult),
+);
+
+const unknownResultField = clone(validAuthoringResult) as JsonObject;
+unknownResultField.learnerIdentity = "must_not_leave_local_boundary";
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-result-unknown-field.json"),
+  serialize(unknownResultField),
+);
+
+const wrongIdentityResult = clone(validAuthoringResult);
+wrongIdentityResult.requestId = "m7_v3_2_lesson_authoring_wrong";
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-result-wrong-identity.json"),
+  serialize(wrongIdentityResult),
+);
+
+const wrongHashRequest = clone(validAuthoringRequest);
+wrongHashRequest.inputSha256 = "0".repeat(64);
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-request-wrong-hash.json"),
+  serialize(wrongHashRequest),
+);
+
+const promptDriftRequest = clone(validAuthoringRequest) as JsonObject;
+const promptPack = arrayAt(promptDriftRequest, "promptPack");
+objectAt(promptPack[0]).promptSha256 = "f".repeat(64);
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-request-prompt-drift.json"),
+  serialize(promptDriftRequest),
+);
+
+const prohibitedDataRequest = clone(validAuthoringRequest) as JsonObject;
+objectAt(prohibitedDataRequest, "input").learnerIdentity = "forbidden";
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-request-prohibited-data.json"),
+  serialize(prohibitedDataRequest),
+);
+
+const oversizedResult = clone(validAuthoringResult);
+if (oversizedResult.contributions.story.status === "OK") {
+  oversizedResult.contributions.story.value.title.ja = "長".repeat(29);
+}
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-result-oversized.json"),
+  serialize(oversizedResult),
+);
+
+artifacts.set(
+  resolve(authoringFixtureDirectory, "invalid-result-malformed.txt"),
+  "{not valid JSON\n",
+);
 
 const unknownField = clone(validManifest);
 unknownField.unexpectedField = true;
@@ -91,6 +188,7 @@ for (const [path, expected] of artifacts) {
       differences += 1;
     }
   } else {
+    await mkdir(dirname(path), { recursive: true });
     await writeFile(path, expected, "utf8");
     console.log(`Wrote ${path}`);
   }

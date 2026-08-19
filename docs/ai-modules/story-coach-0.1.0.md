@@ -1,6 +1,6 @@
 # Story Coach Prompt Module 0.1.0
 
-Status: Approved for Milestone 7 implementation; not implemented
+Status: Packaged in M7 v3.2 proof; application compiler inactive
 Module ID: `story_coach`
 Roadmap owner: Milestone 7
 
@@ -113,4 +113,5 @@ Minimum approval bar:
 - Typed adaptation: Approved on 2026-08-12 under D-024
 - Prompt fragment and hash: Approved on 2026-08-12 under D-024
 - Evaluation fixtures: Approved on 2026-08-12 under D-024
-- Activation: Approved for implementation; not implemented or runtime-active
+- Activation: Packaged in the M7 v3.2 Skills-only proof; not application-
+  compiler or runtime-active

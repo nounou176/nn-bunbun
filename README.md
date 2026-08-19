@@ -90,6 +90,18 @@ npm run inspect:manifest -- \
 The earlier `valid-find-dog.json` and `valid-find-dog-loop.json` fixtures remain
 available for Milestone 2 and 4 regression inspection.
 
+Validate the M7 v3.2 Skills-only package and its fixed authored exchange with:
+
+```bash
+npm run plugin:check
+npm run inspect:authoring -- \
+  --request packages/contracts/fixtures/authoring/valid-request.json \
+  --result packages/contracts/fixtures/authoring/valid-result.json
+```
+
+User-operated plugin installation and proof steps are documented in
+`docs/ai-modules/M7_V3_2_RUNBOOK.md`.
+
 ## Local learning data
 
 The Node server owns `.bunbun-data/bunbun.sqlite`; this repository-local path is
@@ -143,14 +155,17 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   Coach + Reverse Trainer responsibility map. D-024 approves Prompt Adaptation
   Pack 0.1.0 under `docs/ai-modules/`, including the typed contract, exact
   prompt fragments/hashes, and fifteen text-only fixtures. The modules are
-  Approved for implementation but remain inactive because no compiler/provider
-  is implemented. D-027 preserves Responses API as inactive M7 v1 and local
+  packaged in the D-032 M7 v3.2 local proof but remain application-inactive
+  because no compiler/provider is implemented. D-027 preserves Responses API
+  as inactive M7 v1 and local
   self-built LLM work as M7 v2 research. D-029 closes the no-key v3.1 Story
   Sheet gate early after two of five fixtures as provisional evidence. D-031
   rejects a dedicated bridge-mode GPT, supersedes WXT, and selects a
-  repository-owned Skills-only personal ChatGPT/Codex plugin as M7 v3.2. MCP
-  remains conditional v3.3 work. No plugin, browser extension, automation, GPT
-  edit, connection, tunnel, or learner-data transfer is implemented. Supplied
+  repository-owned Skills-only personal ChatGPT/Codex plugin as M7 v3.2. The
+  plugin source, closed packet/result schemas, validator, drift gate, authored
+  fixture, and manual runbook now exist. MCP remains conditional v3.3 work. No
+  app compiler/provider connection, browser extension, automation, GPT edit,
+  tunnel, learner-data transfer, or runtime AI is implemented. Supplied
   images/APKG are style examples only.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.

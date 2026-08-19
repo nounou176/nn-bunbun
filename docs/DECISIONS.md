@@ -1476,17 +1476,72 @@ it, changing a ChatGPT account, transmitting real learner targets, adding MCP,
 or implementing compiler/runtime code is not authorized merely by this
 architecture decision.
 
+### D-032 — Implement the M7 v3.2 proof with claim-level world traceability
+
+- Date: 2026-08-19
+- Status: Accepted through the approved M7 v3.2 ExecPlan
+- Affects: Authoring contracts, local plugin, prompt packaging, validation,
+  fixtures, manual proof
+
+Context:
+
+The user approved `plans/2026-08-19-m7-v3-skills-plugin.md`. D-024 had approved
+design types but no executable schemas, and v3.1 Run 001 showed that a plain
+list of world-fact sentences could not deterministically distinguish an
+allowed presence claim from an invented relationship or reaction. The first
+Skills-only proof also needs identities and prompt hashes on both sides of the
+manual handoff without building the application compiler.
+
+Decision:
+
+Implement closed request and result contracts version `0.1.0` in
+`@bunbun/contracts`. Use request format
+`bunbun_m7_v3_2_lesson_authoring` and result format
+`bunbun_m7_v3_2_lesson_authoring_result`. The request carries the canonical
+input SHA-256, exact ordered D-024 prompt pack, authored-fixture disclosure,
+attempt limit, strict JSON/text-only policies, explicit output budgets, and the
+compact authoring envelope. The result must echo the request identity, input
+hash, and prompt pack before returning one complete contribution object.
+
+Refine each world fact's `allowedClaims` into stable claim-ID/statement pairs.
+Each story beat receives `allowedWorldClaimIds` and must return its exact
+`usedWorldClaimIds`. A plausible implication is not permission: presence does
+not authorize a reaction, state, relationship, or action. Local validation
+rejects unknown or out-of-beat claim IDs and continues to treat all authored
+text as untrusted.
+
+Package exactly one local `bunbun-authoring` plugin with one
+`bunbun-lesson-authoring` Skill. Bundle byte-identical copies of the three
+approved prompt fragments and fail the drift gate on any order, version, hash,
+or content mismatch. Include no app, MCP server, API key, hosted GPT link,
+browser permission, binary GPT asset, learner history, or runtime integration.
+
+Stop automated implementation at a locally validated authored fixture. The
+user alone installs/reloads the plugin and performs the supported-surface proof
+using `docs/ai-modules/M7_V3_2_RUNBOOK.md`. One bounded repair is allowed; a
+second invalid result ends the proof.
+
+Consequences:
+
+M7 v3.2 now has an executable transport boundary, fixture, validator,
+inspection CLI, local marketplace manifest, and Skills-only plugin package.
+This does not activate a provider inside Bunbun, normalize or persist a final
+LessonManifest, publish a lesson, alter ordinary gameplay, prove product-
+surface availability, or complete Milestone 7. The v3.1 evidence is unchanged.
+Application handoff remains Milestone 4 of the active ExecPlan and MCP remains
+a separate v3.3 decision.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
 
-| ID | Decision needed | Resolve before |
-| --- | --- | --- |
-| O-006 | Backend HTTP framework and compilation job model | Backend foundation |
-| O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
-| O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |
-| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage | AI and audio integration |
-| O-012 | Deployment model and Docker topology | Post-acceptance release discovery |
+| ID    | Decision needed                                                                 | Resolve before                    |
+| ----- | ------------------------------------------------------------------------------- | --------------------------------- |
+| O-006 | Backend HTTP framework and compilation job model                                | Backend foundation                |
+| O-008 | Browser/device support and WebGPU fallback policy                               | Rendering foundation              |
+| O-009 | Kanji and Japanese reference datasets and licenses                              | Compiler/reference integration    |
+| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage | AI and audio integration          |
+| O-012 | Deployment model and Docker topology                                            | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

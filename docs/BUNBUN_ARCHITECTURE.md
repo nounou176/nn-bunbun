@@ -11,7 +11,9 @@ defines the production world-authoring and asset-intake boundary, and D-026
 defines the first N5 audio-complete product vertical slice. D-027 separates
 Milestone 7 into three provider strategies. D-031 selects a repository-owned,
 Skills-only personal ChatGPT/Codex plugin as M7 v3.2 and the next implementation
-direction; no compiler strategy or plugin is implemented.
+direction. D-032 implements the local plugin package and untrusted transport
+contract proof; user-operated installation and proof remain pending, and no
+application compiler/provider or runtime AI is active.
 
 ## Architectural goals
 
@@ -236,7 +238,9 @@ authoring transports:
 
 D-029 preserves v3.1's truncated manual direct-GPT evidence. D-031 supersedes
 D-028's WXT stage: v3.2 is now a local personal ChatGPT/Codex plugin containing
-one composed lesson-authoring skill and no MCP server. V3.3 remains a
+one composed lesson-authoring skill and no MCP server. D-032 implements that
+local transport proof with identity-bearing closed packets, claim-level world
+traceability, deterministic validation, and locked prompt copies. V3.3 remains a
 conditional ChatGPT-side MCP bridge. WXT and browser automation are
 research-only fallbacks, and reconstructing GPT behavior in a self-hosted
 agent runtime belongs to M7 v2.
@@ -289,18 +293,19 @@ route, one composed structured request uses the typed adaptations and versions
 approved by D-024.
 Deterministic code continues to own primitive order, difficulty progression,
 IDs, transitions, attempt/timing limits, and hard budgets. The three selected
-prompt modules are Approved for implementation but are not implemented or
-runtime-active. A missing or unapproved behavior must not be replaced by an
-undocumented generic prompt.
+prompt modules are packaged in the v3.2 local proof but are not application-
+compiler or runtime-active. A missing or unapproved behavior must not be
+replaced by an undocumented generic prompt.
 
 The D-024-approved adaptation pack at `docs/ai-modules/` makes this boundary
 typed: the compiler envelope owns every runtime and reference decision; Story
 Sheet, Reverse Trainer, and Story Coach own disjoint contribution fields in one
 LessonContentDraft. Exact approved prompt fragments, content hashes, and fifteen
-text-only evaluation fixtures are versioned together. Pack approval does not
-activate a provider or approve an M7 implementation. D-031 preserves the
-one-request rule by composing the three modules inside one Skill; it does not
-authorize sequential direct use of the three hosted Custom GPTs.
+text-only evaluation fixtures are versioned together. D-032's proof
+implementation does not activate an application provider, compiler job,
+publication path, or runtime AI. D-031 preserves the one-request rule by
+composing the three modules inside one Skill; it does not authorize sequential
+direct use of the three hosted Custom GPTs.
 
 The captured images and APKG are local style/output examples only. They are not
 linguistic references, lesson-content sources, or evaluation fixtures, and the

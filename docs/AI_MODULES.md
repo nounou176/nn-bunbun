@@ -6,20 +6,22 @@ Six user-owned Custom GPT source packages were captured locally on 2026-08-12,
 and the user confirmed that they are the complete intended set. This document
 is the durable inventory and routing boundary for those sources and Bunbun's
 earlier conceptual modules. The Milestone 7 responsibility map is accepted,
-and Prompt Adaptation Pack 0.1.0 is approved. No prompt module has been
-implemented or activated. D-027 now preserves the Responses integration as M7
+and Prompt Adaptation Pack 0.1.0 is approved. D-032 packages the three selected
+modules in the local M7 v3.2 proof; no application compiler or runtime module
+is activated. D-027 preserves the Responses integration as M7
 v1, records the local-LLM path as M7 v2 research, and makes reuse of the
 captured Custom GPT behavior the M7 v3 direction. D-029 closes the v3.1 manual
 Story Sheet gate after two of five fixtures as provisionally viable evidence;
 three fixtures remain explicitly unrun. D-031 supersedes the WXT stage and
 selects a repository-owned, Skills-only personal ChatGPT/Codex plugin as M7
-v3.2 and the next implementation direction.
+v3.2. Its local package, schemas, validator, fixtures, and runbook now exist;
+user-operated installation and product-surface proof remain pending.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
-modules are Approved for implementation. They are not implemented or
-runtime-active; no provider or compiler call exists yet. Accepted prompt
-behavior does not by itself approve the remaining provider and compiler-plan
+modules are packaged in the Skills-only proof but remain application-inactive;
+no Bunbun provider or compiler call exists yet. Accepted prompt behavior does
+not by itself approve the remaining application handoff and compiler-plan
 decisions.
 
 ## Purpose
@@ -65,14 +67,14 @@ models or services. It did not originally include their configurations.
 
 The user later supplied six local GPT folders:
 
-| Exact supplied GPT name | Captured source | Knowledge inventory |
-| --- | --- | --- |
-| Nunu JP Story Coach 5 minutes | Name, link, description, instructions | None |
-| Nunu JP Reverse Trainer | Name, editor link, description, instructions, six starters | None |
-| Nunu JP Story Sheet | Name, editor link, description, instructions, seven starters | 21 PNG examples |
-| Nunu JP Visual Mnemonic | Name, editor link, description, instructions | 31 PNG files, 27 unique |
-| Nunu JP HTML Anki | Name, editor link, description, instructions | None |
-| JLPT N3 Anki Deck Generator | Name, description, instructions | Three text specs, five PNG examples, one APKG example |
+| Exact supplied GPT name       | Captured source                                              | Knowledge inventory                                   |
+| ----------------------------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| Nunu JP Story Coach 5 minutes | Name, link, description, instructions                        | None                                                  |
+| Nunu JP Reverse Trainer       | Name, editor link, description, instructions, six starters   | None                                                  |
+| Nunu JP Story Sheet           | Name, editor link, description, instructions, seven starters | 21 PNG examples                                       |
+| Nunu JP Visual Mnemonic       | Name, editor link, description, instructions                 | 31 PNG files, 27 unique                               |
+| Nunu JP HTML Anki             | Name, editor link, description, instructions                 | None                                                  |
+| JLPT N3 Anki Deck Generator   | Name, description, instructions                              | Three text specs, five PNG examples, one APKG example |
 
 The local normalized index at `gpts/README.md` records source hashes, asset
 counts, summaries, conflicts, and missing confirmations without altering the
@@ -122,18 +124,18 @@ Official OpenAI documentation distinguishes the following GPT configuration
 fields. Bunbun must capture each field that exists rather than treating the
 visible GPT name as the implementation:
 
-| Field | Why Bunbun needs it | Repository rule |
-| --- | --- | --- |
-| Name | Trace the source GPT | Record the exact visible name and a stable Bunbun module ID |
-| Description | Understand intended audience and purpose | Preserve verbatim source plus an approved Bunbun summary |
-| Conversation starters | Recover representative input patterns | Store only reviewed examples without private conversation history |
-| Instructions | Recover behavior, workflow, tone, and prohibitions | Treat as the primary source; version and review it before porting |
-| Knowledge files | Recover factual/reference material | Store file name, hash, ownership/license, and reviewed project copy |
-| Recommended model | Understand the original ChatGPT setup | Record as provenance, not as an automatic API model choice |
-| Capabilities | Identify dependencies such as web or image generation | Re-authorize each capability for Bunbun; do not inherit it implicitly |
-| Apps or actions | Identify external integrations | Capture schemas only after review; never capture credentials or tokens |
-| Version history note | Establish which GPT revision was captured | Record a user-supplied date/version label and capture timestamp |
-| Evaluation examples | Prove the behavior survived the port | Add reviewed inputs, expected properties, and unacceptable outputs |
+| Field                 | Why Bunbun needs it                                   | Repository rule                                                        |
+| --------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| Name                  | Trace the source GPT                                  | Record the exact visible name and a stable Bunbun module ID            |
+| Description           | Understand intended audience and purpose              | Preserve verbatim source plus an approved Bunbun summary               |
+| Conversation starters | Recover representative input patterns                 | Store only reviewed examples without private conversation history      |
+| Instructions          | Recover behavior, workflow, tone, and prohibitions    | Treat as the primary source; version and review it before porting      |
+| Knowledge files       | Recover factual/reference material                    | Store file name, hash, ownership/license, and reviewed project copy    |
+| Recommended model     | Understand the original ChatGPT setup                 | Record as provenance, not as an automatic API model choice             |
+| Capabilities          | Identify dependencies such as web or image generation | Re-authorize each capability for Bunbun; do not inherit it implicitly  |
+| Apps or actions       | Identify external integrations                        | Capture schemas only after review; never capture credentials or tokens |
+| Version history note  | Establish which GPT revision was captured             | Record a user-supplied date/version label and capture timestamp        |
+| Evaluation examples   | Prove the behavior survived the port                  | Add reviewed inputs, expected properties, and unacceptable outputs     |
 
 Do not paste or commit API keys, OAuth client secrets, bearer tokens, cookies,
 private action credentials, or other secret values. For an action, record only
@@ -147,15 +149,15 @@ only the three responsibilities explicitly accepted above. All activation
 states accurately distinguish an approved design from an implemented runtime
 module.
 
-| Module ID | Custom GPT / concept | Documented fact | Accepted or deferred Bunbun use | Roadmap owner | Source status | Activation |
-| --- | --- | --- | --- | --- | --- | --- |
-| `story_coach` | Story Coach | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7 | Approved adaptation 0.1.0 | Approved; not implemented |
-| `reverse_trainer` | Reverse Trainer | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression | Milestone 7 | Approved adaptation 0.1.0 | Approved; not implemented |
-| `tutor` | Tutor | Earlier concept only; no standalone GPT exists in the confirmed source set | No separate Milestone 7 module; bounded lesson support is assigned to `story_coach`; runtime explanations remain a later decision | Later runtime opportunity only | Not part of confirmed source set | Not selected |
-| `story_sheet` | Nunu JP Story Sheet | Supplied GPT; creates surreal stories and aligned visual worksheets | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later | Milestone 7 for story content; later for export | Approved adaptation 0.1.0 | Approved; not implemented |
-| `visual_mnemonic` | Visual Mnemonic | Nunu JP Visual Mnemonic source and visual examples captured locally | Produce a mnemonic concept or image prompt for an explicitly requested kanji aid; never establish authoritative decomposition | Later opportunity, after reference/image decisions | Captured; review pending | Disabled |
-| `anki_content` | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg` | Later opportunity | Captured; mapping review pending | Disabled |
-| `jlpt_assessment` | JLPT assessment generator | Earlier concept only; no standalone GPT exists in the confirmed source set | Deferred capability requiring a later reference, content, and routing decision | Later opportunity | Not part of confirmed source set | Not selected |
+| Module ID         | Custom GPT / concept                              | Documented fact                                                                                            | Accepted or deferred Bunbun use                                                                                                                             | Roadmap owner                                      | Source status                    | Activation                           |
+| ----------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- | ------------------------------------ |
+| `story_coach`     | Story Coach                                       | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow        | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7                                        | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
+| `reverse_trainer` | Reverse Trainer                                   | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support             | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression                                  | Milestone 7                                        | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
+| `tutor`           | Tutor                                             | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | No separate Milestone 7 module; bounded lesson support is assigned to `story_coach`; runtime explanations remain a later decision                           | Later runtime opportunity only                     | Not part of confirmed source set | Not selected                         |
+| `story_sheet`     | Nunu JP Story Sheet                               | Supplied GPT; creates surreal stories and aligned visual worksheets                                        | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later                                   | Milestone 7 for story content; later for export    | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
+| `visual_mnemonic` | Visual Mnemonic                                   | Nunu JP Visual Mnemonic source and visual examples captured locally                                        | Produce a mnemonic concept or image prompt for an explicitly requested kanji aid; never establish authoritative decomposition                               | Later opportunity, after reference/image decisions | Captured; review pending         | Disabled                             |
+| `anki_content`    | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg`                                                                  | Later opportunity                                  | Captured; mapping review pending | Disabled                             |
+| `jlpt_assessment` | JLPT assessment generator                         | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | Deferred capability requiring a later reference, content, and routing decision                                                                              | Later opportunity                                  | Not part of confirmed source set | Not selected                         |
 
 ## Accepted composed compiler routing
 
@@ -165,20 +167,20 @@ only the three reviewed prompt modules required for one structured lesson
 request. Deterministic stages do not use an AI module. There is no standalone
 Tutor module in this composition.
 
-| Compiler or game stage | Responsible component | AI module use |
-| --- | --- | --- |
-| Validate and normalize learner input | Deterministic server code | None |
-| Resolve readings and reference records | Deterministic reviewed reference provider | None |
-| Select scene/scenario compatibility, primitive sequence, difficulty progression, IDs, transitions, and budgets | Deterministic compiler profile | None |
-| Author premise, story, and setting/context | Structured lesson request | Approved `story_sheet@0.1.0`; implementation pending |
-| Author phrase analysis, reverse recall, and practice content | Structured lesson request | Approved `reverse_trainer@0.1.0`; implementation pending |
-| Author bounded hints, scaffold wording, pedagogical cadence, and feedback | Structured lesson request | Approved `story_coach@0.1.0`; implementation pending; code enforces slots and budgets |
-| Produce LessonContentDraft | One composed authoring request through the selected M7 transport | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach` |
-| Repair one invalid draft | One bounded repair request when approved by the transport plan | Same module versions plus stable validator diagnostics |
-| Normalize and validate LessonManifest | Deterministic contracts and runtime capability gate | None |
-| Run ordinary gameplay and record evidence | Deterministic local runtime | None |
-| Explain an open learner question during gameplay | Not approved for MVP runtime | No call until a separate decision exists |
-| Generate mnemonic, Anki, or JLPT content | Deferred workflows | Corresponding module only after its roadmap decision |
+| Compiler or game stage                                                                                         | Responsible component                                            | AI module use                                                                                                         |
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Validate and normalize learner input                                                                           | Deterministic server code                                        | None                                                                                                                  |
+| Resolve readings and reference records                                                                         | Deterministic reviewed reference provider                        | None                                                                                                                  |
+| Select scene/scenario compatibility, primitive sequence, difficulty progression, IDs, transitions, and budgets | Deterministic compiler profile                                   | None                                                                                                                  |
+| Author premise, story, and setting/context                                                                     | Structured lesson request                                        | `story_sheet@0.1.0` packaged in v3.2 proof; compiler integration pending                                              |
+| Author phrase analysis, reverse recall, and practice content                                                   | Structured lesson request                                        | `reverse_trainer@0.1.0` packaged in v3.2 proof; compiler integration pending                                          |
+| Author bounded hints, scaffold wording, pedagogical cadence, and feedback                                      | Structured lesson request                                        | `story_coach@0.1.0` packaged in v3.2 proof; local proof code enforces slots and budgets; compiler integration pending |
+| Produce LessonContentDraft                                                                                     | One composed authoring request through the selected M7 transport | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach`                       |
+| Repair one invalid draft                                                                                       | One bounded repair request when approved by the transport plan   | Same module versions plus stable validator diagnostics                                                                |
+| Normalize and validate LessonManifest                                                                          | Deterministic contracts and runtime capability gate              | None                                                                                                                  |
+| Run ordinary gameplay and record evidence                                                                      | Deterministic local runtime                                      | None                                                                                                                  |
+| Explain an open learner question during gameplay                                                               | Not approved for MVP runtime                                     | No call until a separate decision exists                                                                              |
+| Generate mnemonic, Anki, or JLPT content                                                                       | Deferred workflows                                               | Corresponding module only after its roadmap decision                                                                  |
 
 The composed prompt must record every participating `moduleId` and version in
 manifest provenance. A module that is missing, unapproved, incompatible with
@@ -216,11 +218,11 @@ captured but inactive because their image, HTML, file, APKG, reference, and
 workflow decisions belong to later milestones. Packaging six independent
 skills or agents into the first plugin would incorrectly broaden M7.
 
-The initial plugin has no connector, MCP server, browser extension, action,
-provider API, or external endpoint. It may prepare an untrusted typed result,
-but only Bunbun's local contracts and validators can accept and publish a
-lesson. D-024 remains the responsibility, privacy, version, and evaluation
-baseline.
+The implemented local plugin has no connector, MCP server, browser extension,
+action, provider API, or external endpoint. It may prepare an untrusted typed
+result, but only Bunbun's local contracts and validators can accept it. No
+publication path exists yet. D-024 remains the responsibility, privacy,
+version, and evaluation baseline.
 
 ## Approved Milestone 7 adaptation pack
 
@@ -285,7 +287,7 @@ version-history menu can identify or restore the intended source revision.
 Use this template for each supplied GPT. A future repository record must keep
 source facts separate from Bunbun adaptations.
 
-~~~markdown
+```markdown
 # <Exact Custom GPT name>
 
 Source status: Captured | Reviewed | Approved
@@ -311,7 +313,7 @@ GPT link: <optional provenance only>
 ### Knowledge files
 
 | File | SHA-256 | Ownership/license | Purpose | Included for Bunbun? |
-| --- | --- | --- | --- | --- |
+| ---- | ------- | ----------------- | ------- | -------------------- |
 
 ### Recommended model and capabilities
 
@@ -346,7 +348,7 @@ GPT link: <optional provenance only>
 
 - User approval: Pending
 - Approved Bunbun module version: Pending
-~~~
+```
 
 ## Review and porting process
 
@@ -412,7 +414,8 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Review and approve `plans/2026-08-19-m7-v3-skills-plugin.md` before creating the
-personal plugin or compiler handoff. Keep inactive M7 v1, research-only M7 v2,
-conditional v3.3 MCP, WXT fallback research, Visual Mnemonic, and both Anki
-workflows out of the initial implementation.
+Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md` for the user-operated install and
+fixed authored proof. Record the exact raw result and local diagnostics before
+choosing manual file/clipboard import or proposing a later direct handoff. Keep
+inactive M7 v1, research-only M7 v2, conditional v3.3 MCP, WXT fallback
+research, Visual Mnemonic, and both Anki workflows out of this proof.

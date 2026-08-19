@@ -1,8 +1,7 @@
 node_modules/
 **/dist/
+packages/contracts/fixtures/authoring/
 packages/contracts/fixtures/manifests/invalid/
 packages/contracts/schemas/
-docs/
-.agent/
-plans/
-AGENTS.md
+plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-request-0.1.0.schema.json
+plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-result-0.1.0.schema.json

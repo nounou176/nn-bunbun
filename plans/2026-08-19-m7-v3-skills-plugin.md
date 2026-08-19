@@ -1,9 +1,9 @@
 # Prove the M7 v3.2 Skills-only lesson-authoring plugin
 
-Status: Proposed
+Status: Approved; Milestones 1–2 complete; user-operated Milestone 3 pending
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 22:53 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19 23:26 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -159,8 +159,19 @@ viable, or unsuitable with retained evidence and a named next action.
 ## Progress
 
 - [x] 2026-08-19 22:53 — Accept D-031 and create this proposed successor plan.
-- [ ] Approve or revise this ExecPlan.
-- [ ] Implement milestones 1 through 4 in order.
+- [x] 2026-08-19 23:03 — User approved the M7 v3.2 ExecPlan.
+- [x] 2026-08-19 23:15 — Implement closed request/result TypeBox schemas,
+      canonical identity checks, claim-level world traceability, generated success
+      and rejection fixtures, stable semantic validation, and the local inspector.
+- [x] 2026-08-19 23:20 — Scaffold and validate `bunbun-authoring@0.1.0`
+      with exactly one `bunbun-lesson-authoring` Skill, three locked prompt
+      fragments, generated schema references, and no MCP/app capability.
+- [x] 2026-08-19 23:23 — Pass prompt drift/media/secret scan, official Skill
+      validation, official plugin validation, and all 30 contract tests.
+- [ ] User installs/reloads the plugin and returns the exact Milestone 3 proof
+      observations and raw response.
+- [ ] Evaluate the real result, run relevant D-024 fixtures, and choose the
+      Milestone 4 application handoff.
 
 ## Surprises and discoveries
 
@@ -171,6 +182,13 @@ viable, or unsuitable with retained evidence and a named next action.
   validation.
 - A Skills-only plugin avoids a local endpoint and ChatGPT DOM coupling, but it
   still depends on plan/workspace feature availability and normal usage limits.
+- The repository's `.agents/` path is read-only in the current workspace. The
+  official scaffold still created the plugin and Skill successfully; the local
+  marketplace manifest is therefore `marketplace.json` at repository root and
+  installation remains user-operated.
+- The login shell starts on Node.js 18.19.1, below the pinned engine. Validation
+  used `/home/nunu/.nvm/versions/node/v24.18.0/bin` explicitly; the runbook asks
+  the user to run `nvm use`.
 
 ## Plan decisions
 
@@ -182,6 +200,16 @@ viable, or unsuitable with retained evidence and a named next action.
   a full compiler, persistence migration, or runtime change inside plugin setup.
 - 2026-08-19 — Keep installation and invocation user-operated, with no account
   automation or external write performed by Bunbun.
+- 2026-08-19 — Keep the plugin source and its local marketplace entry inside
+  this repository so the durable source of truth remains reviewable; do not
+  install it into a product account as part of automated implementation.
+- 2026-08-19 — Resolve v3.1's world-fact ambiguity conservatively: stable claim
+  IDs are compiler-owned, each beat has a claim allowlist, and each authored
+  beat returns the exact claim IDs it used. Presence never implies a reaction,
+  state, relation, or action.
+- 2026-08-19 — Wrap the contribution in identity-bearing request/result
+  packets so local code can reject request ID, canonical input hash, prompt
+  order, version, or content-hash drift before any application handoff.
 
 ## Validation
 
@@ -207,6 +235,21 @@ Node.js/npm versions:
 
 Automated browser E2E remains excluded by D-011. Docker is not applicable under
 D-015 because no Dockerfiles exist and this is not a staging handoff.
+
+Actual local result on 2026-08-19 with Node.js 24.18.0:
+
+- official Skill and plugin validators pass;
+- `npm run plugin:check` passes with three locked modules and ten plugin files;
+- `npm run schema:check` passes for 22 generated artifacts;
+- `npm run typecheck`, `npm run lint`, and `npm run format:check` pass;
+- `npm test` passes all 66 tests: 30 contracts, 2 server, and 34 web;
+- `npm run build` passes for contracts, server, and web; the known Vite large-
+  chunk warning remains; and
+- the fixed authored request/result passes `npm run inspect:authoring`.
+
+The HTTP test required a rerun outside the filesystem/network sandbox so it
+could bind `127.0.0.1`; it then passed. No product-surface result is recorded by
+these local checks.
 
 ### Manual happy path
 
@@ -239,12 +282,12 @@ D-015 because no Dockerfiles exist and this is not a staging handoff.
 
 ### Manual results
 
-| Scenario | Tester | Date | Result | Evidence or notes |
-| --- | --- | --- | --- | --- |
-| Plugin install/reload | Pending | Pending | Not run | Awaiting plan approval and implementation |
-| Fixed authored packet | Pending | Pending | Not run | Awaiting plugin proof |
-| Invalid output rejection | Pending | Pending | Not run | Awaiting plugin proof |
-| Authored runtime regression | Pending | Pending | Not run | No runtime change planned |
+| Scenario                    | Tester  | Date       | Result       | Evidence or notes                                                                                                    |
+| --------------------------- | ------- | ---------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Plugin install/reload       | User    | Pending    | Not run      | Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md`                                                                          |
+| Fixed authored packet       | User    | Pending    | Not run      | Local fixture exchange passes; actual product response still required                                                |
+| Invalid output rejection    | Codex   | 2026-08-19 | Pass locally | Malformed, unknown-field, wrong identity/hash, drift, oversized, claim, answer-leak, and module-failure cases reject |
+| Authored runtime regression | Pending | Pending    | Not run      | No runtime change planned                                                                                            |
 
 ## Recovery and compatibility
 
@@ -267,4 +310,16 @@ without a new decision.
 
 ## Outcomes
 
-Pending plan approval and implementation.
+Milestones 1 and 2 are complete. The durable implementation now includes:
+
+- `plugins/bunbun-authoring/` and repository-root `marketplace.json`;
+- `packages/contracts/src/schema/authoring.ts` and
+  `packages/contracts/src/validation/authoring.ts`;
+- generated authoring schemas and fixtures under `packages/contracts/`;
+- `npm run inspect:authoring` and `npm run plugin:check`; and
+- `docs/ai-modules/M7_V3_2_RUNBOOK.md`.
+
+Local validation passes. Milestone 3 is intentionally pending because only the
+user may install/reload the plugin and report the actual supported-surface
+result. No application compiler, provider connection, publication path, or
+runtime behavior was added.

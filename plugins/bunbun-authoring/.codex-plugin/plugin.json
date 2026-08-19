@@ -1,0 +1,18 @@
+{
+  "name": "bunbun-authoring",
+  "version": "0.1.0",
+  "description": "Local Skills-only authoring for validated Bunbun Japanese lesson drafts.",
+  "author": {
+    "name": "Bunbun"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Bunbun Authoring",
+    "shortDescription": "Create one strict Bunbun lesson draft.",
+    "longDescription": "Composes the approved Story Sheet, Reverse Trainer, and Story Coach responsibilities over a versioned Bunbun packet and returns one strict JSON result for local validation.",
+    "developerName": "Bunbun",
+    "category": "Education",
+    "capabilities": [],
+    "defaultPrompt": "Use $bunbun-lesson-authoring with the Bunbun authoring packet I provide and return exactly one strict JSON result."
+  }
+}

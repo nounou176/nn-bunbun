@@ -9,13 +9,17 @@ v3. The v3.1 Story Sheet feasibility gate is closed early under D-029 after two
 of five fixtures, with one semantic rejection, one accepted result, and three
 unexecuted fixtures. D-031 supersedes the WXT stage and rejects proposed D-030;
 M7 v3.2 is now a Skills-only personal ChatGPT/Codex plugin and the selected next
-implementation direction. Prompt Adaptation Pack 0.1.0 remains authoritative.
-No plugin, compiler implementation, MCP server, browser extension, automation,
-provider connection, external GPT edit, or environment variable has started.
+implementation direction. D-032 implements its repository-owned plugin source,
+closed request/result schemas, local validator, drift gate, authored fixture,
+and runbook. Prompt Adaptation Pack 0.1.0 remains authoritative. User-operated
+installation and fixed product-surface proof are pending. No application
+compiler/provider connection, MCP server, browser extension, automation,
+external GPT edit, learner-data transfer, or environment variable has started.
 
 Active ExecPlan:
 
-- plans/2026-08-19-m7-v3-skills-plugin.md — Proposed; implementation approval
+- plans/2026-08-19-m7-v3-skills-plugin.md — Approved; local implementation and
+  automated validation complete through Milestones 1–2; Milestone 3 user proof
   pending
 
 Historical M7 v3.1 evidence plan:
@@ -220,6 +224,13 @@ Completed ExecPlans:
   MCP server. WXT is now a research-only fallback; v3.3 MCP remains conditional.
   The selected route has no `OPENAI_API_KEY` and uses normal ChatGPT plan
   allowance, subject to account/workspace availability and plan limits.
+- D-032 implements the local `bunbun-authoring@0.1.0` plugin with one
+  `bunbun-lesson-authoring` Skill. Closed `0.1.0` request/result schemas,
+  canonical input hashing, exact prompt-pack identity, claim-level world
+  bindings, strict local validation, generated fixtures, inspection CLI, drift
+  gate, local marketplace manifest, and user-run proof instructions now exist.
+  The fixed authored exchange passes locally; the actual supported-surface
+  response has not been run or inferred.
 - Prepared the first user-operated Story Sheet feasibility packet from the
   approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
   request/module/source/prompt identities, reviewed `犬` target, catalog-backed
@@ -290,8 +301,8 @@ Completed ExecPlans:
   shared contract, three exact prompt fragments and hashes, fixed composition
   order, deterministic failure/privacy boundaries, and fifteen text-only
   fixtures are now approved. Milestone 7 phase 0 is complete.
-- All three selected M7 prompt modules are Approved as local adaptations but
-  are not implemented or runtime-active. D-031 preserves D-023's
+- All three selected M7 prompt modules are packaged in the local proof but are
+  not application-compiler or runtime-active. D-031 preserves D-023's
   one-composed-request rule through one lesson-authoring Skill and does not call
   the three original hosted GPTs sequentially.
 - Added the approved `docs/ai-modules/` adaptation pack: one shared typed
@@ -345,15 +356,13 @@ Not present:
 - production 3D, audio, or image assets;
 - learner identity, cross-device sync, mastery, scheduler, or analytics
   transport;
-- AI, compiler-job, or production TTS integrations;
+- application AI/provider, compiler-job, or production TTS integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
 
-The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
-`main` at `df14be1`, six commits ahead of `origin/main`. D-031, the proposed
-Skills-only successor plan, and affected documentation updates are currently
-uncommitted.
+The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. The M7 v3.2
+implementation changes are currently uncommitted.
 
 ## Known issues
 
@@ -404,11 +413,12 @@ uncommitted.
     result does not establish broader browser, mobile, or touch support.
 15. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
-    0.1.0 is approved. The three selected modules remain inactive because the
-    compiler/provider does not exist. GPT-editor model, capability/action, and
-    version-history metadata was not supplied and is not inherited; config
-    hashes identify the reviewed local source snapshots. Supplied images and
-    the APKG remain style/output examples only.
+    0.1.0 is approved. The three selected modules are packaged in the v3.2
+    proof but remain application-inactive because the compiler/provider does
+    not exist. GPT-editor model, capability/action, and version-history metadata
+    was not supplied and is not inherited; config hashes identify the reviewed
+    local source snapshots. Supplied images and the APKG remain style/output
+    examples only.
 16. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
@@ -417,29 +427,34 @@ uncommitted.
     viability an implementation dependency by selecting the repository-owned
     prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
     a quality risk and must not be upgraded to a full pass.
-17. Prompt contract 0.1.0 carries per-beat text limits but has no explicit
-    title, objective, premise, setting-context, or synopsis limits inside
-    `LessonAuthoringEnvelopeInput`. Run 001 uses conservative feasibility-only
-    response limits outside that envelope. The production packet contract must
-    close this gap without treating the run-specific values as accepted product
-    defaults.
-18. Run 001 exposes an unresolved boundary between catalog-backed world facts
-    and transient narrative-only copy. The current strict rule rejects an
-    inferred dog/cat spatial relation and a guide emotion, but the production
-    contract has not decided whether every such relation/state needs an explicit
-    code-owned claim or whether a narrow safe narrative class is allowed. Do not
-    retroactively widen the Run 001 packet; resolve this before packet schemas.
+17. D-032 closes the transport-proof output-budget gap by putting explicit
+    title, objective, premise, setting-context, and synopsis limits in the
+    request packet. These authored fixture values are proof inputs, not yet
+    accepted production-profile defaults.
+18. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
+    claim IDs, per-beat claim allowlists, and returned claim bindings. This
+    makes unknown or out-of-beat claims deterministically rejectable, but code
+    still cannot prove that every nuance of free-form natural-language copy is
+    semantically entailed. Application publication therefore remains gated by
+    later catalog/runtime validation and review.
+19. The local plugin and fixture are validated, but product-surface
+    availability, install/reload behavior, actual composed output quality, and
+    plan-limit behavior are still unverified until the user runs Milestone 3.
+    The Codex IDE extension does not support plugins; a supported app/CLI or
+    ChatGPT surface is required.
 
 ## Next recommended work
 
 Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. Review and approve or revise
-   `plans/2026-08-19-m7-v3-skills-plugin.md` before implementation.
-2. After plan approval, create the smallest personal Skills-only plugin and
-   prove one fixed authored packet through the three-module composed output and
-   local validators. Do not transmit real learner history in the first proof.
-3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
+1. Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md` to install/reload the local
+   plugin and run the fixed authored packet in a new supported conversation.
+2. Return the exact raw response and media/tool observations, then run the
+   local inspector without cleaning or extracting the response.
+3. If the fixed proof passes, run the relevant D-024 text-only fixtures and
+   decide between manual file/clipboard import and a separately approved
+   direct handoff. Do not transmit real learner history in this proof.
+4. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
    separate endpoint, network, authentication, privacy, confirmation, and cost
    gate.
 
@@ -478,6 +493,14 @@ non-speech asset, and measurable audio acceptance choices.
   format check, and explicit Prettier checks for all changed Markdown files
   pass. This documentation-only change did not run code tests, builds, Docker,
   or browser checks.
+- D-032/M7 v3.2 local implementation: official plugin and Skill validators
+  pass; prompt drift/media/secret scan passes for all three approved modules;
+  both generated JSON Schemas are current; the fixed authored exchange is
+  accepted by the local inspector; all 66 contract/server/web tests pass under
+  Node.js 24.18.0; and full schema, typecheck, lint, format, and production build
+  checks pass. Plugin installation, ChatGPT/Codex invocation, manual browser/
+  gameplay regression, and any actual model result remain pending user action.
+  No Playwright or Docker check applies under D-011 and D-015.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.
@@ -485,7 +508,7 @@ non-speech asset, and measurable audio acceptance choices.
   passed for all twelve changed or new Markdown files. This documentation-only
   change did not run code tests, browser checks, or builds.
 - Dependency installation: an isolated clean `npm ci --ignore-scripts
-  --offline` passed with Node.js 24.18.0/npm 11.16.0; 146 packages were added,
+--offline` passed with Node.js 24.18.0/npm 11.16.0; 146 packages were added,
   150 packages were audited, and zero vulnerabilities were reported. The final
   lockfile also passes an in-place offline dry-run.
 - Generated artifact drift check: passed for three schemas and six invalid

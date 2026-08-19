@@ -1,6 +1,6 @@
 # Milestone 7 Prompt Adaptation Pack
 
-Status: Approved under D-024; not implemented
+Status: Approved under D-024; packaged in M7 v3.2 proof; compiler inactive
 Pack version: 0.1.0
 Created: 2026-08-12
 Approved: 2026-08-12
@@ -13,11 +13,11 @@ does not activate an OpenAI provider.
 
 The pack implements accepted decision D-023:
 
-| Order | Module | Owned contribution |
-| --- | --- | --- |
-| 1 | `story_sheet` | Premise, story, setting context, and story-beat copy |
-| 2 | `reverse_trainer` | Natural phrase analysis, reverse recall, and practice content |
-| 3 | `story_coach` | Instructions, bounded hints/scaffold copy, pedagogical cadence, and feedback |
+| Order | Module            | Owned contribution                                                           |
+| ----- | ----------------- | ---------------------------------------------------------------------------- |
+| 1     | `story_sheet`     | Premise, story, setting context, and story-beat copy                         |
+| 2     | `reverse_trainer` | Natural phrase analysis, reverse recall, and practice content                |
+| 3     | `story_coach`     | Instructions, bounded hints/scaffold copy, pedagogical cadence, and feedback |
 
 Deterministic code owns target normalization, references, scene and scenario
 selection, story/practice/support slot IDs, primitive sequence, difficulty,
@@ -35,6 +35,13 @@ transitions, timings, quality budgets, final IDs, and validation.
 - `evals/` — text-only success and failure fixtures with observable assertions.
 - `feasibility/` — user-operated M7 v3.1 packets and runbooks; these are
   research evidence, not implemented production packet schemas.
+- `M7_V3_2_RUNBOOK.md` — user-operated install, invocation, validation, and
+  recovery procedure for the local Skills-only proof.
+
+The executable closed schemas, fixture generator, validator, and inspection
+CLI live under `packages/contracts/`. The local plugin source lives under
+`plugins/bunbun-authoring/`; its drift gate verifies that all three bundled
+prompt fragments remain byte-identical to this directory.
 
 ## Composition
 
@@ -72,6 +79,8 @@ The user's 2026-08-12 approval, recorded as D-024, accepts:
 - the text-only evaluation fixtures; and
 - module versions `0.1.0`.
 
-All three modules are Approved for Milestone 7 implementation but are not yet
-implemented or runtime-active. D-024 does not approve a provider, model,
-reasoning setting, environment-variable name, or the proposed compiler plan.
+All three modules are now packaged together in the M7 v3.2 local Skill proof.
+This is not application compiler activation: no provider call, compiler job,
+lesson persistence/publication, or runtime AI exists. D-024 does not approve a
+provider model, reasoning setting, environment-variable name, or later
+compiler handoff.

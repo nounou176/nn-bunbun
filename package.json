@@ -28,7 +28,9 @@
     "schema:check": "npm run schema:check --workspace @bunbun/contracts",
     "test": "npm run test --workspace @bunbun/contracts && npm run test --workspace @bunbun/server && npm run test --workspace @bunbun/web",
     "inspect:manifest": "node --import tsx packages/contracts/scripts/inspect-manifest.ts",
-    "inspect:storage": "npm run inspect:storage --workspace @bunbun/server --"
+    "inspect:authoring": "npm run inspect:authoring --workspace @bunbun/contracts --",
+    "inspect:storage": "npm run inspect:storage --workspace @bunbun/server --",
+    "plugin:check": "node scripts/check-m7-v3-plugin.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

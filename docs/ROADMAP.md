@@ -311,17 +311,16 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — D-031 selects M7 v3.2 Skills-only; implementation plan
-approval pending
+Status: In progress — D-032 implements the M7 v3.2 local proof; user-operated
+product-surface proof pending
 
 Purpose:
 
 Compile learner targets into the already proven deterministic runtime.
 
-Decisions still required before implementation:
+Decisions still required before application integration:
 
-- exact Skill input/output, import, repair, and disclosure rules;
-- supported ChatGPT/Codex plugin surfaces and installation/reload procedure;
+- post-proof file/clipboard or direct application handoff;
 - O-006 HTTP and compilation job model for the selected strategy;
 - O-009 reference datasets and licenses;
 - a model/provider choice only if a later strategy requires one; and
@@ -346,6 +345,9 @@ Decision resolved:
 - D-031 rejects proposed D-030, selects one repository-owned Skills-only
   personal ChatGPT/Codex plugin for v3.2, keeps one composed request, moves WXT
   to research-only fallback, and leaves MCP conditional for v3.3.
+- D-032 implements the closed v3.2 request/result boundary, canonical identity
+  checks, claim-level world traceability, one local Skills-only plugin, prompt
+  drift gate, authored fixtures, local inspector, and user-operated runbook.
 
 Strategy note:
 
@@ -358,16 +360,17 @@ Strategy note:
 - M7 v2 preserves the self-built/local LLM research direction. No model,
   hardware floor, inference runtime, training method, or license set is
   selected.
-- M7 v3 is the active path. Its selected proposed ExecPlan is
+- M7 v3 is the active path. Its approved active ExecPlan is
   `plans/2026-08-19-m7-v3-skills-plugin.md`. It uses no `gpt-5.6-terra` or
   `OPENAI_API_KEY`. V3.1 remains historical provisional evidence. V3.2 packages
   the three approved prompt modules into one Skill; v3.3 considers MCP only
   after a separate endpoint, network, authentication, privacy, confirmation,
   and cost decision.
 
-No plugin, compiler implementation, browser automation, extension, GPT edit,
-external connection, dependency, environment variable, tunnel, or learner-data
-transmission is approved by this status change.
+The repository-owned plugin proof is implemented without a new dependency,
+environment variable, app connection, browser automation, extension, GPT edit,
+tunnel, or learner-data transmission. No application compiler/provider,
+LessonManifest publication, or runtime AI is approved by this status change.
 
 The fixed Story Sheet packets, raw responses, runbooks, and evaluations live
 under `docs/ai-modules/feasibility/`. The latest user correction records no
@@ -395,8 +398,9 @@ evaluation fixtures. Visual Mnemonic and both Anki workflows remain deferred.
 The approved `docs/ai-modules/` pack provides the shared typed
 contribution contract, exact 0.1.0 prompt fragments and hashes, disjoint module
 ownership, deterministic failure/privacy rules, fixed composition order, and
-fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. The
-pack does not activate the modules or implement the selected plugin. D-031
+fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. D-032
+packages the three modules in the selected local proof but does not activate an
+application compiler/provider or lesson publication. D-031
 composes the three modules in one Skill and does not authorize sequential
 direct use of the hosted GPTs.
 
@@ -484,7 +488,7 @@ Decision resolved:
   CC0 asset candidates, optional authoring-time THREE.Terrain, and a bounded
   Japanese-neighborhood production envelope.
 - D-026 selects an N5 lesson with Vietnamese support, the rainy-evening `Three
-  Minutes to the Last Train` scenario, its requested and supporting target set,
+Minutes to the Last Train` scenario, its requested and supporting target set,
   Aoi, Tanaka, Momo, narrative-only time pressure, and audio-complete acceptance
   boundary.
 
