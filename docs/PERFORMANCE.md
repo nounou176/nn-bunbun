@@ -168,6 +168,26 @@ Budgets for triangles, GPU memory, JavaScript bundle size, compressed lesson
 download, initial load time, and interaction latency require real prototype
 measurements before numeric limits are accepted.
 
+## Production world asset gate
+
+D-025 selects a GLB-first authoring pipeline but does not approve unmeasured
+source-pack contents. The representative Japanese-neighborhood chunk must be
+measured after source selection, conversion, and registration. Record at least:
+
+- source and exported GLB byte sizes;
+- node, mesh, primitive, material, texture, and animation counts;
+- triangles and frame-local draw calls at the accepted camera;
+- texture dimensions and approximate GPU footprint where available;
+- cold and warm scene-ready time;
+- first-stimulus and picking response time;
+- active NPC/animal animation cost; and
+- WebGPU and forced-WebGL2 behavior on the named reference device.
+
+THREE.Terrain output receives the same review as hand-assembled geometry. A
+procedurally authored source does not authorize unbounded runtime terrain or
+exemption from scene budgets. Keep chunks independently loadable and avoid
+shipping unused source-pack content.
+
 ## Rendering strategy
 
 ### Renderer

@@ -185,6 +185,12 @@ SceneSelection:
 | cameraPresetId | ID | yes | Registered isometric/diorama camera preset |
 | assetBundleIds | ID[] | yes | Unique registered bundles needed by lesson |
 
+Under D-025, registered scene and bundle IDs may resolve to bounded GLB world
+chunks assembled with the approved authoring pipeline. Authoring-tool settings,
+source asset paths, terrain parameters, transforms, navigation geometry, and
+license records remain outside LessonManifest and are owned by reviewed
+application metadata. This clarification does not change contract 0.1.0.
+
 Scenario:
 
 | Field | Type | Required | Constraints |

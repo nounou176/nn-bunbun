@@ -6,7 +6,8 @@ This document defines the approved architectural direction. Milestones 1
 through 6 are implemented and manually accepted: the workspace, contracts,
 technical runtime, complete eight-primitive executor, and local evidence/
 safe-resume boundary all exist locally. Compiler, cached audio, and production
-asset boundaries remain planned until their roadmap milestones.
+asset implementation remain planned until their roadmap milestones. D-025 now
+defines the production world-authoring and asset-intake boundary.
 
 ## Architectural goals
 
@@ -318,6 +319,32 @@ SQLite; do not duplicate large binary data inside manifests.
 - Do not add a heavy physics engine for the MVP.
 
 Detailed numeric budgets are in PERFORMANCE.md.
+
+### Production world-authoring boundary
+
+D-025 adopts a GLB-first pipeline described in `WORLD_AUTHORING.md`. Three.js
+Editor is the initial assembly and inspection tool. The reviewed Kenney CC0
+road, suburban, blocky-character, and cube-pet packs are the initial asset
+sources. THREE.Terrain is an optional authoring-time terrain generator; its
+output must cross the same reviewed GLB boundary and it is not a default
+runtime dependency.
+
+The initial production-world envelope is a bounded stylized Japanese
+neighborhood with road, convenience-store, and park areas, two active NPCs,
+and one active animal. Exact lesson scenario and language targets remain
+deferred. A visually larger city grows from reusable lesson-sized chunks, not
+one unbounded always-loaded world.
+
+The application-owned asset registry and scene definition continue to own
+asset URLs, transforms, camera settings, stable catalog mappings, spawn points,
+walkable data, and runtime placements. Asset source, license, version or
+download date, hashes, conversion provenance, and measured budgets must be
+recorded before a production asset ships.
+
+Navigation remains direct and authored while geometry permits it. An authored
+navmesh with three-pathfinding is the preferred first candidate when a real
+chunk requires routing around obstacles. Yuka and recast-navigation-js remain
+conditional future candidates rather than approved dependencies.
 
 ### Milestone 3 runtime boundary
 

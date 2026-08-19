@@ -21,7 +21,8 @@ Before significant product, architecture, UX, or implementation work, read:
 6. docs/CURRENT_STATE.md
 7. docs/ROADMAP.md and docs/PERFORMANCE.md when relevant
 8. docs/AI_MODULES.md before AI, compiler, or prompt-module work
-9. The active file in plans/ when one exists
+9. docs/WORLD_AUTHORING.md before world, scene, navigation, or asset work
+10. The active file in plans/ when one exists
 
 Inspect the current codebase before proposing or making changes. Do not assume
 that a discussion is a request to write code.
@@ -41,6 +42,8 @@ that a discussion is a request to write code.
   hidden external GPT configuration or an undocumented generic substitute.
 - Validate every generated LessonManifest strictly before gameplay.
 - Keep ordinary gameplay deterministic and local after lesson generation.
+- Keep world authoring GLB-first and preserve the code-owned runtime boundary
+  documented in docs/WORLD_AUTHORING.md.
 - Keep the 3D world dominant and use HTML/CSS overlays for learning UI.
 - Preserve the MVP non-goals in docs/BUNBUN_VISION.md.
 

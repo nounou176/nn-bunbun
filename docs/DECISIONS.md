@@ -979,6 +979,66 @@ API call has been implemented or enabled by this decision. Proposed D-022, the
 Milestone 7 ExecPlan, the model and reasoning setting, and the environment
 variable name remain separate approval gates before implementation starts.
 
+### D-025 — Adopt a GLB-first Three.js world-authoring pipeline
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: World authoring, assets, rendering, navigation, catalogs, roadmap
+
+Context:
+
+The accepted runtime has one repository-owned `park_small` technical fixture,
+code-owned scene metadata, stable catalog identities, and direct movement. It
+has no production world or asset catalog. Importing a complete city engine
+would duplicate the runtime, broaden scope, and introduce avoidable license or
+Three.js-version risk. Runtime procedural world generation would also conflict
+with the bounded reusable micro-scene direction.
+
+Decision:
+
+Use Three.js Editor as the initial scene assembly and inspection tool. Use the
+CC0 Kenney City Kit (Roads), City Kit (Suburban), Blocky Characters, and Cube
+Pets packs as the initial production-asset candidates. Use the MIT-licensed
+THREE.Terrain project only as an optional authoring-time terrain generator,
+then export reviewed bounded geometry through the same GLB boundary. Do not add
+THREE.Terrain to ordinary gameplay or the render loop by default.
+
+Build the first production-world envelope as a bounded stylized Japanese
+neighborhood containing a short road, convenience-store area, small park, two
+active NPCs, and one active animal. Exact learner level, support locale, lesson
+scenario, vocabulary, and grammar targets remain deferred. The neighborhood
+may later appear connected to other chunks, but each lesson loads only its
+required scene and asset bundles.
+
+GLB owns renderable geometry, materials, rigs, and animation clips. Bunbun's
+code-owned asset registry, scene definitions, and catalogs own paths,
+transforms, camera presets, stable IDs, spawn points, walkable data,
+placements, affordances, and deterministic cues. LessonManifest continues to
+select registered IDs and cannot provide asset paths, terrain settings,
+arbitrary scripts, or executable world behavior.
+
+Keep direct authored movement while representative geometry has no blocking
+obstacle. When real world chunks require routes around obstacles, the preferred
+first spike is an authored navmesh with three-pathfinding. Yuka for richer NPC
+behavior and recast-navigation-js for dynamic obstacles or crowds remain
+conditional candidates; this decision does not approve those dependencies.
+
+Before any asset ships, record its canonical source, author or publisher,
+exact license, version or download date, source hash, conversion provenance,
+exported GLB hash, catalog ownership, and measured runtime budget. Recheck the
+source terms at intake time. Do not import a complete AGPL/GPL city engine as
+the production foundation.
+
+Consequences:
+
+World production can start from reusable licensed components without replacing
+the deterministic Three.js runtime. The asset pipeline gains explicit license
+and provenance work, and representative assets still require a focused
+ExecPlan, download review, conversion, optimization, registration, tests, and
+manual browser acceptance. O-002 is narrowed to the exact first lesson scene
+variant, scenario, and target set rather than the general world-authoring
+direction. No dependency or asset is added by this decision alone.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -986,7 +1046,7 @@ These are acknowledged but not yet ready to decide:
 | ID | Decision needed | Resolve before |
 | --- | --- | --- |
 | O-001 | Initial learner level and support locale | First vertical-slice content |
-| O-002 | First scene, scenario, and target set | Vertical-slice ExecPlan |
+| O-002 | Exact first lesson scene variant, scenario, and target set inside the D-025 neighborhood envelope | Vertical-slice ExecPlan |
 | O-006 | Backend HTTP framework and compilation job model | Backend foundation |
 | O-008 | Browser/device support and WebGPU fallback policy | Rendering foundation |
 | O-009 | Kanji and Japanese reference datasets and licenses | Compiler/reference integration |

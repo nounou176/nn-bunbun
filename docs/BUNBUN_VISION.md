@@ -109,6 +109,12 @@ kitchen, restaurant, convenience store, station, street, office, or hospital.
 The camera is isometric, bird's-eye, or another diorama-style presentation.
 The learner points and clicks to select, move, and interact.
 
+D-025 selects a GLB-first authoring direction for production worlds. The first
+world-production envelope is a bounded Japanese neighborhood with a short road,
+a convenience-store area, a small park, two NPCs, and one animal. Lessons reuse
+only the relevant chunks and catalog content; this does not turn the MVP into a
+seamless or always-loaded city.
+
 During normal exploration, the interface stays minimal. Short DOM overlays
 appear for dialogue, choices, word arrangement, typing, help, and language
 information, then disappear promptly so the learner returns to the world.
@@ -152,6 +158,9 @@ scope:
 - skill trees;
 - stamina or HP systems; or
 - realtime voice interaction.
+
+Authoring-time terrain generation and GLB export are compatible with these
+non-goals. Runtime procedural expansion is not.
 
 Anki export, mnemonic image generation, selective runtime AI evaluation, and a
 SPEAK primitive are later opportunities, not MVP assumptions.

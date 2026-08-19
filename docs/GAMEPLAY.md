@@ -203,6 +203,18 @@ Each scenario should have:
 Typical reusable scenes include a park, classroom, house, kitchen, restaurant,
 convenience store, station, street, office, and hospital.
 
+D-025 starts production world authoring with one bounded Japanese-neighborhood
+envelope containing road, convenience-store, and park areas, two NPCs, and one
+animal. A lesson still activates only the relevant chunk, instances, and
+interaction candidates. The shared visual setting must not add travel that
+reduces reaction density.
+
+Authored locations and approach zones may establish situations such as meeting
+someone, reaching a crossing, or reacting to an animal. Under the current MVP,
+they must resolve through registered locations, presentation cues, and the
+existing primitive vocabulary. World metadata does not authorize freeform
+collision events, physics outcomes, or scripts.
+
 The story provides a reason to react. It should not add cutscenes, traversal,
 dialogue, or puzzles that do not improve the language experience.
 

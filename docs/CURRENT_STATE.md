@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-12
+Last updated: 2026-08-19
 
 ## Current milestone
 
@@ -226,13 +226,19 @@ Completed ExecPlans:
   reference claims, long ChatGPT teaching flows, and deterministic runtime
   control from the selected modules. Pack approval does not enable any provider
   or API call.
+- Accepted D-025 after the user approved the practical Three.js world-authoring
+  proposal. The approved direction uses Three.js Editor, reviewed Kenney CC0
+  city/character/pet candidates, optional authoring-time THREE.Terrain, bounded
+  GLB chunks, and code-owned world metadata. The first production-world
+  envelope is a small Japanese neighborhood with road, convenience-store, and
+  park areas, two NPCs, and one animal. No asset or dependency has been added.
 
 ## Repository inventory
 
 Present:
 
-- AGENTS.md, `docs/AI_MODULES.md`, and the required docs/ durable project
-  records;
+- AGENTS.md, `docs/AI_MODULES.md`, `docs/WORLD_AUTHORING.md`, and the required
+  docs/ durable project records;
 - .agent/PLANS.md, six completed milestone ExecPlans, and one proposed
   Milestone 7 ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
@@ -272,7 +278,10 @@ proposed Milestone 7 planning records are currently uncommitted.
 ## Known issues
 
 1. The fixture catalog proves identities and capabilities but does not provide
-   production scene, mesh, navigation, image, or audio assets.
+   production scene, mesh, navigation, image, or audio assets. D-025 selects
+   the world-authoring pipeline and initial source candidates, but source
+   intake, retained licenses, hashes, conversion, and runtime measurements are
+   not implemented.
 2. Contract 0.1.0 rejects every graph cycle because it has no counter or
    condition language with which to prove an arbitrary cycle bounded.
 3. Deterministic validators cannot judge natural Japanese quality or future
@@ -282,8 +291,9 @@ proposed Milestone 7 planning records are currently uncommitted.
    passed by user report, but numeric runtime measurements and named-device
    details were not supplied. No wider browser, mobile, or touch support is
    claimed.
-5. Initial learner level, support locale, scene, scenario, and target set are
-   not selected.
+5. Initial learner level, support locale, exact lesson scene variant, scenario,
+   and target set are not selected. D-025 selects only the broader Japanese-
+   neighborhood production envelope.
 6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. Compiler-draft normalization
    is proposed in D-022 but is not approved or implemented.
@@ -331,6 +341,12 @@ Complete the remaining Milestone 7 approval gates before implementation:
    provide or store its value in repository documentation or shared memory.
 4. Start implementation only after those decisions and the ExecPlan are
    explicitly approved.
+
+D-025 is approved groundwork for the later production vertical slice and does
+not reorder Milestone 7. Before world asset implementation begins, approve a
+focused ExecPlan covering source/license intake, reproducible GLB export, one
+representative neighborhood chunk, catalog registration, performance, and
+manual browser validation.
 
 ## Verification status
 

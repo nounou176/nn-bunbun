@@ -426,15 +426,24 @@ Purpose:
 
 Validate the complete Bunbun promise in one polished micro-scenario.
 
+Decision resolved:
+
+- D-025 selects the GLB-first Three.js world-authoring pipeline, initial Kenney
+  CC0 asset candidates, optional authoring-time THREE.Terrain, and a bounded
+  Japanese-neighborhood production envelope.
+
 Decisions required:
 
 - O-001 learner level and support locale;
-- O-002 scene, scenario, vocabulary, and grammar targets; and
+- O-002 exact lesson scene variant, scenario, vocabulary, and grammar targets
+  inside the accepted neighborhood envelope; and
 - explicit qualitative and quantitative acceptance criteria.
 
 Planned scope:
 
-- one reusable stylized scene;
+- source/license/hash and conversion provenance for every selected asset;
+- one reusable stylized Japanese-neighborhood chunk with road,
+  convenience-store, and park areas, two NPCs, and one animal;
 - one coherent scenario;
 - selected vocabulary and grammar across repeated contexts;
 - multiple reaction difficulty levels;
@@ -448,6 +457,7 @@ Planned scope:
 Exit criteria:
 
 - A real target set compiles and plays end to end.
+- Every shipped world asset has reviewed provenance and license records.
 - Every requested target has verified exposure.
 - The scenario remains completable with support.
 - Measured reaction cadence, load, and rendering results are reported.
