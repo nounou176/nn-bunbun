@@ -51,7 +51,10 @@ if ("mcpServers" in manifest || "apps" in manifest) {
 }
 
 const marketplace = JSON.parse(
-  await readFile(resolve(repositoryRoot, "marketplace.json"), "utf8"),
+  await readFile(
+    resolve(repositoryRoot, ".agents/plugins/marketplace.json"),
+    "utf8",
+  ),
 );
 const marketplaceEntry = marketplace.plugins?.find(
   (entry) => entry.name === "bunbun-authoring",

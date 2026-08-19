@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-19
+Last updated: 2026-08-20
 
 ## Current milestone
 
@@ -11,16 +11,20 @@ unexecuted fixtures. D-031 supersedes the WXT stage and rejects proposed D-030;
 M7 v3.2 is now a Skills-only personal ChatGPT/Codex plugin and the selected next
 implementation direction. D-032 implements its repository-owned plugin source,
 closed request/result schemas, local validator, drift gate, authored fixture,
-and runbook. Prompt Adaptation Pack 0.1.0 remains authoritative. User-operated
-installation and fixed product-surface proof are pending. No application
+and runbook. Prompt Adaptation Pack 0.1.0 remains authoritative. The user
+installed `bunbun-authoring@0.1.0`, invoked the fixed packet on the product
+surface, and returned one strict JSON result that the local inspector accepted.
+The user confirmed a new conversation, a finished response, and that the only
+file action was deliberately attaching `valid-request.json`; the plugin started
+no unexpected media or tool. The fixed Milestone 3 manual gate is closed. No application
 compiler/provider connection, MCP server, browser extension, automation,
 external GPT edit, learner-data transfer, or environment variable has started.
 
 Active ExecPlan:
 
 - plans/2026-08-19-m7-v3-skills-plugin.md — Approved; local implementation and
-  automated validation complete through Milestones 1–2; Milestone 3 user proof
-  pending
+  fixed Milestone 3 product-surface proof complete; Milestone 4 broader fixture
+  evaluation and application-handoff choice pending
 
 Historical M7 v3.1 evidence plan:
 
@@ -229,8 +233,11 @@ Completed ExecPlans:
   canonical input hashing, exact prompt-pack identity, claim-level world
   bindings, strict local validation, generated fixtures, inspection CLI, drift
   gate, local marketplace manifest, and user-run proof instructions now exist.
-  The fixed authored exchange passes locally; the actual supported-surface
-  response has not been run or inferred.
+  The plugin is installed and the fixed supported-surface response is one
+  strict JSON object accepted by the local inspector as
+  `m7_v3_2_lesson_authoring_001`. The user confirmed the plugin started no
+  unexpected image, file, or tool flow; attaching the required input packet was
+  the only file action.
 - Prepared the first user-operated Story Sheet feasibility packet from the
   approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
   request/module/source/prompt identities, reviewed `犬` target, catalog-backed
@@ -437,24 +444,26 @@ implementation changes are currently uncommitted.
     still cannot prove that every nuance of free-form natural-language copy is
     semantically entailed. Application publication therefore remains gated by
     later catalog/runtime validation and review.
-19. The local plugin and fixture are validated, but product-surface
-    availability, install/reload behavior, actual composed output quality, and
-    plan-limit behavior are still unverified until the user runs Milestone 3.
-    The Codex IDE extension does not support plugins; a supported app/CLI or
-    ChatGPT surface is required.
+19. Product-surface availability, install behavior, and strict composed output
+    validation now pass for `bunbun-authoring@0.1.0`. Installation exposed two
+    local setup constraints now recorded in the runbook: a repository
+    marketplace manifest belongs at `.agents/plugins/marketplace.json`, and the
+    NVM-preferred Codex CLI `0.121.0` does not expose `plugin add`, while
+    `/home/nunu/.local/bin/codex` `0.147.0` does. The fixed media/file/tool gate
+    passes after distinguishing the expected input attachment from unexpected
+    plugin output. Plan-limit behavior remains unverified. The Codex IDE
+    extension does not support plugins; a supported app/CLI or ChatGPT surface
+    is required.
 
 ## Next recommended work
 
 Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md` to install/reload the local
-   plugin and run the fixed authored packet in a new supported conversation.
-2. Return the exact raw response and media/tool observations, then run the
-   local inspector without cleaning or extracting the response.
-3. If the fixed proof passes, run the relevant D-024 text-only fixtures and
-   decide between manual file/clipboard import and a separately approved
-   direct handoff. Do not transmit real learner history in this proof.
-4. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
+1. Run the relevant D-024 text-only fixtures through the installed Skill.
+2. Use those results to decide between manual file/clipboard import and a
+   separately approved direct handoff. Do not transmit real learner history in
+   this proof.
+3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
    separate endpoint, network, authentication, privacy, confirmation, and cost
    gate.
 
@@ -493,14 +502,18 @@ non-speech asset, and measurable audio acceptance choices.
   format check, and explicit Prettier checks for all changed Markdown files
   pass. This documentation-only change did not run code tests, builds, Docker,
   or browser checks.
-- D-032/M7 v3.2 local implementation: official plugin and Skill validators
-  pass; prompt drift/media/secret scan passes for all three approved modules;
-  both generated JSON Schemas are current; the fixed authored exchange is
-  accepted by the local inspector; all 66 contract/server/web tests pass under
-  Node.js 24.18.0; and full schema, typecheck, lint, format, and production build
-  checks pass. Plugin installation, ChatGPT/Codex invocation, manual browser/
-  gameplay regression, and any actual model result remain pending user action.
-  No Playwright or Docker check applies under D-011 and D-015.
+- D-032/M7 v3.2: official plugin and Skill validators pass; the prompt
+  drift/media/secret scan passes for all three approved modules; both generated
+  JSON Schemas are current; and all 66 contract/server/web tests plus schema,
+  typecheck, lint, format, and production build checks pass under Node.js
+  24.18.0. On 2026-08-20 the user installed `bunbun-authoring@0.1.0`, invoked
+  the fixed packet, and returned exactly one JSON object. The local inspector
+  accepted request `m7_v3_2_lesson_authoring_001` with
+  `AUTHORING_EXCHANGE_ACCEPTED`. The user confirmed `newConversation: yes`,
+  `responseFinished: yes`, and no unexpected plugin-started image, file, or tool
+  action; their initial `yes` referred only to the required input attachment.
+  Manual gameplay regression remains pending. No Playwright or Docker check
+  applies under D-011 and D-015.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

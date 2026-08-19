@@ -311,8 +311,8 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — D-032 implements the M7 v3.2 local proof; user-operated
-product-surface proof pending
+Status: In progress — D-032's fixed M7 v3.2 product-surface proof passes;
+broader fixture evaluation and the application-handoff decision remain pending
 
 Purpose:
 
@@ -371,6 +371,10 @@ The repository-owned plugin proof is implemented without a new dependency,
 environment variable, app connection, browser automation, extension, GPT edit,
 tunnel, or learner-data transmission. No application compiler/provider,
 LessonManifest publication, or runtime AI is approved by this status change.
+The user installed `bunbun-authoring@0.1.0` on 2026-08-20 and the fixed
+product-surface result passed the local exchange inspector. The user confirmed
+that the only file action was deliberately attaching the required input; the
+plugin started no unexpected media or tool. The fixed manual proof is closed.
 
 The fixed Story Sheet packets, raw responses, runbooks, and evaluations live
 under `docs/ai-modules/feasibility/`. The latest user correction records no

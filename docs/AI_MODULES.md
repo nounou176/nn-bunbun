@@ -14,8 +14,12 @@ captured Custom GPT behavior the M7 v3 direction. D-029 closes the v3.1 manual
 Story Sheet gate after two of five fixtures as provisionally viable evidence;
 three fixtures remain explicitly unrun. D-031 supersedes the WXT stage and
 selects a repository-owned, Skills-only personal ChatGPT/Codex plugin as M7
-v3.2. Its local package, schemas, validator, fixtures, and runbook now exist;
-user-operated installation and product-surface proof remain pending.
+v3.2. Its local package, schemas, validator, fixtures, and runbook now exist.
+The user installed version 0.1.0 and returned a strict fixed-packet result that
+the local exchange inspector accepted on 2026-08-20. The user also confirmed
+that the only file action was their required input attachment; the plugin
+started no unexpected media or tool. The fixed proof is accepted, while broader
+fixture evaluation remains pending.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected

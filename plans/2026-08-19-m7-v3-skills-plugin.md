@@ -1,6 +1,6 @@
 # Prove the M7 v3.2 Skills-only lesson-authoring plugin
 
-Status: Approved; Milestones 1–2 complete; user-operated Milestone 3 pending
+Status: Approved; Milestones 1–3 complete; Milestone 4 evaluation pending
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-19 23:26 Asia/Ho_Chi_Minh
@@ -168,8 +168,12 @@ viable, or unsuitable with retained evidence and a named next action.
       fragments, generated schema references, and no MCP/app capability.
 - [x] 2026-08-19 23:23 — Pass prompt drift/media/secret scan, official Skill
       validation, official plugin validation, and all 30 contract tests.
-- [ ] User installs/reloads the plugin and returns the exact Milestone 3 proof
-      observations and raw response.
+- [x] 2026-08-20 — User installs `bunbun-authoring@0.1.0`, invokes the fixed
+      packet, and returns one strict JSON response accepted by the local
+      exchange inspector.
+- [x] 2026-08-20 — User confirms a new conversation, a finished response, and
+      no unexpected plugin-initiated image, file, or tool flow. The initial
+      `yes` referred only to the required `valid-request.json` input attachment.
 - [ ] Evaluate the real result, run relevant D-024 fixtures, and choose the
       Milestone 4 application handoff.
 
@@ -182,10 +186,14 @@ viable, or unsuitable with retained evidence and a named next action.
   validation.
 - A Skills-only plugin avoids a local endpoint and ChatGPT DOM coupling, but it
   still depends on plan/workspace feature availability and normal usage limits.
-- The repository's `.agents/` path is read-only in the current workspace. The
-  official scaffold still created the plugin and Skill successfully; the local
-  marketplace manifest is therefore `marketplace.json` at repository root and
-  installation remains user-operated.
+- The repository marketplace must live at `.agents/plugins/marketplace.json`;
+  `codex plugin marketplace add` accepts the repository directory and rejects
+  the JSON file path. The user made `.agents/` writable and created the required
+  directory during the user-operated install.
+- The shell resolves `/home/nunu/.nvm/versions/node/v22.18.0/bin/codex` first.
+  That CLI is version `0.121.0` and does not expose `codex plugin add`. The
+  installed `/home/nunu/.local/bin/codex` version `0.147.0` completed the plugin
+  installation successfully.
 - The login shell starts on Node.js 18.19.1, below the pinned engine. Validation
   used `/home/nunu/.nvm/versions/node/v24.18.0/bin` explicitly; the runbook asks
   the user to run `nvm use`.
@@ -284,8 +292,8 @@ these local checks.
 
 | Scenario                    | Tester  | Date       | Result       | Evidence or notes                                                                                                    |
 | --------------------------- | ------- | ---------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Plugin install/reload       | User    | Pending    | Not run      | Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md`                                                                          |
-| Fixed authored packet       | User    | Pending    | Not run      | Local fixture exchange passes; actual product response still required                                                |
+| Plugin install/reload       | User    | 2026-08-20 | Pass         | Installed `bunbun-authoring@0.1.0` from local marketplace `personal`                                                 |
+| Fixed authored packet       | User    | 2026-08-20 | Pass         | Exact JSON accepted; required input attachment only; no unexpected plugin-started media/tool flow                    |
 | Invalid output rejection    | Codex   | 2026-08-19 | Pass locally | Malformed, unknown-field, wrong identity/hash, drift, oversized, claim, answer-leak, and module-failure cases reject |
 | Authored runtime regression | Pending | Pending    | Not run      | No runtime change planned                                                                                            |
 
@@ -312,14 +320,15 @@ without a new decision.
 
 Milestones 1 and 2 are complete. The durable implementation now includes:
 
-- `plugins/bunbun-authoring/` and repository-root `marketplace.json`;
+- `plugins/bunbun-authoring/` and `.agents/plugins/marketplace.json`;
 - `packages/contracts/src/schema/authoring.ts` and
   `packages/contracts/src/validation/authoring.ts`;
 - generated authoring schemas and fixtures under `packages/contracts/`;
 - `npm run inspect:authoring` and `npm run plugin:check`; and
 - `docs/ai-modules/M7_V3_2_RUNBOOK.md`.
 
-Local validation passes. Milestone 3 is intentionally pending because only the
-user may install/reload the plugin and report the actual supported-surface
-result. No application compiler, provider connection, publication path, or
-runtime behavior was added.
+Local validation passes. The user-installed plugin returned a strict result
+that the exchange inspector accepted, and the observed media/tool gate passes.
+Milestone 3 is complete. Broader D-024 fixture evaluation and the
+application-handoff choice remain Milestone 4 work. No application compiler,
+provider connection, publication path, or runtime behavior was added.

@@ -1,6 +1,6 @@
 # Milestone 7 Compiler Strategy Registry
 
-Last updated: 2026-08-19
+Last updated: 2026-08-20
 
 ## Purpose
 
@@ -46,11 +46,11 @@ rules:
 
 ## Strategy status
 
-| Strategy | Provider path                                                                                                 | Current status                                                                            | Credential position                                                                                       | Durable source                                                            |
-| -------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                                               | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`                |
-| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                                          | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required         |
-| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 local plugin proof implemented; user product-surface proof pending; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031, D-032, and `plans/2026-08-19-m7-v3-skills-plugin.md` |
+| Strategy | Provider path                                                                                                 | Current status                                                                        | Credential position                                                                                       | Durable source                                                            |
+| -------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                                           | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`                |
+| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                                      | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required         |
+| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 fixed product-surface proof accepted; broader fixtures pending; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031, D-032, and `plans/2026-08-19-m7-v3-skills-plugin.md` |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -142,15 +142,15 @@ maintenance decisions that the local-first project has not approved:
 
 ### Candidate routes
 
-| Route                                   | What it proves                                                                                                                    | Main cost or risk                                                                                                                 | V3 position                                                          |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| Manual file/clipboard bridge            | Existing GPT can receive a bounded packet and return importable content without an API key                                        | Human transfer, formatting errors, no unattended generation                                                                       | Recommended first feasibility spike                                  |
-| Skills-only personal plugin             | Packages the reviewed GPT-derived behaviors into one versioned ChatGPT/Codex authoring skill without an API key or local endpoint | Account/workspace availability, normal plan limits, manual result handoff                                                         | **Selected and locally implemented M7 v3.2 proof; user run pending** |
-| Browser-assisted launcher               | Bunbun opens a reviewed GPT link after a user gesture and copies/downloads the packet                                             | Popup rules, local link configuration, still manual on return                                                                     | Candidate after the manual packet passes                             |
-| Local browser extension/userscript      | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page                                                   | New extension surface, permissions, ChatGPT DOM churn                                                                             | Research-only WXT fallback                                           |
-| Playwright/CDP browser automation       | Automates navigation, submission, and response capture                                                                            | Session/cookie handling, fragile selectors, product UI changes, rate limits, new dependency; no supported Custom GPT API contract | Research-only; excluded from the first plan                          |
-| Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT                                                                                    | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model                                     | Conditional later spike                                              |
-| Workspace Agent trigger                 | Starts a published agent from another system                                                                                      | Different product surface, access token required, current API cannot retrieve the response                                        | Not selected for v3                                                  |
+| Route                                   | What it proves                                                                                                                    | Main cost or risk                                                                                                                 | V3 position                                                      |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Manual file/clipboard bridge            | Existing GPT can receive a bounded packet and return importable content without an API key                                        | Human transfer, formatting errors, no unattended generation                                                                       | Recommended first feasibility spike                              |
+| Skills-only personal plugin             | Packages the reviewed GPT-derived behaviors into one versioned ChatGPT/Codex authoring skill without an API key or local endpoint | Account/workspace availability, normal plan limits, manual result handoff                                                         | **Selected M7 v3.2; installed and first strict result accepted** |
+| Browser-assisted launcher               | Bunbun opens a reviewed GPT link after a user gesture and copies/downloads the packet                                             | Popup rules, local link configuration, still manual on return                                                                     | Candidate after the manual packet passes                         |
+| Local browser extension/userscript      | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page                                                   | New extension surface, permissions, ChatGPT DOM churn                                                                             | Research-only WXT fallback                                       |
+| Playwright/CDP browser automation       | Automates navigation, submission, and response capture                                                                            | Session/cookie handling, fragile selectors, product UI changes, rate limits, new dependency; no supported Custom GPT API contract | Research-only; excluded from the first plan                      |
+| Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT                                                                                    | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model                                     | Conditional later spike                                          |
+| Workspace Agent trigger                 | Starts a published agent from another system                                                                                      | Different product surface, access token required, current API cannot retrieve the response                                        | Not selected for v3                                              |
 
 ### Accepted staged route
 
@@ -162,10 +162,12 @@ D-031 supersedes D-028's WXT stage and sets this route:
    unexecuted.
 2. **M7 v3.2 — Skills-only personal plugin.** The local plugin, one authoring
    Skill, closed contracts, validator, drift gate, fixtures, marketplace
-   manifest, and runbook are implemented under D-032. User-operated install
-   and product-surface proof remain pending. It reuses reviewed behavior rather
-   than invoking the six hosted GPT objects and has no MCP, browser extension,
-   provider API, or endpoint.
+   manifest, and runbook are implemented under D-032. Installation and the
+   fixed strict product-surface proof pass, including the explicit confirmation
+   that only the required input attachment occurred and the plugin started no
+   unexpected media or tool. Broader fixture evaluation remains pending. It
+   reuses reviewed behavior rather than invoking the six hosted GPT objects and
+   has no MCP, browser extension, provider API, or endpoint.
 3. **M7 v3.3 — MCP bridge.** Promote only if direct delivery becomes valuable
    and a separate decision approves endpoint reachability, tunnel or hosting,
    authentication, write confirmation, privacy, and cost.

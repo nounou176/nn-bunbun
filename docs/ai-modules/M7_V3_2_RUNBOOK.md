@@ -1,6 +1,7 @@
 # M7 v3.2 Skills-only proof runbook
 
-Status: Local implementation ready; user-operated install and proof pending
+Status: Fixed product-surface proof accepted; broader fixture evaluation and
+application-handoff decision pending
 
 This runbook installs and invokes the repository-owned `bunbun-authoring`
 plugin without an API key, MCP server, browser extension, hosted Custom GPT,
@@ -32,13 +33,16 @@ AUTHORING_EXCHANGE_ACCEPTED requestId=m7_v3_2_lesson_authoring_001
 ## 2. Install on a supported Codex surface
 
 Installation changes local Codex state, so the user performs it deliberately.
-Use either the Codex app plugin link supplied in the implementation handoff or
-the installed CLI's plugin commands:
+The marketplace manifest must be located at
+`.agents/plugins/marketplace.json`. Add the repository directory, not the JSON
+file itself. Use a CLI version that exposes `codex plugin add`; on the current
+machine `/home/nunu/.local/bin/codex` is version `0.147.0`, while the
+NVM-preferred `0.121.0` binary does not expose that command:
 
 ```sh
-codex plugin marketplace add /home/nunu/Desktop/nnlab/nn-bunbun/marketplace.json
-codex plugin add bunbun-authoring@personal
-codex plugin list
+/home/nunu/.local/bin/codex plugin marketplace add /home/nunu/Desktop/nnlab/nn-bunbun
+/home/nunu/.local/bin/codex plugin add bunbun-authoring@personal
+/home/nunu/.local/bin/codex plugin list --marketplace personal
 ```
 
 If this local marketplace is already configured, do not add a duplicate. If a
@@ -68,8 +72,10 @@ rawResponse:
 <exact response>
 ```
 
-Expected media behavior is `imageFileOrToolStarted: no`. Do not count a result
-as passing merely because it looks plausible.
+Attaching `valid-request.json` as the requested input is expected and is not a
+plugin-started media/tool action. The plugin itself must not start an image,
+output file, browser, or external tool. Do not count a result as passing merely
+because it looks plausible.
 
 ## 4. Validate the actual response
 
@@ -116,13 +122,13 @@ Regression:
 To remove the local installation after the proof:
 
 ```sh
-codex plugin remove bunbun-authoring@personal
+/home/nunu/.local/bin/codex plugin remove bunbun-authoring@personal
 ```
 
 Remove the configured marketplace only when no other local plugin uses it:
 
 ```sh
-codex plugin marketplace remove personal
+/home/nunu/.local/bin/codex plugin marketplace remove personal
 ```
 
 Removal does not change LessonManifest, local gameplay data, or the retained
