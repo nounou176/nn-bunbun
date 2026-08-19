@@ -311,15 +311,14 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — M7 v3 research; implementation unapproved
+Status: In progress — M7 v3.1 feasibility approved; not yet run
 
 Purpose:
 
 Compile learner targets into the already proven deterministic runtime.
 
-Decisions still required:
+Decisions still required after the v3.1 Story Sheet gate:
 
-- the active v3 orchestration and browser handoff boundary;
 - whether sequential direct GPT use may revise D-023;
 - exact import, repair, disclosure, and local-link configuration rules;
 - O-006 HTTP and compilation job model for the selected strategy;
@@ -339,6 +338,9 @@ Decision resolved:
   proposal as inactive M7 v1, keeps local self-built LLM work as M7 v2
   research, and makes the Custom GPT browser bridge the active M7 v3 research
   direction.
+- D-028 accepts the v3.1 manual packet → v3.2 WXT extension → v3.3 MCP bridge
+  promotion order. It approves the v3.1 no-code Story Sheet feasibility gate;
+  later stages and full compiler implementation remain separately gated.
 
 Strategy note:
 
@@ -351,14 +353,16 @@ Strategy note:
 - M7 v2 preserves the self-built/local LLM research direction. No model,
   hardware floor, inference runtime, training method, or license set is
   selected.
-- M7 v3 is the active research direction. Its proposed ExecPlan is
+- M7 v3 is the active path. Its staged ExecPlan is
   `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`. It uses no
-  `gpt-5.6-terra` or `OPENAI_API_KEY` and begins with a manual, no-secret Story
-  Sheet feasibility gate before any code or three-GPT orchestration decision.
+  `gpt-5.6-terra` or `OPENAI_API_KEY`. V3.1 begins with the approved manual,
+  no-secret Story Sheet feasibility gate. V3.2 prefers WXT only after measured
+  manual-transfer need; v3.3 considers MCP only after a separate network,
+  authentication, privacy, and GPT edit/clone decision.
 
-No compiler implementation, browser launch, automation, GPT edit, external
-connection, dependency, environment variable, or learner-data transmission is
-approved by this status change.
+No compiler implementation, browser automation, extension, GPT edit, external
+connection, dependency, environment variable, tunnel, or learner-data
+transmission is approved by this status change.
 
 `docs/AI_MODULES.md` inventories the original concepts and six user-supplied
 local GPT configurations. The supplied set contains Story Coach, Reverse

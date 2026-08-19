@@ -9,7 +9,8 @@ earlier conceptual modules. The Milestone 7 responsibility map is accepted,
 and Prompt Adaptation Pack 0.1.0 is approved. No prompt module has been
 implemented or activated. D-027 now preserves the Responses integration as M7
 v1, records the local-LLM path as M7 v2 research, and makes the Custom GPT
-browser bridge the active M7 v3 research direction.
+browser bridge the active M7 v3 direction. D-028 accepts the v3.1 manual → v3.2
+WXT → v3.3 MCP sequence and approves the v3.1 Story Sheet feasibility gate.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -395,8 +396,8 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Review and approve or revise
-`plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`, then run its no-code
-single-module feasibility gate before choosing the v3 orchestration. Keep
-inactive M7 v1, research-only M7 v2, Visual Mnemonic, and both Anki workflows
-out of implementation until their own decisions are accepted.
+Prepare and run the approved no-code v3.1 Story Sheet feasibility gate, then
+choose the v3 orchestration from observed output. Keep inactive M7 v1,
+research-only M7 v2, conditional v3.2/v3.3, Visual Mnemonic, and both Anki
+workflows out of implementation until their own promotion decisions are
+accepted.

@@ -9,9 +9,11 @@ Milestones 1 through 6 are complete. D-027 now tracks three Milestone 7
 strategies. The former Structured Outputs proposal is preserved unchanged as
 inactive M7 v1, the self-built local LLM direction is M7 v2 research, and the
 Custom GPT browser bridge is the active M7 v3 research direction. Its ExecPlan
-is Proposed for implementation and starts with a no-code, user-operated Story
-Sheet feasibility gate. No compiler, browser bridge, provider connection,
-environment variable, or learner-data transmission is approved or implemented.
+is approved through the no-code, user-operated M7 v3.1 Story Sheet feasibility
+gate. D-028 sequences later promotion through a conditional WXT extension
+(v3.2) and then a conditional MCP bridge (v3.3). No compiler, browser extension,
+provider connection, environment variable, tunnel, or learner-data
+transmission is implemented.
 
 D-023 confirms the supplied six-GPT set and accepts the Story Sheet + Story
 Coach + Reverse Trainer responsibility map. D-024 approves Prompt Adaptation
@@ -29,7 +31,7 @@ dialogue, and measurable acceptance gates remain open.
 
 | Plan | Status | Outcome |
 | --- | --- | --- |
-| 2026-08-19-m7-v3-custom-gpt-browser-bridge.md | Proposed for implementation; research active | Prove a manual local-first Custom GPT contribution bridge without an API key, login automation, or runtime AI |
+| 2026-08-19-m7-v3-custom-gpt-browser-bridge.md | Approved through M7 v3.1 feasibility; later implementation gated | Prove a manual local-first Custom GPT contribution bridge without an API key, login automation, or runtime AI |
 | 2026-08-19-audio-complete-last-train-showcase.md | Approved; queued after an accepted M7 implementation | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
 | 2026-08-12-structured-lesson-compiler.md | Proposed M7 v1; inactive | Preserve the OpenAI Responses/Structured Outputs compiler candidate for later comparison |
 | 2026-08-12-local-evidence-sqlite-persistence.md | Complete | Persist evidence and resume one local lesson safely through server-owned SQLite |

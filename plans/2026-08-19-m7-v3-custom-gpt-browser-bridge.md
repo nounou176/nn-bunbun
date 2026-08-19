@@ -1,9 +1,10 @@
 # Prove a local-first Custom GPT browser bridge for lesson compilation
 
-Status: Proposed for implementation; research direction active under D-027
+Status: Approved for M7 v3.1 feasibility under D-028; later implementation
+gated
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 21:10 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19 21:35 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -38,7 +39,9 @@ independent GPT calls. D-024 approves the local Prompt Adaptation Pack 0.1.0,
 its exact prompt hashes, typed contribution contract, and fifteen text-only
 evaluation fixtures. D-027 preserves the old Responses API design as M7 v1,
 records local self-built LLM work as M7 v2, and makes this M7 v3 browser bridge
-the active research direction without approving implementation.
+the active research direction. D-028 accepts the v3.1 manual → v3.2 WXT → v3.3
+MCP sequence and approves this plan through the v3.1 Story Sheet feasibility
+gate only.
 
 The Git-ignored `gpts/` directory contains the six captured user-owned GPT
 configurations and Knowledge examples. The three M7 GPTs were designed for
@@ -133,8 +136,11 @@ compiler prerequisite.
 - D-024's module responsibilities, hashes, fixtures, deterministic validation,
   and privacy boundaries remain the comparison baseline even when the original
   GPT UI is used.
-- D-027 authorizes research only. This ExecPlan must be explicitly approved
-  before code or browser experiments begin.
+- D-027 authorizes the research direction. D-028 approves the no-code,
+  user-operated v3.1 Story Sheet feasibility gate. Full manual-bridge code still
+  requires the post-gate orchestration and privacy decisions in milestone 2.
+- D-028 keeps v3.2 WXT and v3.3 MCP conditional. Neither may be pulled into this
+  plan without a separate approved scope and security review.
 - No new environment-variable name is proposed. Any future URL, token, tunnel,
   or browser-profile configuration requires user confirmation before use.
 
@@ -279,8 +285,8 @@ full bridge without sharing an account credential or API key.
   and ChatGPT MCP/plugin documentation for programmatic and browser-side paths.
 - [x] 2026-08-19 21:10 — Record accepted D-027 and create the three-strategy
   registry plus this v3 plan.
-- [ ] Obtain explicit approval for this v3 ExecPlan and its single-module
-  no-code feasibility gate.
+- [x] 2026-08-19 — Accept D-028 and approve this ExecPlan through its
+  single-module no-code v3.1 feasibility gate.
 - [ ] Run milestone 1 with the user and record only the supplied raw result and
   reported observations allowed by the agreed privacy boundary.
 - [ ] Accept the milestone 2 orchestration decision before implementation.
@@ -323,6 +329,8 @@ full bridge without sharing an account credential or API key.
   feasibility risk.
 - 2026-08-19 — Keep browser automation, browser extensions, Custom GPT actions,
   plugins/MCP, tunnels, and Workspace Agent triggers outside the first plan.
+- 2026-08-19 — Accept the v3.1 manual → v3.2 WXT → v3.3 MCP promotion order.
+  Later stages remain conditional and require separate approval.
 
 ## Validation
 
@@ -435,8 +443,9 @@ Do not weaken schemas or scrape ChatGPT to hide the failure.
 
 ## Outcomes
 
-The three M7 strategies and active v3 research direction are documented. No
+The three M7 strategies and accepted staged v3 route are documented. V3.1 is
+approved through its no-code Story Sheet feasibility gate. No
 compiler, packet contract, UI, persistence migration, browser launch,
 automation, GPT edit, external connection, dependency, or environment variable
-has been implemented. The next action is explicit approval of this plan and
-its single-module manual feasibility gate.
+has been implemented. The next action is to prepare and run the approved
+single-module manual feasibility gate with the user.

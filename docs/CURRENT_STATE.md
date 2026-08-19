@@ -5,14 +5,16 @@ Last updated: 2026-08-19
 ## Current milestone
 
 Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
-v3, and the Custom GPT browser bridge is now the active v3 research direction.
-Prompt Adaptation Pack 0.1.0 remains approved. No compiler implementation,
-browser experiment, provider connection, or environment variable has started.
+v3, and D-028 accepts the M7 v3.1 manual → v3.2 WXT → v3.3 MCP sequence. The
+v3.1 no-code Story Sheet feasibility gate is approved but not yet run. Prompt
+Adaptation Pack 0.1.0 remains approved. No compiler implementation, browser
+extension, automation, provider connection, or environment variable has
+started.
 
 Active ExecPlan:
 
-- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Proposed for
-  implementation; research direction active
+- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Approved through M7
+  v3.1 Story Sheet feasibility; later implementation gated
 
 Preserved inactive candidate:
 
@@ -207,11 +209,19 @@ Completed ExecPlans:
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 researches
   a user-mediated Custom GPT browser bridge without `gpt-5.6-terra` or
   `OPENAI_API_KEY`.
-- The proposed v3 ExecPlan recommends a manual file/clipboard feasibility gate
-  against Story Sheet before code. It explicitly excludes programmatic login,
+- Accepted D-028 after the user approved the staged M7 v3 route: v3.1 uses a
+  manual packet and exact JSON import; v3.2 conditionally prefers a local WXT
+  extension; v3.3 conditionally considers a ChatGPT-side MCP bridge. V3.1 is
+  approved through its no-code Story Sheet gate. V3.2, v3.3, and full compiler
+  code remain gated.
+- The active v3.1 ExecPlan begins with a manual file/clipboard feasibility gate
+  against Story Sheet. It explicitly excludes programmatic login,
   cookies, persistent browser profiles, UI scraping, browser automation,
   extensions, actions, tunnels, MCP connections, GPT edits, provider keys, and
   learner-data transmission until separately approved.
+- Playwright/Puppeteer, Playwright MCP, and browser-use remain research-only.
+  LibreChat/AnythingLLM reconstruction belongs to the M7 v2 comparison because
+  it reuses GPT designs rather than the hosted GPT objects.
 - The old M7 v1 plan remains intact as a comparison baseline. None of its
   D-022, model, reasoning, environment-name, provider, job, or implementation
   gates are approved.
@@ -293,9 +303,8 @@ Not present:
 - deployment configuration.
 
 The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
-`main` at `6cd5d9a`, two commits ahead of `origin/main`. The D-027 decision,
-M7 strategy registry, affected specification updates, and proposed M7 v3
-ExecPlan are currently uncommitted.
+`main` at `861fd54`, three commits ahead of `origin/main`. The accepted D-028
+sequencing record and affected documentation updates are currently uncommitted.
 
 ## Known issues
 
@@ -359,19 +368,19 @@ ExecPlan are currently uncommitted.
 
 ## Next recommended work
 
-Advance M7 v3 without activating M7 v1 or v2:
+Advance approved M7 v3.1 without activating M7 v1, v2, v3.2, or v3.3:
 
-1. Review and explicitly approve or revise
-   `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`.
-2. Run its no-code, user-operated Story Sheet feasibility gate using one exact
+1. Prepare and run the no-code, user-operated Story Sheet feasibility gate
+   using one exact
    local packet and the approved expected/rejected fixtures. Do not capture
    login/session data or unrelated private conversation history.
-3. Based on observed output, accept a new orchestration decision choosing
+2. Based on observed output, accept a new orchestration decision choosing
    sequential direct GPTs, a dedicated bridge-mode GPT, or one composed manual
    prompt-pack conversation. Explicitly resolve the D-023 conflict, JSON import,
    repair count, target disclosure, and local GPT-link handling.
-4. Start packet/import/compiler implementation only after that decision and
-   the ExecPlan are approved.
+3. Start full v3.1 packet/import/compiler implementation only after that
+   decision. Promote v3.2 only after a measured manual-transfer bottleneck; do
+   not consider v3.3 before its separate network/auth/privacy gate.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -383,6 +392,9 @@ non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
 
+- D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
+  passed for all nine changed Markdown files. This decision-only change did not
+  run code tests, browser checks, or builds.
 - D-027/M7 strategy documentation: `git diff --check` passed, and Prettier
   passed for all twelve changed or new Markdown files. This documentation-only
   change did not run code tests, browser checks, or builds.

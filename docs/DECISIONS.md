@@ -1207,6 +1207,74 @@ conditional candidates until the manual bridge proves the output contract and
 the user separately approves their authentication, privacy, networking, and
 maintenance costs.
 
+### D-028 — Sequence M7 v3 through manual, WXT, then MCP bridge stages
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: M7 v3 sequencing, browser integration, open-source intake,
+  authentication, privacy, M7 v2 fallback
+
+Context:
+
+The user accepted the staged route proposed after reviewing open-source
+browser automation, extension, MCP, ChatGPT export, and self-hosted agent
+projects. The survey found six technically possible patterns, but they do not
+have equal product risk or reuse fidelity. Manual transfer, a local extension,
+and a later ChatGPT-side bridge can reuse the hosted GPT behavior without
+making ordinary gameplay depend on a model. Playwright/Puppeteer and agentic
+browser controllers add fragile UI/session automation. Reconstructing the GPT
+instructions and Knowledge in LibreChat or AnythingLLM reuses the design, not
+the hosted GPT object, and belongs with local-model research.
+
+Decision:
+
+Sequence M7 v3 as three gated stages:
+
+1. **M7 v3.1 — manual packet bridge.** This is the active and approved next
+   slice. Bunbun prepares a versioned, privacy-reviewed packet; the user opens
+   the existing GPT, transfers the packet, and imports exact JSON for strict
+   local validation. Begin with the no-code Story Sheet feasibility gate. The
+   result must pass before implementing a complete manual bridge.
+2. **M7 v3.2 — local WXT extension.** This is a conditional later stage, not an
+   implementation approval. If v3.1 passes and manual transfer is the measured
+   bottleneck, prefer the MIT-licensed WXT framework for a narrowly scoped
+   browser extension. It may act only on an explicitly selected conversation
+   result and a loopback Bunbun endpoint. Permissions, nonce/origin checks,
+   data minimization, ChatGPT DOM churn, packaging, and manual installation
+   require a separate approved plan. Plasmo and ChatGPT exporter projects are
+   reference evidence, not dependencies selected by this decision.
+3. **M7 v3.3 — ChatGPT-side MCP bridge.** This is a conditional long-term
+   stage, not an implementation approval. Consider it only after v3.1 and any
+   justified v3.2 work. It may require a dedicated bridge-mode GPT or a reviewed
+   edit/clone of an existing GPT, a public HTTPS endpoint or Secure MCP Tunnel,
+   authentication, explicit write confirmation, and a new privacy/security
+   decision. The official OpenAI Apps SDK examples and Model Context Protocol
+   TypeScript SDK are reference candidates; no package, tunnel, token, or GPT
+   edit is selected now.
+
+Keep deterministic Playwright/Puppeteer automation, Playwright MCP, and
+agentic browser-use tooling research-only. They must not receive a persistent
+ChatGPT browser profile, cookies, passwords, or unattended execution authority
+under this decision. Move LibreChat, AnythingLLM, and similar reconstruction of
+the captured GPT behavior to the M7 v2 research comparison because those paths
+replace the hosted GPT execution model.
+
+D-023 remains unchanged. Acceptance of this staged route does not yet approve
+sequential independent use of Story Sheet, Reverse Trainer, and Story Coach.
+After the Story Sheet gate, a separate accepted orchestration decision must
+choose sequential GPT conversations, one dedicated bridge-mode GPT, or one
+composed prompt-pack conversation. D-011 still excludes automated browser E2E.
+
+Consequences:
+
+The active work is now M7 v3.1 rather than open-ended v3 research. The current
+ExecPlan is approved only through its manual Story Sheet feasibility gate and
+the documentation/fixture preparation needed to run it. Full compiler code
+still waits for the post-gate orchestration, disclosure, repair, local-link,
+and O-006/O-009 decisions. V3.2 and v3.3 remain ordered options with explicit
+promotion gates, so their permissions and infrastructure cannot enter v3.1 by
+convenience.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

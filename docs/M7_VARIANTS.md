@@ -10,7 +10,8 @@ keeps the alternative compiler strategies distinct so research on one path
 does not silently approve, erase, or implement another.
 
 D-027 accepts the three-strategy registry and makes M7 v3 the active research
-direction. It does not approve implementation.
+direction. D-028 accepts the internal M7 v3 sequence and approves v3.1 through
+its manual Story Sheet feasibility gate. Later stages remain conditional.
 
 ## Shared outcome and invariants
 
@@ -46,7 +47,7 @@ rules:
 | --- | --- | --- | --- | --- |
 | M7 v1 | OpenAI Responses API with strict Structured Outputs | Preserved inactive proposal | Proposed `OPENAI_API_KEY`; not approved | D-022 and `plans/2026-08-12-structured-lesson-compiler.md` |
 | M7 v2 | Self-built or locally adapted open-weight LLM running locally | Research backlog | No remote provider credential assumed | This registry; a future research record and ExecPlan are required |
-| M7 v3 | Existing Custom GPT behavior through a user-authorized browser or ChatGPT-side bridge | Active research; implementation unapproved | No `OPENAI_API_KEY`; any later token, tunnel, or browser-session access needs separate approval | D-027 and `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md` |
+| M7 v3 | Existing Custom GPT behavior through a user-authorized browser or ChatGPT-side bridge | V3.1 feasibility approved; v3.2/v3.3 conditional | No `OPENAI_API_KEY`; any later token, tunnel, or browser-session access needs separate approval | D-027, D-028, and `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md` |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -140,6 +141,51 @@ project has not approved:
 | Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model | Conditional later spike |
 | Workspace Agent trigger | Starts a published agent from another system | Different product surface, access token required, current API cannot retrieve the response | Not selected for v3 |
 
+### Accepted staged route
+
+D-028 orders the viable routes without approving every route at once:
+
+1. **M7 v3.1 — manual packet and exact JSON import.** Active now. Run the
+   user-operated Story Sheet gate, then decide orchestration before compiler
+   implementation.
+2. **M7 v3.2 — WXT extension.** Promote only if v3.1 passes and measured manual
+   transfer cost justifies a local extension. WXT is the preferred framework;
+   permissions, selected-response scope, loopback authentication, packaging,
+   and ChatGPT UI churn need a separate plan.
+3. **M7 v3.3 — MCP bridge.** Promote only after earlier stages and a separate
+   decision covering GPT edit/clone scope, endpoint reachability, tunnel or
+   hosting, authentication, write confirmation, and privacy.
+
+Playwright/Puppeteer, Playwright MCP, and agentic browser controllers remain
+research-only. LibreChat, AnythingLLM, and similar local reconstructions move
+to the M7 v2 comparison because they reuse the captured behavior rather than
+the hosted GPT object.
+
+### Open-source reference set
+
+The accepted sequence is informed by, but does not vendor or install, these
+projects:
+
+- M7 v3.2 preferred framework: WXT, MIT — https://github.com/wxt-dev/wxt
+- Extension references only: Plasmo, MIT — https://github.com/PlasmoHQ/plasmo
+  and ChatGPT Exporter, MIT — https://github.com/pionxzh/chatgpt-exporter
+- Browser-automation research only: Playwright, Apache-2.0 —
+  https://github.com/microsoft/playwright and Browser Use, MIT —
+  https://github.com/browser-use/browser-use
+- M7 v3.3 references: OpenAI Apps SDK examples, MIT —
+  https://github.com/openai/openai-apps-sdk-examples and the Model Context
+  Protocol TypeScript SDK —
+  https://github.com/modelcontextprotocol/typescript-sdk
+- M7 v2 reconstruction references: LibreChat, MIT —
+  https://github.com/danny-avila/LibreChat and AnythingLLM, MIT —
+  https://github.com/Mintplex-Labs/anything-llm
+
+The archived reverse-engineered ChatGPT client at
+https://github.com/acheong08/ChatGPT is explicitly rejected because it relies
+on unsupported account/session access. Workspace Agent triggers remain
+unselected because they are a different product surface and the current API
+does not return the agent response.
+
 ### Recommended first vertical proof
 
 The smallest credible v3 proof is human-in-the-loop and local-first:
@@ -161,8 +207,8 @@ login, cookie access, tunnel, browser extension, or automation dependency.
 
 ### Unresolved decision gates
 
-Implementation cannot begin until the user approves the v3 ExecPlan and
-resolves these choices:
+The v3.1 Story Sheet feasibility gate is approved. Implementation beyond that
+gate cannot begin until the user resolves these choices:
 
 - whether v3 may invoke Story Sheet, Reverse Trainer, and Story Coach as three
   separate user-mediated conversations, explicitly revising D-023's current

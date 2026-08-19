@@ -233,6 +233,12 @@ authoring transports:
   `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md`; it uses neither
   `gpt-5.6-terra` nor `OPENAI_API_KEY`.
 
+D-028 sequences M7 v3 internally: v3.1 is the active manual packet/exact JSON
+path, v3.2 is a conditional WXT extension, and v3.3 is a conditional
+ChatGPT-side MCP bridge. Only the v3.1 Story Sheet feasibility gate is approved.
+Browser automation remains research-only, and reconstructing GPT behavior in a
+self-hosted agent runtime belongs to M7 v2.
+
 `docs/M7_VARIANTS.md` is the strategy registry. Every route must consume the
 same deterministic compiler envelope and return untrusted typed contributions
 that pass local normalization, LessonManifest validation, and runtime
