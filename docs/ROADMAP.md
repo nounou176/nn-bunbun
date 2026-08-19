@@ -311,8 +311,8 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — M7 v3.1 Run 001 structurally passed but semantically
-rejected; observation completion and Runs 002–005 pending
+Status: In progress — D-029 closes the 2-of-5 Story Sheet gate provisionally;
+D-030 orchestration proposal awaits approval
 
 Purpose:
 
@@ -342,6 +342,10 @@ Decision resolved:
 - D-028 accepts the v3.1 manual packet → v3.2 WXT extension → v3.3 MCP bridge
   promotion order. It approves the v3.1 no-code Story Sheet feasibility gate;
   later stages and full compiler implementation remain separately gated.
+- D-029 stops the Story Sheet suite after two of five fixtures at the user's
+  direction. Run 001 remains a semantic rejection, Run 002 is accepted, and the
+  gate is provisionally viable only for orchestration planning.
+- D-030 proposes one dedicated bridge-mode GPT and remains unapproved.
 
 Strategy note:
 
@@ -365,14 +369,14 @@ No compiler implementation, browser automation, extension, GPT edit, external
 connection, dependency, environment variable, tunnel, or learner-data
 transmission is approved by this status change.
 
-The first fixed Story Sheet packet, exact raw response, runbook, and evaluation
-now live under `docs/ai-modules/feasibility/`. Run 001 proves exact JSON
-transport, identity, beat order, target-surface placement, prohibited-output
-suppression, and text budgets. It fails the approved world-fact assertion by
-inventing a dog/cat spatial relationship and a relieved guide state. Two user
-observations remain literal `yes/no` placeholders, and the remaining four
-approved fixtures have not run. This is evidence, not a feasibility pass or a
-compiler implementation approval.
+The fixed Story Sheet packets, raw responses, runbooks, and evaluations live
+under `docs/ai-modules/feasibility/`. The latest user correction records no
+image/file/tool activation in Runs 001 and 002. Run 001 fails strict world-fact
+discipline; Run 002 passes every structural, semantic, and media check. Run 003
+is a validated but canceled packet, and Runs 004–005 were not run. D-029 permits
+orchestration planning from this incomplete evidence but does not fabricate a
+full qualification. D-030 now proposes the one-composed-request bridge shape;
+no compiler or external GPT change is approved yet.
 
 `docs/AI_MODULES.md` inventories the original concepts and six user-supplied
 local GPT configurations. The supplied set contains Story Coach, Reverse

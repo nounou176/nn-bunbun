@@ -235,9 +235,10 @@ authoring transports:
 
 D-028 sequences M7 v3 internally: v3.1 is the active manual packet/exact JSON
 path, v3.2 is a conditional WXT extension, and v3.3 is a conditional
-ChatGPT-side MCP bridge. Only the v3.1 Story Sheet feasibility gate is approved.
-Browser automation remains research-only, and reconstructing GPT behavior in a
-self-hosted agent runtime belongs to M7 v2.
+ChatGPT-side MCP bridge. D-029 closes the v3.1 Story Sheet gate early after two
+of five fixtures as provisionally viable for orchestration planning; the unrun
+fixtures remain explicit risks. Browser automation remains research-only, and
+reconstructing GPT behavior in a self-hosted agent runtime belongs to M7 v2.
 
 `docs/M7_VARIANTS.md` is the strategy registry. Every route must consume the
 same deterministic compiler envelope and return untrusted typed contributions

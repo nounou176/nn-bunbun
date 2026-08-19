@@ -11,6 +11,8 @@ implemented or activated. D-027 now preserves the Responses integration as M7
 v1, records the local-LLM path as M7 v2 research, and makes the Custom GPT
 browser bridge the active M7 v3 direction. D-028 accepts the v3.1 manual → v3.2
 WXT → v3.3 MCP sequence and approves the v3.1 Story Sheet feasibility gate.
+D-029 closes that gate after two of five fixtures as provisionally viable for
+orchestration planning; three fixtures remain explicitly unrun.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -195,9 +197,10 @@ GPT editor change.
 Direct original-GPT use is not assumed to behave like Prompt Adaptation Pack
 0.1.0. Story Sheet normally continues into worksheet/image creation, Reverse
 Trainer emits long sentence analysis, and Story Coach expects an iterative
-coaching loop. The first proposed gate therefore evaluates Story Sheet against
-its existing three expected and two rejected text fixtures and the exact typed
-contribution boundary. Results must be observed rather than inferred.
+coaching loop. D-029 stops the Story Sheet gate after two of five fixtures: Run
+001 passes transport/media but fails strict world-fact discipline; Run 002
+passes its complete expected-behavior checks. The multi-target and two rejected-
+behavior fixtures remain unrun and must not be inferred as passing.
 
 Sequential direct browser use of Story Sheet, Reverse Trainer, and Story Coach
 would conflict with D-023's one-composed-request rule. The feasibility gate may
@@ -396,8 +399,7 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Prepare and run the approved no-code v3.1 Story Sheet feasibility gate, then
-choose the v3 orchestration from observed output. Keep inactive M7 v1,
-research-only M7 v2, conditional v3.2/v3.3, Visual Mnemonic, and both Anki
-workflows out of implementation until their own promotion decisions are
-accepted.
+Choose the v3.1 orchestration from the provisional Story Sheet evidence before
+compiler code. Keep inactive M7 v1, research-only M7 v2, conditional v3.2/v3.3,
+Visual Mnemonic, and both Anki workflows out of implementation until their own
+promotion decisions are accepted.

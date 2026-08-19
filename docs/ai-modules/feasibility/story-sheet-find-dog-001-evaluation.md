@@ -1,7 +1,6 @@
 # M7 v3.1 Story Sheet Run 001 Evaluation
 
-Status: Rejected — structural pass, semantic fixture failure; two user
-observations incomplete
+Status: Rejected — structural and media pass; semantic fixture failure
 Recorded: 2026-08-19
 Fixture: `story_sheet_find_dog_single_target`
 Request ID: `m7_v3_1_story_sheet_find_dog_001`
@@ -23,12 +22,14 @@ user and is excluded from formatting rewrites.
 | Observation | Recorded value | Evaluation |
 | --- | --- | --- |
 | New conversation | `yes` | Confirmed |
-| Image, file, or tool started | `yes/no` | Unknown; user selection still required |
-| Response finished | `yes/no` | Unknown; user confirmation still required |
+| Image, file, or tool started | `no` | Pass — corrected by the user's latest explicit report |
+| Response finished | `yes` | Confirmed |
 
 The textual response itself contains no image, file, worksheet, tool request,
-or deferred media field. That does not prove whether the ChatGPT UI started a
-separate tool operation.
+or deferred media field. The user first reported `yes`, then explicitly
+corrected the final observation to `imageFileOrToolStarted: no` while stopping
+further runs. The corrected value is authoritative; the audit note is retained
+instead of silently rewriting the observation history.
 
 ## Mechanical validation
 
@@ -109,11 +110,11 @@ one response.
 ## Run conclusion
 
 Run 001 proves that the existing GPT can follow the exact JSON transport shape
-and suppress its normal worksheet/image text output for this response. It does
-not yet prove full Story Sheet viability because the approved fixture fails
-world-fact discipline and two human-observation fields remain unresolved.
+and suppress its normal worksheet/image/tool behavior for this response. It
+does not independently prove direct Story Sheet viability because the approved
+fixture still fails world-fact discipline.
 
-No repair is requested for this first response. Continue with the remaining
-approved fixtures only after recording the two missing observations and using
-this failure as evidence for the final `VIABLE`, `BRIDGE_MODE_REQUIRED`, or
-`UNSUITABLE` classification.
+No repair is requested for this first response. The user stopped the suite
+after Run 002, so this failure remains evidence in a truncated 2-of-5 gate and
+cannot support a full `VIABLE`, `BRIDGE_MODE_REQUIRED`, or `UNSUITABLE`
+classification by itself.

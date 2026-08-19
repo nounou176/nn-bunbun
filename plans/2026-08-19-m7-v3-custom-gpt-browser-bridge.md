@@ -1,10 +1,10 @@
 # Prove a local-first Custom GPT browser bridge for lesson compilation
 
-Status: Approved for M7 v3.1 feasibility under D-028; later implementation
-gated
+Status: Feasibility closed provisionally under D-029; proposed D-030
+orchestration awaiting approval; implementation gated
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 21:35 Asia/Ho_Chi_Minh
+Last updated: 2026-08-19
 
 ## Purpose and user-visible outcome
 
@@ -202,9 +202,13 @@ history; retain only the requested packet, imported response needed for the
 evaluation, stable diagnostics, and user-reported result under the approved
 privacy scope.
 
-Observable checkpoint: direct Story Sheet use is classified as viable,
-viable only with a revised bridge mode, or unsuitable. No app code or GPT
-configuration changes are required for this gate.
+D-029 closes this gate early after two of five fixtures at the user's explicit
+direction. Run 003 remains unexecuted and Runs 004–005 remain unrun. The
+original five-case bar is not represented as complete.
+
+Observable checkpoint: D-029 records
+`PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING` from the truncated evidence.
+No app code or GPT configuration changes were required for this gate.
 
 ### 2. Accept the v3 orchestration decision
 
@@ -219,6 +223,11 @@ Based on the feasibility result, record a new decision choosing one of:
 
 Also approve JSON-only import, repair count, target disclosure, local GPT-link
 storage, and whether the first implementation includes Open GPT.
+
+Proposed D-030 recommends one dedicated bridge-mode GPT, one composed request,
+strict JSON-only import, one bounded repair, explicit normalized-target export
+disclosure, no tracked GPT link, and no Open GPT control. It is not active until
+the user accepts it.
 
 Observable checkpoint: the provider flow, privacy copy, and configuration
 surface are unambiguous and accepted before code.
@@ -294,9 +303,23 @@ full bridge without sharing an account credential or API key.
 - [x] 2026-08-19 — Retain and evaluate the exact Run 001 response. Structural
   JSON, identities, key sets, beat order, target-surface assignment,
   prohibited-output scan, and budgets pass; strict world-fact discipline fails.
-  Two user observations remain unresolved.
-- [ ] Run milestone 1 with the user and record only the supplied raw result and
-  reported observations allowed by the agreed privacy boundary.
+  The latest user correction records no image/file/tool activation.
+- [x] 2026-08-19 — Prepare and locally validate Run 002 from
+  `story_sheet_help_someone_grammar_context`, with canonical input SHA-256
+  `d5bdca9c5ff55c260235b707d2ad6a5cba0b4618bb96d18bcc14d6ef78d6b3cc`.
+- [x] 2026-08-19 — Retain and evaluate the Run 002 response. Every structural
+  and semantic fixture check passes. The latest user correction records no
+  image/file/tool activation, so the complete run is accepted.
+- [x] 2026-08-19 — Prepare and locally validate Run 003 from
+  `story_sheet_multiple_targets_fixed_beats`, including exact three-target beat
+  assignments and canonical input SHA-256
+  `020cf7f1d346576d3f3f0742e676ce850dce1690e660da42d6528526749f9896`.
+- [x] 2026-08-19 — Accept D-029: stop after two of five fixtures, preserve Run
+  003 as unexecuted, leave Runs 004–005 unrun, and close milestone 1 as
+  provisionally viable for orchestration planning only.
+- [x] Run milestone 1 with the user and record only the supplied raw result and
+  reported observations allowed by the agreed privacy boundary. The user
+  explicitly stopped the suite early, so three cases remain unrun.
 - [ ] Accept the milestone 2 orchestration decision before implementation.
 - [ ] Implement milestones 3 through 7 in dependency order.
 
@@ -328,6 +351,10 @@ full bridge without sharing an account credential or API key.
   narrative-only relations or emotions. Its original strict packet rejects the
   inferred dog/cat position and guide relief; a later decision must define the
   production boundary without retroactively changing this evidence.
+- The user first reported image/file/tool activation for Runs 001 and 002, then
+  explicitly corrected the authoritative value to `no` while stopping further
+  runs. Evaluation records preserve this correction trail; no media failure is
+  claimed.
 
 ## Plan decisions
 
@@ -348,6 +375,11 @@ full bridge without sharing an account credential or API key.
   plugins/MCP, tunnels, and Workspace Agent triggers outside the first plan.
 - 2026-08-19 — Accept the v3.1 manual → v3.2 WXT → v3.3 MCP promotion order.
   Later stages remain conditional and require separate approval.
+- 2026-08-19 — Accept D-029: stop the Story Sheet suite after two of five cases
+  and advance only provisionally to orchestration planning.
+- 2026-08-19 — Propose D-030: use one dedicated bridge-mode GPT with one
+  composed manual request and keep all external GPT creation/editing
+  user-operated. Await user approval before implementation.
 
 ## Validation
 

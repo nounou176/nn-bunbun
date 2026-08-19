@@ -1275,6 +1275,119 @@ and O-006/O-009 decisions. V3.2 and v3.3 remain ordered options with explicit
 promotion gates, so their permissions and infrastructure cannot enter v3.1 by
 convenience.
 
+### D-029 — Close the Story Sheet gate early with provisional evidence
+
+- Date: 2026-08-19
+- Status: Accepted
+- Affects: M7 v3.1 feasibility evidence, Story Sheet evaluation, next
+  orchestration decision
+
+Context:
+
+The user completed two of the five approved Story Sheet feasibility fixtures.
+Run 001 returned exact valid JSON but failed strict world-fact discipline. Run
+002 passed its structural and semantic expected-behavior fixture after the
+packet supplied explicit narrative claims. The user initially reported
+image/file/tool activation as `yes`, then explicitly corrected the final value
+to `no` and instructed the project not to run more fixtures. Run 003 had been
+prepared and locally validated but was never executed; the two rejected-
+behavior fixtures were not prepared or run.
+
+Decision:
+
+Treat the latest explicit media observation as authoritative for both completed
+runs while retaining the correction trail in their evaluation records. Stop
+the Story Sheet suite after two of five fixtures by user decision. Keep Run 001
+rejected for world-fact discipline and accept Run 002 as a complete structural,
+semantic, and media pass.
+
+Close the no-code gate as
+`PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING`. This is permission to discuss
+and select the next M7 v3.1 orchestration shape; it is not a full `VIABLE`
+qualification, compiler implementation approval, or evidence that the unrun
+multi-target and rejected-behavior cases pass.
+
+Consequences:
+
+Run 003 remains a versioned unexecuted artifact and cannot be counted as
+evidence. Runs 004 and 005 remain unrun. The repository must continue to show
+these residual risks rather than converting user acceptance into fabricated
+test results.
+
+D-023 still forbids silently switching to three independent GPT calls. Before
+compiler code, a separate accepted orchestration decision must choose
+sequential user-mediated GPTs, one dedicated bridge-mode GPT, or one composed
+manual prompt-pack conversation, together with disclosure, repair, import, and
+local-link rules. D-028's later WXT and MCP gates remain unchanged.
+
+### D-030 — Use one dedicated bridge-mode GPT for the manual compiler
+
+- Date: 2026-08-19
+- Status: Proposed
+- Affects: M7 v3.1 orchestration, GPT configuration, prompt composition,
+  privacy disclosure, manual import, D-023
+
+Context:
+
+D-029 allows orchestration planning from a truncated but useful Story Sheet
+gate. Three direct user-mediated GPT conversations would reuse the hosted GPT
+objects most literally, but would revise D-023, multiply manual transfers, and
+pass partially trusted context between conversations. A generic composed
+ChatGPT conversation would preserve one request and require no GPT editor work,
+but would repeat a large prompt on every run and would reuse only the captured
+behavior. A dedicated bridge-mode GPT can keep one composed request while
+giving the user a stable manual ChatGPT entry point, but it requires a reviewed
+new or cloned GPT configuration and must never become the hidden source of
+truth.
+
+Proposed decision:
+
+Create one user-owned `Bunbun Lesson Bridge` GPT for M7 v3.1 manual use. Its
+reviewed instructions compose `story_sheet@0.1.0`,
+`reverse_trainer@0.1.0`, and `story_coach@0.1.0` in the D-023 order and request
+one exact `LessonContentDraftContributions` object. The repository-owned prompt
+pack, typed contract, versions, hashes, fixtures, and validators remain
+authoritative. The six existing GPTs remain unchanged and serve as provenance
+and evaluation sources; this route reuses their reviewed behavior rather than
+calling all three hosted GPT objects sequentially.
+
+The first implementation remains manual copy/paste:
+
+- Bunbun exports one versioned packet after an explicit disclosure that the
+  normalized Japanese targets and compact authoring facts will be sent to
+  ChatGPT;
+- the user independently opens the dedicated GPT and pastes the packet;
+- the GPT returns exactly one raw JSON object, with no Markdown extraction,
+  worksheet, image, file, or tool-dependent field;
+- Bunbun imports only exact JSON and runs strict local structural and semantic
+  validation;
+- one bounded repair packet is allowed after stable redacted diagnostics; a
+  second invalid response fails the job;
+- no learner identity, progress, evidence, TYPE response, checkpoint, secret,
+  GPT URL, cookie, or browser-session data leaves the local boundary; and
+- no Open GPT control, WXT extension, MCP connection, tunnel, browser
+  automation, API key, or environment variable is included.
+
+The user creates or clones the dedicated GPT manually only after this decision
+is accepted. Bunbun does not modify the GPT editor or assume undocumented
+editor capabilities. The reviewed bridge instructions must be captured and
+hashed in the repository before use; external hidden configuration never wins
+over the repository contract.
+
+Consequences:
+
+This proposal preserves D-023's one-composed-request rule and avoids three
+manual conversation hops. It trades literal invocation of each existing hosted
+GPT for a single stable GPT that composes their approved behaviors. The manual
+transport stays replaceable by v3.2 or v3.3 only through their existing gates.
+
+Acceptance would authorize a self-contained implementation ExecPlan for the
+provider-independent packet/import schemas, local durable state, manual UI,
+composed bridge prompt, deterministic normalization, and authored tests. It
+would not authorize creating/editing the external GPT automatically,
+deployment, MCP, WXT, browser automation, or learner-data transmission without
+the explicit export disclosure.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

@@ -11,7 +11,9 @@ does not silently approve, erase, or implement another.
 
 D-027 accepts the three-strategy registry and makes M7 v3 the active research
 direction. D-028 accepts the internal M7 v3 sequence and approves v3.1 through
-its manual Story Sheet feasibility gate. Later stages remain conditional.
+its manual Story Sheet feasibility gate. D-029 closes that gate early after two
+of five fixtures as provisionally viable for orchestration planning; it does
+not claim complete qualification. Later stages remain conditional.
 
 ## Shared outcome and invariants
 
@@ -47,7 +49,7 @@ rules:
 | --- | --- | --- | --- | --- |
 | M7 v1 | OpenAI Responses API with strict Structured Outputs | Preserved inactive proposal | Proposed `OPENAI_API_KEY`; not approved | D-022 and `plans/2026-08-12-structured-lesson-compiler.md` |
 | M7 v2 | Self-built or locally adapted open-weight LLM running locally | Research backlog | No remote provider credential assumed | This registry; a future research record and ExecPlan are required |
-| M7 v3 | Existing Custom GPT behavior through a user-authorized browser or ChatGPT-side bridge | V3.1 feasibility approved; v3.2/v3.3 conditional | No `OPENAI_API_KEY`; any later token, tunnel, or browser-session access needs separate approval | D-027, D-028, and `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md` |
+| M7 v3 | Existing Custom GPT behavior through a user-authorized browser or ChatGPT-side bridge | V3.1 feasibility closed provisionally; orchestration decision next; v3.2/v3.3 conditional | No `OPENAI_API_KEY`; any later token, tunnel, or browser-session access needs separate approval | D-027, D-028, D-029, and `plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md` |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -145,9 +147,9 @@ project has not approved:
 
 D-028 orders the viable routes without approving every route at once:
 
-1. **M7 v3.1 — manual packet and exact JSON import.** Active now. Run the
-   user-operated Story Sheet gate, then decide orchestration before compiler
-   implementation.
+1. **M7 v3.1 — manual packet and exact JSON import.** Active now. D-029 closes
+   the Story Sheet gate after two of five fixtures as provisional evidence. The
+   next gate is the orchestration decision before compiler implementation.
 2. **M7 v3.2 — WXT extension.** Promote only if v3.1 passes and measured manual
    transfer cost justifies a local extension. WXT is the preferred framework;
    permissions, selected-response scope, loopback authentication, packaging,
@@ -197,7 +199,9 @@ The smallest credible v3 proof is human-in-the-loop and local-first:
 3. The user copies the response back into a local import field or file.
 4. Bunbun parses it as untrusted input, validates the exact module contribution
    schema, and returns stable diagnostics.
-5. The same approved success and rejection fixtures are evaluated manually.
+5. The same approved success and rejection fixtures are evaluated manually
+   unless the user explicitly stops early; any unrun fixture remains a named
+   residual risk rather than an inferred pass.
 6. Only after one module passes does the project decide whether to test all
    three GPTs sequentially, create a dedicated bridge-mode GPT revision, or
    stop direct-GPT reuse and use the local prompt adaptations instead.
@@ -207,13 +211,16 @@ login, cookie access, tunnel, browser extension, or automation dependency.
 
 ### Unresolved decision gates
 
-The v3.1 Story Sheet feasibility gate is approved. Implementation beyond that
-gate cannot begin until the user resolves these choices:
+The v3.1 Story Sheet feasibility gate is closed early under D-029 as
+`PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING`. Runs 003–005 were not
+executed, so implementation still cannot begin until the user resolves these
+choices:
 
 - whether v3 may invoke Story Sheet, Reverse Trainer, and Story Coach as three
   separate user-mediated conversations, explicitly revising D-023's current
   one-composed-request rule;
-- whether the first spike tests only one module or all three;
+- whether the selected orchestration uses the three existing GPTs sequentially,
+  one dedicated bridge-mode GPT, or one composed prompt-pack conversation;
 - whether GPT links may be stored in a Git-ignored local configuration or the
   user will open them independently;
 - whether imported responses must be strict JSON or may pass through a

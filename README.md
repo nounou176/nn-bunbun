@@ -147,9 +147,12 @@ npm run inspect:storage -- /absolute/path/to/bunbun.sqlite
   is implemented. D-027 preserves Responses API as inactive M7 v1, local
   self-built LLM work as M7 v2 research, and the Custom GPT browser bridge as
   active M7 v3. D-028 accepts the v3.1 manual → v3.2 WXT → v3.3 MCP sequence
-  and approves only the no-key v3.1 Story Sheet feasibility gate. No browser
-  extension, automation, GPT edit, connection, tunnel, or learner-data transfer
-  is implemented. Supplied images/APKG are style examples only.
+  and approves only the no-key v3.1 Story Sheet feasibility gate. D-029 closes
+  that gate early after two of five fixtures as provisionally viable for
+  orchestration planning; D-030 proposes one dedicated bridge-mode GPT and is
+  not yet approved. No browser extension, automation, GPT edit, connection,
+  tunnel, or learner-data transfer is implemented. Supplied images/APKG are
+  style examples only.
 - Browser SpeechSynthesis is a temporary technical adapter and may vary by
   desktop browser and installed Japanese voice.
 - The JavaScript build contains the WebGPU-capable Three.js renderer and emits

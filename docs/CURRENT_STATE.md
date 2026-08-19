@@ -6,17 +6,18 @@ Last updated: 2026-08-19
 
 Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
 v3, and D-028 accepts the M7 v3.1 manual → v3.2 WXT → v3.3 MCP sequence. The
-v3.1 no-code Story Sheet feasibility gate is approved. Run 001 has returned:
-its JSON transport and budgets pass, but its contribution is rejected for
-unsupported world claims; two user observations are still unresolved. Prompt
-Adaptation Pack 0.1.0 remains approved. No compiler implementation, browser
-extension, automation, provider connection, or environment variable has
-started.
+v3.1 no-code Story Sheet feasibility gate is closed early under D-029 after two
+of five fixtures. Run 001 passes structural/media checks but fails strict world
+facts; Run 002 passes structural, semantic, and media checks. Runs 003–005 are
+unexecuted. D-030 proposes one dedicated bridge-mode GPT as the orchestration
+shape and awaits approval. Prompt Adaptation Pack 0.1.0 remains approved. No
+compiler implementation, browser extension, automation, provider connection,
+external GPT edit, or environment variable has started.
 
 Active ExecPlan:
 
-- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Approved through M7
-  v3.1 Story Sheet feasibility; later implementation gated
+- plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Feasibility closed
+  provisionally; D-030 orchestration approval pending
 
 Preserved inactive candidate:
 
@@ -227,8 +228,38 @@ Completed ExecPlans:
   all text budgets pass. The fixture is nevertheless rejected because the
   response invents a dog/cat spatial relation and a relieved guide state. Its
   target motivation is vague and the promised mystery does not appear in the
-  beats. The image/file/tool and response-finished observations remain unknown
-  because both were returned literally as `yes/no`.
+  beats. The user's latest explicit correction records
+  `imageFileOrToolStarted=no`; the evaluation retains the earlier value as an
+  audit note. Run 001 passes its media policy and remains rejected only by its
+  semantic fixture.
+- Prepared and locally validated Run 002 from the approved
+  `story_sheet_help_someone_grammar_context` fixture. It uses the reviewed
+  `～てください` grammar target, four fixed beats, and explicit park, guide,
+  visitor, dog, and bench claims. Its canonical input SHA-256 is
+  `d5bdca9c5ff55c260235b707d2ad6a5cba0b4618bb96d18bcc14d6ef78d6b3cc`;
+  its packet SHA-256 is
+  `f902a092294e8fc06533243d7e28d4d47ed21dd704b22b7be7a08f3dc4cf8794`.
+  The returned response passes exact JSON, identities, beat order, grammar
+  assignment, world-fact discipline, all expected properties, and all budgets.
+  The user's latest explicit correction records
+  `imageFileOrToolStarted=no`; Run 002 is accepted as a complete structural,
+  semantic, and media pass. Raw response SHA-256 is
+  `79ded3dbb5a0691a79fc11b75450ca55911f61e69bf4c4f5f3f4e6df02aec350`.
+- Prepared and locally validated Run 003 from the approved
+  `story_sheet_multiple_targets_fixed_beats` fixture. It fixes `～てください` to
+  opening, `犬` and `猫` to development, and `犬` to closing. Its canonical
+  input SHA-256 is
+  `020cf7f1d346576d3f3f0742e676ce850dce1690e660da42d6528526749f9896`;
+  its packet SHA-256 is
+  `37f830fec7d422f1ed7e21d68bd410187260fb46899d0eda182f7776e741e4e7`.
+  D-029 records that the user canceled this run before execution; it is not
+  evidence. Runs 004 and 005 were not prepared or executed.
+- Accepted D-029: stop the Story Sheet gate after two of five fixtures and
+  classify it as `PROVISIONALLY_VIABLE_FOR_ORCHESTRATION_PLANNING`, not a full
+  qualification. Added proposed D-030 recommending one manually operated,
+  user-owned dedicated bridge-mode GPT that composes all three approved module
+  behaviors in one D-023-compatible request. D-030 is not approved and no GPT
+  has been created, cloned, or edited.
 - The active v3.1 ExecPlan begins with a manual file/clipboard feasibility gate
   against Story Sheet. It explicitly excludes programmatic login,
   cookies, persistent browser profiles, UI scraping, browser automation,
@@ -318,8 +349,9 @@ Not present:
 - deployment configuration.
 
 The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
-`main` at `80d21c5`, four commits ahead of `origin/main`. The M7 v3.1
-feasibility packet, runbook, and state updates are currently uncommitted.
+`main` at `c736334`, five commits ahead of `origin/main`. The Run 002/003,
+D-029, proposed D-030, and affected documentation updates are currently
+uncommitted.
 
 ## Known issues
 
@@ -380,8 +412,9 @@ feasibility packet, runbook, and state updates are currently uncommitted.
     Reverse Trainer and Story Coach are long interactive flows. Direct JSON
     contribution quality and the D-023 orchestration conflict require manual
     evidence and a new decision before implementation. Run 001 proves strong
-    structural compliance but fails strict world-fact discipline, so direct
-    viability remains unproven.
+    structural compliance but fails strict world-fact discipline; Run 002
+    passes. Because three fixtures are unrun, direct viability remains only
+    provisional.
 17. Prompt contract 0.1.0 carries per-beat text limits but has no explicit
     title, objective, premise, setting-context, or synopsis limits inside
     `LessonAuthoringEnvelopeInput`. Run 001 uses conservative feasibility-only
@@ -399,19 +432,16 @@ feasibility packet, runbook, and state updates are currently uncommitted.
 
 Advance approved M7 v3.1 without activating M7 v1, v2, v3.2, or v3.3:
 
-1. Ask the user to replace the two literal `yes/no` observations for Run 001
-   with one actual value each. Do not capture login/session data or unrelated
-   private conversation history.
-2. Prepare and run the remaining two expected and two rejected fixture packets
-   in sequence under the same privacy boundary. Preserve Run 001 as a rejected
-   first response; do not silently repair it.
-3. Based on observed output, accept a new orchestration decision choosing
-   sequential direct GPTs, a dedicated bridge-mode GPT, or one composed manual
-   prompt-pack conversation. Explicitly resolve the D-023 conflict, JSON import,
-   repair count, target disclosure, and local GPT-link handling.
-4. Start full v3.1 packet/import/compiler implementation only after that
-   decision. Promote v3.2 only after a measured manual-transfer bottleneck; do
-   not consider v3.3 before its separate network/auth/privacy gate.
+1. Review and accept or reject proposed D-030. The recommendation is one
+   user-owned dedicated bridge-mode GPT, one composed request, exact JSON-only
+   import, one bounded repair, explicit target-export disclosure, no tracked GPT
+   link, and no external GPT edit by Bunbun.
+2. If D-030 is accepted, create a self-contained implementation ExecPlan for
+   provider-independent packet/import schemas, local durable compilation state,
+   manual UI, composed bridge prompt, normalization, and authored tests. Do not
+   implement before plan approval.
+3. Promote v3.2 only after a measured manual-transfer bottleneck; do not
+   consider v3.3 before its separate network/auth/privacy gate.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -425,11 +455,25 @@ non-speech asset, and measurable audio acceptance choices.
 
 - M7 v3.1 Story Sheet Run 001: the raw response parses as exactly one JSON
   object; key sets, request/hash/module identity, `OK` shape, beat order, target
-  surface assignment, prohibited-output scan, and all thirteen measured text
+  surface assignment, prohibited-output scan, and all fifteen measured text
   budgets pass. Manual semantic review rejects `USES_ONLY_ALLOWED_FACTS` for
   one unsupported dog/cat spatial relation and one unsupported guide state.
-  Two UI observations are still unknown. Raw response SHA-256 is
+  The latest user correction records `imageFileOrToolStarted=no`; the media
+  check passes. Raw response SHA-256 is
   `adb1ef122378f0f3ad09a163036b93b5503df9d794f9681571b270f763f5c667`.
+- M7 v3.1 Story Sheet Run 002: exact JSON, identities, key sets, beat order,
+  grammar assignment, world-fact discipline, all expected properties, and all
+  seventeen measured text budgets pass. The latest user correction records
+  `imageFileOrToolStarted=no`, so the complete run is accepted. Raw response
+  SHA-256 is
+  `79ded3dbb5a0691a79fc11b75450ca55911f61e69bf4c4f5f3f4e6df02aec350`.
+- M7 v3.1 Story Sheet Run 003 preparation: packet JSON, approved fixture
+  identity, exact three-target beat assignments, catalog IDs, source/prompt
+  hashes, canonical input hash, packet hash, and privacy scan pass. Browser/GPT
+  execution was canceled by user decision; no response or result exists.
+- D-029/D-030 documentation: the stopped 2-of-5 gate, media-observation
+  correction trail, residual unrun risks, and proposed orchestration boundary
+  are recorded without implementing code or editing an external GPT.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

@@ -1,7 +1,6 @@
 # M7 v3.1 Story Sheet Feasibility Run 001
 
-Status: Run received; structurally valid; semantic fixture rejected; two user
-observations incomplete
+Status: Run received; structural and media pass; semantic fixture rejected
 Packet version: 0.1.0
 Fixture: `story_sheet_find_dog_single_target`
 Request ID: `m7_v3_1_story_sheet_find_dog_001`
@@ -94,7 +93,8 @@ and a relieved guide state that the packet did not authorize. Human review also
 finds the dog-finding motivation too vague and the promised mystery absent from
 the actual beats.
 
-The user confirmed a new conversation but returned literal `yes/no` values for
-the image/file/tool and response-finished observations. Those two observations
-remain unknown until the user selects one value for each. See the evaluation
-file for exact evidence and measured character counts.
+The user confirmed a new conversation and a completed response. Their latest
+explicit report corrects image/file/tool activation from `yes` to `no`; the
+evaluation retains that correction trail. The response still fails strict
+world-fact discipline. See the evaluation file for exact evidence and measured
+character counts.
