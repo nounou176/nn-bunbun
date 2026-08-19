@@ -311,7 +311,8 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — M7 v3.1 feasibility approved; not yet run
+Status: In progress — M7 v3.1 Run 001 structurally passed but semantically
+rejected; observation completion and Runs 002–005 pending
 
 Purpose:
 
@@ -363,6 +364,15 @@ Strategy note:
 No compiler implementation, browser automation, extension, GPT edit, external
 connection, dependency, environment variable, tunnel, or learner-data
 transmission is approved by this status change.
+
+The first fixed Story Sheet packet, exact raw response, runbook, and evaluation
+now live under `docs/ai-modules/feasibility/`. Run 001 proves exact JSON
+transport, identity, beat order, target-surface placement, prohibited-output
+suppression, and text budgets. It fails the approved world-fact assertion by
+inventing a dog/cat spatial relationship and a relieved guide state. Two user
+observations remain literal `yes/no` placeholders, and the remaining four
+approved fixtures have not run. This is evidence, not a feasibility pass or a
+compiler implementation approval.
 
 `docs/AI_MODULES.md` inventories the original concepts and six user-supplied
 local GPT configurations. The supplied set contains Story Coach, Reverse

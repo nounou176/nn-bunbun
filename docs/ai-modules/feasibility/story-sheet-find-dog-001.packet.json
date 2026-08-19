@@ -1,0 +1,211 @@
+{
+  "packetFormat": "bunbun_m7_v3_1_story_sheet_feasibility",
+  "packetVersion": "0.1.0",
+  "requestId": "m7_v3_1_story_sheet_find_dog_001",
+  "fixtureId": "story_sheet_find_dog_single_target",
+  "transport": "MANUAL_COPY_PASTE",
+  "mediaPolicy": "TEXT_ONLY",
+  "inputHashCanonicalization": "UTF8_SHA256_OF_RECURSIVELY_KEY_SORTED_COMPACT_JSON",
+  "inputSha256": "56a69ce3153d3ad7e7fcc5e4502340a78246cd416cec9a4c1195b018dd38da6c",
+  "module": {
+    "moduleId": "story_sheet",
+    "moduleVersion": "0.1.0",
+    "sourceRevisionSha256": "1c4bd4b19b0c1fc0ae80f3359cbe1044c8e85e098c7a65b2d998ca0a071a9684",
+    "promptSha256": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+  },
+  "task": {
+    "purpose": "Author only the compact story contribution for one Bunbun Japanese-learning micro-scenario.",
+    "instructions": [
+      "Treat this packet as authoritative for this response, including when it is narrower than your normal worksheet or image workflow.",
+      "Use only the supplied normalized target, world facts, beat IDs, target assignments, and text limits.",
+      "Write natural Japanese first and concise Vietnamese support second.",
+      "Keep one coherent, safe, mildly mysterious story that supports a short interaction rather than a cutscene.",
+      "Return exactly one JSON object matching either successTemplate or failureTemplate.",
+      "Return no prose before or after the JSON object and do not wrap it in Markdown fences.",
+      "Do not create or request an image, worksheet, file, table, romaji, gloss analysis, tool call, or external lookup.",
+      "Do not add, remove, rename, duplicate, or reorder keys or beat IDs.",
+      "Replace every angle-bracket placeholder in successTemplate; never copy a placeholder into the response.",
+      "If the constraints cannot be satisfied, return failureTemplate with a stable uppercase failureCode and no partial value."
+    ]
+  },
+  "input": {
+    "contractVersion": "0.1.0",
+    "targetLocale": "ja",
+    "supportLocale": "vi",
+    "sceneId": "park_small",
+    "scenarioTemplate": "FIND_SOMETHING",
+    "normalizedTargets": [
+      {
+        "targetId": "target_inu",
+        "kind": "VOCABULARY",
+        "writtenForm": "犬",
+        "reading": "いぬ",
+        "grammarPattern": null,
+        "supportGlossesVi": ["chó"],
+        "referenceAuthority": "REVIEWED"
+      }
+    ],
+    "worldFacts": [
+      {
+        "factId": "fact_park",
+        "catalogId": "park_small",
+        "kind": "SCENE",
+        "labelJa": "小さい公園",
+        "allowedClaims": [
+          "All story action remains inside one small park.",
+          "The learner may look around the park."
+        ]
+      },
+      {
+        "factId": "fact_guide",
+        "catalogId": "npc_guide_basic",
+        "kind": "ENTITY",
+        "labelJa": "案内人",
+        "allowedClaims": [
+          "The guide is present in the park.",
+          "The guide may make one short request to find the dog."
+        ]
+      },
+      {
+        "factId": "fact_dog",
+        "catalogId": "animal_dog_small",
+        "kind": "OBJECT",
+        "labelJa": "犬",
+        "allowedClaims": [
+          "The dog is present in the park and can be found by the learner.",
+          "The dog may react happily after it is found."
+        ]
+      },
+      {
+        "factId": "fact_cat",
+        "catalogId": "animal_cat_small",
+        "kind": "OBJECT",
+        "labelJa": "猫",
+        "allowedClaims": [
+          "The cat is present in the park as a harmless visual distractor.",
+          "The cat remains safe and calm."
+        ]
+      }
+    ],
+    "storyBeats": [
+      {
+        "beatId": "opening",
+        "role": "OPENING",
+        "requiredTargetIds": [],
+        "allowedWorldFactIds": ["fact_park", "fact_guide"],
+        "maxJapaneseCharacters": 56,
+        "maxVietnameseCharacters": 110
+      },
+      {
+        "beatId": "development",
+        "role": "DEVELOPMENT",
+        "requiredTargetIds": ["target_inu"],
+        "allowedWorldFactIds": [
+          "fact_park",
+          "fact_guide",
+          "fact_dog",
+          "fact_cat"
+        ],
+        "maxJapaneseCharacters": 72,
+        "maxVietnameseCharacters": 140
+      },
+      {
+        "beatId": "closing",
+        "role": "CLOSING",
+        "requiredTargetIds": ["target_inu"],
+        "allowedWorldFactIds": ["fact_park", "fact_guide", "fact_dog"],
+        "maxJapaneseCharacters": 56,
+        "maxVietnameseCharacters": 110
+      }
+    ],
+    "practiceSlots": [],
+    "coachingSlots": []
+  },
+  "responseContract": {
+    "unknownFieldsAllowed": false,
+    "plainTextOnly": true,
+    "targetUsePolicy": "Within beats, use a target only where requiredTargetIds contains that target ID.",
+    "localizedFieldLimits": {
+      "title": {
+        "maxJapaneseCharacters": 28,
+        "maxVietnameseCharacters": 56
+      },
+      "objective": {
+        "maxJapaneseCharacters": 60,
+        "maxVietnameseCharacters": 120
+      },
+      "premise": {
+        "maxJapaneseCharacters": 90,
+        "maxVietnameseCharacters": 180
+      },
+      "settingContext": {
+        "maxJapaneseCharacters": 70,
+        "maxVietnameseCharacters": 140
+      },
+      "synopsisMaxCharacters": 240
+    },
+    "successTemplate": {
+      "requestId": "m7_v3_1_story_sheet_find_dog_001",
+      "inputSha256": "56a69ce3153d3ad7e7fcc5e4502340a78246cd416cec9a4c1195b018dd38da6c",
+      "moduleId": "story_sheet",
+      "moduleVersion": "0.1.0",
+      "story": {
+        "status": "OK",
+        "failureCode": null,
+        "value": {
+          "title": {
+            "ja": "<short Japanese title>",
+            "vi": "<short Vietnamese title>"
+          },
+          "objective": {
+            "ja": "<concrete Japanese learner objective>",
+            "vi": "<concise Vietnamese objective>"
+          },
+          "premise": {
+            "ja": "<compact Japanese premise>",
+            "vi": "<concise Vietnamese premise>"
+          },
+          "settingContext": {
+            "ja": "<Japanese setting context using only allowed facts>",
+            "vi": "<Vietnamese setting context using only allowed facts>"
+          },
+          "synopsis": "<concise developer-facing English synopsis>",
+          "beats": [
+            {
+              "beatId": "opening",
+              "context": {
+                "ja": "<Japanese opening>",
+                "vi": "<Vietnamese opening>"
+              }
+            },
+            {
+              "beatId": "development",
+              "context": {
+                "ja": "<Japanese development containing 犬>",
+                "vi": "<Vietnamese development containing the supplied meaning>"
+              }
+            },
+            {
+              "beatId": "closing",
+              "context": {
+                "ja": "<Japanese closing containing 犬>",
+                "vi": "<Vietnamese closing containing the supplied meaning>"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "failureTemplate": {
+      "requestId": "m7_v3_1_story_sheet_find_dog_001",
+      "inputSha256": "56a69ce3153d3ad7e7fcc5e4502340a78246cd416cec9a4c1195b018dd38da6c",
+      "moduleId": "story_sheet",
+      "moduleVersion": "0.1.0",
+      "story": {
+        "status": "CANNOT_COMPLY",
+        "failureCode": "<STABLE_UPPERCASE_FAILURE_CODE>",
+        "value": null
+      }
+    }
+  }
+}

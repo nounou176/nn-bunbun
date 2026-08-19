@@ -287,6 +287,14 @@ full bridge without sharing an account credential or API key.
   registry plus this v3 plan.
 - [x] 2026-08-19 — Accept D-028 and approve this ExecPlan through its
   single-module no-code v3.1 feasibility gate.
+- [x] 2026-08-19 — Prepare and locally validate Run 001 from
+  `story_sheet_find_dog_single_target`, including its user-operated runbook and
+  canonical input SHA-256
+  `56a69ce3153d3ad7e7fcc5e4502340a78246cd416cec9a4c1195b018dd38da6c`.
+- [x] 2026-08-19 — Retain and evaluate the exact Run 001 response. Structural
+  JSON, identities, key sets, beat order, target-surface assignment,
+  prohibited-output scan, and budgets pass; strict world-fact discipline fails.
+  Two user observations remain unresolved.
 - [ ] Run milestone 1 with the user and record only the supplied raw result and
   reported observations allowed by the agreed privacy boundary.
 - [ ] Accept the milestone 2 orchestration decision before implementation.
@@ -311,6 +319,15 @@ full bridge without sharing an account credential or API key.
 - Sequential direct use of the three GPTs conflicts with D-023's accepted
   one-composed-request rule. The user must explicitly revise that rule or
   choose a single bridge-mode conversation before full v3 implementation.
+- Contract 0.1.0 supplies limits for individual story beats but does not carry
+  explicit title, objective, premise, setting-context, or synopsis limits in
+  `LessonAuthoringEnvelopeInput`. Run 001 therefore declares conservative
+  feasibility-only response limits outside the input envelope; milestone 3
+  must resolve the production shape separately.
+- Run 001 also exposes ambiguity between catalog-backed world claims and safe
+  narrative-only relations or emotions. Its original strict packet rejects the
+  inferred dog/cat position and guide relief; a later decision must define the
+  production boundary without retroactively changing this evidence.
 
 ## Plan decisions
 

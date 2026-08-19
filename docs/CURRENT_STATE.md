@@ -6,7 +6,9 @@ Last updated: 2026-08-19
 
 Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
 v3, and D-028 accepts the M7 v3.1 manual → v3.2 WXT → v3.3 MCP sequence. The
-v3.1 no-code Story Sheet feasibility gate is approved but not yet run. Prompt
+v3.1 no-code Story Sheet feasibility gate is approved. Run 001 has returned:
+its JSON transport and budgets pass, but its contribution is rejected for
+unsupported world claims; two user observations are still unresolved. Prompt
 Adaptation Pack 0.1.0 remains approved. No compiler implementation, browser
 extension, automation, provider connection, or environment variable has
 started.
@@ -214,6 +216,19 @@ Completed ExecPlans:
   extension; v3.3 conditionally considers a ChatGPT-side MCP bridge. V3.1 is
   approved through its no-code Story Sheet gate. V3.2, v3.3, and full compiler
   code remain gated.
+- Prepared the first user-operated Story Sheet feasibility packet from the
+  approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
+  request/module/source/prompt identities, reviewed `犬` target, catalog-backed
+  park facts, three story beats, JSON-only response templates, privacy boundary,
+  and canonical input hash
+  `56a69ce3153d3ad7e7fcc5e4502340a78246cd416cec9a4c1195b018dd38da6c`.
+  The user returned a raw result from a new conversation. Exact JSON shape,
+  identity, beat order, target surface assignment, prohibited-output scan, and
+  all text budgets pass. The fixture is nevertheless rejected because the
+  response invents a dog/cat spatial relation and a relieved guide state. Its
+  target motivation is vague and the promised mystery does not appear in the
+  beats. The image/file/tool and response-finished observations remain unknown
+  because both were returned literally as `yes/no`.
 - The active v3.1 ExecPlan begins with a manual file/clipboard feasibility gate
   against Story Sheet. It explicitly excludes programmatic login,
   cookies, persistent browser profiles, UI scraping, browser automation,
@@ -303,8 +318,8 @@ Not present:
 - deployment configuration.
 
 The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. It is on
-`main` at `861fd54`, three commits ahead of `origin/main`. The accepted D-028
-sequencing record and affected documentation updates are currently uncommitted.
+`main` at `80d21c5`, four commits ahead of `origin/main`. The M7 v3.1
+feasibility packet, runbook, and state updates are currently uncommitted.
 
 ## Known issues
 
@@ -364,21 +379,37 @@ sequencing record and affected documentation updates are currently uncommitted.
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Direct JSON
     contribution quality and the D-023 orchestration conflict require manual
-    evidence and a new decision before implementation.
+    evidence and a new decision before implementation. Run 001 proves strong
+    structural compliance but fails strict world-fact discipline, so direct
+    viability remains unproven.
+17. Prompt contract 0.1.0 carries per-beat text limits but has no explicit
+    title, objective, premise, setting-context, or synopsis limits inside
+    `LessonAuthoringEnvelopeInput`. Run 001 uses conservative feasibility-only
+    response limits outside that envelope. The production packet contract must
+    close this gap without treating the run-specific values as accepted product
+    defaults.
+18. Run 001 exposes an unresolved boundary between catalog-backed world facts
+    and transient narrative-only copy. The current strict rule rejects an
+    inferred dog/cat spatial relation and a guide emotion, but the production
+    contract has not decided whether every such relation/state needs an explicit
+    code-owned claim or whether a narrow safe narrative class is allowed. Do not
+    retroactively widen the Run 001 packet; resolve this before packet schemas.
 
 ## Next recommended work
 
 Advance approved M7 v3.1 without activating M7 v1, v2, v3.2, or v3.3:
 
-1. Prepare and run the no-code, user-operated Story Sheet feasibility gate
-   using one exact
-   local packet and the approved expected/rejected fixtures. Do not capture
-   login/session data or unrelated private conversation history.
-2. Based on observed output, accept a new orchestration decision choosing
+1. Ask the user to replace the two literal `yes/no` observations for Run 001
+   with one actual value each. Do not capture login/session data or unrelated
+   private conversation history.
+2. Prepare and run the remaining two expected and two rejected fixture packets
+   in sequence under the same privacy boundary. Preserve Run 001 as a rejected
+   first response; do not silently repair it.
+3. Based on observed output, accept a new orchestration decision choosing
    sequential direct GPTs, a dedicated bridge-mode GPT, or one composed manual
    prompt-pack conversation. Explicitly resolve the D-023 conflict, JSON import,
    repair count, target disclosure, and local GPT-link handling.
-3. Start full v3.1 packet/import/compiler implementation only after that
+4. Start full v3.1 packet/import/compiler implementation only after that
    decision. Promote v3.2 only after a measured manual-transfer bottleneck; do
    not consider v3.3 before its separate network/auth/privacy gate.
 
@@ -392,6 +423,13 @@ non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
 
+- M7 v3.1 Story Sheet Run 001: the raw response parses as exactly one JSON
+  object; key sets, request/hash/module identity, `OK` shape, beat order, target
+  surface assignment, prohibited-output scan, and all thirteen measured text
+  budgets pass. Manual semantic review rejects `USES_ONLY_ALLOWED_FACTS` for
+  one unsupported dog/cat spatial relation and one unsupported guide state.
+  Two UI observations are still unknown. Raw response SHA-256 is
+  `adb1ef122378f0f3ad09a163036b93b5503df9d794f9681571b270f763f5c667`.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

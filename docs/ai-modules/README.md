@@ -33,6 +33,8 @@ transitions, timings, quality budgets, final IDs, and validation.
 - `prompts/` — exact approved prompt fragments whose hashes are recorded in
   the module documents.
 - `evals/` — text-only success and failure fixtures with observable assertions.
+- `feasibility/` — user-operated M7 v3.1 packets and runbooks; these are
+  research evidence, not implemented production packet schemas.
 
 ## Composition
 
