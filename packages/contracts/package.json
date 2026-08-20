@@ -29,7 +29,9 @@
     "schema:check": "node --import tsx scripts/generate-artifacts.ts --check",
     "test": "node --import tsx --test --test-isolation=none test/**/*.test.ts",
     "inspect:manifest": "node --import tsx scripts/inspect-manifest.ts",
-    "inspect:authoring": "node --import tsx scripts/inspect-authoring.ts"
+    "inspect:authoring": "node --import tsx scripts/inspect-authoring.ts",
+    "inspect:authoring-eval": "node --import tsx scripts/inspect-authoring-evaluation.ts",
+    "run:authoring-eval": "node --import tsx scripts/run-authoring-evaluation.ts"
   },
   "dependencies": {
     "ajv": "^8.20.0",

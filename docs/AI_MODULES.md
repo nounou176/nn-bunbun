@@ -18,8 +18,11 @@ v3.2. Its local package, schemas, validator, fixtures, and runbook now exist.
 The user installed version 0.1.0 and returned a strict fixed-packet result that
 the local exchange inspector accepted on 2026-08-20. The user also confirmed
 that the only file action was their required input attachment; the plugin
-started no unexpected media or tool. The fixed proof is accepted, while broader
-fixture evaluation remains pending.
+started no unexpected media or tool. The fixed proof is accepted. D-033 closes
+the broader fixture evaluation with ten accepted first responses, one strict-
+JSON rejection, and four request-contract gaps. The route is conditionally
+viable and reviewed local JSON file import is selected as its first application
+handoff after the contract is versioned forward.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -418,8 +421,11 @@ deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Follow `docs/ai-modules/M7_V3_2_RUNBOOK.md` for the user-operated install and
-fixed authored proof. Record the exact raw result and local diagnostics before
-choosing manual file/clipboard import or proposing a later direct handoff. Keep
-inactive M7 v1, research-only M7 v2, conditional v3.3 MCP, WXT fallback
-research, Visual Mnemonic, and both Anki workflows out of this proof.
+Prepare a separately approved contract-and-import ExecPlan. Version the
+authoring boundary forward to carry compiler-owned practice text, accepted
+Japanese answer truth, required read-only runtime-plan context, and bounded-
+repair diagnostics. Rerun the four blocked D-024 fixtures and the single
+strict-JSON rejection before implementing the selected reviewed local JSON
+file importer. Keep inactive M7 v1, research-only M7 v2, conditional v3.3 MCP,
+WXT fallback research, Visual Mnemonic, and both Anki workflows out of that
+work.

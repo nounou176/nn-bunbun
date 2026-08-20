@@ -13,6 +13,10 @@ import {
   validAuthoringRequest,
   validAuthoringResult,
 } from "./authoring-fixtures.js";
+import {
+  AUTHORING_EVALUATION_SUITE_VERSION,
+  authoringEvaluationCases,
+} from "./authoring-evaluation-suite.js";
 
 type JsonObject = Record<string, unknown>;
 
@@ -81,6 +85,48 @@ artifacts.set(
 artifacts.set(
   resolve(authoringFixtureDirectory, "valid-result.json"),
   serialize(validAuthoringResult),
+);
+
+const authoringEvaluationDirectory = resolve(
+  authoringFixtureDirectory,
+  "evals",
+);
+for (const evaluationCase of authoringEvaluationCases) {
+  if (evaluationCase.execution === "RUNNABLE") {
+    artifacts.set(
+      resolve(
+        authoringEvaluationDirectory,
+        `${evaluationCase.fixtureId}.request.json`,
+      ),
+      serialize(evaluationCase.request),
+    );
+  }
+}
+artifacts.set(
+  resolve(authoringEvaluationDirectory, "coverage.json"),
+  serialize({
+    suiteVersion: AUTHORING_EVALUATION_SUITE_VERSION,
+    packetVersion: validAuthoringRequest.packetVersion,
+    promptPack: validAuthoringRequest.promptPack,
+    cases: authoringEvaluationCases.map((evaluationCase) =>
+      evaluationCase.execution === "RUNNABLE"
+        ? {
+            fixtureId: evaluationCase.fixtureId,
+            moduleId: evaluationCase.moduleId,
+            category: evaluationCase.category,
+            execution: evaluationCase.execution,
+            requestPath: `${evaluationCase.fixtureId}.request.json`,
+          }
+        : {
+            fixtureId: evaluationCase.fixtureId,
+            moduleId: evaluationCase.moduleId,
+            category: evaluationCase.category,
+            execution: evaluationCase.execution,
+            gapCode: evaluationCase.gapCode,
+            reason: evaluationCase.reason,
+          },
+    ),
+  }),
 );
 
 const unknownResultField = clone(validAuthoringResult) as JsonObject;

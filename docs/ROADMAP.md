@@ -311,8 +311,9 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — D-032's fixed M7 v3.2 product-surface proof passes;
-broader fixture evaluation and the application-handoff decision remain pending
+Status: In progress — D-033 classifies the M7 v3.2 Skills-only route as
+conditionally viable and selects reviewed local JSON file import; the forward
+contract and application compiler remain unimplemented
 
 Purpose:
 
@@ -320,7 +321,7 @@ Compile learner targets into the already proven deterministic runtime.
 
 Decisions still required before application integration:
 
-- post-proof file/clipboard or direct application handoff;
+- the forward authoring contract and reviewed file-import implementation plan;
 - O-006 HTTP and compilation job model for the selected strategy;
 - O-009 reference datasets and licenses;
 - a model/provider choice only if a later strategy requires one; and
@@ -348,6 +349,10 @@ Decision resolved:
 - D-032 implements the closed v3.2 request/result boundary, canonical identity
   checks, claim-level world traceability, one local Skills-only plugin, prompt
   drift gate, authored fixtures, local inspector, and user-operated runbook.
+- D-033 records ten accepted runnable fixtures, one strict-JSON rejection, and
+  four honest contract gaps; it classifies the route as conditionally viable
+  and selects reviewed local JSON file import after the contract is versioned
+  forward.
 
 Strategy note:
 
@@ -375,6 +380,10 @@ The user installed `bunbun-authoring@0.1.0` on 2026-08-20 and the fixed
 product-surface result passed the local exchange inspector. The user confirmed
 that the only file action was deliberately attaching the required input; the
 plugin started no unexpected media or tool. The fixed manual proof is closed.
+Milestone 4 then mapped all fifteen D-024 fixtures: eleven were runnable, ten
+were accepted, one was rejected for a trailing JSON character, and four exposed
+missing code-owned inputs. The exact evidence is retained and no gap is counted
+as a pass.
 
 The fixed Story Sheet packets, raw responses, runbooks, and evaluations live
 under `docs/ai-modules/feasibility/`. The latest user correction records no

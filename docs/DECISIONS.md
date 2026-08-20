@@ -1531,6 +1531,44 @@ surface availability, or complete Milestone 7. The v3.1 evidence is unchanged.
 Application handoff remains Milestone 4 of the active ExecPlan and MCP remains
 a separate v3.3 decision.
 
+### D-033 — Classify M7 v3.2 as conditionally viable and select reviewed file import
+
+- Date: 2026-08-20
+- Status: Accepted through the approved M7 v3.2 ExecPlan
+- Affects: M7 v3.2 qualification, authoring contract, application handoff,
+  evaluation evidence
+
+Context:
+
+Milestone 4 mapped all fifteen D-024 fixtures to the executable v3.2 contract.
+Eleven can be represented without inventing code-owned data. Ten of their
+independent first responses pass strict local validation and fixture-specific
+grading; one is rejected for one trailing character after its JSON object.
+Four fixtures expose missing compiler-owned practice text, accepted Japanese
+answer truth, or runtime-plan fields in request contract 0.1.0.
+
+Decision:
+
+Classify the Skills-only route as `CONDITIONALLY_VIABLE`. Retain every exact
+first response and every contract gap; do not count a gap as a model pass or
+repair the malformed response in place.
+
+Select a user-reviewed local JSON file as the first application handoff. Do
+not use clipboard transfer as the authoritative record and do not promote to a
+direct connection. Before implementing the importer, version the authoring
+contract forward to carry compiler-owned practice text, accepted Japanese
+answer truth, required read-only runtime-plan context, and bounded-repair
+diagnostics. Rerun the four blocked fixtures and the one malformed-output case
+before an application compiler can depend on this route.
+
+Consequences:
+
+The active Skills-only proof plan is complete, but Milestone 7 is not. No
+application importer, compiler job, provider connection, LessonManifest
+normalizer, publication path, MCP server, WXT extension, or runtime AI is
+authorized by this decision. The next implementation requires its own approved
+contract-and-import ExecPlan. MCP remains conditional M7 v3.3 work.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

@@ -142,15 +142,15 @@ maintenance decisions that the local-first project has not approved:
 
 ### Candidate routes
 
-| Route                                   | What it proves                                                                                                                    | Main cost or risk                                                                                                                 | V3 position                                                      |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| Manual file/clipboard bridge            | Existing GPT can receive a bounded packet and return importable content without an API key                                        | Human transfer, formatting errors, no unattended generation                                                                       | Recommended first feasibility spike                              |
-| Skills-only personal plugin             | Packages the reviewed GPT-derived behaviors into one versioned ChatGPT/Codex authoring skill without an API key or local endpoint | Account/workspace availability, normal plan limits, manual result handoff                                                         | **Selected M7 v3.2; installed and first strict result accepted** |
-| Browser-assisted launcher               | Bunbun opens a reviewed GPT link after a user gesture and copies/downloads the packet                                             | Popup rules, local link configuration, still manual on return                                                                     | Candidate after the manual packet passes                         |
-| Local browser extension/userscript      | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page                                                   | New extension surface, permissions, ChatGPT DOM churn                                                                             | Research-only WXT fallback                                       |
-| Playwright/CDP browser automation       | Automates navigation, submission, and response capture                                                                            | Session/cookie handling, fragile selectors, product UI changes, rate limits, new dependency; no supported Custom GPT API contract | Research-only; excluded from the first plan                      |
-| Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT                                                                                    | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model                                     | Conditional later spike                                          |
-| Workspace Agent trigger                 | Starts a published agent from another system                                                                                      | Different product surface, access token required, current API cannot retrieve the response                                        | Not selected for v3                                              |
+| Route                                   | What it proves                                                                                                                    | Main cost or risk                                                                                                                 | V3 position                                                               |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Manual file/clipboard bridge            | Existing GPT can receive a bounded packet and return importable content without an API key                                        | Human transfer, formatting errors, no unattended generation                                                                       | Recommended first feasibility spike                                       |
+| Skills-only personal plugin             | Packages the reviewed GPT-derived behaviors into one versioned ChatGPT/Codex authoring skill without an API key or local endpoint | Account/workspace availability, normal plan limits, manual result handoff                                                         | **Selected M7 v3.2; conditionally viable; reviewed file import selected** |
+| Browser-assisted launcher               | Bunbun opens a reviewed GPT link after a user gesture and copies/downloads the packet                                             | Popup rules, local link configuration, still manual on return                                                                     | Candidate after the manual packet passes                                  |
+| Local browser extension/userscript      | Adds copy/import affordances near ChatGPT without scraping from the Bunbun page                                                   | New extension surface, permissions, ChatGPT DOM churn                                                                             | Research-only WXT fallback                                                |
+| Playwright/CDP browser automation       | Automates navigation, submission, and response capture                                                                            | Session/cookie handling, fragile selectors, product UI changes, rate limits, new dependency; no supported Custom GPT API contract | Research-only; excluded from the first plan                               |
+| Custom GPT action or ChatGPT plugin/MCP | Sends structured output to Bunbun from ChatGPT                                                                                    | Requires GPT/plugin changes plus HTTPS or Secure MCP Tunnel and a reviewed auth/privacy model                                     | Conditional later spike                                                   |
+| Workspace Agent trigger                 | Starts a published agent from another system                                                                                      | Different product surface, access token required, current API cannot retrieve the response                                        | Not selected for v3                                                       |
 
 ### Accepted staged route
 
@@ -165,9 +165,12 @@ D-031 supersedes D-028's WXT stage and sets this route:
    manifest, and runbook are implemented under D-032. Installation and the
    fixed strict product-surface proof pass, including the explicit confirmation
    that only the required input attachment occurred and the plugin started no
-   unexpected media or tool. Broader fixture evaluation remains pending. It
-   reuses reviewed behavior rather than invoking the six hosted GPT objects and
-   has no MCP, browser extension, provider API, or endpoint.
+   unexpected media or tool. D-033 records ten accepted runnable fixtures, one
+   strict-JSON rejection, and four contract gaps. The route is conditionally
+   viable and selects reviewed local JSON file import after a forward contract
+   version closes those gaps. It reuses reviewed behavior rather than invoking
+   the six hosted GPT objects and has no MCP, browser extension, provider API,
+   or endpoint.
 3. **M7 v3.3 — MCP bridge.** Promote only if direct delivery becomes valuable
    and a separate decision approves endpoint reachability, tunnel or hosting,
    authentication, write confirmation, privacy, and cost.
@@ -202,9 +205,9 @@ on unsupported account/session access. Workspace Agent triggers remain
 unselected because they are a different product surface and the current API
 does not return the agent response.
 
-### Recommended first vertical proof
+### Completed first vertical proof
 
-The smallest credible v3.2 proof stays human-triggered and local-first:
+The completed v3.2 proof stayed human-triggered and local-first:
 
 1. Install/reload the implemented local personal plugin with one
    lesson-authoring Skill and no MCP server.
@@ -214,21 +217,22 @@ The smallest credible v3.2 proof stays human-triggered and local-first:
    modules in one request.
 4. Validate the exact raw result with repository-owned contracts and stable
    diagnostics; never publish an invalid or partial lesson.
-5. After the fixed proof, run the approved text fixtures and manual account-
-   surface check without inferring that the three unexecuted v3.1 fixtures
-   passed.
+5. After the fixed proof, map all approved text fixtures, run every case the
+   contract can represent honestly, and retain blocked cases as contract gaps.
 
 This proof requires no model API, environment variable, programmatic login,
 cookie access, tunnel, browser extension, MCP server, or external GPT edit.
 
 ### Remaining implementation gates
 
-D-031 closes the transport and orchestration choice, and D-032 implements the
-approved ExecPlan through its local proof checkpoint. Remaining gates are:
+D-031 closes the transport and orchestration choice, D-032 implements the
+local proof, and D-033 selects reviewed local JSON file import. Remaining gates
+are:
 
-- actual install/reload and fixed proof on a supported ChatGPT/Codex surface;
-- the relevant D-024 text-only fixture results;
-- whether manual clipboard/file import is the first application handoff;
+- a forward contract version carrying compiler-owned practice text, accepted
+  Japanese answer truth, read-only runtime-plan context, and repair diagnostics;
+- reruns of the four blocked D-024 fixtures and one strict-JSON rejection;
+- the reviewed file importer and downstream LessonManifest normalization plan;
 - production-profile budgets and the real learner-target disclosure policy;
 - fallback behavior when the plugin surface or normal ChatGPT plan allowance
   is unavailable.

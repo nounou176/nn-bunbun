@@ -1,0 +1,132 @@
+{
+  "suiteVersion": "0.1.0",
+  "packetVersion": "0.1.0",
+  "promptPack": [
+    {
+      "moduleId": "story_sheet",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+    },
+    {
+      "moduleId": "reverse_trainer",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b"
+    },
+    {
+      "moduleId": "story_coach",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7"
+    }
+  ],
+  "cases": [
+    {
+      "fixtureId": "story_sheet_find_dog_single_target",
+      "moduleId": "story_sheet",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_sheet_find_dog_single_target.request.json"
+    },
+    {
+      "fixtureId": "story_sheet_help_someone_grammar_context",
+      "moduleId": "story_sheet",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_sheet_help_someone_grammar_context.request.json"
+    },
+    {
+      "fixtureId": "story_sheet_multiple_targets_fixed_beats",
+      "moduleId": "story_sheet",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_sheet_multiple_targets_fixed_beats.request.json"
+    },
+    {
+      "fixtureId": "story_sheet_rejects_source_scope_regression",
+      "moduleId": "story_sheet",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "RUNNABLE",
+      "requestPath": "story_sheet_rejects_source_scope_regression.request.json"
+    },
+    {
+      "fixtureId": "story_sheet_rejects_favorite_unsupported_world",
+      "moduleId": "story_sheet",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "RUNNABLE",
+      "requestPath": "story_sheet_rejects_favorite_unsupported_world.request.json"
+    },
+    {
+      "fixtureId": "reverse_trainer_natural_phrase_groups",
+      "moduleId": "reverse_trainer",
+      "category": "EXPECTED",
+      "execution": "CONTRACT_GAP",
+      "gapCode": "AUTHORITATIVE_PRACTICE_TEXT_MISSING",
+      "reason": "The D-024 fixture supplies practiceText, but request 0.1.0 has no compiler-owned practice-text field. Running it would let the model invent the phrase being analyzed."
+    },
+    {
+      "fixtureId": "reverse_trainer_reverse_recall_type",
+      "moduleId": "reverse_trainer",
+      "category": "EXPECTED",
+      "execution": "CONTRACT_GAP",
+      "gapCode": "AUTHORITATIVE_ACCEPTED_TEXT_MISSING",
+      "reason": "The D-024 TYPE fixture requires one compiler-owned accepted Japanese answer, but request 0.1.0 exposes only a permission to author accepted text."
+    },
+    {
+      "fixtureId": "reverse_trainer_arrange_reconstruction",
+      "moduleId": "reverse_trainer",
+      "category": "EXPECTED",
+      "execution": "CONTRACT_GAP",
+      "gapCode": "AUTHORITATIVE_ACCEPTED_TEXT_MISSING",
+      "reason": "The D-024 ARRANGE fixture supplies an accepted response, but request 0.1.0 cannot carry that answer truth for deterministic reconstruction checks."
+    },
+    {
+      "fixtureId": "reverse_trainer_rejects_unverified_reference_claims",
+      "moduleId": "reverse_trainer",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "RUNNABLE",
+      "requestPath": "reverse_trainer_rejects_unverified_reference_claims.request.json"
+    },
+    {
+      "fixtureId": "reverse_trainer_rejects_plan_and_answer_mutation",
+      "moduleId": "reverse_trainer",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "RUNNABLE",
+      "requestPath": "reverse_trainer_rejects_plan_and_answer_mutation.request.json"
+    },
+    {
+      "fixtureId": "story_coach_indirect_hint_without_answer",
+      "moduleId": "story_coach",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_coach_indirect_hint_without_answer.request.json"
+    },
+    {
+      "fixtureId": "story_coach_direct_meaning_scaffold",
+      "moduleId": "story_coach",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_coach_direct_meaning_scaffold.request.json"
+    },
+    {
+      "fixtureId": "story_coach_three_feedback_outcomes",
+      "moduleId": "story_coach",
+      "category": "EXPECTED",
+      "execution": "RUNNABLE",
+      "requestPath": "story_coach_three_feedback_outcomes.request.json"
+    },
+    {
+      "fixtureId": "story_coach_rejects_early_answer_leak",
+      "moduleId": "story_coach",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "RUNNABLE",
+      "requestPath": "story_coach_rejects_early_answer_leak.request.json"
+    },
+    {
+      "fixtureId": "story_coach_rejects_source_and_runtime_regression",
+      "moduleId": "story_coach",
+      "category": "REJECTED_BEHAVIOR",
+      "execution": "CONTRACT_GAP",
+      "gapCode": "RUNTIME_PLAN_FIELDS_MISSING",
+      "reason": "The D-024 fixture requires TYPE answer truth plus maximumAttempts and displayMs. Request 0.1.0 carries neither the accepted text nor those runtime-owned fields, so the exact regression case cannot be presented to the composed Skill."
+    }
+  ]
+}

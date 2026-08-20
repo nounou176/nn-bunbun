@@ -16,15 +16,19 @@ installed `bunbun-authoring@0.1.0`, invoked the fixed packet on the product
 surface, and returned one strict JSON result that the local inspector accepted.
 The user confirmed a new conversation, a finished response, and that the only
 file action was deliberately attaching `valid-request.json`; the plugin started
-no unexpected media or tool. The fixed Milestone 3 manual gate is closed. No application
-compiler/provider connection, MCP server, browser extension, automation,
-external GPT edit, learner-data transfer, or environment variable has started.
+no unexpected media or tool. D-033 closes the Skills-only proof plan after
+Milestone 4 evaluated all fifteen D-024 fixture identities: eleven were
+runnable, ten were accepted, one failed strict JSON parsing, and four exposed
+request-contract gaps. The route is conditionally viable and reviewed local
+JSON file import is selected after a forward contract version closes the gaps.
+No application compiler/provider connection, MCP server, browser extension,
+automation, external GPT edit, learner-data transfer, or environment variable
+has started.
 
-Active ExecPlan:
+Most recently completed ExecPlan:
 
-- plans/2026-08-19-m7-v3-skills-plugin.md — Approved; local implementation and
-  fixed Milestone 3 product-surface proof complete; Milestone 4 broader fixture
-  evaluation and application-handoff choice pending
+- plans/2026-08-19-m7-v3-skills-plugin.md — Complete; all four proof milestones
+  closed with a conditional viability classification and named next action
 
 Historical M7 v3.1 evidence plan:
 
@@ -238,6 +242,15 @@ Completed ExecPlans:
   `m7_v3_2_lesson_authoring_001`. The user confirmed the plugin started no
   unexpected image, file, or tool flow; attaching the required input packet was
   the only file action.
+- D-033 closes the broader D-024 evaluation. Eleven generated requests were
+  run through independent ephemeral Skill conversations; ten raw results pass
+  strict validation and fixture grading, while
+  `story_sheet_rejects_source_scope_regression` is retained as a strict-JSON
+  rejection because of one trailing `}`. Four fixtures remain honest contract
+  gaps because 0.1.0 cannot carry authoritative practice text, accepted
+  Japanese answer truth, or all required runtime-plan fields. Reviewed local
+  JSON file import is selected over clipboard or direct handoff, but is not yet
+  implemented.
 - Prepared the first user-operated Story Sheet feasibility packet from the
   approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
   request/module/source/prompt identities, reviewed `犬` target, catalog-backed
@@ -454,15 +467,20 @@ implementation changes are currently uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
+20. M7 v3.2 request contract 0.1.0 cannot represent four D-024 fixtures and
+    cannot carry the prior structured draft plus redacted diagnostics described
+    by its attempt-2 repair policy. It must be versioned forward before the
+    selected file importer or application compiler is implemented.
 
 ## Next recommended work
 
 Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. Run the relevant D-024 text-only fixtures through the installed Skill.
-2. Use those results to decide between manual file/clipboard import and a
-   separately approved direct handoff. Do not transmit real learner history in
-   this proof.
+1. Approve a new contract-and-import ExecPlan that versions the authoring
+   boundary forward with compiler-owned practice text, answer truth, read-only
+   runtime-plan context, and repair diagnostics.
+2. Rerun the four blocked D-024 fixtures and the one strict-JSON rejection,
+   then implement a reviewed local JSON file importer only if the gate passes.
 3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
    separate endpoint, network, authentication, privacy, confirmation, and cost
    gate.
@@ -514,6 +532,15 @@ non-speech asset, and measurable audio acceptance choices.
   action; their initial `yes` referred only to the required input attachment.
   Manual gameplay regression remains pending. No Playwright or Docker check
   applies under D-011 and D-015.
+- D-033/M7 v3.2 Milestone 4: all fifteen D-024 identities are covered by the
+  generated evaluation ledger. Eleven requests were executed in independent
+  text-only Skill conversations; ten pass strict exchange and fixture grading,
+  one is rejected by `RESULT_JSON_PARSE_ERROR`, and four are explicit contract
+  gaps. The raw first responses and SHA-256 values are retained in
+  `docs/ai-modules/feasibility/m7-v3-2-milestone-4-evaluation.md`. Focused
+  contract tests, full workspace checks, and production builds are recorded in
+  the completed ExecPlan. Browser E2E and Docker remain not applicable under
+  D-011 and D-015.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

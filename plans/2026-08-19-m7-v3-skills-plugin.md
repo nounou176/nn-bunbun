@@ -1,9 +1,9 @@
 # Prove the M7 v3.2 Skills-only lesson-authoring plugin
 
-Status: Approved; Milestones 1–3 complete; Milestone 4 evaluation pending
+Status: Complete; conditionally viable with reviewed local JSON file import selected
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 23:26 Asia/Ho_Chi_Minh
+Last updated: 2026-08-20 11:50 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -174,8 +174,12 @@ viable, or unsuitable with retained evidence and a named next action.
 - [x] 2026-08-20 — User confirms a new conversation, a finished response, and
       no unexpected plugin-initiated image, file, or tool flow. The initial
       `yes` referred only to the required `valid-request.json` input attachment.
-- [ ] Evaluate the real result, run relevant D-024 fixtures, and choose the
-      Milestone 4 application handoff.
+- [x] 2026-08-20 — Map all fifteen D-024 fixtures to the executable contract,
+      run eleven independent text-only Skill requests, accept ten, retain one
+      strict-JSON rejection, and record four contract gaps.
+- [x] 2026-08-20 — Accept D-033: classify the route as conditionally viable
+      and select reviewed local JSON file import after a forward contract
+      version closes the gaps.
 
 ## Surprises and discoveries
 
@@ -197,6 +201,13 @@ viable, or unsuitable with retained evidence and a named next action.
 - The login shell starts on Node.js 18.19.1, below the pinned engine. Validation
   used `/home/nunu/.nvm/versions/node/v24.18.0/bin` explicitly; the runbook asks
   the user to run `nvm use`.
+- Four D-024 fixtures cannot be represented by request contract 0.1.0 without
+  inventing compiler-owned practice text, Japanese answer truth, or runtime-
+  plan fields. The attempt-2 field also lacks the prior draft and diagnostics
+  required for a meaningful bounded repair.
+- Ten of eleven runnable first responses pass. The remaining response is
+  semantically in scope but has one trailing `}` and is correctly rejected by
+  strict JSON parsing.
 
 ## Plan decisions
 
@@ -218,6 +229,11 @@ viable, or unsuitable with retained evidence and a named next action.
 - 2026-08-19 — Wrap the contribution in identity-bearing request/result
   packets so local code can reject request ID, canonical input hash, prompt
   order, version, or content-hash drift before any application handoff.
+- 2026-08-20 — Treat unrepresentable approved fixtures as `CONTRACT_GAP`, not
+  model passes, and retain exact first responses without overwrite.
+- 2026-08-20 — Select reviewed local JSON file import as the first application
+  handoff, gated by a forward contract version and rerun of the blocked and
+  malformed cases. Do not promote MCP or clipboard as the authoritative record.
 
 ## Validation
 
@@ -244,16 +260,32 @@ Node.js/npm versions:
 Automated browser E2E remains excluded by D-011. Docker is not applicable under
 D-015 because no Dockerfiles exist and this is not a staging handoff.
 
-Actual local result on 2026-08-19 with Node.js 24.18.0:
+Actual local result through 2026-08-20 with Node.js 24.18.0:
 
 - official Skill and plugin validators pass;
 - `npm run plugin:check` passes with three locked modules and ten plugin files;
-- `npm run schema:check` passes for 22 generated artifacts;
+- `npm run schema:check` passes for 34 generated artifacts;
 - `npm run typecheck`, `npm run lint`, and `npm run format:check` pass;
-- `npm test` passes all 66 tests: 30 contracts, 2 server, and 34 web;
+- `npm test` passes all 70 tests: 34 contracts, 2 server, and 34 web;
 - `npm run build` passes for contracts, server, and web; the known Vite large-
   chunk warning remains; and
 - the fixed authored request/result passes `npm run inspect:authoring`.
+
+Milestone 4 adds eleven generated, validated evaluation requests and one
+fifteen-case coverage ledger. Eleven independent Skill runs produced ten
+accepted raw results and one `RESULT_JSON_PARSE_ERROR`; four fixtures are
+explicit contract gaps. The exact matrix and raw hashes are recorded in
+`docs/ai-modules/feasibility/m7-v3-2-milestone-4-evaluation.md`.
+
+The final checks pass: 34 generated artifacts are current; typecheck, lint,
+source/document formatting, plugin drift scan, `git diff --check`, all 70 tests,
+and the contracts/server/web production build pass. The first sandboxed full
+test run reached 34/34 contract tests and then hit `listen EPERM` at the server
+HTTP test; the approved rerun with loopback access passed 34 contract, 2 server,
+and 34 web tests. The build retains the known Vite large-chunk warning. The
+runner refuses to overwrite retained raw evidence, contract gaps exit with a
+stable diagnostic, and the malformed raw response exits nonzero without
+extraction or repair.
 
 The HTTP test required a rerun outside the filesystem/network sandbox so it
 could bind `127.0.0.1`; it then passed. No product-surface result is recorded by
@@ -290,12 +322,14 @@ these local checks.
 
 ### Manual results
 
-| Scenario                    | Tester  | Date       | Result       | Evidence or notes                                                                                                    |
-| --------------------------- | ------- | ---------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Plugin install/reload       | User    | 2026-08-20 | Pass         | Installed `bunbun-authoring@0.1.0` from local marketplace `personal`                                                 |
-| Fixed authored packet       | User    | 2026-08-20 | Pass         | Exact JSON accepted; required input attachment only; no unexpected plugin-started media/tool flow                    |
-| Invalid output rejection    | Codex   | 2026-08-19 | Pass locally | Malformed, unknown-field, wrong identity/hash, drift, oversized, claim, answer-leak, and module-failure cases reject |
-| Authored runtime regression | Pending | Pending    | Not run      | No runtime change planned                                                                                            |
+| Scenario                     | Tester  | Date       | Result              | Evidence or notes                                                                                                    |
+| ---------------------------- | ------- | ---------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Plugin install/reload        | User    | 2026-08-20 | Pass                | Installed `bunbun-authoring@0.1.0` from local marketplace `personal`                                                 |
+| Fixed authored packet        | User    | 2026-08-20 | Pass                | Exact JSON accepted; required input attachment only; no unexpected plugin-started media/tool flow                    |
+| Invalid output rejection     | Codex   | 2026-08-19 | Pass locally        | Malformed, unknown-field, wrong identity/hash, drift, oversized, claim, answer-leak, and module-failure cases reject |
+| D-024 runnable fixture suite | Codex   | 2026-08-20 | 10 pass, 1 rejected | Eleven independent first responses; strict JSON rejection retained without repair                                    |
+| D-024 contract coverage      | Codex   | 2026-08-20 | 4 gaps              | Missing authoritative practice text, accepted Japanese text, and runtime-plan fields                                 |
+| Authored runtime regression  | Pending | Pending    | Not run             | No runtime change planned                                                                                            |
 
 ## Recovery and compatibility
 
@@ -318,17 +352,23 @@ without a new decision.
 
 ## Outcomes
 
-Milestones 1 and 2 are complete. The durable implementation now includes:
+All four milestones are complete. The durable implementation now includes:
 
 - `plugins/bunbun-authoring/` and `.agents/plugins/marketplace.json`;
 - `packages/contracts/src/schema/authoring.ts` and
   `packages/contracts/src/validation/authoring.ts`;
 - generated authoring schemas and fixtures under `packages/contracts/`;
-- `npm run inspect:authoring` and `npm run plugin:check`; and
+- the fifteen-case evaluation ledger, eleven runnable packets, fixture grader,
+  execution/inspection CLIs, and exact raw first-response evidence;
+- `npm run inspect:authoring`, `npm run inspect:authoring-eval`,
+  `npm run run:authoring-eval`, and `npm run plugin:check`; and
 - `docs/ai-modules/M7_V3_2_RUNBOOK.md`.
 
 Local validation passes. The user-installed plugin returned a strict result
 that the exchange inspector accepted, and the observed media/tool gate passes.
-Milestone 3 is complete. Broader D-024 fixture evaluation and the
-application-handoff choice remain Milestone 4 work. No application compiler,
-provider connection, publication path, or runtime behavior was added.
+Milestone 4 is complete with a `CONDITIONALLY_VIABLE` classification: ten of
+eleven runnable fixture responses pass, one fails strict JSON parsing, and four
+approved fixtures expose request-contract gaps. D-033 selects reviewed local
+JSON file import after a forward contract version and rerun. No application
+compiler, importer, provider connection, publication path, or runtime behavior
+was added.

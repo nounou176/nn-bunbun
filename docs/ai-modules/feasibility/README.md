@@ -48,4 +48,12 @@ The result passes the strict local exchange inspector and manual text review.
 The user confirmed a new conversation, a finished response, and no unexpected
 plugin-initiated image, file, or tool flow. Their initial `yes` referred only to
 the required input attachment `valid-request.json`. The fixed product-surface
-proof is accepted; broader D-024 fixture evaluation remains pending.
+proof is accepted.
+
+Milestone 4 evidence is retained in `m7-v3-2-evals/` and summarized in
+`m7-v3-2-milestone-4-evaluation.md`. Eleven of fifteen D-024 fixtures were
+runnable through request contract 0.1.0: ten first responses pass and one fails
+strict JSON parsing because of a trailing character. Four fixtures are explicit
+contract gaps. D-033 classifies the route as conditionally viable and selects
+reviewed local JSON file import after a forward contract version closes the
+gaps.

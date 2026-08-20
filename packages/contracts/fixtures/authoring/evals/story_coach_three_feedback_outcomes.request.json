@@ -1,0 +1,172 @@
+{
+  "packetFormat": "bunbun_m7_v3_2_lesson_authoring",
+  "packetVersion": "0.1.0",
+  "requestId": "m7_v3_2_eval_sc_003",
+  "fixtureId": "story_coach_three_feedback_outcomes",
+  "attempt": 1,
+  "mediaPolicy": "TEXT_ONLY",
+  "responseFormat": "STRICT_JSON_OBJECT",
+  "inputHashCanonicalization": "UTF8_SHA256_OF_RECURSIVELY_KEY_SORTED_COMPACT_JSON",
+  "inputSha256": "68a3e15e203e1f03fb0be361bc89fee2cb3d1728906ac385f6dfc0dc7fd2dbfe",
+  "promptPack": [
+    {
+      "moduleId": "story_sheet",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+    },
+    {
+      "moduleId": "reverse_trainer",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b"
+    },
+    {
+      "moduleId": "story_coach",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7"
+    }
+  ],
+  "dataPolicy": {
+    "classification": "AUTHORED_FIXTURE",
+    "containsLearnerData": false,
+    "disclosure": "This authored fixture sends normalized Japanese targets and compact authoring facts to ChatGPT or Codex. It contains no learner identity, progress, evidence, TYPE response, checkpoint, secret, or private chat history."
+  },
+  "outputLimits": {
+    "title": {
+      "maxJapaneseCharacters": 28,
+      "maxVietnameseCharacters": 56
+    },
+    "objective": {
+      "maxJapaneseCharacters": 60,
+      "maxVietnameseCharacters": 120
+    },
+    "premise": {
+      "maxJapaneseCharacters": 90,
+      "maxVietnameseCharacters": 180
+    },
+    "settingContext": {
+      "maxJapaneseCharacters": 70,
+      "maxVietnameseCharacters": 140
+    },
+    "synopsisMaxCharacters": 240
+  },
+  "input": {
+    "contractVersion": "0.1.0",
+    "targetLocale": "ja",
+    "supportLocale": "vi",
+    "sceneId": "park_small",
+    "scenarioTemplate": "FIND_SOMETHING",
+    "normalizedTargets": [
+      {
+        "targetId": "target_inu",
+        "kind": "VOCABULARY",
+        "writtenForm": "犬",
+        "reading": "いぬ",
+        "grammarPattern": null,
+        "supportGlossesVi": [
+          "chó"
+        ],
+        "referenceAuthority": "REVIEWED"
+      }
+    ],
+    "worldFacts": [
+      {
+        "factId": "fact_park",
+        "catalogId": "park_small",
+        "kind": "SCENE",
+        "labelJa": "小さい公園",
+        "allowedClaims": [
+          {
+            "claimId": "claim_park_setting",
+            "statement": "All story action remains inside one small park."
+          }
+        ]
+      },
+      {
+        "factId": "fact_dog",
+        "catalogId": "animal_dog_small",
+        "kind": "OBJECT",
+        "labelJa": "犬",
+        "allowedClaims": [
+          {
+            "claimId": "claim_dog_present",
+            "statement": "The dog is present somewhere in the park."
+          },
+          {
+            "claimId": "claim_dog_found",
+            "statement": "The dog can be found by looking around the park."
+          }
+        ]
+      },
+      {
+        "factId": "fact_cat",
+        "catalogId": "animal_cat_small",
+        "kind": "OBJECT",
+        "labelJa": "猫",
+        "allowedClaims": [
+          {
+            "claimId": "claim_cat_present",
+            "statement": "The cat is present somewhere in the park."
+          }
+        ]
+      }
+    ],
+    "storyBeats": [
+      {
+        "beatId": "opening",
+        "role": "OPENING",
+        "requiredTargetIds": [
+          "target_inu"
+        ],
+        "allowedWorldClaimIds": [
+          "claim_park_setting",
+          "claim_dog_present",
+          "claim_cat_present"
+        ],
+        "maxJapaneseCharacters": 64,
+        "maxVietnameseCharacters": 125
+      }
+    ],
+    "practiceSlots": [
+      {
+        "slotId": "find_dog",
+        "stepId": "find_dog",
+        "beatId": "opening",
+        "primitive": "CLICK_OBJECT",
+        "difficulty": "GUIDED",
+        "targetIds": [
+          "target_inu"
+        ],
+        "candidateIds": [
+          "dog",
+          "cat"
+        ],
+        "acceptedCandidateIds": [
+          "dog"
+        ],
+        "normalizationRules": [
+          "UNICODE_NFKC",
+          "TRIM"
+        ],
+        "permitsDistractors": false,
+        "permitsAcceptedText": false,
+        "permitsArrangeSegments": false,
+        "maxJapaneseCharacters": 40
+      }
+    ],
+    "coachingSlots": [
+      {
+        "stepId": "find_dog",
+        "difficulty": "GUIDED",
+        "targetIds": [
+          "target_inu"
+        ],
+        "scaffoldSlots": [],
+        "permitsInstructionSupport": true,
+        "maxInstructionJapaneseCharacters": 60,
+        "maxInstructionVietnameseCharacters": 120,
+        "maxFeedbackJapaneseCharacters": 80,
+        "maxFeedbackVietnameseCharacters": 160
+      }
+    ]
+  }
+}
