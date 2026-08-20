@@ -312,8 +312,10 @@ Exit criteria:
 ## Milestone 7 — Provider-independent lesson compiler
 
 Status: In progress — D-033 classifies the M7 v3.2 Skills-only route as
-conditionally viable and selects reviewed local JSON file import; the forward
-contract and application compiler remain unimplemented
+conditionally viable and selects reviewed local JSON file import. D-034
+approves the completion ExecPlan. Contract/plugin 0.2.0 is complete in source;
+reinstallation and requalification are blocked by the current Codex usage
+limit, and application compiler work remains gated.
 
 Purpose:
 
@@ -321,11 +323,9 @@ Compile learner targets into the already proven deterministic runtime.
 
 Decisions still required before application integration:
 
-- the forward authoring contract and reviewed file-import implementation plan;
-- O-006 HTTP and compilation job model for the selected strategy;
-- O-009 reference datasets and licenses;
 - a model/provider choice only if a later strategy requires one; and
-- input normalization and compiler retry policy.
+- production reference datasets and licenses beyond the D-034 technical
+  three-record fixture.
 
 Decision resolved:
 
@@ -353,6 +353,11 @@ Decision resolved:
   four honest contract gaps; it classifies the route as conditionally viable
   and selects reviewed local JSON file import after the contract is versioned
   forward.
+- D-034 approves authoring 0.2.0, preserves the three exact prompt modules at
+  0.1.0, selects a durable SQLite human-handoff lifecycle with no model worker,
+  resolves O-006 for v3.2, resolves O-009 only through a three-record project-
+  authored technical fixture, and requires requalification before importer
+  work.
 
 Strategy note:
 
@@ -366,7 +371,8 @@ Strategy note:
   hardware floor, inference runtime, training method, or license set is
   selected.
 - M7 v3 is the active path. Its approved active ExecPlan is
-  `plans/2026-08-19-m7-v3-skills-plugin.md`. It uses no `gpt-5.6-terra` or
+  `plans/2026-08-20-complete-m7-file-import-compiler.md`. It uses no
+  `gpt-5.6-terra` or
   `OPENAI_API_KEY`. V3.1 remains historical provisional evidence. V3.2 packages
   the three approved prompt modules into one Skill; v3.3 considers MCP only
   after a separate endpoint, network, authentication, privacy, confirmation,

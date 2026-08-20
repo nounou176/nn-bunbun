@@ -13,8 +13,9 @@ D-027 accepts the three-strategy registry and makes M7 v3 the active research
 direction. D-029 closes the v3.1 manual Story Sheet gate early after two of five
 fixtures as provisionally viable evidence; it does not claim complete
 qualification. D-031 supersedes D-028's WXT stage and selects a Skills-only
-personal ChatGPT/Codex plugin as M7 v3.2 and the next implementation direction.
-MCP remains conditional v3.3 work.
+personal ChatGPT/Codex plugin as M7 v3.2. D-034 approves its 0.2.0 contract and
+reviewed file-import compiler architecture; requalification is the active
+implementation gate. MCP remains conditional v3.3 work.
 
 ## Shared outcome and invariants
 
@@ -46,11 +47,11 @@ rules:
 
 ## Strategy status
 
-| Strategy | Provider path                                                                                                 | Current status                                                                        | Credential position                                                                                       | Durable source                                                            |
-| -------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                                           | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`                |
-| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                                      | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required         |
-| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 fixed product-surface proof accepted; broader fixtures pending; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031, D-032, and `plans/2026-08-19-m7-v3-skills-plugin.md` |
+| Strategy | Provider path                                                                                                 | Current status                                                            | Credential position                                                                                       | Durable source                                                           |
+| -------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                               | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`               |
+| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                          | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required        |
+| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 contract 0.2.0 implemented; requalification active; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031 through D-034, and the active M7 completion ExecPlan |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -167,10 +168,12 @@ D-031 supersedes D-028's WXT stage and sets this route:
    that only the required input attachment occurred and the plugin started no
    unexpected media or tool. D-033 records ten accepted runnable fixtures, one
    strict-JSON rejection, and four contract gaps. The route is conditionally
-   viable and selects reviewed local JSON file import after a forward contract
-   version closes those gaps. It reuses reviewed behavior rather than invoking
-   the six hosted GPT objects and has no MCP, browser extension, provider API,
-   or endpoint.
+   viable. D-034 approves reviewed local JSON file import and contract 0.2.0,
+   which carries compiler-owned practice text, exact accepted answer truth,
+   read-only runtime context, and one closed repair context. The prompt modules
+   remain byte-identical at 0.1.0. It reuses reviewed behavior rather than
+   invoking the six hosted GPT objects and has no MCP, browser extension,
+   provider API, or endpoint.
 3. **M7 v3.3 — MCP bridge.** Promote only if direct delivery becomes valuable
    and a separate decision approves endpoint reachability, tunnel or hosting,
    authentication, write confirmation, privacy, and cost.
@@ -226,14 +229,14 @@ cookie access, tunnel, browser extension, MCP server, or external GPT edit.
 ### Remaining implementation gates
 
 D-031 closes the transport and orchestration choice, D-032 implements the
-local proof, and D-033 selects reviewed local JSON file import. Remaining gates
-are:
+local proof, D-033 selects reviewed local JSON file import, and D-034 approves
+the complete technical M7 architecture. Remaining gates are:
 
-- a forward contract version carrying compiler-owned practice text, accepted
-  Japanese answer truth, read-only runtime-plan context, and repair diagnostics;
 - reruns of the four blocked D-024 fixtures and one strict-JSON rejection;
-- the reviewed file importer and downstream LessonManifest normalization plan;
-- production-profile budgets and the real learner-target disclosure policy;
+- one real bounded attempt-2 repair;
+- deterministic compiler, reviewed file importer, persistence, publication,
+  and runtime integration implementation;
+- manual browser/gameplay acceptance of the complete local flow;
 - fallback behavior when the plugin surface or normal ChatGPT plan allowance
   is unavailable.
 

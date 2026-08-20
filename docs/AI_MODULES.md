@@ -20,9 +20,12 @@ the local exchange inspector accepted on 2026-08-20. The user also confirmed
 that the only file action was their required input attachment; the plugin
 started no unexpected media or tool. The fixed proof is accepted. D-033 closes
 the broader fixture evaluation with ten accepted first responses, one strict-
-JSON rejection, and four request-contract gaps. The route is conditionally
-viable and reviewed local JSON file import is selected as its first application
-handoff after the contract is versioned forward.
+JSON rejection, and four request-contract gaps. D-034 approves the complete M7
+file-import architecture and versions the packet, protocol, and plugin
+compatibility to 0.2.0 while preserving the three prompt modules and hashes at
+0.1.0. All fifteen evaluation requests are now representable; requalification
+of the former gaps and bounded repair is the active gate before application
+compiler work.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -227,9 +230,11 @@ skills or agents into the first plugin would incorrectly broaden M7.
 
 The implemented local plugin has no connector, MCP server, browser extension,
 action, provider API, or external endpoint. It may prepare an untrusted typed
-result, but only Bunbun's local contracts and validators can accept it. No
-publication path exists yet. D-024 remains the responsibility, privacy,
-version, and evaluation baseline.
+result, but only Bunbun's local contracts and validators can accept it. Its
+active 0.2.0 packet adds exact compiler-owned practice/answer truth, read-only
+runtime-plan context, a closed data policy, and one bounded repair context. No
+publication path exists yet. D-024 remains the prompt responsibility and
+evaluation baseline; D-034 owns the active transport contract.
 
 ## Approved Milestone 7 adaptation pack
 
@@ -413,19 +418,19 @@ A module is `Approved` only when all of the following are true:
 - the user approves the Bunbun adaptation and version.
 
 The source-to-module mapping and Prompt Adaptation Pack 0.1.0 are accepted
-under D-023 and D-024. The three selected modules meet the design-level
-readiness gate and are Approved for implementation, but remain inactive until
-the provider/compiler implementation is separately approved and completed.
+under D-023 and D-024. D-034 separately approves the 0.2.0 Skills-only
+contract and reviewed file-import compiler implementation. The three selected
+modules remain application-inactive until requalification and downstream
+compiler integration pass; the prompt text and hashes remain unchanged.
 Implementation must not invent missing pedagogical behavior or transfer
 deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Prepare a separately approved contract-and-import ExecPlan. Version the
-authoring boundary forward to carry compiler-owned practice text, accepted
-Japanese answer truth, required read-only runtime-plan context, and bounded-
-repair diagnostics. Rerun the four blocked D-024 fixtures and the single
-strict-JSON rejection before implementing the selected reviewed local JSON
-file importer. Keep inactive M7 v1, research-only M7 v2, conditional v3.3 MCP,
-WXT fallback research, Visual Mnemonic, and both Anki workflows out of that
-work.
+Validate and reinstall `bunbun-authoring` on the 0.2.0 compatibility line, then
+rerun the four former D-024 contract gaps, the strict-JSON regression, and one
+real bounded repair in fresh conversations. Continue into the approved
+deterministic compiler and reviewed local file importer only if answer truth,
+runtime-plan integrity, and repair identity pass. Keep inactive M7 v1,
+research-only M7 v2, conditional v3.3 MCP, WXT fallback research, Visual
+Mnemonic, and both Anki workflows out of that work.

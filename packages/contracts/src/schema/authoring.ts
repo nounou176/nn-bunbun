@@ -37,8 +37,15 @@ export const APPROVED_AUTHORING_PROMPT_PACK = [
 const Nullable = <Schema extends TSchema>(schema: Schema) =>
   OneOf([schema, Type.Null()]);
 
-const Sha256Schema = Type.String({ pattern: "^[a-f0-9]{64}$" });
-const BoundedTextSchema = Type.String({ minLength: 1, maxLength: 2_000 });
+export const AuthoringSha256Schema = Type.String({
+  pattern: "^[a-f0-9]{64}$",
+});
+export const AuthoringBoundedTextSchema = Type.String({
+  minLength: 1,
+  maxLength: 2_000,
+});
+const Sha256Schema = AuthoringSha256Schema;
+const BoundedTextSchema = AuthoringBoundedTextSchema;
 const NullableBoundedTextSchema = Nullable(BoundedTextSchema);
 const CharacterLimitSchema = Type.Integer({ minimum: 1, maximum: 2_000 });
 const IdListSchema = Type.Array(IdSchema, {
@@ -230,10 +237,11 @@ const PromptPackEntrySchema = OneOf([
   }),
 ]);
 
-const PromptPackSchema = Type.Array(PromptPackEntrySchema, {
+export const AuthoringPromptPackSchema = Type.Array(PromptPackEntrySchema, {
   minItems: 3,
   maxItems: 3,
 });
+const PromptPackSchema = AuthoringPromptPackSchema;
 
 export const LessonAuthoringRequestSchema = StrictObject(
   {

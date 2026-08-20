@@ -46,8 +46,31 @@ if (!Array.isArray(lock.modules) || lock.modules.length !== 3) {
 const manifest = JSON.parse(
   await readFile(resolve(pluginRoot, ".codex-plugin/plugin.json"), "utf8"),
 );
+if (!/^0\.2\.0(?:\+codex\.(?:local-)?[0-9]{14})?$/u.test(manifest.version)) {
+  errors.push("plugin compatibility version must use the 0.2.0 local line");
+}
 if ("mcpServers" in manifest || "apps" in manifest) {
   errors.push("Skills-only plugin must not declare MCP servers or apps");
+}
+
+const skillText = await readFile(resolve(skillRoot, "SKILL.md"), "utf8");
+const protocolText = await readFile(
+  resolve(skillRoot, "references/authoring-protocol.md"),
+  "utf8",
+);
+for (const requiredReference of [
+  "lesson-authoring-request-0.2.0.schema.json",
+  "lesson-authoring-result-0.2.0.schema.json",
+]) {
+  if (!skillText.includes(requiredReference)) {
+    errors.push(`Skill must require ${requiredReference}`);
+  }
+}
+if (
+  !skillText.includes("`0.2.0`") ||
+  !protocolText.includes("protocol 0.2.0")
+) {
+  errors.push("Skill and authoring protocol must accept packet 0.2.0");
 }
 
 const marketplace = JSON.parse(

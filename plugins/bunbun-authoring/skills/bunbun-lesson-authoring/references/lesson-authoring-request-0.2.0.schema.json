@@ -1,0 +1,1695 @@
+{
+  "type": "object",
+  "required": [
+    "packetFormat",
+    "packetVersion",
+    "requestId",
+    "requestContextId",
+    "attempt",
+    "repair",
+    "mediaPolicy",
+    "responseFormat",
+    "inputHashCanonicalization",
+    "inputSha256",
+    "promptPack",
+    "dataPolicy",
+    "outputLimits",
+    "input"
+  ],
+  "properties": {
+    "packetFormat": {
+      "type": "string",
+      "const": "bunbun_m7_v3_2_lesson_authoring"
+    },
+    "packetVersion": {
+      "type": "string",
+      "const": "0.2.0"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "requestContextId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2
+    },
+    "repair": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "failureStage",
+            "priorResponseSha256",
+            "priorResult",
+            "diagnostics"
+          ],
+          "properties": {
+            "failureStage": {
+              "type": "string",
+              "enum": [
+                "JSON_PARSE",
+                "STRUCTURAL",
+                "SEMANTIC"
+              ]
+            },
+            "priorResponseSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "priorResult": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": [
+                    "packetFormat",
+                    "packetVersion",
+                    "requestId",
+                    "inputSha256",
+                    "promptPack",
+                    "contributions"
+                  ],
+                  "properties": {
+                    "packetFormat": {
+                      "type": "string",
+                      "const": "bunbun_m7_v3_2_lesson_authoring_result"
+                    },
+                    "packetVersion": {
+                      "type": "string",
+                      "const": "0.2.0"
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                    },
+                    "inputSha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "promptPack": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "moduleId",
+                              "moduleVersion",
+                              "promptSha256"
+                            ],
+                            "properties": {
+                              "moduleId": {
+                                "type": "string",
+                                "const": "story_sheet"
+                              },
+                              "moduleVersion": {
+                                "type": "string",
+                                "const": "0.1.0"
+                              },
+                              "promptSha256": {
+                                "type": "string",
+                                "const": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "moduleId",
+                              "moduleVersion",
+                              "promptSha256"
+                            ],
+                            "properties": {
+                              "moduleId": {
+                                "type": "string",
+                                "const": "reverse_trainer"
+                              },
+                              "moduleVersion": {
+                                "type": "string",
+                                "const": "0.1.0"
+                              },
+                              "promptSha256": {
+                                "type": "string",
+                                "const": "301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "moduleId",
+                              "moduleVersion",
+                              "promptSha256"
+                            ],
+                            "properties": {
+                              "moduleId": {
+                                "type": "string",
+                                "const": "story_coach"
+                              },
+                              "moduleVersion": {
+                                "type": "string",
+                                "const": "0.1.0"
+                              },
+                              "promptSha256": {
+                                "type": "string",
+                                "const": "73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7"
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "contributions": {
+                      "type": "object",
+                      "required": [
+                        "story",
+                        "reverseTraining",
+                        "coaching"
+                      ],
+                      "properties": {
+                        "story": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "OK"
+                                },
+                                "failureCode": {
+                                  "type": "null"
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "required": [
+                                    "title",
+                                    "objective",
+                                    "premise",
+                                    "settingContext",
+                                    "synopsis",
+                                    "beats"
+                                  ],
+                                  "properties": {
+                                    "title": {
+                                      "type": "object",
+                                      "required": [
+                                        "ja",
+                                        "vi"
+                                      ],
+                                      "properties": {
+                                        "ja": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        },
+                                        "vi": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    },
+                                    "objective": {
+                                      "type": "object",
+                                      "required": [
+                                        "ja",
+                                        "vi"
+                                      ],
+                                      "properties": {
+                                        "ja": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        },
+                                        "vi": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    },
+                                    "premise": {
+                                      "type": "object",
+                                      "required": [
+                                        "ja",
+                                        "vi"
+                                      ],
+                                      "properties": {
+                                        "ja": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        },
+                                        "vi": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    },
+                                    "settingContext": {
+                                      "type": "object",
+                                      "required": [
+                                        "ja",
+                                        "vi"
+                                      ],
+                                      "properties": {
+                                        "ja": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        },
+                                        "vi": {
+                                          "type": "string",
+                                          "minLength": 1,
+                                          "maxLength": 2000
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    },
+                                    "synopsis": {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxLength": 2000
+                                    },
+                                    "beats": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "required": [
+                                          "beatId",
+                                          "usedWorldClaimIds",
+                                          "context"
+                                        ],
+                                        "properties": {
+                                          "beatId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 64,
+                                            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                          },
+                                          "usedWorldClaimIds": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 64,
+                                              "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                            },
+                                            "maxItems": 64,
+                                            "uniqueItems": true
+                                          },
+                                          "context": {
+                                            "type": "object",
+                                            "required": [
+                                              "ja",
+                                              "vi"
+                                            ],
+                                            "properties": {
+                                              "ja": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              "vi": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "minItems": 1,
+                                      "maxItems": 4
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "CANNOT_COMPLY"
+                                },
+                                "failureCode": {
+                                  "type": "string",
+                                  "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+                                },
+                                "value": {
+                                  "type": "null"
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          ]
+                        },
+                        "reverseTraining": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "OK"
+                                },
+                                "failureCode": {
+                                  "type": "null"
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "required": [
+                                    "targetAnalysis",
+                                    "practiceItems"
+                                  ],
+                                  "properties": {
+                                    "targetAnalysis": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "required": [
+                                          "targetId",
+                                          "segments"
+                                        ],
+                                        "properties": {
+                                          "targetId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 64,
+                                            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                          },
+                                          "segments": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "required": [
+                                                "surfaceJa",
+                                                "readingKana",
+                                                "meaningVi",
+                                                "functionVi"
+                                              ],
+                                              "properties": {
+                                                "surfaceJa": {
+                                                  "type": "string",
+                                                  "minLength": 1,
+                                                  "maxLength": 2000
+                                                },
+                                                "readingKana": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "string",
+                                                      "minLength": 1,
+                                                      "maxLength": 2000
+                                                    },
+                                                    {
+                                                      "type": "null"
+                                                    }
+                                                  ]
+                                                },
+                                                "meaningVi": {
+                                                  "type": "string",
+                                                  "minLength": 1,
+                                                  "maxLength": 2000
+                                                },
+                                                "functionVi": {
+                                                  "type": "string",
+                                                  "minLength": 1,
+                                                  "maxLength": 2000
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "minItems": 1,
+                                            "maxItems": 16
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "minItems": 1,
+                                      "maxItems": 16
+                                    },
+                                    "practiceItems": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "required": [
+                                          "slotId",
+                                          "stimulusJa",
+                                          "acceptedResponsesJa",
+                                          "arrangeSegmentsJa",
+                                          "distractorsJa"
+                                        ],
+                                        "properties": {
+                                          "slotId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 64,
+                                            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                          },
+                                          "stimulusJa": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 2000
+                                          },
+                                          "acceptedResponsesJa": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 2000
+                                            },
+                                            "maxItems": 16,
+                                            "uniqueItems": true
+                                          },
+                                          "arrangeSegmentsJa": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 2000
+                                            },
+                                            "maxItems": 16
+                                          },
+                                          "distractorsJa": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1,
+                                              "maxLength": 2000
+                                            },
+                                            "maxItems": 16,
+                                            "uniqueItems": true
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "maxItems": 24
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "CANNOT_COMPLY"
+                                },
+                                "failureCode": {
+                                  "type": "string",
+                                  "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+                                },
+                                "value": {
+                                  "type": "null"
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          ]
+                        },
+                        "coaching": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "OK"
+                                },
+                                "failureCode": {
+                                  "type": "null"
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "required": [
+                                    "steps"
+                                  ],
+                                  "properties": {
+                                    "steps": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "required": [
+                                          "stepId",
+                                          "instructionJa",
+                                          "instructionVi",
+                                          "hintJa",
+                                          "hintVi",
+                                          "scaffoldCopy",
+                                          "correct",
+                                          "incorrect",
+                                          "assisted"
+                                        ],
+                                        "properties": {
+                                          "stepId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 64,
+                                            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                          },
+                                          "instructionJa": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 2000
+                                          },
+                                          "instructionVi": {
+                                            "oneOf": [
+                                              {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "hintJa": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 2000
+                                          },
+                                          "hintVi": {
+                                            "oneOf": [
+                                              {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "scaffoldCopy": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "required": [
+                                                "scaffoldSlotId",
+                                                "textJa",
+                                                "textVi"
+                                              ],
+                                              "properties": {
+                                                "scaffoldSlotId": {
+                                                  "type": "string",
+                                                  "minLength": 1,
+                                                  "maxLength": 64,
+                                                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                                                },
+                                                "textJa": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "string",
+                                                      "minLength": 1,
+                                                      "maxLength": 2000
+                                                    },
+                                                    {
+                                                      "type": "null"
+                                                    }
+                                                  ]
+                                                },
+                                                "textVi": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "string",
+                                                      "minLength": 1,
+                                                      "maxLength": 2000
+                                                    },
+                                                    {
+                                                      "type": "null"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "additionalProperties": false
+                                            },
+                                            "maxItems": 12
+                                          },
+                                          "correct": {
+                                            "type": "object",
+                                            "required": [
+                                              "textJa",
+                                              "textVi"
+                                            ],
+                                            "properties": {
+                                              "textJa": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              "textVi": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "string",
+                                                    "minLength": 1,
+                                                    "maxLength": 2000
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          },
+                                          "incorrect": {
+                                            "type": "object",
+                                            "required": [
+                                              "textJa",
+                                              "textVi"
+                                            ],
+                                            "properties": {
+                                              "textJa": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              "textVi": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "string",
+                                                    "minLength": 1,
+                                                    "maxLength": 2000
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          },
+                                          "assisted": {
+                                            "type": "object",
+                                            "required": [
+                                              "textJa",
+                                              "textVi"
+                                            ],
+                                            "properties": {
+                                              "textJa": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxLength": 2000
+                                              },
+                                              "textVi": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "string",
+                                                    "minLength": 1,
+                                                    "maxLength": 2000
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "additionalProperties": false
+                                      },
+                                      "maxItems": 24
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "required": [
+                                "status",
+                                "failureCode",
+                                "value"
+                              ],
+                              "properties": {
+                                "status": {
+                                  "type": "string",
+                                  "const": "CANNOT_COMPLY"
+                                },
+                                "failureCode": {
+                                  "type": "string",
+                                  "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+                                },
+                                "value": {
+                                  "type": "null"
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "diagnostics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "source",
+                  "code",
+                  "path",
+                  "message"
+                ],
+                "properties": {
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "JSON_PARSE",
+                      "STRUCTURAL",
+                      "SEMANTIC",
+                      "NORMALIZATION",
+                      "RUNTIME_CAPABILITY"
+                    ]
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+                  },
+                  "path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 320
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 24
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "mediaPolicy": {
+      "type": "string",
+      "const": "TEXT_ONLY"
+    },
+    "responseFormat": {
+      "type": "string",
+      "const": "STRICT_JSON_OBJECT"
+    },
+    "inputHashCanonicalization": {
+      "type": "string",
+      "const": "UTF8_SHA256_OF_RECURSIVELY_KEY_SORTED_COMPACT_JSON"
+    },
+    "inputSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "promptPack": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "moduleId",
+              "moduleVersion",
+              "promptSha256"
+            ],
+            "properties": {
+              "moduleId": {
+                "type": "string",
+                "const": "story_sheet"
+              },
+              "moduleVersion": {
+                "type": "string",
+                "const": "0.1.0"
+              },
+              "promptSha256": {
+                "type": "string",
+                "const": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "moduleId",
+              "moduleVersion",
+              "promptSha256"
+            ],
+            "properties": {
+              "moduleId": {
+                "type": "string",
+                "const": "reverse_trainer"
+              },
+              "moduleVersion": {
+                "type": "string",
+                "const": "0.1.0"
+              },
+              "promptSha256": {
+                "type": "string",
+                "const": "301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "moduleId",
+              "moduleVersion",
+              "promptSha256"
+            ],
+            "properties": {
+              "moduleId": {
+                "type": "string",
+                "const": "story_coach"
+              },
+              "moduleVersion": {
+                "type": "string",
+                "const": "0.1.0"
+              },
+              "promptSha256": {
+                "type": "string",
+                "const": "73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "dataPolicy": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "classification",
+            "containsLearnerData",
+            "disclosure"
+          ],
+          "properties": {
+            "classification": {
+              "type": "string",
+              "const": "AUTHORED_FIXTURE"
+            },
+            "containsLearnerData": {
+              "type": "boolean",
+              "const": false
+            },
+            "disclosure": {
+              "type": "string",
+              "const": "This authored fixture sends normalized Japanese targets and compact authoring facts to ChatGPT or Codex. It contains no learner identity, progress, evidence, TYPE response, checkpoint, secret, or private chat history."
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "classification",
+            "containsLearnerData",
+            "disclosure"
+          ],
+          "properties": {
+            "classification": {
+              "type": "string",
+              "const": "LEARNER_TARGETS"
+            },
+            "containsLearnerData": {
+              "type": "boolean",
+              "const": true
+            },
+            "disclosure": {
+              "type": "string",
+              "const": "This request sends only the normalized Japanese targets and compact authoring facts shown here to ChatGPT or Codex after export. It contains no learner identity, progress, evidence, TYPE response, checkpoint, secret, or private chat history."
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "outputLimits": {
+      "type": "object",
+      "required": [
+        "title",
+        "objective",
+        "premise",
+        "settingContext",
+        "synopsisMaxCharacters"
+      ],
+      "properties": {
+        "title": {
+          "type": "object",
+          "required": [
+            "maxJapaneseCharacters",
+            "maxVietnameseCharacters"
+          ],
+          "properties": {
+            "maxJapaneseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxVietnameseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "additionalProperties": false
+        },
+        "objective": {
+          "type": "object",
+          "required": [
+            "maxJapaneseCharacters",
+            "maxVietnameseCharacters"
+          ],
+          "properties": {
+            "maxJapaneseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxVietnameseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "additionalProperties": false
+        },
+        "premise": {
+          "type": "object",
+          "required": [
+            "maxJapaneseCharacters",
+            "maxVietnameseCharacters"
+          ],
+          "properties": {
+            "maxJapaneseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxVietnameseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "additionalProperties": false
+        },
+        "settingContext": {
+          "type": "object",
+          "required": [
+            "maxJapaneseCharacters",
+            "maxVietnameseCharacters"
+          ],
+          "properties": {
+            "maxJapaneseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxVietnameseCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "additionalProperties": false
+        },
+        "synopsisMaxCharacters": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        }
+      },
+      "additionalProperties": false
+    },
+    "input": {
+      "type": "object",
+      "required": [
+        "contractVersion",
+        "targetLocale",
+        "supportLocale",
+        "sceneId",
+        "scenarioTemplate",
+        "normalizedTargets",
+        "worldFacts",
+        "storyBeats",
+        "practiceSlots",
+        "coachingSlots"
+      ],
+      "properties": {
+        "contractVersion": {
+          "type": "string",
+          "const": "0.2.0"
+        },
+        "targetLocale": {
+          "type": "string",
+          "const": "ja"
+        },
+        "supportLocale": {
+          "type": "string",
+          "const": "vi"
+        },
+        "sceneId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+        },
+        "scenarioTemplate": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "normalizedTargets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "targetId",
+              "kind",
+              "writtenForm",
+              "reading",
+              "grammarPattern",
+              "supportGlossesVi",
+              "referenceAuthority"
+            ],
+            "properties": {
+              "targetId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "VOCABULARY",
+                  "GRAMMAR"
+                ]
+              },
+              "writtenForm": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reading": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "grammarPattern": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "supportGlossesVi": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240
+                },
+                "minItems": 1,
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "referenceAuthority": {
+                "type": "string",
+                "enum": [
+                  "REVIEWED",
+                  "LEARNER_SUPPLIED"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 16
+        },
+        "worldFacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "factId",
+              "catalogId",
+              "kind",
+              "labelJa",
+              "allowedClaims"
+            ],
+            "properties": {
+              "factId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "catalogId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "SCENE",
+                  "ENTITY",
+                  "OBJECT",
+                  "LOCATION",
+                  "CUE"
+                ]
+              },
+              "labelJa": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "allowedClaims": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "claimId",
+                    "statement"
+                  ],
+                  "properties": {
+                    "claimId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                    },
+                    "statement": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 320
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 16
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "storyBeats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "beatId",
+              "role",
+              "requiredTargetIds",
+              "allowedWorldClaimIds",
+              "maxJapaneseCharacters",
+              "maxVietnameseCharacters"
+            ],
+            "properties": {
+              "beatId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "OPENING",
+                  "DEVELOPMENT",
+                  "TURN",
+                  "CLOSING"
+                ]
+              },
+              "requiredTargetIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "allowedWorldClaimIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "maxJapaneseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "maxVietnameseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 4
+        },
+        "practiceSlots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "slotId",
+              "stepId",
+              "beatId",
+              "primitive",
+              "difficulty",
+              "targetIds",
+              "candidateIds",
+              "acceptedCandidateIds",
+              "normalizationRules",
+              "permitsDistractors",
+              "permitsAcceptedText",
+              "permitsArrangeSegments",
+              "maxJapaneseCharacters",
+              "practiceTextJa",
+              "acceptedResponsesJa"
+            ],
+            "properties": {
+              "slotId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "stepId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "beatId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "primitive": {
+                "type": "string",
+                "enum": [
+                  "LISTEN",
+                  "CLICK_OBJECT",
+                  "CHOOSE",
+                  "ARRANGE",
+                  "TYPE",
+                  "MOVE_TO",
+                  "PICK_UP",
+                  "GIVE"
+                ]
+              },
+              "difficulty": {
+                "type": "string",
+                "enum": [
+                  "SUPPORTED",
+                  "GUIDED",
+                  "INDEPENDENT"
+                ]
+              },
+              "targetIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "candidateIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "acceptedCandidateIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "normalizationRules": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "UNICODE_NFKC",
+                    "TRIM",
+                    "COLLAPSE_WHITESPACE",
+                    "IGNORE_JAPANESE_PUNCTUATION",
+                    "KANA_EQUIVALENCE"
+                  ]
+                },
+                "maxItems": 5,
+                "uniqueItems": true
+              },
+              "permitsDistractors": {
+                "type": "boolean"
+              },
+              "permitsAcceptedText": {
+                "type": "boolean"
+              },
+              "permitsArrangeSegments": {
+                "type": "boolean"
+              },
+              "maxJapaneseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "practiceTextJa": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "acceptedResponsesJa": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "maxItems": 16,
+                "uniqueItems": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxItems": 24
+        },
+        "coachingSlots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "stepId",
+              "difficulty",
+              "targetIds",
+              "scaffoldSlots",
+              "permitsInstructionSupport",
+              "maxInstructionJapaneseCharacters",
+              "maxInstructionVietnameseCharacters",
+              "maxFeedbackJapaneseCharacters",
+              "maxFeedbackVietnameseCharacters",
+              "primitive",
+              "maximumAttempts",
+              "feedbackDisplayMs"
+            ],
+            "properties": {
+              "stepId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "difficulty": {
+                "type": "string",
+                "enum": [
+                  "SUPPORTED",
+                  "GUIDED",
+                  "INDEPENDENT"
+                ]
+              },
+              "targetIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              },
+              "scaffoldSlots": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "scaffoldSlotId",
+                    "kind",
+                    "revealLevel",
+                    "afterAttempt",
+                    "permitsJapaneseText",
+                    "permitsVietnameseText",
+                    "maxJapaneseCharacters",
+                    "maxVietnameseCharacters"
+                  ],
+                  "properties": {
+                    "scaffoldSlotId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "REPLAY_AUDIO",
+                        "SHOW_JAPANESE_TEXT",
+                        "HIGHLIGHT_OBJECTS",
+                        "HIGHLIGHT_ENTITIES",
+                        "REDUCE_OBJECT_CANDIDATES",
+                        "REDUCE_CHOICE_CANDIDATES",
+                        "SHOW_READING",
+                        "SHOW_MEANING",
+                        "SHOW_PATTERN"
+                      ]
+                    },
+                    "revealLevel": {
+                      "type": "string",
+                      "enum": [
+                        "INDIRECT",
+                        "FOCUSED",
+                        "DIRECT"
+                      ]
+                    },
+                    "afterAttempt": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "permitsJapaneseText": {
+                      "type": "boolean"
+                    },
+                    "permitsVietnameseText": {
+                      "type": "boolean"
+                    },
+                    "maxJapaneseCharacters": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2000
+                    },
+                    "maxVietnameseCharacters": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2000
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "maxItems": 12
+              },
+              "permitsInstructionSupport": {
+                "type": "boolean"
+              },
+              "maxInstructionJapaneseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "maxInstructionVietnameseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "maxFeedbackJapaneseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "maxFeedbackVietnameseCharacters": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2000
+              },
+              "primitive": {
+                "type": "string",
+                "enum": [
+                  "LISTEN",
+                  "CLICK_OBJECT",
+                  "CHOOSE",
+                  "ARRANGE",
+                  "TYPE",
+                  "MOVE_TO",
+                  "PICK_UP",
+                  "GIVE"
+                ]
+              },
+              "maximumAttempts": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "feedbackDisplayMs": {
+                "type": "object",
+                "required": [
+                  "correct",
+                  "incorrect",
+                  "assisted"
+                ],
+                "properties": {
+                  "correct": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4000
+                  },
+                  "incorrect": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4000
+                  },
+                  "assisted": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4000
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxItems": 24
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$id": "https://bunbun.local/schemas/lesson-authoring-request-0.2.0.json",
+  "additionalProperties": false
+}

@@ -1,6 +1,7 @@
-# Prompt Module Contribution Contract 0.1.0
+# Prompt Module Contribution Contract
 
-Status: Approved under D-024; implemented for the M7 v3.2 transport proof
+Status: Prompt modules 0.1.0 approved under D-024; active M7 v3.2 packet and
+protocol 0.2.0 approved under D-034
 
 ## Boundary
 
@@ -9,11 +10,12 @@ strict LessonContentDraft. The three prompt modules own disjoint contribution
 fields inside that draft. They do not call each other and do not receive hidden
 conversation state.
 
-The interfaces below are implemented as closed TypeBox schemas in
-`packages/contracts/src/schema/authoring.ts`. M7 v3.2 uses them for a local
-transport proof only; no application compiler job, persistence, publication,
-or runtime provider is active. Every model-output property is required;
-nullable values represent unavailable content or a module failure.
+The historical 0.1.0 interfaces below remain implemented as closed TypeBox
+schemas in `packages/contracts/src/schema/authoring.ts` so D-033 evidence stays
+reproducible. The active 0.2.0 additions live in `authoring-v2.ts`. Every
+model-output property is required; nullable values represent unavailable
+content or a module failure. The authoring result remains untrusted until local
+validation, deterministic compilation, review, and publication succeed.
 
 ## Code-owned input
 
@@ -218,16 +220,63 @@ interface LessonContentDraftContributions {
 }
 ```
 
+## Active 0.2.0 compiler authority additions
+
+Packet 0.2.0 preserves the contribution output shape and the exact three prompt
+modules, but closes four input-authority gaps:
+
+```ts
+interface PracticeSlotInputV2 extends PracticeSlotInput {
+  practiceTextJa: string;
+  acceptedResponsesJa: readonly string[];
+}
+
+interface CoachingSlotInputV2 extends CoachingSlotInput {
+  primitive: Primitive;
+  maximumAttempts: number;
+  feedbackDisplayMs: {
+    correct: number;
+    incorrect: number;
+    assisted: number;
+  };
+}
+
+interface RepairContext {
+  failureStage: "JSON_PARSE" | "STRUCTURAL" | "SEMANTIC";
+  priorResponseSha256: string;
+  priorResult: LessonAuthoringResultV2 | null;
+  diagnostics: readonly RepairDiagnostic[];
+}
+```
+
+`practiceTextJa` is the compiler-selected Japanese source phrase for the slot;
+model-authored stimulus copy must stay grounded in it. `acceptedResponsesJa`
+is exact answer truth and the result must echo it without normalization or
+reinterpretation. Runtime primitive, attempt count, and feedback display
+durations are read-only context and never become model-owned mechanics.
+
+Attempt 1 requires `repair: null`. Attempt 2 requires exactly one bounded
+repair context with the same request identity, input hash, prompt pack, and
+deterministic input. A JSON parse failure carries no structured prior result;
+structural and semantic failures carry the strictly parsed prior object plus
+bounded stable local diagnostics. No raw malformed response or third attempt
+is sent.
+
+The data policy is a closed union: repository-authored fixture data or
+explicitly exported normalized learner targets. Both exclude learner identity,
+progress, evidence, TYPE responses, checkpoints, secrets, and private chat
+history.
+
 ## M7 v3.2 transport packets
 
 The Skills-only proof wraps the compiler envelope and contribution object in
 two closed identity-bearing packet schemas:
 
-- request format `bunbun_m7_v3_2_lesson_authoring@0.1.0`; and
-- result format `bunbun_m7_v3_2_lesson_authoring_result@0.1.0`.
+- historical request/result packets at `0.1.0`; and
+- active request/result packets at `0.2.0`.
 
-The request includes `requestId`, authored `fixtureId`, attempt `1` or `2`,
-text-only and strict-JSON policies, explicit authored-fixture disclosure, story
+The active request includes `requestId`, `requestContextId`, attempt and repair
+state, text-only and strict-JSON policies, an exact data disclosure, story
 output budgets, the fixed ordered prompt pack, and `inputSha256`. The input hash
 is SHA-256 over UTF-8 recursively key-sorted compact JSON of the `input` object.
 The result echoes `requestId`, `inputSha256`, and the exact prompt pack before
@@ -251,7 +300,8 @@ copies required by the Skill live under
 | Concern                                                                | Owner                    | Other modules must do                  |
 | ---------------------------------------------------------------------- | ------------------------ | -------------------------------------- |
 | Premise, story, setting, beat context                                  | Story Sheet              | Treat as read-only context             |
-| Phrase segmentation and practice response text                         | Reverse Trainer          | Do not redefine answer truth           |
+| Phrase segmentation and optional distractor text                       | Reverse Trainer          | Do not redefine answer truth           |
+| Practice stimulus and accepted Japanese response truth                 | Deterministic code       | Echo exactly                           |
 | Instructions, hints, scaffold copy, feedback                           | Story Coach              | Do not create extra support stages     |
 | IDs, primitives, sequence, difficulty, candidates, timing, transitions | Deterministic code       | Echo only permitted slot/step/beat IDs |
 | Readings, glosses, grammar/reference truth                             | Deterministic references | Reuse without invention                |

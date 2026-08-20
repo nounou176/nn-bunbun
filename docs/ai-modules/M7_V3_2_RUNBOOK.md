@@ -1,12 +1,12 @@
-# M7 v3.2 Skills-only proof runbook
+# M7 v3.2 Skills-only 0.2.0 runbook
 
-Status: Fixed product-surface proof accepted; broader fixture evaluation and
-application-handoff decision pending
+Status: Contract 0.2.0 implemented; plugin requalification pending
 
 This runbook installs and invokes the repository-owned `bunbun-authoring`
 plugin without an API key, MCP server, browser extension, hosted Custom GPT,
-or automated account change. The first packet is authored fixture data and
-contains no learner history.
+or automated account change. The requalification packets are authored fixture
+data and contain no learner history. Later application exports use the separate
+normalized learner-target disclosure and the same exclusion boundary.
 
 ## 1. Local preflight
 
@@ -18,7 +18,7 @@ nvm use
 npm run plugin:check
 python3 /home/nunu/.codex/skills/.system/skill-creator/scripts/quick_validate.py plugins/bunbun-authoring/skills/bunbun-lesson-authoring
 python3 /home/nunu/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/bunbun-authoring
-npm run inspect:authoring -- --request packages/contracts/fixtures/authoring/valid-request.json --result packages/contracts/fixtures/authoring/valid-result.json
+npm run inspect:authoring:v2 -- --request packages/contracts/fixtures/authoring/v0.2.0/valid-request.json --result packages/contracts/fixtures/authoring/v0.2.0/valid-result.json
 ```
 
 Expected final lines:
@@ -27,7 +27,7 @@ Expected final lines:
 M7_V3_2_PLUGIN_CHECK_PASSED modules=3 files=10
 Skill is valid!
 Plugin validation passed: /home/nunu/Desktop/nnlab/nn-bunbun/plugins/bunbun-authoring
-AUTHORING_EXCHANGE_ACCEPTED requestId=m7_v3_2_lesson_authoring_001
+AUTHORING_EXCHANGE_ACCEPTED requestId=m7_v3_2_lesson_authoring_v2_001
 ```
 
 ## 2. Install on a supported Codex surface
@@ -57,8 +57,8 @@ workspace and normal plan limits.
 
 1. Start a new conversation after installation or reload.
 2. Invoke `$bunbun-lesson-authoring` explicitly.
-3. Paste or attach exactly
-   `packages/contracts/fixtures/authoring/valid-request.json`.
+3. Paste or attach exactly one request from
+   `packages/contracts/fixtures/authoring/v0.2.0/`.
 4. Do not add another target, world fact, learner detail, or instruction.
 5. Wait for the response to finish. The response must be one JSON object with
    no Markdown fence or surrounding prose.
@@ -83,13 +83,30 @@ Save the exact response as a JSON file without removing prose, fences, or
 unknown fields. Then run:
 
 ```sh
-npm run inspect:authoring -- --request packages/contracts/fixtures/authoring/valid-request.json --result /absolute/path/to/raw-response.json
+npm run inspect:authoring:v2 -- --request /absolute/path/to/request.json --result /absolute/path/to/raw-response.json
 ```
 
 Only `AUTHORING_EXCHANGE_ACCEPTED` is a local pass. Every rejection is retained
-with stable diagnostics. One bounded repair may use the same packet with
-`attempt: 2` plus redacted diagnostics. A second invalid result ends the proof;
-do not switch prompts, transport, model behavior, world facts, or answer truth.
+with stable diagnostics. One bounded repair uses `attempt: 2`, the prior raw
+response hash, a structured prior result only when strict parsing succeeded,
+and bounded redacted diagnostics. A second invalid result ends the proof; do
+not switch prompts, transport, model behavior, world facts, or answer truth.
+
+For the D-034 requalification, run the four former contract-gap fixtures and
+the malformed Story Sheet regression as independent conversations:
+
+```sh
+npm run run:authoring-eval:v2 -- --fixture reverse_trainer_natural_phrase_groups --codex-bin /home/nunu/.local/bin/codex
+npm run run:authoring-eval:v2 -- --fixture reverse_trainer_reverse_recall_type --codex-bin /home/nunu/.local/bin/codex
+npm run run:authoring-eval:v2 -- --fixture reverse_trainer_arrange_reconstruction --codex-bin /home/nunu/.local/bin/codex
+npm run run:authoring-eval:v2 -- --fixture story_coach_rejects_source_and_runtime_regression --codex-bin /home/nunu/.local/bin/codex
+npm run run:authoring-eval:v2 -- --fixture story_sheet_rejects_source_scope_regression --codex-bin /home/nunu/.local/bin/codex
+```
+
+The runner uses fresh ephemeral Codex conversations, retains exact response
+text, and refuses to overwrite an existing evidence directory. Grade retained
+files with `inspect:authoring-eval:v2`; never rewrite a response to make it
+pass.
 
 ## 5. Manual acceptance matrix
 
@@ -103,7 +120,7 @@ Happy path:
 
 Edge cases:
 
-- an altered prompt hash or input hash is rejected;
+- an altered prompt hash, input hash, or accepted response is rejected;
 - prose/fenced/malformed JSON is rejected without extraction;
 - learner identity, an unknown field, an oversized field, a disallowed world
   claim, or an early answer leak is rejected; and
@@ -115,7 +132,8 @@ Regression:
 - existing authored gameplay and persistence still run without this plugin;
 - no MCP, browser extension, API key, cookie/session access, public endpoint,
   or original GPT link is needed; and
-- a generated result cannot publish a lesson or add runtime mechanics.
+- a generated result cannot publish a lesson, alter attempts/display timing, or
+  add runtime mechanics.
 
 ## 6. Recovery
 

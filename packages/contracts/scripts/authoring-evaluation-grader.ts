@@ -7,6 +7,11 @@ import { normalizeTypeAnswer } from "../src/type-normalization.js";
 import { sha256CanonicalJson } from "./authoring-tools.js";
 import type { RunnableAuthoringEvaluationCase } from "./authoring-evaluation-suite.js";
 
+export type AuthoringResultForFixtureGrading = Pick<
+  LessonAuthoringResult,
+  "contributions"
+>;
+
 export interface AuthoringEvaluationFailure {
   code: string;
   message: string;
@@ -53,16 +58,16 @@ export function gradeAuthoringEvaluation(
   }
 
   const failures: AuthoringEvaluationFailure[] = [];
-  applyFixtureChecks(evaluationCase, structure.value, failures);
+  applyAuthoringFixtureChecks(evaluationCase, structure.value, failures);
 
   return failures.length === 0
     ? { ok: true, result: structure.value }
     : { ok: false, failures };
 }
 
-function applyFixtureChecks(
-  evaluationCase: RunnableAuthoringEvaluationCase,
-  result: LessonAuthoringResult,
+export function applyAuthoringFixtureChecks(
+  evaluationCase: Pick<RunnableAuthoringEvaluationCase, "fixtureId">,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   switch (evaluationCase.fixtureId) {
@@ -125,6 +130,15 @@ function applyFixtureChecks(
     case "reverse_trainer_rejects_plan_and_answer_mutation":
       validateChooseDistractors(result, failures);
       break;
+    case "reverse_trainer_natural_phrase_groups":
+      validateNaturalPhraseGroups(result, failures);
+      break;
+    case "reverse_trainer_reverse_recall_type":
+      validateReverseRecallType(result, failures);
+      break;
+    case "reverse_trainer_arrange_reconstruction":
+      validateArrangeReconstruction(result, failures);
+      break;
     case "story_coach_indirect_hint_without_answer":
     case "story_coach_rejects_early_answer_leak":
       rejectCoachCandidateIdentity(result, "dog", failures);
@@ -135,6 +149,24 @@ function applyFixtureChecks(
     case "story_coach_three_feedback_outcomes":
       validateFeedbackOutcomes(result, failures);
       break;
+    case "story_coach_rejects_source_and_runtime_regression":
+      rejectTerms(
+        coachingStrings(result),
+        [
+          "five-minute",
+          "5-minute",
+          "self-rating",
+          "jlpt",
+          "romaji",
+          "worksheet",
+          "image prompt",
+          "mnemonic",
+          "kanji writing",
+        ],
+        "COACHING_SOURCE_OR_RUNTIME_REGRESSION",
+        failures,
+      );
+      break;
     default:
       failures.push({
         code: "UNKNOWN_RUNNABLE_FIXTURE",
@@ -143,8 +175,69 @@ function applyFixtureChecks(
   }
 }
 
+function validateNaturalPhraseGroups(
+  result: AuthoringResultForFixtureGrading,
+  failures: AuthoringEvaluationFailure[],
+): void {
+  const reverseTraining = okReverseTraining(result, failures);
+  const analysis = reverseTraining?.targetAnalysis.find(
+    (candidate) => candidate.targetId === "target_inu",
+  );
+  const surfaces = analysis?.segments.map((segment) => segment.surfaceJa) ?? [];
+  if (!surfaces.includes("犬を") || !surfaces.includes("探してください。")) {
+    failures.push({
+      code: "NATURAL_PHRASE_GROUPS_MISSING",
+      message:
+        "Phrase analysis must preserve the compiler-owned groups 犬を and 探してください。",
+    });
+  }
+}
+
+function validateReverseRecallType(
+  result: AuthoringResultForFixtureGrading,
+  failures: AuthoringEvaluationFailure[],
+): void {
+  const reverseTraining = okReverseTraining(result, failures);
+  const item = reverseTraining?.practiceItems.find(
+    (candidate) => candidate.slotId === "type_request",
+  );
+  if (
+    item === undefined ||
+    item.acceptedResponsesJa.length !== 1 ||
+    item.acceptedResponsesJa[0] !== "犬を探してください。" ||
+    item.arrangeSegmentsJa.length !== 0 ||
+    item.distractorsJa.length !== 0
+  ) {
+    failures.push({
+      code: "REVERSE_RECALL_TYPE_SHAPE_INVALID",
+      message:
+        "TYPE must echo the one compiler-owned Japanese answer and leave ARRANGE/distractor fields empty.",
+    });
+  }
+}
+
+function validateArrangeReconstruction(
+  result: AuthoringResultForFixtureGrading,
+  failures: AuthoringEvaluationFailure[],
+): void {
+  const reverseTraining = okReverseTraining(result, failures);
+  const item = reverseTraining?.practiceItems.find(
+    (candidate) => candidate.slotId === "arrange_find_dog",
+  );
+  if (
+    item === undefined ||
+    item.arrangeSegmentsJa.join("") !== "犬を探してください。"
+  ) {
+    failures.push({
+      code: "ARRANGE_RECONSTRUCTION_INVALID",
+      message:
+        "ARRANGE segments must reconstruct the compiler-owned Japanese answer exactly.",
+    });
+  }
+}
+
 function requireStoryTarget(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   beatId: string,
   targetText: string,
   failures: AuthoringEvaluationFailure[],
@@ -160,7 +253,7 @@ function requireStoryTarget(
 }
 
 function validateFixedStoryTargetAssignments(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   const story = okStory(result, failures);
@@ -195,7 +288,7 @@ function validateFixedStoryTargetAssignments(
 }
 
 function validateUnverifiedReferenceResult(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   const reverseTraining = okReverseTraining(result, failures);
@@ -250,7 +343,7 @@ function validateUnverifiedReferenceResult(
 }
 
 function validateChooseDistractors(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   const reverseTraining = okReverseTraining(result, failures);
@@ -276,7 +369,7 @@ function validateChooseDistractors(
 }
 
 function rejectCoachCandidateIdentity(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   candidateId: string,
   failures: AuthoringEvaluationFailure[],
 ): void {
@@ -293,7 +386,7 @@ function rejectCoachCandidateIdentity(
 }
 
 function requireDirectMeaning(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   const coaching = okCoaching(result, failures);
@@ -314,7 +407,7 @@ function requireDirectMeaning(
 }
 
 function validateFeedbackOutcomes(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ): void {
   const coaching = okCoaching(result, failures);
@@ -352,7 +445,7 @@ function validateFeedbackOutcomes(
 }
 
 function okStory(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ) {
   const contribution = result.contributions.story;
@@ -367,7 +460,7 @@ function okStory(
 }
 
 function okReverseTraining(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ) {
   const contribution = result.contributions.reverseTraining;
@@ -382,7 +475,7 @@ function okReverseTraining(
 }
 
 function okCoaching(
-  result: LessonAuthoringResult,
+  result: AuthoringResultForFixtureGrading,
   failures: AuthoringEvaluationFailure[],
 ) {
   const contribution = result.contributions.coaching;
@@ -396,15 +489,23 @@ function okCoaching(
   return contribution.value;
 }
 
-function storyStrings(result: LessonAuthoringResult): string[] {
+function storyStrings(result: AuthoringResultForFixtureGrading): string[] {
   return result.contributions.story.status === "OK"
     ? collectStrings(result.contributions.story.value)
     : [];
 }
 
-function reverseTrainingStrings(result: LessonAuthoringResult): string[] {
+function reverseTrainingStrings(
+  result: AuthoringResultForFixtureGrading,
+): string[] {
   return result.contributions.reverseTraining.status === "OK"
     ? collectStrings(result.contributions.reverseTraining.value)
+    : [];
+}
+
+function coachingStrings(result: AuthoringResultForFixtureGrading): string[] {
+  return result.contributions.coaching.status === "OK"
+    ? collectStrings(result.contributions.coaching.value)
     : [];
 }
 

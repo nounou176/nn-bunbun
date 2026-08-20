@@ -238,7 +238,7 @@ function contractGap(
   };
 }
 
-function envelope(
+export function envelope(
   targets: NormalizedTargetInput[],
   facts: WorldFactInput[],
   beats: StoryBeatInput[],
@@ -260,7 +260,7 @@ function envelope(
   };
 }
 
-function storyFindDogInput(
+export function storyFindDogInput(
   targets: NormalizedTargetInput[],
   includeCatTarget: boolean,
 ): LessonAuthoringEnvelopeInput {
@@ -291,7 +291,7 @@ function storyFindDogInput(
   );
 }
 
-function storyHelpSomeoneInput(): LessonAuthoringEnvelopeInput {
+export function storyHelpSomeoneInput(): LessonAuthoringEnvelopeInput {
   return envelope(
     [targetTeKudasai()],
     [parkFact(), guideFact(), dogFact(), visitorFact(), benchFact()],
@@ -321,7 +321,7 @@ function storyHelpSomeoneInput(): LessonAuthoringEnvelopeInput {
   );
 }
 
-function storyMultipleTargetsInput(): LessonAuthoringEnvelopeInput {
+export function storyMultipleTargetsInput(): LessonAuthoringEnvelopeInput {
   return envelope(
     [targetInu(), targetNeko(), targetTeKudasai()],
     [parkFact(), guideFact(), dogFact(), catFact()],
@@ -382,7 +382,7 @@ function reverseChooseInput(): LessonAuthoringEnvelopeInput {
   );
 }
 
-function coachingInput(
+export function coachingInput(
   stepId: string,
   primitive: "CLICK_OBJECT" | "CHOOSE",
   scaffoldSlots: CoachingSlotInput["scaffoldSlots"],
@@ -430,7 +430,7 @@ function coachingInput(
   );
 }
 
-function targetInu(): NormalizedTargetInput {
+export function targetInu(): NormalizedTargetInput {
   return {
     targetId: "target_inu",
     kind: "VOCABULARY",
@@ -442,7 +442,7 @@ function targetInu(): NormalizedTargetInput {
   };
 }
 
-function targetNeko(): NormalizedTargetInput {
+export function targetNeko(): NormalizedTargetInput {
   return {
     targetId: "target_neko",
     kind: "VOCABULARY",
@@ -454,7 +454,7 @@ function targetNeko(): NormalizedTargetInput {
   };
 }
 
-function targetTeKudasai(): NormalizedTargetInput {
+export function targetTeKudasai(): NormalizedTargetInput {
   return {
     targetId: "target_te_kudasai",
     kind: "GRAMMAR",
@@ -466,7 +466,7 @@ function targetTeKudasai(): NormalizedTargetInput {
   };
 }
 
-function parkFact(): WorldFactInput {
+export function parkFact(): WorldFactInput {
   return {
     factId: "fact_park",
     catalogId: "park_small",
@@ -481,7 +481,7 @@ function parkFact(): WorldFactInput {
   };
 }
 
-function guideFact(): WorldFactInput {
+export function guideFact(): WorldFactInput {
   return {
     factId: "fact_guide",
     catalogId: "npc_guide_basic",
@@ -504,7 +504,7 @@ function guideFact(): WorldFactInput {
   };
 }
 
-function dogFact(): WorldFactInput {
+export function dogFact(): WorldFactInput {
   return {
     factId: "fact_dog",
     catalogId: "animal_dog_small",
@@ -523,7 +523,7 @@ function dogFact(): WorldFactInput {
   };
 }
 
-function catFact(): WorldFactInput {
+export function catFact(): WorldFactInput {
   return {
     factId: "fact_cat",
     catalogId: "animal_cat_small",
@@ -538,7 +538,7 @@ function catFact(): WorldFactInput {
   };
 }
 
-function visitorFact(): WorldFactInput {
+export function visitorFact(): WorldFactInput {
   return {
     factId: "fact_visitor",
     catalogId: "npc_visitor_basic",
@@ -561,7 +561,7 @@ function visitorFact(): WorldFactInput {
   };
 }
 
-function benchFact(): WorldFactInput {
+export function benchFact(): WorldFactInput {
   return {
     factId: "fact_bench",
     catalogId: "prop_bench_basic",
@@ -576,7 +576,7 @@ function benchFact(): WorldFactInput {
   };
 }
 
-function beat(
+export function beat(
   beatId: string,
   role: StoryBeatInput["role"],
   requiredTargetIds: string[],
@@ -592,7 +592,7 @@ function beat(
   };
 }
 
-function practiceSlot(
+export function practiceSlot(
   slotId: string,
   stepId: string,
   primitive: PracticeSlotInput["primitive"],
@@ -617,7 +617,7 @@ function practiceSlot(
   };
 }
 
-function directMeaningScaffold(): CoachingSlotInput["scaffoldSlots"][number] {
+export function directMeaningScaffold(): CoachingSlotInput["scaffoldSlots"][number] {
   return {
     scaffoldSlotId: "show_dog_meaning",
     kind: "SHOW_MEANING",

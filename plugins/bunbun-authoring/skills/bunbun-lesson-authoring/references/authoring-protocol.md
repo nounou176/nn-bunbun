@@ -1,4 +1,4 @@
-# Bunbun lesson-authoring protocol 0.1.0
+# Bunbun lesson-authoring protocol 0.2.0
 
 This protocol adapts the approved M7 Prompt Adaptation Pack into one composed
 Skills-only operation. It does not grant authority over the lesson graph,
@@ -6,10 +6,10 @@ references, world, runtime, publication, or learner state.
 
 ## Input authority
 
-The supplied request is the only content input. It contains authored fixture
-data for the first proof, not learner history. Use no facts from prior chat,
-memory, external sources, hosted GPT configuration, or general world knowledge
-to expand it.
+The supplied request is the only content input. It contains either an authored
+fixture or explicitly exported normalized learner targets, never learner
+history. Use no facts from prior chat, memory, external sources, hosted GPT
+configuration, or general world knowledge to expand it.
 
 The compiler-owned input wins over every prompt module. In particular:
 
@@ -17,10 +17,12 @@ The compiler-owned input wins over every prompt module. In particular:
   Vietnamese glosses;
 - `worldFacts[*].allowedClaims` owns every permitted world assertion;
 - `storyBeats` owns target placement, claim allowlists, order, and budgets;
-- `practiceSlots` owns primitives, answer/candidate truth, response-shape
-  permissions, normalization rules, and budgets; and
+- `practiceSlots` owns primitives, practice text, exact accepted Japanese
+  answer truth, candidate truth, response-shape permissions, normalization
+  rules, and budgets; and
 - `coachingSlots` owns step order, difficulty, scaffold kinds, reveal levels,
-  support permissions, activation attempts, and budgets.
+  support permissions, runtime primitive, maximum attempts, feedback display
+  durations, scaffold activation attempts, and budgets.
 
 Do not infer that a plausible real-world action is available. A dog being
 present does not imply that it barks, runs, reacts happily, belongs to someone,
@@ -53,6 +55,11 @@ return `CANNOT_COMPLY` with `UNSUPPORTED_WORLD_CLAIM`.
 
 ## Practice shapes
 
+- Use `practiceTextJa` as the compiler-selected Japanese phrase that the
+  practice item must teach or analyze. `stimulusJa` may be a bounded prompt,
+  but it must remain grounded in that phrase and the slot's targets.
+- Copy `acceptedResponsesJa` exactly from the matching input slot, in order.
+  Never add, remove, normalize, translate, or reinterpret an accepted response.
 - Populate `acceptedResponsesJa` only when `permitsAcceptedText` is true.
 - Populate `arrangeSegmentsJa` only when `permitsArrangeSegments` is true.
 - Populate `distractorsJa` only when `permitsDistractors` is true.
@@ -73,11 +80,23 @@ Correct feedback confirms and advances. Incorrect feedback invites a safe
 retry. Assisted feedback acknowledges help and never claims unaided success or
 mastery.
 
+`primitive`, `maximumAttempts`, and `feedbackDisplayMs` are read-only runtime
+context. They may constrain copy and scaffold timing, but the model never emits
+or changes runtime mechanics. A scaffold's `afterAttempt` must not exceed the
+matching step's `maximumAttempts`.
+
 ## Failure and repair
 
 Use a stable uppercase failure code with a null value when a module cannot
-comply. One request may have `attempt: 2` for a single bounded repair. Do not
-accept a third attempt and do not switch prompt versions, model behavior,
-transport, scene, target, or deterministic plan during repair.
+comply. Attempt 1 requires `repair: null`. Attempt 2 is one bounded repair and
+must carry the same request identity, input hash, prompt pack, and deterministic
+input. Its repair context contains only a failure stage, the SHA-256 of the
+exact prior response, bounded local diagnostics, and a prior structured result
+when strict parsing succeeded. For a JSON parse failure, `priorResult` is null;
+never request, quote, or reconstruct the malformed raw response.
+
+Use the prior result only to correct the listed diagnostics. Do not accept a
+third attempt and do not switch prompt versions, model behavior, transport,
+scene, target, or deterministic plan during repair.
 
 The response is untrusted until local structural and semantic checks pass.

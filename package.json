@@ -29,8 +29,11 @@
     "test": "npm run test --workspace @bunbun/contracts && npm run test --workspace @bunbun/server && npm run test --workspace @bunbun/web",
     "inspect:manifest": "node --import tsx packages/contracts/scripts/inspect-manifest.ts",
     "inspect:authoring": "npm run inspect:authoring --workspace @bunbun/contracts --",
+    "inspect:authoring:v2": "npm run inspect:authoring:v2 --workspace @bunbun/contracts --",
     "inspect:authoring-eval": "npm run inspect:authoring-eval --workspace @bunbun/contracts --",
+    "inspect:authoring-eval:v2": "npm run inspect:authoring-eval:v2 --workspace @bunbun/contracts --",
     "run:authoring-eval": "npm run run:authoring-eval --workspace @bunbun/contracts --",
+    "run:authoring-eval:v2": "npm run run:authoring-eval:v2 --workspace @bunbun/contracts --",
     "inspect:storage": "npm run inspect:storage --workspace @bunbun/server --",
     "plugin:check": "node scripts/check-m7-v3-plugin.mjs"
   },

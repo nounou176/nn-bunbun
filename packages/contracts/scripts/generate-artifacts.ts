@@ -6,7 +6,9 @@ import {
   CatalogSnapshotSchema,
   EvidencePersistenceSchema,
   LessonAuthoringRequestSchema,
+  LessonAuthoringRequestV2Schema,
   LessonAuthoringResultSchema,
+  LessonAuthoringResultV2Schema,
   LessonManifestSchema,
 } from "../src/schema/index.js";
 import {
@@ -14,9 +16,17 @@ import {
   validAuthoringResult,
 } from "./authoring-fixtures.js";
 import {
+  validAuthoringRequestV2,
+  validAuthoringResultV2,
+} from "./authoring-fixtures-v2.js";
+import {
   AUTHORING_EVALUATION_SUITE_VERSION,
   authoringEvaluationCases,
 } from "./authoring-evaluation-suite.js";
+import {
+  AUTHORING_EVALUATION_SUITE_VERSION_V2,
+  authoringEvaluationCasesV2,
+} from "./authoring-evaluation-suite-v2.js";
 
 type JsonObject = Record<string, unknown>;
 
@@ -61,6 +71,20 @@ const artifacts = new Map<string, string>([
   [
     resolve(
       packageDirectory,
+      "schemas/lesson-authoring-request-0.2.0.schema.json",
+    ),
+    serialize(LessonAuthoringRequestV2Schema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "schemas/lesson-authoring-result-0.2.0.schema.json",
+    ),
+    serialize(LessonAuthoringResultV2Schema),
+  ],
+  [
+    resolve(
+      packageDirectory,
       "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-request-0.1.0.schema.json",
     ),
     serialize(LessonAuthoringRequestSchema),
@@ -71,6 +95,20 @@ const artifacts = new Map<string, string>([
       "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-result-0.1.0.schema.json",
     ),
     serialize(LessonAuthoringResultSchema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-request-0.2.0.schema.json",
+    ),
+    serialize(LessonAuthoringRequestV2Schema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "../../plugins/bunbun-authoring/skills/bunbun-lesson-authoring/references/lesson-authoring-result-0.2.0.schema.json",
+    ),
+    serialize(LessonAuthoringResultV2Schema),
   ],
 ]);
 
@@ -85,6 +123,19 @@ artifacts.set(
 artifacts.set(
   resolve(authoringFixtureDirectory, "valid-result.json"),
   serialize(validAuthoringResult),
+);
+
+const authoringFixtureDirectoryV2 = resolve(
+  authoringFixtureDirectory,
+  "v0.2.0",
+);
+artifacts.set(
+  resolve(authoringFixtureDirectoryV2, "valid-request.json"),
+  serialize(validAuthoringRequestV2),
+);
+artifacts.set(
+  resolve(authoringFixtureDirectoryV2, "valid-result.json"),
+  serialize(validAuthoringResultV2),
 );
 
 const authoringEvaluationDirectory = resolve(
@@ -126,6 +177,35 @@ artifacts.set(
             reason: evaluationCase.reason,
           },
     ),
+  }),
+);
+
+const authoringEvaluationDirectoryV2 = resolve(
+  authoringFixtureDirectoryV2,
+  "evals",
+);
+for (const evaluationCase of authoringEvaluationCasesV2) {
+  artifacts.set(
+    resolve(
+      authoringEvaluationDirectoryV2,
+      `${evaluationCase.fixtureId}.request.json`,
+    ),
+    serialize(evaluationCase.request),
+  );
+}
+artifacts.set(
+  resolve(authoringEvaluationDirectoryV2, "coverage.json"),
+  serialize({
+    suiteVersion: AUTHORING_EVALUATION_SUITE_VERSION_V2,
+    packetVersion: validAuthoringRequestV2.packetVersion,
+    promptPack: validAuthoringRequestV2.promptPack,
+    cases: authoringEvaluationCasesV2.map((evaluationCase) => ({
+      fixtureId: evaluationCase.fixtureId,
+      moduleId: evaluationCase.moduleId,
+      category: evaluationCase.category,
+      execution: evaluationCase.execution,
+      requestPath: `${evaluationCase.fixtureId}.request.json`,
+    })),
   }),
 );
 

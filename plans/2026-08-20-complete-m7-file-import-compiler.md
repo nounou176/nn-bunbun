@@ -1,9 +1,9 @@
 # Complete Milestone 7 through the reviewed file-import compiler
 
-Status: Proposed
+Status: Approved
 Owner: Codex and user
 Created: 2026-08-20
-Last updated: 2026-08-20 12:04 Asia/Ho_Chi_Minh
+Last updated: 2026-08-20 12:36 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -359,9 +359,17 @@ evidence and no compiler requirement remains hidden in chat history.
 - [x] 2026-08-20 12:04 — Confirm that M7 v3.2 proof is complete but the
       application compiler/import/revision flow is absent, and prepare this
       proposed completion plan.
-- [ ] User approval — Accept the proposed decisions and authorize implementation.
-- [ ] Milestone 1 — Implement contract/plugin protocol 0.2.0.
+- [x] 2026-08-20 12:13 — User approved the complete M7 plan and its proposed
+      architecture by replying `DUYỆT PLAN HOÀN TẤT M7`.
+- [x] 2026-08-20 12:36 — Milestone 1 completed: add side-by-side authoring
+      contract, packet, schemas, validators, generated artifacts, fixtures,
+      fifteen runnable evaluation requests, and plugin protocol 0.2.0 while
+      preserving all three prompt modules and hashes at 0.1.0. Contract tests
+      pass 41/41; schema drift and plugin validation pass.
 - [ ] Milestone 2 — Requalify the five required cases and bounded repair.
+      Source validation and cachebuster are complete. Reinstallation is blocked
+      by the current Codex usage limit until the product-provided retry time;
+      the installed registry still reports 0.1.0, so no rerun has started.
 - [ ] Milestone 3 — Implement deterministic compiler core.
 - [ ] Milestone 4 — Implement durable compilation/publication APIs.
 - [ ] Milestone 5 — Implement pre-game compiler/import/review/library UI.
@@ -385,6 +393,14 @@ evidence and no compiler requirement remains hidden in chat history.
 - Because v3.2 has no in-app model call, a queued/running provider worker from
   inactive M7 v1 would be the wrong job model. Durable human-handoff states are
   smaller and make transport unavailability naturally recoverable.
+- The official plugin update helper emitted the cachebuster form
+  `0.2.0+codex.<timestamp>` on this machine. Source and plugin validators accept
+  that helper-owned build suffix while treating 0.2.0 as the compatibility
+  line.
+- The 0.2.0 source passed plugin validation, but the Codex installation action
+  was rejected because the account had reached its current usage limit. The
+  product reported a retry time of 2026-08-22 17:57 local time. The installed
+  plugin remains 0.1.0 and the required requalification gate remains closed.
 
 ## Plan decisions
 
@@ -401,6 +417,9 @@ evidence and no compiler requirement remains hidden in chat history.
   to publish natural-language model output.
 - 2026-08-20 — Recommend side-by-side authoring 0.1.0 compatibility so D-033
   evidence remains reproducible instead of silently rewriting history.
+- 2026-08-20 — User accepted all recommendations above under D-034. Begin with
+  contract/plugin protocol 0.2.0 and stop at the required new-thread
+  requalification checkpoint before application importer work.
 
 ## Validation
 

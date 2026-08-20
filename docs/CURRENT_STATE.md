@@ -21,9 +21,29 @@ Milestone 4 evaluated all fifteen D-024 fixture identities: eleven were
 runnable, ten were accepted, one failed strict JSON parsing, and four exposed
 request-contract gaps. The route is conditionally viable and reviewed local
 JSON file import is selected after a forward contract version closes the gaps.
-No application compiler/provider connection, MCP server, browser extension,
+D-034 now approves
+`plans/2026-08-20-complete-m7-file-import-compiler.md` to finish M7 through
+authoring packet/protocol/plugin 0.2.0, five required requalification reruns,
+one bounded repair, a deterministic park compiler, a durable SQLite human-
+handoff lifecycle, reviewed file import, explicit publication, and offline
+play. Contract/plugin Milestone 1 is complete in repository source: authoring
+0.2.0 schemas, validators, generated artifacts, all fifteen runnable requests,
+closed repair semantics, and plugin protocol are implemented, while the exact
+three prompt modules remain at approved version 0.1.0. Source tests pass 41/41,
+schema drift checks pass, and plugin validation passes. The cachebuster was
+applied, but reinstalling the local plugin was rejected because the current
+Codex usage limit was reached; the installed registry still reports 0.1.0 and
+the product supplied a retry time of 2026-08-22 17:57 local. Requalification
+and all application compiler work remain stopped at the D-034 gate. No
+application compiler/provider connection, MCP server, browser extension,
 automation, external GPT edit, learner-data transfer, or environment variable
 has started.
+
+Active ExecPlan:
+
+- plans/2026-08-20-complete-m7-file-import-compiler.md — Approved; contract and
+  plugin protocol 0.2.0 complete in source, reinstallation/requalification
+  blocked by the current Codex usage limit
 
 Most recently completed ExecPlan:
 
@@ -467,20 +487,24 @@ implementation changes are currently uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
-20. M7 v3.2 request contract 0.1.0 cannot represent four D-024 fixtures and
-    cannot carry the prior structured draft plus redacted diagnostics described
-    by its attempt-2 repair policy. It must be versioned forward before the
-    selected file importer or application compiler is implemented.
+20. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
+    compiler-owned practice text, exact accepted Japanese answer truth,
+    read-only runtime-plan context, and bounded repair diagnostics. The source
+    gate passes, but the installed plugin is still 0.1.0 because the reinstall
+    hit the current Codex usage limit. No requalification result may be inferred
+    from source validation alone.
 
 ## Next recommended work
 
 Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. Approve a new contract-and-import ExecPlan that versions the authoring
-   boundary forward with compiler-owned practice text, answer truth, read-only
-   runtime-plan context, and repair diagnostics.
-2. Rerun the four blocked D-024 fixtures and the one strict-JSON rejection,
-   then implement a reviewed local JSON file importer only if the gate passes.
+1. After the product-provided usage retry time, reinstall the validated plugin
+   source with `/home/nunu/.local/bin/codex plugin add
+bunbun-authoring@personal` and confirm the registry reports the 0.2.0
+   compatibility line.
+2. Rerun the four former D-024 contract gaps, the strict-JSON regression, and
+   one bounded repair in fresh conversations; implement the approved compiler
+   only if that gate passes.
 3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
    separate endpoint, network, authentication, privacy, confirmation, and cost
    gate.
@@ -541,6 +565,16 @@ non-speech asset, and measurable audio acceptance choices.
   contract tests, full workspace checks, and production builds are recorded in
   the completed ExecPlan. Browser E2E and Docker remain not applicable under
   D-011 and D-015.
+- D-034/M7 completion Milestone 1: authoring 0.2.0 artifact drift check passes
+  for 56 generated files; plugin drift, Skill, and plugin validators pass; all
+  41 contract tests and all 34 web tests pass; workspace typecheck, lint,
+  format check, production build, and `git diff --check` pass. The valid 0.2.0
+  exchange inspector accepts the generated fixture. The SQLite repository test
+  passes, while the HTTP integration test could not bind `127.0.0.1` inside the
+  restricted sandbox; its required elevated rerun and plugin reinstall were
+  both blocked by the current Codex usage limit. No browser or gameplay result
+  is inferred. Playwright remains excluded by D-011 and Docker is not
+  applicable because the repository has no Dockerfiles under D-015.
 - D-028/M7 v3 sequence documentation: `git diff --check` passed, and Prettier
   passed for all nine changed Markdown files. This decision-only change did not
   run code tests, browser checks, or builds.

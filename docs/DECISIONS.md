@@ -1569,17 +1569,87 @@ normalizer, publication path, MCP server, WXT extension, or runtime AI is
 authorized by this decision. The next implementation requires its own approved
 contract-and-import ExecPlan. MCP remains conditional M7 v3.3 work.
 
+### D-034 — Complete M7 through authoring 0.2.0 and reviewed file publication
+
+- Date: 2026-08-20
+- Status: Accepted
+- Affects: M7 v3.2 authoring contract, plugin compatibility, compiler,
+  reference data, server HTTP lifecycle, SQLite, web authoring handoff,
+  LessonManifest publication
+
+Context:
+
+D-033 selected a reviewed local JSON file as the first application handoff but
+proved that authoring contract 0.1.0 cannot carry compiler-owned practice text,
+accepted Japanese answer truth, the read-only runtime plan, or meaningful
+bounded-repair context. The application still has no target normalizer,
+reference resolver, compiler plan, manifest normalizer, compilation lifecycle,
+importer, review gate, publication path, or compiled-lesson loader.
+
+M7 v3.2 has no in-application model call. A queued/running provider worker from
+the inactive M7 v1 proposal would add lifecycle and retry behavior for work the
+application does not perform. The sibling Bunpro-derived N5 extraction is
+research input without a local redistribution license and cannot become
+runtime reference truth.
+
+Decision:
+
+Approve `plans/2026-08-20-complete-m7-file-import-compiler.md` and complete M7
+through the selected Skills-only v3.2 route.
+
+Version the authoring packet, protocol, and plugin compatibility forward to
+0.2.0 while preserving the exact approved `story_sheet@0.1.0`,
+`reverse_trainer@0.1.0`, and `story_coach@0.1.0` prompt files and hashes.
+Contract 0.2.0 must add compiler-owned practice text and accepted Japanese
+responses, primitive/attempt/feedback-duration runtime context, separate
+authored-fixture and learner-target disclosures, and a closed attempt-2 repair
+context. Preserve the 0.1.0 proof boundary and evidence side by side.
+
+Before application importer work, rerun the four D-033 contract gaps, the
+malformed Story Sheet case, and one actual attempt-2 repair through the updated
+installed Skill. Stop if answer truth, runtime-plan integrity, repair identity,
+or strict JSON cannot qualify.
+
+Retain `node:http` and the one local SQLite process. Use durable human-handoff
+states `AWAITING_AUTHORING`, `REPAIR_REQUIRED`, `READY_FOR_REVIEW`, `PUBLISHED`,
+and `FAILED`; do not add a provider worker, SDK, credential, queue, or runtime
+model call. Import exact bounded local JSON file text, hash it before strict
+parsing, persist only hashes and stable diagnostics for invalid content, and
+require deterministic normalization, full package/runtime validation, user
+review, and explicit publication before gameplay.
+
+For the technical M7 slice, add an independently authored repository-owned
+`bunbun_core@0.1.0` fixture for `犬`, `猫`, and `〜てください`. Accept only
+unique combinations of those reviewed targets in the park compiler profile;
+reject arbitrary or incompatible text before export. The sibling N5 extraction
+remains research-only and no external dataset or license is claimed.
+
+Reuse the existing immutable `lesson_revisions` store for published packages.
+Published and authored lessons must remain playable without the plugin or a
+model. LessonManifest, CatalogSnapshot, and EvidencePersistence remain at
+0.1.0 unless a concrete incompatibility is surfaced and approved separately.
+
+Consequences:
+
+O-006 is resolved for M7 v3.2 through the existing HTTP stack and the durable
+human-handoff state machine. O-009 is resolved only for this technical compiler
+slice through the three project-authored records; production Japanese
+reference selection and licensing remain deferred. M7 uses no
+`OPENAI_API_KEY`, provider charge, MCP, browser automation, extension, hosted
+GPT invocation, or external endpoint. Plugin 0.2.0 must follow the official
+local cachebuster/reinstall flow and be exercised in a new conversation before
+compiler integration continues.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
 
-| ID    | Decision needed                                                                 | Resolve before                    |
-| ----- | ------------------------------------------------------------------------------- | --------------------------------- |
-| O-006 | Backend HTTP framework and compilation job model                                | Backend foundation                |
-| O-008 | Browser/device support and WebGPU fallback policy                               | Rendering foundation              |
-| O-009 | Kanji and Japanese reference datasets and licenses                              | Compiler/reference integration    |
-| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage | AI and audio integration          |
-| O-012 | Deployment model and Docker topology                                            | Post-acceptance release discovery |
+| ID    | Decision needed                                                                                  | Resolve before                    |
+| ----- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
+| O-008 | Browser/device support and WebGPU fallback policy                                                | Rendering foundation              |
+| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture | Production reference integration  |
+| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage                  | AI and audio integration          |
+| O-012 | Deployment model and Docker topology                                                             | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

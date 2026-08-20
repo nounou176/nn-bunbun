@@ -1,5 +1,6 @@
 export * from "./catalog.js";
 export * from "./authoring.js";
+export * from "./authoring-v2.js";
 export * from "./common.js";
 export * from "./evidence-persistence.js";
 export * from "./interactions.js";

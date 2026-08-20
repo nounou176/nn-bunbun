@@ -1,0 +1,101 @@
+{
+  "packetFormat": "bunbun_m7_v3_2_lesson_authoring",
+  "packetVersion": "0.2.0",
+  "requestId": "m7_v3_2_eval_v2_009",
+  "requestContextId": "reverse_trainer_rejects_unverified_reference_claims",
+  "attempt": 1,
+  "repair": null,
+  "mediaPolicy": "TEXT_ONLY",
+  "responseFormat": "STRICT_JSON_OBJECT",
+  "inputHashCanonicalization": "UTF8_SHA256_OF_RECURSIVELY_KEY_SORTED_COMPACT_JSON",
+  "inputSha256": "e7d044266dc88be8567ce25603a517742941c4ebf4a0d06d020aa70f8b6823cc",
+  "promptPack": [
+    {
+      "moduleId": "story_sheet",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "61df189356ee388b05ef3c1564caac9c72fc840568287991999423c5d3e70def"
+    },
+    {
+      "moduleId": "reverse_trainer",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "301f8ae5baea44afdf79501806805e3b1e775fd02a43a0f8fd60a8472305286b"
+    },
+    {
+      "moduleId": "story_coach",
+      "moduleVersion": "0.1.0",
+      "promptSha256": "73a74c5f55bc7ab2fd9e4850c3414f86f161b882168d89c22cd2c2b433dad1d7"
+    }
+  ],
+  "dataPolicy": {
+    "classification": "AUTHORED_FIXTURE",
+    "containsLearnerData": false,
+    "disclosure": "This authored fixture sends normalized Japanese targets and compact authoring facts to ChatGPT or Codex. It contains no learner identity, progress, evidence, TYPE response, checkpoint, secret, or private chat history."
+  },
+  "outputLimits": {
+    "title": {
+      "maxJapaneseCharacters": 28,
+      "maxVietnameseCharacters": 56
+    },
+    "objective": {
+      "maxJapaneseCharacters": 60,
+      "maxVietnameseCharacters": 120
+    },
+    "premise": {
+      "maxJapaneseCharacters": 90,
+      "maxVietnameseCharacters": 180
+    },
+    "settingContext": {
+      "maxJapaneseCharacters": 70,
+      "maxVietnameseCharacters": 140
+    },
+    "synopsisMaxCharacters": 240
+  },
+  "input": {
+    "contractVersion": "0.2.0",
+    "targetLocale": "ja",
+    "supportLocale": "vi",
+    "sceneId": "park_small",
+    "scenarioTemplate": "FIND_SOMETHING",
+    "normalizedTargets": [
+      {
+        "targetId": "target_te_kudasai",
+        "kind": "GRAMMAR",
+        "writtenForm": null,
+        "reading": null,
+        "grammarPattern": "〜てください",
+        "supportGlossesVi": [
+          "hãy làm..."
+        ],
+        "referenceAuthority": "REVIEWED"
+      }
+    ],
+    "worldFacts": [
+      {
+        "factId": "fact_park",
+        "catalogId": "park_small",
+        "kind": "SCENE",
+        "labelJa": "小さい公園",
+        "allowedClaims": [
+          {
+            "claimId": "claim_park_setting",
+            "statement": "All story action remains inside one small park."
+          }
+        ]
+      }
+    ],
+    "storyBeats": [
+      {
+        "beatId": "opening",
+        "role": "OPENING",
+        "requiredTargetIds": [],
+        "allowedWorldClaimIds": [
+          "claim_park_setting"
+        ],
+        "maxJapaneseCharacters": 64,
+        "maxVietnameseCharacters": 125
+      }
+    ],
+    "practiceSlots": [],
+    "coachingSlots": []
+  }
+}

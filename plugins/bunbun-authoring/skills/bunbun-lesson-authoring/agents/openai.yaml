@@ -1,4 +1,4 @@
 interface:
   display_name: "Bunbun Lesson Authoring"
-  short_description: "Author one validated Bunbun Japanese lesson draft"
-  default_prompt: "Use $bunbun-lesson-authoring to process the supplied Bunbun authoring packet and return exactly one strict JSON result."
+  short_description: "Author or repair one Bunbun 0.2 lesson draft"
+  default_prompt: "Use $bunbun-lesson-authoring to process the supplied Bunbun 0.2 authoring packet and return exactly one strict JSON result."

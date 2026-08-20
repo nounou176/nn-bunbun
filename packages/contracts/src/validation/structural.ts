@@ -11,7 +11,9 @@ import {
   CatalogSnapshotSchema,
   EvidenceEventSchema,
   LessonAuthoringRequestSchema,
+  LessonAuthoringRequestV2Schema,
   LessonAuthoringResultSchema,
+  LessonAuthoringResultV2Schema,
   LocalPreferencesSchema,
   LessonManifestSchema,
   ProgressSummaryResultSchema,
@@ -29,7 +31,9 @@ import {
   type CatalogSnapshot,
   type EvidenceEvent,
   type LessonAuthoringRequest,
+  type LessonAuthoringRequestV2,
   type LessonAuthoringResult,
+  type LessonAuthoringResultV2,
   type LocalPreferences,
   type LessonManifest,
   type ProgressSummaryResult,
@@ -81,6 +85,12 @@ const lessonAuthoringRequestValidator = ajv.compile<LessonAuthoringRequest>(
 );
 const lessonAuthoringResultValidator = ajv.compile<LessonAuthoringResult>(
   LessonAuthoringResultSchema as AnySchema,
+);
+const lessonAuthoringRequestV2Validator = ajv.compile<LessonAuthoringRequestV2>(
+  LessonAuthoringRequestV2Schema as AnySchema,
+);
+const lessonAuthoringResultV2Validator = ajv.compile<LessonAuthoringResultV2>(
+  LessonAuthoringResultV2Schema as AnySchema,
 );
 const sessionCheckpointValidator = ajv.compile<SessionCheckpoint>(
   SessionCheckpointSchema as AnySchema,
@@ -156,6 +166,26 @@ export function validateLessonAuthoringResultStructure(
   return runStructuralValidation(
     input,
     lessonAuthoringResultValidator,
+    "AUTHORING",
+  );
+}
+
+export function validateLessonAuthoringRequestV2Structure(
+  input: unknown,
+): ValidationResult<LessonAuthoringRequestV2> {
+  return runStructuralValidation(
+    input,
+    lessonAuthoringRequestV2Validator,
+    "AUTHORING",
+  );
+}
+
+export function validateLessonAuthoringResultV2Structure(
+  input: unknown,
+): ValidationResult<LessonAuthoringResultV2> {
+  return runStructuralValidation(
+    input,
+    lessonAuthoringResultV2Validator,
     "AUTHORING",
   );
 }
