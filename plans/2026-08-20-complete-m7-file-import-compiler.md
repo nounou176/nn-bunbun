@@ -3,7 +3,7 @@
 Status: Approved
 Owner: Codex and user
 Created: 2026-08-20
-Last updated: 2026-08-20 12:36 Asia/Ho_Chi_Minh
+Last updated: 2026-08-24 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -291,7 +291,7 @@ protocol 0.2.0 without changing the three prompt files or hashes.
 Observable checkpoint: every D-024 fixture maps to a structurally valid 0.2.0
 request; old 0.1.0 proof fixtures and evidence remain inspectable.
 
-### 2. Requalify the Skills-only boundary
+### 2. Requalify the Skills-only boundary — waived under D-035
 
 Validate the updated plugin, apply its 0.2.0 cachebuster, reinstall it from the
 configured `personal` marketplace, and use a new thread for execution. Run the
@@ -304,6 +304,11 @@ is demonstrated, and the route is either promoted to viable for application
 integration or stopped with exact retained failures. Application importer work
 must not continue if answer truth, runtime-plan integrity, or repair identity
 cannot pass.
+
+D-035 supersedes this execution gate at the user's explicit direction. No case
+was rerun and no bounded repair is counted as passing. Application integration
+may continue with repository-owned 0.2.0 fixtures, while the external
+ChatGPT/Codex transport remains `UNVERIFIED`.
 
 ### 3. Implement the deterministic compiler core
 
@@ -366,11 +371,10 @@ evidence and no compiler requirement remains hidden in chat history.
       fifteen runnable evaluation requests, and plugin protocol 0.2.0 while
       preserving all three prompt modules and hashes at 0.1.0. Contract tests
       pass 41/41; schema drift and plugin validation pass.
-- [ ] Milestone 2 — Requalify the five required cases and bounded repair.
-      Source validation and cachebuster are complete. Reinstallation is blocked
-      by the current Codex usage limit until the product-provided retry time;
-      the installed registry still reports 0.1.0, so no rerun has started.
-- [ ] Milestone 3 — Implement deterministic compiler core.
+- [x] 2026-08-24 — Milestone 2 was explicitly waived by the user under D-035.
+      It was not run and is not a pass. The installed registry reports plugin
+      `0.2.0+codex.20260820053513`; transport qualification remains unverified.
+- [ ] Milestone 3 — Implement deterministic compiler core. Active next work.
 - [ ] Milestone 4 — Implement durable compilation/publication APIs.
 - [ ] Milestone 5 — Implement pre-game compiler/import/review/library UI.
 - [ ] Milestone 6 — Run checks, obtain manual acceptance, and close M7.
@@ -420,6 +424,10 @@ evidence and no compiler requirement remains hidden in chat history.
 - 2026-08-20 — User accepted all recommendations above under D-034. Begin with
   contract/plugin protocol 0.2.0 and stop at the required new-thread
   requalification checkpoint before application importer work.
+- 2026-08-24 — User accepted D-035, waived the requalification checkpoint, and
+  authorized direct continuation into deterministic compiler Milestone 3. The
+  waiver changes sequencing and completion claims only; it does not relax any
+  validation, privacy, ownership, review, or publication gate.
 
 ## Validation
 

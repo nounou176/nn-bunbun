@@ -313,9 +313,10 @@ Exit criteria:
 
 Status: In progress — D-033 classifies the M7 v3.2 Skills-only route as
 conditionally viable and selects reviewed local JSON file import. D-034
-approves the completion ExecPlan. Contract/plugin 0.2.0 is complete in source;
-reinstallation and requalification are blocked by the current Codex usage
-limit, and application compiler work remains gated.
+approves the completion ExecPlan. Contract/plugin 0.2.0 is complete and
+installed. D-035 records the user's explicit waiver of external
+requalification; deterministic compiler work may proceed, while transport
+0.2.0 remains unverified and the skipped cases are not counted as passes.
 
 Purpose:
 
@@ -358,6 +359,9 @@ Decision resolved:
   resolves O-006 for v3.2, resolves O-009 only through a three-record project-
   authored technical fixture, and requires requalification before importer
   work.
+- D-035 supersedes only that sequencing gate: requalification is
+  `WAIVED_BY_USER`, deterministic compiler work proceeds with repository-owned
+  fixtures, and the external 0.2.0 transport remains `UNVERIFIED`.
 
 Strategy note:
 

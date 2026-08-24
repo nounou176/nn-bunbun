@@ -38,15 +38,16 @@ dialogue, and measurable acceptance gates remain open.
 A newly approved successor plan now covers the remaining M7 v3.2 work: forward
 authoring contract 0.2.0, the five required qualification reruns, deterministic
 compiler normalization, durable reviewed JSON-file import/publication, and the
-pre-game lesson library. Contract/plugin source Milestone 1 is complete. The
-installed plugin remains 0.1.0 because reinstallation reached the current Codex
-usage limit, so requalification and application integration remain gated.
+pre-game lesson library. Contract/plugin source Milestone 1 is complete and the
+installed registry reports the 0.2.0 compatibility line. D-035 records the
+user's explicit waiver of requalification; deterministic compiler work is now
+active while transport qualification remains unverified.
 
 ## Index
 
 | Plan                                             | Status                                                     | Outcome                                                                                                                                                               |
 | ------------------------------------------------ | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-20-complete-m7-file-import-compiler.md   | Active; source 0.2.0 complete, reinstall blocked           | Complete M7 through contract 0.2.0, requalification, deterministic compilation, reviewed local JSON import, immutable publication, and offline play                   |
+| 2026-08-20-complete-m7-file-import-compiler.md   | Active; M2 waived, deterministic compiler next             | Complete M7 through contract 0.2.0, deterministic compilation, reviewed local JSON import, immutable publication, and offline play; transport remains unverified      |
 | 2026-08-19-m7-v3-skills-plugin.md                | Complete                                                   | Proved one repository-owned Skills-only lesson-authoring plugin; conditionally viable with reviewed file import selected after a forward contract version             |
 | 2026-08-19-m7-v3-custom-gpt-browser-bridge.md    | Superseded as implementation route; v3.1 evidence retained | Preserve the manual direct-GPT feasibility record without upgrading its truncated result                                                                              |
 | 2026-08-19-audio-complete-last-train-showcase.md | Approved; queued after an accepted M7 implementation       | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |

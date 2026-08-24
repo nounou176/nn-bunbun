@@ -1640,6 +1640,46 @@ GPT invocation, or external endpoint. Plugin 0.2.0 must follow the official
 local cachebuster/reinstall flow and be exercised in a new conversation before
 compiler integration continues.
 
+### D-035 — Waive M7 v3.2 requalification and proceed with the local compiler
+
+- Date: 2026-08-24
+- Status: Accepted by explicit user approval
+- Affects: M7 completion sequencing, Skills-only transport qualification,
+  deterministic compiler implementation, completion claims
+
+Context:
+
+Authoring contract and plugin protocol 0.2.0 are implemented and validated
+locally, and the installed plugin registry now reports the 0.2.0 compatibility
+line. D-034 nevertheless required five fresh external authoring reruns and one
+actual bounded repair before compiler integration. The user explicitly chose
+to skip that M7-internal requalification milestone.
+
+Decision:
+
+Mark M7 completion-plan Milestone 2 as `WAIVED_BY_USER`, never as passed, and
+proceed directly to Milestone 3, the deterministic compiler core. Develop and
+test the compiler against repository-owned structurally and semantically valid
+0.2.0 fixtures, including negative mutations. Continue to treat every imported
+authoring result as untrusted and require the existing strict structural,
+semantic, deterministic package, runtime-capability, review, and explicit
+publication gates.
+
+The waiver supersedes only D-034's requirement to complete requalification
+before application importer work. It does not relax answer-truth ownership,
+runtime-plan ownership, repair identity, strict JSON parsing, privacy,
+publication, or deterministic gameplay boundaries.
+
+Consequences:
+
+The ChatGPT/Codex authoring transport remains `UNVERIFIED` for packet 0.2.0.
+The project must not claim that the five skipped cases or actual attempt-2
+repair passed. M7 may complete as a fully implemented and locally validated
+file-import compiler flow, but its documentation and UI handoff must retain
+this transport qualification risk until later evidence explicitly closes it.
+D-035 does not activate M7 v1, M7 v2, v3.3 MCP, a provider API, browser
+automation, or runtime AI.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

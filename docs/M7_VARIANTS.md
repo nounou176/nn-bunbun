@@ -14,8 +14,9 @@ direction. D-029 closes the v3.1 manual Story Sheet gate early after two of five
 fixtures as provisionally viable evidence; it does not claim complete
 qualification. D-031 supersedes D-028's WXT stage and selects a Skills-only
 personal ChatGPT/Codex plugin as M7 v3.2. D-034 approves its 0.2.0 contract and
-reviewed file-import compiler architecture; requalification is the active
-implementation gate. MCP remains conditional v3.3 work.
+reviewed file-import compiler architecture. D-035 waives external
+requalification without counting it as passed and makes the deterministic
+compiler core active. MCP remains conditional v3.3 work.
 
 ## Shared outcome and invariants
 
@@ -230,10 +231,9 @@ cookie access, tunnel, browser extension, MCP server, or external GPT edit.
 
 D-031 closes the transport and orchestration choice, D-032 implements the
 local proof, D-033 selects reviewed local JSON file import, and D-034 approves
-the complete technical M7 architecture. Remaining gates are:
+the complete technical M7 architecture. D-035 waives, but does not pass, the
+external reruns and bounded repair. Remaining gates are:
 
-- reruns of the four blocked D-024 fixtures and one strict-JSON rejection;
-- one real bounded attempt-2 repair;
 - deterministic compiler, reviewed file importer, persistence, publication,
   and runtime integration implementation;
 - manual browser/gameplay acceptance of the complete local flow;
@@ -242,4 +242,5 @@ the complete technical M7 architecture. Remaining gates are:
 
 The local plugin proof is implemented. No application compiler/provider,
 external account change, real learner-data transmission, lesson publication,
-or MCP infrastructure is implemented.
+or MCP infrastructure is implemented. Packet 0.2.0 transport remains
+`UNVERIFIED` until later evidence explicitly closes the waived gate.

@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-20
+Last updated: 2026-08-24
 
 ## Current milestone
 
@@ -30,20 +30,21 @@ play. Contract/plugin Milestone 1 is complete in repository source: authoring
 0.2.0 schemas, validators, generated artifacts, all fifteen runnable requests,
 closed repair semantics, and plugin protocol are implemented, while the exact
 three prompt modules remain at approved version 0.1.0. Source tests pass 41/41,
-schema drift checks pass, and plugin validation passes. The cachebuster was
-applied, but reinstalling the local plugin was rejected because the current
-Codex usage limit was reached; the installed registry still reports 0.1.0 and
-the product supplied a retry time of 2026-08-22 17:57 local. Requalification
-and all application compiler work remain stopped at the D-034 gate. No
+schema drift checks pass, and plugin validation passes. The installed registry
+now reports `bunbun-authoring@0.2.0+codex.20260820053513`. On 2026-08-24 the
+user accepted D-035, explicitly waived the five requalification reruns and
+actual bounded-repair run, and authorized direct continuation into the
+deterministic compiler core. The skipped gate is `WAIVED_BY_USER`, not passed;
+the 0.2.0 ChatGPT/Codex transport remains `UNVERIFIED`. No
 application compiler/provider connection, MCP server, browser extension,
 automation, external GPT edit, learner-data transfer, or environment variable
 has started.
 
 Active ExecPlan:
 
-- plans/2026-08-20-complete-m7-file-import-compiler.md — Approved; contract and
-  plugin protocol 0.2.0 complete in source, reinstallation/requalification
-  blocked by the current Codex usage limit
+- plans/2026-08-20-complete-m7-file-import-compiler.md — Active; contract and
+  plugin protocol 0.2.0 complete, requalification waived under D-035, and
+  deterministic compiler core is the active next work
 
 Most recently completed ExecPlan:
 
@@ -489,22 +490,20 @@ implementation changes are currently uncommitted.
     is required.
 20. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
     compiler-owned practice text, exact accepted Japanese answer truth,
-    read-only runtime-plan context, and bounded repair diagnostics. The source
-    gate passes, but the installed plugin is still 0.1.0 because the reinstall
-    hit the current Codex usage limit. No requalification result may be inferred
-    from source validation alone.
+    read-only runtime-plan context, and bounded repair diagnostics. The
+    installed plugin is 0.2.0, but D-035 waives rather than passes external
+    requalification. No transport result may be inferred from source validation
+    or the waiver.
 
 ## Next recommended work
 
 Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
 
-1. After the product-provided usage retry time, reinstall the validated plugin
-   source with `/home/nunu/.local/bin/codex plugin add
-bunbun-authoring@personal` and confirm the registry reports the 0.2.0
-   compatibility line.
-2. Rerun the four former D-024 contract gaps, the strict-JSON regression, and
-   one bounded repair in fresh conversations; implement the approved compiler
-   only if that gate passes.
+1. Implement the deterministic compiler core against repository-owned 0.2.0
+   fixtures: Bunbun Core reference, target normalization/resolution, park plan,
+   request builder, manifest normalizer, and shared runtime-capability gate.
+2. Preserve the D-035 `UNVERIFIED` transport label and never count the skipped
+   five cases or bounded repair as passing.
 3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
    separate endpoint, network, authentication, privacy, confirmation, and cost
    gate.

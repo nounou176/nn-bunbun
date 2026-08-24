@@ -23,9 +23,10 @@ the broader fixture evaluation with ten accepted first responses, one strict-
 JSON rejection, and four request-contract gaps. D-034 approves the complete M7
 file-import architecture and versions the packet, protocol, and plugin
 compatibility to 0.2.0 while preserving the three prompt modules and hashes at
-0.1.0. All fifteen evaluation requests are now representable; requalification
-of the former gaps and bounded repair is the active gate before application
-compiler work.
+0.1.0. All fifteen evaluation requests are now representable. D-035 records
+the user's explicit waiver of the external requalification runs; they are not
+passes, transport 0.2.0 remains `UNVERIFIED`, and deterministic compiler work
+may proceed against repository-owned fixtures.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
@@ -420,17 +421,17 @@ A module is `Approved` only when all of the following are true:
 The source-to-module mapping and Prompt Adaptation Pack 0.1.0 are accepted
 under D-023 and D-024. D-034 separately approves the 0.2.0 Skills-only
 contract and reviewed file-import compiler implementation. The three selected
-modules remain application-inactive until requalification and downstream
-compiler integration pass; the prompt text and hashes remain unchanged.
+modules remain runtime-inactive until downstream compiler integration passes;
+the prompt text and hashes remain unchanged. D-035 does not convert skipped
+transport qualification into evidence.
 Implementation must not invent missing pedagogical behavior or transfer
 deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Validate and reinstall `bunbun-authoring` on the 0.2.0 compatibility line, then
-rerun the four former D-024 contract gaps, the strict-JSON regression, and one
-real bounded repair in fresh conversations. Continue into the approved
-deterministic compiler and reviewed local file importer only if answer truth,
-runtime-plan integrity, and repair identity pass. Keep inactive M7 v1,
-research-only M7 v2, conditional v3.3 MCP, WXT fallback research, Visual
-Mnemonic, and both Anki workflows out of that work.
+Implement the approved deterministic compiler core against repository-owned
+0.2.0 fixtures while preserving strict answer truth, runtime-plan ownership,
+privacy, validation, review, and publication gates. Keep the skipped five
+external cases and bounded repair labeled `WAIVED_BY_USER`/`UNVERIFIED`. Keep
+inactive M7 v1, research-only M7 v2, conditional v3.3 MCP, WXT fallback
+research, Visual Mnemonic, and both Anki workflows out of that work.
