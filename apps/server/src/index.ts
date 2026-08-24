@@ -1,13 +1,15 @@
 import { openDatabase } from "./persistence/database.js";
 import { EvidenceRepository } from "./persistence/repository.js";
 import { createBunbunServer } from "./http.js";
+import { CompilationRepository } from "./compiler/repository.js";
 
 const DEFAULT_PORT = 3000;
 const LOCAL_HOST = "127.0.0.1";
 
 const database = openDatabase();
 const repository = new EvidenceRepository(database);
-const server = createBunbunServer(repository);
+const compilations = new CompilationRepository(database);
+const server = createBunbunServer(repository, compilations);
 const port = parsePort(process.env.PORT);
 
 server.listen(port, LOCAL_HOST, () => {

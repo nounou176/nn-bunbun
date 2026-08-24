@@ -25,15 +25,16 @@ file-import architecture and versions the packet, protocol, and plugin
 compatibility to 0.2.0 while preserving the three prompt modules and hashes at
 0.1.0. All fifteen evaluation requests are now representable. D-035 records
 the user's explicit waiver of the external requalification runs; they are not
-passes, transport 0.2.0 remains `UNVERIFIED`, and deterministic compiler work
-may proceed against repository-owned fixtures.
+passes and transport 0.2.0 remains `UNVERIFIED`. D-036 closes the deterministic
+compiler, reviewed file import, publication, and lesson-library implementation
+with new automated/manual verification explicitly waived.
 
 The local source library is intentionally excluded from Git under `gpts/`.
 Prompt Adaptation Pack 0.1.0 is approved under D-024, so the three selected
-modules are packaged in the Skills-only proof but remain application-inactive;
-no Bunbun provider or compiler call exists yet. Accepted prompt behavior does
-not by itself approve the remaining application handoff and compiler-plan
-decisions.
+modules are packaged in the Skills-only authoring plugin and their results now
+enter the deterministic application compiler. They never run during gameplay,
+and Bunbun still performs no provider call. Source/plugin validation and static
+builds do not establish the waived transport or gameplay evidence.
 
 ## Purpose
 
@@ -160,15 +161,15 @@ only the three responsibilities explicitly accepted above. All activation
 states accurately distinguish an approved design from an implemented runtime
 module.
 
-| Module ID         | Custom GPT / concept                              | Documented fact                                                                                            | Accepted or deferred Bunbun use                                                                                                                             | Roadmap owner                                      | Source status                    | Activation                           |
-| ----------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- | ------------------------------------ |
-| `story_coach`     | Story Coach                                       | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow        | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7                                        | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
-| `reverse_trainer` | Reverse Trainer                                   | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support             | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression                                  | Milestone 7                                        | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
-| `tutor`           | Tutor                                             | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | No separate Milestone 7 module; bounded lesson support is assigned to `story_coach`; runtime explanations remain a later decision                           | Later runtime opportunity only                     | Not part of confirmed source set | Not selected                         |
-| `story_sheet`     | Nunu JP Story Sheet                               | Supplied GPT; creates surreal stories and aligned visual worksheets                                        | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later                                   | Milestone 7 for story content; later for export    | Approved adaptation 0.1.0        | Packaged in v3.2 proof; app inactive |
-| `visual_mnemonic` | Visual Mnemonic                                   | Nunu JP Visual Mnemonic source and visual examples captured locally                                        | Produce a mnemonic concept or image prompt for an explicitly requested kanji aid; never establish authoritative decomposition                               | Later opportunity, after reference/image decisions | Captured; review pending         | Disabled                             |
-| `anki_content`    | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg`                                                                  | Later opportunity                                  | Captured; mapping review pending | Disabled                             |
-| `jlpt_assessment` | JLPT assessment generator                         | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | Deferred capability requiring a later reference, content, and routing decision                                                                              | Later opportunity                                  | Not part of confirmed source set | Not selected                         |
+| Module ID         | Custom GPT / concept                              | Documented fact                                                                                            | Accepted or deferred Bunbun use                                                                                                                             | Roadmap owner                                      | Source status                    | Activation                         |
+| ----------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- | ---------------------------------- |
+| `story_coach`     | Story Coach                                       | Nunu JP Story Coach 5 minutes source captured locally; sentence-level five-minute coaching workflow        | Author bounded hint/scaffold wording, pedagogical cadence, and feedback inside compiler-owned slots; never choose primitive order or difficulty transitions | Milestone 7                                        | Approved adaptation 0.1.0        | Compile-time via v3.2 file handoff |
+| `reverse_trainer` | Reverse Trainer                                   | Nunu JP Reverse Trainer source captured locally; detailed sentence analysis and recall support             | Author phrase analysis, reverse-recall material, and practice content; never establish reference truth or game progression                                  | Milestone 7                                        | Approved adaptation 0.1.0        | Compile-time via v3.2 file handoff |
+| `tutor`           | Tutor                                             | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | No separate Milestone 7 module; bounded lesson support is assigned to `story_coach`; runtime explanations remain a later decision                           | Later runtime opportunity only                     | Not part of confirmed source set | Not selected                       |
+| `story_sheet`     | Nunu JP Story Sheet                               | Supplied GPT; creates surreal stories and aligned visual worksheets                                        | Author the premise, story, and setting/context within the compiler-selected scene/profile; printable export remains later                                   | Milestone 7 for story content; later for export    | Approved adaptation 0.1.0        | Compile-time via v3.2 file handoff |
+| `visual_mnemonic` | Visual Mnemonic                                   | Nunu JP Visual Mnemonic source and visual examples captured locally                                        | Produce a mnemonic concept or image prompt for an explicitly requested kanji aid; never establish authoritative decomposition                               | Later opportunity, after reference/image decisions | Captured; review pending         | Disabled                           |
+| `anki_content`    | Nunu JP HTML Anki and JLPT N3 Anki Deck Generator | Two supplied GPTs cover HTML card content and APKG deck construction; their output/fallback rules conflict | Draft reviewed typed card fields; deterministic code must render HTML and generate `.apkg`                                                                  | Later opportunity                                  | Captured; mapping review pending | Disabled                           |
+| `jlpt_assessment` | JLPT assessment generator                         | Earlier concept only; no standalone GPT exists in the confirmed source set                                 | Deferred capability requiring a later reference, content, and routing decision                                                                              | Later opportunity                                  | Not part of confirmed source set | Not selected                       |
 
 ## Accepted composed compiler routing
 
@@ -178,20 +179,20 @@ only the three reviewed prompt modules required for one structured lesson
 request. Deterministic stages do not use an AI module. There is no standalone
 Tutor module in this composition.
 
-| Compiler or game stage                                                                                         | Responsible component                                            | AI module use                                                                                                         |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Validate and normalize learner input                                                                           | Deterministic server code                                        | None                                                                                                                  |
-| Resolve readings and reference records                                                                         | Deterministic reviewed reference provider                        | None                                                                                                                  |
-| Select scene/scenario compatibility, primitive sequence, difficulty progression, IDs, transitions, and budgets | Deterministic compiler profile                                   | None                                                                                                                  |
-| Author premise, story, and setting/context                                                                     | Structured lesson request                                        | `story_sheet@0.1.0` packaged in v3.2 proof; compiler integration pending                                              |
-| Author phrase analysis, reverse recall, and practice content                                                   | Structured lesson request                                        | `reverse_trainer@0.1.0` packaged in v3.2 proof; compiler integration pending                                          |
-| Author bounded hints, scaffold wording, pedagogical cadence, and feedback                                      | Structured lesson request                                        | `story_coach@0.1.0` packaged in v3.2 proof; local proof code enforces slots and budgets; compiler integration pending |
-| Produce LessonContentDraft                                                                                     | One composed authoring request through the selected M7 transport | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach`                       |
-| Repair one invalid draft                                                                                       | One bounded repair request when approved by the transport plan   | Same module versions plus stable validator diagnostics                                                                |
-| Normalize and validate LessonManifest                                                                          | Deterministic contracts and runtime capability gate              | None                                                                                                                  |
-| Run ordinary gameplay and record evidence                                                                      | Deterministic local runtime                                      | None                                                                                                                  |
-| Explain an open learner question during gameplay                                                               | Not approved for MVP runtime                                     | No call until a separate decision exists                                                                              |
-| Generate mnemonic, Anki, or JLPT content                                                                       | Deferred workflows                                               | Corresponding module only after its roadmap decision                                                                  |
+| Compiler or game stage                                                                                         | Responsible component                                            | AI module use                                                                                   |
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Validate and normalize learner input                                                                           | Deterministic server code                                        | None                                                                                            |
+| Resolve readings and reference records                                                                         | Deterministic reviewed reference provider                        | None                                                                                            |
+| Select scene/scenario compatibility, primitive sequence, difficulty progression, IDs, transitions, and budgets | Deterministic compiler profile                                   | None                                                                                            |
+| Author premise, story, and setting/context                                                                     | Structured lesson request                                        | `story_sheet@0.1.0` packaged in v3.2; imported result is compiler input                         |
+| Author phrase analysis, reverse recall, and practice content                                                   | Structured lesson request                                        | `reverse_trainer@0.1.0` packaged in v3.2; answer truth remains code-owned                       |
+| Author bounded hints, scaffold wording, pedagogical cadence, and feedback                                      | Structured lesson request                                        | `story_coach@0.1.0` packaged in v3.2; local compiler enforces slots and budgets                 |
+| Produce LessonContentDraft                                                                                     | One composed authoring request through the selected M7 transport | Compiler envelope plus approved versions of `story_sheet`, `reverse_trainer`, and `story_coach` |
+| Repair one invalid draft                                                                                       | One bounded repair request when approved by the transport plan   | Same module versions plus stable validator diagnostics                                          |
+| Normalize and validate LessonManifest                                                                          | Deterministic contracts and runtime capability gate              | None                                                                                            |
+| Run ordinary gameplay and record evidence                                                                      | Deterministic local runtime                                      | None                                                                                            |
+| Explain an open learner question during gameplay                                                               | Not approved for MVP runtime                                     | No call until a separate decision exists                                                        |
+| Generate mnemonic, Anki, or JLPT content                                                                       | Deferred workflows                                               | Corresponding module only after its roadmap decision                                            |
 
 The composed prompt must record every participating `moduleId` and version in
 manifest provenance. A module that is missing, unapproved, incompatible with
@@ -233,9 +234,11 @@ The implemented local plugin has no connector, MCP server, browser extension,
 action, provider API, or external endpoint. It may prepare an untrusted typed
 result, but only Bunbun's local contracts and validators can accept it. Its
 active 0.2.0 packet adds exact compiler-owned practice/answer truth, read-only
-runtime-plan context, a closed data policy, and one bounded repair context. No
-publication path exists yet. D-024 remains the prompt responsibility and
-evaluation baseline; D-034 owns the active transport contract.
+runtime-plan context, a closed data policy, and one bounded repair context.
+The application now hashes and validates imported files, compiles a complete
+package, requires review and explicit publication, and validates again before
+play. D-024 remains the prompt responsibility and evaluation baseline; D-034
+owns the transport contract and D-036 records the waived verification.
 
 ## Approved Milestone 7 adaptation pack
 
@@ -421,17 +424,17 @@ A module is `Approved` only when all of the following are true:
 The source-to-module mapping and Prompt Adaptation Pack 0.1.0 are accepted
 under D-023 and D-024. D-034 separately approves the 0.2.0 Skills-only
 contract and reviewed file-import compiler implementation. The three selected
-modules remain runtime-inactive until downstream compiler integration passes;
-the prompt text and hashes remain unchanged. D-035 does not convert skipped
-transport qualification into evidence.
+modules remain gameplay-inactive; their imported typed contributions are now
+consumed only at compile time. The prompt text and hashes remain unchanged.
+D-035 and D-036 do not convert skipped transport or runtime qualification into
+evidence.
 Implementation must not invent missing pedagogical behavior or transfer
 deterministic game sequencing to a prompt.
 
 ## Current next action
 
-Implement the approved deterministic compiler core against repository-owned
-0.2.0 fixtures while preserving strict answer truth, runtime-plan ownership,
-privacy, validation, review, and publication gates. Keep the skipped five
-external cases and bounded repair labeled `WAIVED_BY_USER`/`UNVERIFIED`. Keep
-inactive M7 v1, research-only M7 v2, conditional v3.3 MCP, WXT fallback
-research, Visual Mnemonic, and both Anki workflows out of that work.
+Proceed to Milestone 8 audio decisions and implementation planning while
+preserving M7 as `UNVERIFIED_USER_WAIVED`. Keep the skipped five external cases
+and real bounded repair labeled `WAIVED_BY_USER`/`UNVERIFIED`. Keep inactive M7
+v1, research-only M7 v2, conditional v3.3 MCP, WXT fallback research, Visual
+Mnemonic, and both Anki workflows outside ordinary gameplay.

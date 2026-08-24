@@ -1,0 +1,30 @@
+{
+  "referenceSetId": "bunbun_core",
+  "version": "0.1.0",
+  "provenance": {
+    "source": "PROJECT_AUTHORED",
+    "statement": "Independently authored technical reference data for the closed Milestone 7 demonstration profile."
+  },
+  "targets": [
+    {
+      "referenceId": "bunbun_core_inu",
+      "kind": "VOCABULARY",
+      "writtenForm": "犬",
+      "reading": "いぬ",
+      "supportGlossVi": "chó"
+    },
+    {
+      "referenceId": "bunbun_core_neko",
+      "kind": "VOCABULARY",
+      "writtenForm": "猫",
+      "reading": "ねこ",
+      "supportGlossVi": "mèo"
+    },
+    {
+      "referenceId": "bunbun_core_te_kudasai",
+      "kind": "GRAMMAR",
+      "pattern": "〜てください",
+      "supportExplanationVi": "Mẫu yêu cầu lịch sự: hãy hoặc xin hãy làm gì đó."
+    }
+  ]
+}

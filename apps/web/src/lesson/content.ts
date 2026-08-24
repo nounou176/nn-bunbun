@@ -27,13 +27,20 @@ export function loadAuthoredLesson(
     manifestInput.schemaVersion = "broken";
   }
 
+  return loadLessonPackage(manifestInput, catalogInput);
+}
+
+export function loadLessonPackage(
+  manifestInput: unknown,
+  catalogInput: unknown,
+): ValidatedLessonPackage {
   const result = validateLessonPackage(manifestInput, catalogInput);
   if (!result.ok) {
     const first = result.errors[0];
     throw new LessonContentError(
       "RUNTIME_MANIFEST_INVALID",
       first === undefined
-        ? "The authored lesson package did not pass validation."
+        ? "The lesson package did not pass validation."
         : `${first.code} at ${first.path}: ${first.message}`,
     );
   }

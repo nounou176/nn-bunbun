@@ -4,52 +4,32 @@ Last updated: 2026-08-24
 
 ## Current milestone
 
-Milestone 7 — Provider-independent lesson compiler: D-027 preserves M7 v1/v2/
-v3. The v3.1 Story Sheet feasibility gate is closed early under D-029 after two
-of five fixtures, with one semantic rejection, one accepted result, and three
-unexecuted fixtures. D-031 supersedes the WXT stage and rejects proposed D-030;
-M7 v3.2 is now a Skills-only personal ChatGPT/Codex plugin and the selected next
-implementation direction. D-032 implements its repository-owned plugin source,
-closed request/result schemas, local validator, drift gate, authored fixture,
-and runbook. Prompt Adaptation Pack 0.1.0 remains authoritative. The user
-installed `bunbun-authoring@0.1.0`, invoked the fixed packet on the product
-surface, and returned one strict JSON result that the local inspector accepted.
-The user confirmed a new conversation, a finished response, and that the only
-file action was deliberately attaching `valid-request.json`; the plugin started
-no unexpected media or tool. D-033 closes the Skills-only proof plan after
-Milestone 4 evaluated all fifteen D-024 fixture identities: eleven were
-runnable, ten were accepted, one failed strict JSON parsing, and four exposed
-request-contract gaps. The route is conditionally viable and reviewed local
-JSON file import is selected after a forward contract version closes the gaps.
-D-034 now approves
-`plans/2026-08-20-complete-m7-file-import-compiler.md` to finish M7 through
-authoring packet/protocol/plugin 0.2.0, five required requalification reruns,
-one bounded repair, a deterministic park compiler, a durable SQLite human-
-handoff lifecycle, reviewed file import, explicit publication, and offline
-play. Contract/plugin Milestone 1 is complete in repository source: authoring
-0.2.0 schemas, validators, generated artifacts, all fifteen runnable requests,
-closed repair semantics, and plugin protocol are implemented, while the exact
-three prompt modules remain at approved version 0.1.0. Source tests pass 41/41,
-schema drift checks pass, and plugin validation passes. The installed registry
-now reports `bunbun-authoring@0.2.0+codex.20260820053513`. On 2026-08-24 the
-user accepted D-035, explicitly waived the five requalification reruns and
-actual bounded-repair run, and authorized direct continuation into the
-deterministic compiler core. The skipped gate is `WAIVED_BY_USER`, not passed;
-the 0.2.0 ChatGPT/Codex transport remains `UNVERIFIED`. No
-application compiler/provider connection, MCP server, browser extension,
-automation, external GPT edit, learner-data transfer, or environment variable
-has started.
+Milestone 8 — Japanese voice and complete audio runtime is next. Milestone 7's
+provider-independent implementation is closed under D-036: authoring 0.2.0,
+the Skills-only plugin, project-authored Bunbun Core reference, deterministic
+park compiler, shared package/runtime capability gate, SQLite human-handoff
+lifecycle, exact local JSON import, bounded repair, review, explicit immutable
+publication, published lesson library, and browser revalidation are present.
 
-Active ExecPlan:
-
-- plans/2026-08-20-complete-m7-file-import-compiler.md — Active; contract and
-  plugin protocol 0.2.0 complete, requalification waived under D-035, and
-  deterministic compiler core is the active next work
+D-035's five external reruns and real repair remain `WAIVED_BY_USER`, not
+passed. D-036 also records the user's explicit request to skip new automated
+tests and manual browser/gameplay acceptance while closing M7. The complete M7
+flow is therefore `UNVERIFIED_USER_WAIVED`, and authoring transport 0.2.0
+remains `UNVERIFIED`. Static typecheck, lint, plugin validation, formatting,
+production build, and diff hygiene are implementation checks only. No provider
+API, runtime AI, MCP, browser automation, external GPT edit, secret, or new
+environment variable was added.
 
 Most recently completed ExecPlan:
 
-- plans/2026-08-19-m7-v3-skills-plugin.md — Complete; all four proof milestones
-  closed with a conditional viability classification and named next action
+- plans/2026-08-20-complete-m7-file-import-compiler.md — Complete;
+  implementation delivered, requalification and testing/manual acceptance
+  waived under D-035/D-036
+
+Next approved ExecPlan:
+
+- plans/2026-08-19-audio-complete-last-train-showcase.md — Approved; queued for
+  Milestone 8 decisions and implementation
 
 Historical M7 v3.1 evidence plan:
 
@@ -240,10 +220,39 @@ Completed ExecPlans:
   This closes the supplied manual acceptance matrix qualitatively. No
   scenario-level notes, named test device, screenshots, measured persistence
   latency, or numeric renderer observations were supplied, so none are inferred.
+- Added the project-authored `bunbun_core@0.1.0` technical reference for `犬`,
+  `猫`, and `〜てください`, plus closed normalization, stable IDs/hashes,
+  deterministic FIND_SOMETHING/HELP_SOMEONE park profiles, authoring request
+  construction, contribution normalization, and complete eight-primitive
+  LessonManifest compilation.
+- Promoted the park runtime-capability validator into browser-safe shared
+  contracts so server review/publication and browser loading reject the same
+  unsupported scene, world, cue, scaffold, primitive, carry, voice, and audio
+  capabilities.
+- Added SQLite migration 2 and a durable compilation lifecycle with exact raw
+  response hashing, no raw invalid-response retention, one bounded repair,
+  stable diagnostics, review state, explicit immutable publication, published
+  lesson listing/loading, and confirmed reset integration.
+- Added closed node:http compilation/request/import/publish/lesson endpoints and
+  an accessible pre-game target, disclosure, request-download, local file-only
+  import, diagnostics, review, publish, play, and offline authored-demo UI.
+  Published packages are untrusted and revalidated before entering the existing
+  deterministic evidence/resume/Three.js runtime.
+- Reconciled repair privacy semantics: JSON parse and structural failures carry
+  only exact-response hash plus stable diagnostics; only a structurally valid
+  semantic failure may carry its prior structured result. Reinstalled the local
+  plugin as `bunbun-authoring@0.2.0+codex.20260824095911` through the official
+  cachebuster flow.
+- Closed M7 under D-036 at the user's direction. Workspace TypeScript, ESLint,
+  plugin/Skill validation, Prettier formatting, production builds, and diff
+  hygiene pass. No M7 tests, Playwright, manual browser/gameplay acceptance, or
+  Docker build were run; the new flow is `UNVERIFIED_USER_WAIVED`.
 
 ## Current work
 
-- Milestone 6 is closed with no blocking defect reported in the user's approval.
+- Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
+  next, but its provider, voice, cache, non-speech source, dialogue, and
+  measurable acceptance decisions remain open.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
@@ -269,9 +278,9 @@ Completed ExecPlans:
   `story_sheet_rejects_source_scope_regression` is retained as a strict-JSON
   rejection because of one trailing `}`. Four fixtures remain honest contract
   gaps because 0.1.0 cannot carry authoritative practice text, accepted
-  Japanese answer truth, or all required runtime-plan fields. Reviewed local
-  JSON file import is selected over clipboard or direct handoff, but is not yet
-  implemented.
+  Japanese answer truth, or all required runtime-plan fields. Authoring 0.2.0
+  closes those gaps, and reviewed local JSON file import is now implemented
+  instead of clipboard or direct handoff.
 - Prepared the first user-operated Story Sheet feasibility packet from the
   approved `story_sheet_find_dog_single_target` fixture. The packet fixes the
   request/module/source/prompt identities, reviewed `犬` target, catalog-backed
@@ -342,10 +351,11 @@ Completed ExecPlans:
   shared contract, three exact prompt fragments and hashes, fixed composition
   order, deterministic failure/privacy boundaries, and fifteen text-only
   fixtures are now approved. Milestone 7 phase 0 is complete.
-- All three selected M7 prompt modules are packaged in the local proof but are
-  not application-compiler or runtime-active. D-031 preserves D-023's
-  one-composed-request rule through one lesson-authoring Skill and does not call
-  the three original hosted GPTs sequentially.
+- All three selected M7 prompt modules are packaged in the local plugin and
+  their typed results may be imported at compile time, but they never run in
+  ordinary gameplay. D-031 preserves D-023's one-composed-request rule through
+  one lesson-authoring Skill and does not call the three original hosted GPTs
+  sequentially.
 - Added the approved `docs/ai-modules/` adaptation pack: one shared typed
   contribution contract, three exact lean prompt fragments, source and prompt
   hashes, three module adaptation records, and fifteen text-only evaluation
@@ -374,9 +384,9 @@ Present:
 
 - AGENTS.md, `docs/AI_MODULES.md`, `docs/WORLD_AUTHORING.md`, and the required
   docs/ durable project records;
-- .agent/PLANS.md, six completed milestone ExecPlans, one proposed active-
-  research M7 v3 ExecPlan, one preserved inactive M7 v1 proposal, and one
-  approved queued audio-complete showcase ExecPlan;
+- .agent/PLANS.md, the completed Milestones 1–7 ExecPlans, one preserved
+  inactive M7 v1 proposal, historical v3 proof plans, and one approved next
+  audio-complete showcase ExecPlan;
 - root npm workspace and shared TypeScript, ESLint, Prettier, NVM, npm, and
   environment-example configuration;
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
@@ -384,12 +394,13 @@ Present:
   EvidenceStore adapter, safe checkpoint restore, task-scoped carry/transfer
   reconstruction, local data controls, DOM learning shell, diagnostics, and
   focused tests;
-- apps/server with health and local persistence APIs, built-in SQLite database
-  lifecycle, checksummed migrations, repositories, privacy-safe inspector, and
-  temporary-database/HTTP integration tests;
-- packages/contracts source schemas for LessonManifest, CatalogSnapshot, and
-  EvidencePersistence, inferred types, validators, fixtures, generated JSON
-  Schema artifacts, inspector, and tests; and
+- apps/server with health, local persistence, and M7 compilation/publication
+  APIs, built-in SQLite lifecycle, checksummed migrations, evidence/compiler
+  repositories, privacy-safe inspector, and existing integration tests;
+- packages/contracts source schemas for LessonManifest, CatalogSnapshot,
+  EvidencePersistence, and authoring 0.1.0/0.2.0, inferred types, shared runtime
+  capabilities, validators, fixtures, generated JSON Schema artifacts,
+  inspector, and existing tests; and
 - package.json and package-lock.json.
 
 Not present:
@@ -397,7 +408,7 @@ Not present:
 - production 3D, audio, or image assets;
 - learner identity, cross-device sync, mastery, scheduler, or analytics
   transport;
-- application AI/provider, compiler-job, or production TTS integrations;
+- application model/provider calls or production TTS integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
@@ -426,9 +437,9 @@ implementation changes are currently uncommitted.
    reviewed reference fixture, production asset files, and measured acceptance
    thresholds are not yet selected or implemented.
 6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
-   and progress synchronization remain deferred. Provider-independent
-   compiler-draft normalization is required by D-027 but is not approved or
-   implemented under any M7 strategy.
+   and progress synchronization remain deferred. M7 compiler normalization is
+   implemented only for the closed three-target Bunbun Core technical profile;
+   arbitrary Japanese coverage remains unsupported.
 7. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
 8. Deployment topology remains intentionally deferred until local
@@ -454,12 +465,11 @@ implementation changes are currently uncommitted.
     result does not establish broader browser, mobile, or touch support.
 15. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
-    0.1.0 is approved. The three selected modules are packaged in the v3.2
-    proof but remain application-inactive because the compiler/provider does
-    not exist. GPT-editor model, capability/action, and version-history metadata
-    was not supplied and is not inherited; config hashes identify the reviewed
-    local source snapshots. Supplied images and the APKG remain style/output
-    examples only.
+    0.1.0 is approved. The three selected modules are compile-time inputs via
+    manual file handoff and remain absent from gameplay. GPT-editor model,
+    capability/action, and version-history metadata was not supplied and is not
+    inherited; config hashes identify the reviewed local source snapshots.
+    Supplied images and the APKG remain style/output examples only.
 16. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
@@ -494,19 +504,23 @@ implementation changes are currently uncommitted.
     installed plugin is 0.2.0, but D-035 waives rather than passes external
     requalification. No transport result may be inferred from source validation
     or the waiver.
+21. D-036 closes M7 implementation without focused compiler/repository/API/web
+    tests or manual end-to-end gameplay. Static checks and build pass, but
+    create/import/repair/restart/publish/play behavior, idempotency, reset, and
+    authored-demo regressions remain `UNVERIFIED_USER_WAIVED`. A fresh job after
+    terminal failure receives a retry-suffixed identity so prior attempt audit
+    rows remain intact.
 
 ## Next recommended work
 
-Advance selected M7 v3.2 without activating M7 v1, v2, or v3.3:
+Begin Milestone 8 without expanding M7's provider scope:
 
-1. Implement the deterministic compiler core against repository-owned 0.2.0
-   fixtures: Bunbun Core reference, target normalization/resolution, park plan,
-   request builder, manifest normalizer, and shared runtime-capability gate.
-2. Preserve the D-035 `UNVERIFIED` transport label and never count the skipped
-   five cases or bounded repair as passing.
-3. Keep WXT as research-only fallback and do not consider v3.3 MCP before its
-   separate endpoint, network, authentication, privacy, confirmation, and cost
-   gate.
+1. Resolve O-010 for Japanese TTS model/provider, voice profiles, cache keys,
+   storage, invalidation, cost, and text fallback.
+2. Select and license the first showcase's ambience, effects, and restrained
+   music sources, then register them through the code-owned audio boundary.
+3. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
+   is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -517,6 +531,15 @@ work remains gated by the still-open Milestone 8 provider, voice, cache,
 non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
+
+- M7 completion under D-036: no automated test suite, Playwright, browser/
+  gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
+  executed at the user's explicit direction. Workspace typecheck, lint,
+  formatting, plugin/Skill validation, production build, and `git diff --check`
+  pass. The web build reports 1,290.77 kB JavaScript (357.34 kB gzip), 14.60 kB
+  CSS (3.80 kB gzip), the 5.89 kB glTF fixture, and the known large-chunk
+  warning. These are implementation checks, not runtime acceptance. Docker is
+  not applicable because no Dockerfiles exist and D-015 remains active.
 
 - M7 v3.1 Story Sheet Run 001: the raw response parses as exactly one JSON
   object; key sets, request/hash/module identity, `OK` shape, beat order, target

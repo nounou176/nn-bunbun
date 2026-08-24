@@ -108,6 +108,52 @@ const migrations: readonly Migration[] = [
         ON session_commits (session_id, resulting_sequence);
     `,
   },
+  {
+    id: 2,
+    name: "m7_compilation_handoff",
+    sql: `
+      CREATE TABLE compilation_requests (
+        compilation_id TEXT PRIMARY KEY,
+        cache_key TEXT NOT NULL,
+        status TEXT NOT NULL CHECK (status IN (
+          'AWAITING_AUTHORING', 'REPAIR_REQUIRED', 'READY_FOR_REVIEW',
+          'PUBLISHED', 'FAILED'
+        )),
+        current_attempt INTEGER NOT NULL CHECK (current_attempt IN (1, 2)),
+        normalized_target_keys_json TEXT NOT NULL,
+        authoring_request_json TEXT NOT NULL,
+        diagnostics_json TEXT NOT NULL,
+        pending_package_json TEXT,
+        lesson_id TEXT,
+        revision INTEGER,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        published_at TEXT,
+        FOREIGN KEY (lesson_id, revision)
+          REFERENCES lesson_revisions (lesson_id, revision)
+      ) STRICT;
+
+      CREATE TABLE compilation_attempts (
+        compilation_id TEXT NOT NULL,
+        attempt INTEGER NOT NULL CHECK (attempt IN (1, 2)),
+        response_sha256 TEXT NOT NULL,
+        failure_stage TEXT,
+        diagnostics_json TEXT NOT NULL,
+        structured_result_json TEXT,
+        imported_at TEXT NOT NULL,
+        PRIMARY KEY (compilation_id, attempt),
+        FOREIGN KEY (compilation_id) REFERENCES compilation_requests (compilation_id)
+          ON DELETE CASCADE
+      ) STRICT;
+
+      CREATE INDEX compilation_requests_status_idx
+        ON compilation_requests (status, updated_at DESC);
+      CREATE INDEX compilation_requests_cache_idx
+        ON compilation_requests (cache_key, created_at DESC);
+      CREATE INDEX compilation_attempts_hash_idx
+        ON compilation_attempts (response_sha256);
+    `,
+  },
 ];
 
 export const DATABASE_SCHEMA_VERSION = migrations.length;

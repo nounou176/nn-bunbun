@@ -15,6 +15,7 @@ import {
 } from "@bunbun/contracts";
 
 import { createBunbunServer } from "../src/http.js";
+import { CompilationRepository } from "../src/compiler/repository.js";
 import { fingerprint } from "../src/persistence/canonical-json.js";
 import { openDatabase } from "../src/persistence/database.js";
 import { PersistenceError } from "../src/persistence/errors.js";
@@ -128,7 +129,7 @@ test("SQLite repository migrates, commits idempotently, resumes, and resets", as
     reopenedRepository.resetLocalData();
     assert.deepEqual(reopenedRepository.storageSummary(), {
       schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
-      databaseSchemaVersion: 1,
+      databaseSchemaVersion: 2,
       lessonRevisionCount: 0,
       sessionCount: 0,
       activeSessionCount: 0,
@@ -159,7 +160,10 @@ test("HTTP API validates requests and exposes local persistence lifecycle", asyn
     database,
     () => "2026-08-12T05:30:00.000Z",
   );
-  const server = createBunbunServer(repository);
+  const server = createBunbunServer(
+    repository,
+    new CompilationRepository(database, () => "2026-08-12T05:30:00.000Z"),
+  );
   await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
   const address = server.address() as AddressInfo;
   const origin = `http://127.0.0.1:${address.port}`;

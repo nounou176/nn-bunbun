@@ -3,17 +3,13 @@
 ## Status
 
 This document defines the approved architectural direction. Milestones 1
-through 6 are implemented and manually accepted: the workspace, contracts,
-technical runtime, complete eight-primitive executor, and local evidence/
-safe-resume boundary all exist locally. Compiler, cached audio, and production
-asset implementation remain planned until their roadmap milestones. D-025
-defines the production world-authoring and asset-intake boundary, and D-026
-defines the first N5 audio-complete product vertical slice. D-027 separates
-Milestone 7 into three provider strategies. D-031 selects a repository-owned,
-Skills-only personal ChatGPT/Codex plugin as M7 v3.2 and the next implementation
-direction. D-032 implements the local plugin package and untrusted transport
-contract proof; user-operated installation and proof remain pending, and no
-application compiler/provider or runtime AI is active.
+through 6 are implemented and manually accepted. Milestone 7's local compiler,
+reviewed file handoff, publication, and lesson-library implementation are
+complete under D-036; its new automated/manual verification was explicitly
+waived and is `UNVERIFIED_USER_WAIVED`. D-025 defines the production world-
+authoring boundary, and D-026 defines the first N5 audio-complete vertical
+slice. M7 v3.2 uses the repository-owned Skills-only plugin plus a deterministic
+application compiler. No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
 
@@ -95,7 +91,16 @@ Implemented foundation responsibilities:
 - restore controller, carry/transfer world projection, active-time offset, and
   durable completion without replaying evidence.
 
-Planned responsibilities beyond Milestone 6:
+Implemented Milestone 7 responsibilities:
+
+- present a pre-game authored demo, local compilation handoff, review, and
+  published lesson library;
+- load published server packages as untrusted input through the same shared
+  package and park-runtime capability validators as authored fixtures; and
+- enter the unchanged deterministic evidence, resume, and Three.js runtime only
+  after package validation succeeds.
+
+Planned responsibilities beyond Milestone 7:
 
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
@@ -126,18 +131,26 @@ Implemented local persistence responsibilities:
 - reject stale sequences, invalid authored references, raw TYPE text fields,
   incompatible schema versions, and changed immutable revisions.
 
-Planned compiler and media responsibilities:
+Implemented compiler responsibilities:
 
 - accept and normalize learner vocabulary and grammar targets;
 - produce one code-owned authoring envelope independent of provider strategy;
-- obtain typed contributions through the explicitly selected M7 strategy;
+- accept typed contributions through reviewed local JSON file import;
 - validate, reject, or repair structured drafts deterministically;
 - resolve scene, entity, object, and interaction references against catalogs;
 - enforce content, coverage, graph, and performance constraints;
 - produce immutable or revisioned LessonManifests;
+- persist the human handoff through SQLite migration 2 without a worker;
+- expose compilation, request, import, publication, lesson-list, and lesson-load
+  resources through the existing local node:http server; and
+- hash exact imported text while retaining only validated structured content or
+  stable failure metadata.
+
+Planned media responsibilities:
+
 - coordinate Japanese TTS generation and cache lookup;
-- store local/MVP lesson data, cache metadata, and progress in SQLite; and
-- expose narrow APIs to the web client.
+- store audio cache metadata in SQLite; and
+- replace the technical browser-speech adapter with approved audio assets.
 
 Model or browser strategy, prompt composition, transport, and retry policy
 belong behind the lesson compiler boundary. The game client should not depend
@@ -232,9 +245,9 @@ authoring transports:
   path in D-022 and `plans/2026-08-12-structured-lesson-compiler.md`.
 - M7 v2 is a research-only self-built/local LLM path with no selected model,
   runtime, hardware floor, training method, or license set.
-- M7 v3 is the active captured-GPT-behavior reuse path. Its selected plan is
-  `plans/2026-08-19-m7-v3-skills-plugin.md`; it uses neither `gpt-5.6-terra`
-  nor `OPENAI_API_KEY`.
+- M7 v3 is the completed captured-GPT-behavior reuse implementation. Its final
+  plan is `plans/2026-08-20-complete-m7-file-import-compiler.md`; it uses
+  neither `gpt-5.6-terra` nor `OPENAI_API_KEY`.
 
 D-029 preserves v3.1's truncated manual direct-GPT evidence. D-031 supersedes
 D-028's WXT stage: v3.2 is now a local personal ChatGPT/Codex plugin containing
@@ -293,19 +306,20 @@ route, one composed structured request uses the typed adaptations and versions
 approved by D-024.
 Deterministic code continues to own primitive order, difficulty progression,
 IDs, transitions, attempt/timing limits, and hard budgets. The three selected
-prompt modules are packaged in the v3.2 local proof but are not application-
-compiler or runtime-active. A missing or unapproved behavior must not be
-replaced by an undocumented generic prompt.
+prompt modules are packaged in the v3.2 local authoring plugin and their typed
+results are consumed by the application compiler. They remain absent from
+ordinary gameplay. A missing or unapproved behavior must not be replaced by an
+undocumented generic prompt.
 
 The D-024-approved adaptation pack at `docs/ai-modules/` makes this boundary
 typed: the compiler envelope owns every runtime and reference decision; Story
 Sheet, Reverse Trainer, and Story Coach own disjoint contribution fields in one
 LessonContentDraft. Exact approved prompt fragments, content hashes, and fifteen
-text-only evaluation fixtures are versioned together. D-032's proof
-implementation does not activate an application provider, compiler job,
-publication path, or runtime AI. D-031 preserves the one-request rule by
-composing the three modules inside one Skill; it does not authorize sequential
-direct use of the three hosted Custom GPTs.
+text-only evaluation fixtures are versioned together. D-036 implements the
+synchronous application compiler and local publication path without activating
+an application provider, background model job, or runtime AI. D-031 preserves
+the one-request rule by composing the three modules inside one Skill; it does
+not authorize sequential direct use of the three hosted Custom GPTs.
 
 The captured images and APKG are local style/output examples only. They are not
 linguistic references, lesson-content sources, or evaluation fixtures, and the
@@ -481,15 +495,15 @@ are inferred.
 ## API principles
 
 The local persistence endpoints are accepted and documented in
-EVIDENCE_PERSISTENCE.md. The compiler endpoint/job shape remains unaccepted.
-When compiler APIs are designed, they should:
+EVIDENCE_PERSISTENCE.md. D-034 selects a durable synchronous human-handoff
+state machine rather than a provider job/worker. The implemented M7 APIs:
 
-- expose resources and jobs rather than prompt internals;
+- expose compilation and lesson resources rather than prompt internals;
 - use versioned request and response contracts;
 - return structured validation errors;
 - make compilation retries idempotent;
 - avoid sending secret provider credentials to the client;
-- support cached results;
+- reuse compilation identities through a deterministic cache key;
 - distinguish compilation status from playable-manifest status; and
 - preserve enough provenance to diagnose a lesson without storing hidden
   reasoning.
@@ -511,10 +525,10 @@ When compiler APIs are designed, they should:
 
 Before implementation reaches the relevant boundary, decide:
 
-- HTTP framework and compilation job model;
 - the broader production browser/device support matrix beyond the accepted
   Milestone 3 desktop Chromium reference environment;
-- initial reference datasets and licenses;
+- production reference datasets and licenses beyond the project-authored M7
+  technical fixture;
 - text-model strategy when applicable, TTS model, voice policy, and cache
   invalidation inputs; and
 - observability and privacy rules for any remote learning analytics.

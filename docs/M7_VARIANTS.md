@@ -1,6 +1,6 @@
 # Milestone 7 Compiler Strategy Registry
 
-Last updated: 2026-08-20
+Last updated: 2026-08-24
 
 ## Purpose
 
@@ -9,14 +9,16 @@ vocabulary and grammar into a validated, revisioned LessonManifest. This file
 keeps the alternative compiler strategies distinct so research on one path
 does not silently approve, erase, or implement another.
 
-D-027 accepts the three-strategy registry and makes M7 v3 the active research
-direction. D-029 closes the v3.1 manual Story Sheet gate early after two of five
+D-027 accepts the three-strategy registry and selected M7 v3 for implementation.
+D-029 closes the v3.1 manual Story Sheet gate early after two of five
 fixtures as provisionally viable evidence; it does not claim complete
 qualification. D-031 supersedes D-028's WXT stage and selects a Skills-only
 personal ChatGPT/Codex plugin as M7 v3.2. D-034 approves its 0.2.0 contract and
 reviewed file-import compiler architecture. D-035 waives external
-requalification without counting it as passed and makes the deterministic
-compiler core active. MCP remains conditional v3.3 work.
+requalification without counting it as passed. D-036 closes the v3.2
+application implementation with testing/manual acceptance waived; transport
+and the complete local flow remain `UNVERIFIED_USER_WAIVED`. MCP remains
+conditional v3.3 work.
 
 ## Shared outcome and invariants
 
@@ -48,11 +50,11 @@ rules:
 
 ## Strategy status
 
-| Strategy | Provider path                                                                                                 | Current status                                                            | Credential position                                                                                       | Durable source                                                           |
-| -------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                               | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`               |
-| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                          | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required        |
-| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 contract 0.2.0 implemented; requalification active; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031 through D-034, and the active M7 completion ExecPlan |
+| Strategy | Provider path                                                                                                 | Current status                                                   | Credential position                                                                                       | Durable source                                                    |
+| -------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| M7 v1    | OpenAI Responses API with strict Structured Outputs                                                           | Preserved inactive proposal                                      | Proposed `OPENAI_API_KEY`; not approved                                                                   | D-022 and `plans/2026-08-12-structured-lesson-compiler.md`        |
+| M7 v2    | Self-built or locally adapted open-weight LLM running locally                                                 | Research backlog                                                 | No remote provider credential assumed                                                                     | This registry; a future research record and ExecPlan are required |
+| M7 v3    | Captured Custom GPT behavior through a repository-owned ChatGPT/Codex skill, with optional later MCP delivery | V3.2 application complete; verification waived; v3.3 conditional | No `OPENAI_API_KEY`; normal ChatGPT plan usage applies; any later token or tunnel needs separate approval | D-027, D-029, D-031 through D-036, and the completed M7 ExecPlan  |
 
 ## M7 v1 — OpenAI Responses API
 
@@ -227,20 +229,22 @@ The completed v3.2 proof stayed human-triggered and local-first:
 This proof requires no model API, environment variable, programmatic login,
 cookie access, tunnel, browser extension, MCP server, or external GPT edit.
 
-### Remaining implementation gates
+### Completion status and retained gates
 
 D-031 closes the transport and orchestration choice, D-032 implements the
 local proof, D-033 selects reviewed local JSON file import, and D-034 approves
 the complete technical M7 architecture. D-035 waives, but does not pass, the
-external reruns and bounded repair. Remaining gates are:
+external reruns and bounded repair. D-036 closes the implementation and waives
+new test/manual acceptance. The following evidence remains open:
 
-- deterministic compiler, reviewed file importer, persistence, publication,
-  and runtime integration implementation;
 - manual browser/gameplay acceptance of the complete local flow;
+- focused compiler/repository/API/web automated tests;
 - fallback behavior when the plugin surface or normal ChatGPT plan allowance
   is unavailable.
 
-The local plugin proof is implemented. No application compiler/provider,
-external account change, real learner-data transmission, lesson publication,
-or MCP infrastructure is implemented. Packet 0.2.0 transport remains
-`UNVERIFIED` until later evidence explicitly closes the waived gate.
+The local plugin, deterministic compiler, SQLite handoff, reviewed import,
+publication, shared validation, and pre-game library are implemented. There is
+still no application provider call, external GPT edit, automatic learner-data
+transmission, or MCP infrastructure. Packet 0.2.0 transport and the untested
+end-to-end flow remain `UNVERIFIED_USER_WAIVED` until later evidence explicitly
+closes those gates.

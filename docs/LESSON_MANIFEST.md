@@ -14,6 +14,10 @@ packages/contracts/schemas/catalog-snapshot-0.1.0.schema.json. Authored valid
 and invalid examples live under packages/contracts/fixtures. D-017 records the
 schema-first implementation decision.
 
+Milestone 7 leaves the 0.1.0 manifest shape unchanged. Its deterministic
+compiler now combines the closed Bunbun Core technical references, code-owned
+park profile, and one untrusted authoring 0.2.0 result into this contract.
+
 The manifest is playable data, not source code. It tells a fixed runtime which
 catalog content to load and which fixed interactions to execute.
 
@@ -24,7 +28,7 @@ The keywords MUST, MUST NOT, SHOULD, and MAY express requirement strength.
 - JSON is UTF-8 and uses camelCase field names.
 - The root value and every nested record MUST reject unknown properties.
 - Optional properties MUST be omitted rather than set to null.
-- IDs MUST match ^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$ and be at most 64 characters.
+- IDs MUST match ^[a-z][a-z0-9]_(?:\_[a-z0-9]+)_$ and be at most 64 characters.
 - Catalog IDs and local IDs occupy separate namespaces but follow the same
   format.
 - User-facing text fields are plain text. HTML, script, Markdown execution, and
@@ -46,15 +50,19 @@ schema artifact is generated from the TypeBox source and checked for drift.
 
 1. The backend normalizes learner input.
 2. The compiler selects valid catalog identifiers.
-3. The selected M7 strategy supplies a versioned untrusted contribution draft;
-   Structured Outputs is only the preserved M7 v1 transport.
-4. Deterministic schema validation runs.
-5. Semantic, reference, reachability, coverage, language, and budget validation
-   run.
-6. TTS references and provenance are resolved.
+3. M7 v3.2 exports a versioned request and accepts one exact bounded local JSON
+   file as an untrusted contribution; Structured Outputs remains only the
+   preserved M7 v1 proposal.
+4. Authoring structure, identity, ownership, and semantic validation run.
+5. Deterministic schema, reference, reachability, coverage, language, budget,
+   and shared park-runtime capability validation run.
+6. Technical audio references and provenance are resolved.
 7. The backend assigns manifestId, revision, timestamps, and randomSeed.
-8. The accepted playable manifest is persisted.
-9. The client validates the supported schema version again before loading.
+8. The package becomes reviewable but remains unpublished until explicit user
+   publication.
+9. Publication persists one immutable lesson revision.
+10. The client validates the package and shared runtime capabilities again
+    before loading.
 
 A schema-valid draft is not necessarily playable. Only a manifest that passes
 all deterministic validators may reach the runtime.
@@ -74,28 +82,28 @@ EVIDENCE_PERSISTENCE.md; it does not add fields to LessonManifest 0.1.0.
 
 ## Root LessonManifest
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| schemaVersion | string | yes | Exactly 0.1.0 for this contract |
-| manifestId | ID | yes | Stable identifier for this manifest lineage |
-| lessonId | ID | yes | Stable logical lesson identifier |
-| revision | integer | yes | Starts at 1 and increases for changed content |
-| createdAt | RFC 3339 string | yes | Assigned by backend |
-| randomSeed | integer | yes | 0 through 2147483647 |
-| locales | Locales | yes | Target locale MUST be ja |
-| title | LocalizedText | yes | Short lesson title |
-| learningTargets | LearningTarget[] | yes | 1–30 unique targets |
-| scene | SceneSelection | yes | One reusable micro-scene |
-| scenario | Scenario | yes | One fixed scenario template |
-| locations | LocationInstance[] | yes | May be empty if MOVE_TO is unused |
-| entities | EntityInstance[] | yes | 0–5 active NPCs or animals |
-| objects | ObjectInstance[] | yes | 0–30 interactive object instances |
-| audioAssets | AudioAsset[] | yes | May be empty only when no audio is used |
-| steps | LessonStep[] | yes | 1–60 unique steps |
-| entryStepId | ID | yes | References one step |
-| completion | CompletionPolicy | yes | Non-mastery lesson completion |
-| quality | QualityTargets | yes | Compiler-checked lesson budgets |
-| provenance | Provenance | yes | Diagnostic generation metadata |
+| Field           | Type               | Required | Constraints                                   |
+| --------------- | ------------------ | -------- | --------------------------------------------- |
+| schemaVersion   | string             | yes      | Exactly 0.1.0 for this contract               |
+| manifestId      | ID                 | yes      | Stable identifier for this manifest lineage   |
+| lessonId        | ID                 | yes      | Stable logical lesson identifier              |
+| revision        | integer            | yes      | Starts at 1 and increases for changed content |
+| createdAt       | RFC 3339 string    | yes      | Assigned by backend                           |
+| randomSeed      | integer            | yes      | 0 through 2147483647                          |
+| locales         | Locales            | yes      | Target locale MUST be ja                      |
+| title           | LocalizedText      | yes      | Short lesson title                            |
+| learningTargets | LearningTarget[]   | yes      | 1–30 unique targets                           |
+| scene           | SceneSelection     | yes      | One reusable micro-scene                      |
+| scenario        | Scenario           | yes      | One fixed scenario template                   |
+| locations       | LocationInstance[] | yes      | May be empty if MOVE_TO is unused             |
+| entities        | EntityInstance[]   | yes      | 0–5 active NPCs or animals                    |
+| objects         | ObjectInstance[]   | yes      | 0–30 interactive object instances             |
+| audioAssets     | AudioAsset[]       | yes      | May be empty only when no audio is used       |
+| steps           | LessonStep[]       | yes      | 1–60 unique steps                             |
+| entryStepId     | ID                 | yes      | References one step                           |
+| completion      | CompletionPolicy   | yes      | Non-mastery lesson completion                 |
+| quality         | QualityTargets     | yes      | Compiler-checked lesson budgets               |
+| provenance      | Provenance         | yes      | Diagnostic generation metadata                |
 
 Arrays MUST not contain duplicate IDs. The limits above protect the first MVP
 and may only change through an accepted decision.
@@ -104,17 +112,17 @@ and may only change through an accepted decision.
 
 Locales:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| target | string | yes | Exactly ja |
-| support | BCP 47 language tag | no | One support locale for contract 0.1.0 |
+| Field   | Type                | Required | Constraints                           |
+| ------- | ------------------- | -------- | ------------------------------------- |
+| target  | string              | yes      | Exactly ja                            |
+| support | BCP 47 language tag | no       | One support locale for contract 0.1.0 |
 
 LocalizedText:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| ja | string | yes | 1–120 characters |
-| support | string | no | 1–240 characters; requires locales.support |
+| Field   | Type   | Required | Constraints                                |
+| ------- | ------ | -------- | ------------------------------------------ |
+| ja      | string | yes      | 1–120 characters                           |
+| support | string | no       | 1–240 characters; requires locales.support |
 
 Support text is scaffolding. It MUST NOT be required to complete a normal
 interaction when Japanese and context are sufficient.
@@ -123,23 +131,23 @@ interaction when Japanese and context are sufficient.
 
 Every target contains:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| targetId | ID | yes | Unique within manifest |
-| kind | enum | yes | VOCABULARY, GRAMMAR, or KANJI |
-| role | enum | yes | REQUESTED or SUPPORTING |
-| priority | integer | yes | 1–5; 5 is highest |
-| content | discriminated object | yes | Must match kind |
-| referenceIds | ID[] | yes | Curated/reference records; may be empty for grammar |
-| goal | TargetGoal | yes | Coverage expectations for this lesson |
+| Field        | Type                 | Required | Constraints                                         |
+| ------------ | -------------------- | -------- | --------------------------------------------------- |
+| targetId     | ID                   | yes      | Unique within manifest                              |
+| kind         | enum                 | yes      | VOCABULARY, GRAMMAR, or KANJI                       |
+| role         | enum                 | yes      | REQUESTED or SUPPORTING                             |
+| priority     | integer              | yes      | 1–5; 5 is highest                                   |
+| content      | discriminated object | yes      | Must match kind                                     |
+| referenceIds | ID[]                 | yes      | Curated/reference records; may be empty for grammar |
+| goal         | TargetGoal           | yes      | Coverage expectations for this lesson               |
 
 TargetGoal:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| minimumEncounters | integer | yes | 1–10 |
-| minimumContexts | integer | yes | 1–5 and not above minimumEncounters |
-| desiredEvidence | enum[] | yes | Unique values from the evidence vocabulary |
+| Field             | Type    | Required | Constraints                                |
+| ----------------- | ------- | -------- | ------------------------------------------ |
+| minimumEncounters | integer | yes      | 1–10                                       |
+| minimumContexts   | integer | yes      | 1–5 and not above minimumEncounters        |
+| desiredEvidence   | enum[]  | yes      | Unique values from the evidence vocabulary |
 
 desiredEvidence is a compilation goal, not a promise that the learner will
 answer correctly. All requested targets MUST have at least one reachable
@@ -147,33 +155,33 @@ exposure path.
 
 ### VocabularyTargetContent
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| kind | string | yes | Exactly VOCABULARY |
-| writtenForms | string[] | yes | 1–5 accepted display forms |
-| readings | string[] | yes | 1–5 kana readings |
-| supportGlosses | string[] | no | 1–5 short glosses; support locale required |
-| partOfSpeech | enum | no | NOUN, VERB, I_ADJECTIVE, NA_ADJECTIVE, ADVERB, EXPRESSION, OTHER |
+| Field          | Type     | Required | Constraints                                                      |
+| -------------- | -------- | -------- | ---------------------------------------------------------------- |
+| kind           | string   | yes      | Exactly VOCABULARY                                               |
+| writtenForms   | string[] | yes      | 1–5 accepted display forms                                       |
+| readings       | string[] | yes      | 1–5 kana readings                                                |
+| supportGlosses | string[] | no       | 1–5 short glosses; support locale required                       |
+| partOfSpeech   | enum     | no       | NOUN, VERB, I_ADJECTIVE, NA_ADJECTIVE, ADVERB, EXPRESSION, OTHER |
 
 ### GrammarTargetContent
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| kind | string | yes | Exactly GRAMMAR |
-| pattern | string | yes | Canonical Japanese pattern, 1–120 characters |
-| labelJa | string | yes | Short Japanese label |
-| supportExplanation | string | no | At most 400 characters; support locale required |
+| Field              | Type   | Required | Constraints                                     |
+| ------------------ | ------ | -------- | ----------------------------------------------- |
+| kind               | string | yes      | Exactly GRAMMAR                                 |
+| pattern            | string | yes      | Canonical Japanese pattern, 1–120 characters    |
+| labelJa            | string | yes      | Short Japanese label                            |
+| supportExplanation | string | no       | At most 400 characters; support locale required |
 
 Examples belong in lesson stimuli, not in the target definition.
 
 ### KanjiTargetContent
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| kind | string | yes | Exactly KANJI |
-| character | string | yes | Exactly one Unicode Han character |
-| readings | string[] | yes | 1–12 curated readings |
-| supportGlosses | string[] | no | 1–8 short glosses; support locale required |
+| Field          | Type     | Required | Constraints                                |
+| -------------- | -------- | -------- | ------------------------------------------ |
+| kind           | string   | yes      | Exactly KANJI                              |
+| character      | string   | yes      | Exactly one Unicode Han character          |
+| readings       | string[] | yes      | 1–12 curated readings                      |
+| supportGlosses | string[] | no       | 1–8 short glosses; support locale required |
 
 KANJI targets MUST have at least one referenceIds entry. Components, radicals,
 and decompositions come from the referenced deterministic record and MUST NOT
@@ -183,13 +191,13 @@ be authored freely inside the manifest.
 
 SceneSelection:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| sceneId | ID | yes | Registered scene catalog ID |
-| variantId | ID | no | Registered variant compatible with sceneId |
-| playerSpawnPointId | ID | yes | Registered spawn point |
-| cameraPresetId | ID | yes | Registered isometric/diorama camera preset |
-| assetBundleIds | ID[] | yes | Unique registered bundles needed by lesson |
+| Field              | Type | Required | Constraints                                |
+| ------------------ | ---- | -------- | ------------------------------------------ |
+| sceneId            | ID   | yes      | Registered scene catalog ID                |
+| variantId          | ID   | no       | Registered variant compatible with sceneId |
+| playerSpawnPointId | ID   | yes      | Registered spawn point                     |
+| cameraPresetId     | ID   | yes      | Registered isometric/diorama camera preset |
+| assetBundleIds     | ID[] | yes      | Unique registered bundles needed by lesson |
 
 Under D-025, registered scene and bundle IDs may resolve to bounded GLB world
 chunks assembled with the approved authoring pipeline. Authoring-tool settings,
@@ -199,12 +207,12 @@ application metadata. This clarification does not change contract 0.1.0.
 
 Scenario:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| template | enum | yes | One initial scenario template |
-| objective | LocalizedText | yes | Concrete learner-facing objective |
-| focusTargetIds | ID[] | yes | 1 or more learning target IDs |
-| synopsis | string | no | Developer-facing plain text, at most 500 characters |
+| Field          | Type          | Required | Constraints                                         |
+| -------------- | ------------- | -------- | --------------------------------------------------- |
+| template       | enum          | yes      | One initial scenario template                       |
+| objective      | LocalizedText | yes      | Concrete learner-facing objective                   |
+| focusTargetIds | ID[]          | yes      | 1 or more learning target IDs                       |
+| synopsis       | string        | no       | Developer-facing plain text, at most 500 characters |
 
 Allowed template values:
 
@@ -227,32 +235,32 @@ scripts, or animations.
 
 LocationInstance:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| locationId | ID | yes | Lesson-local unique ID |
-| catalogLocationId | ID | yes | Registered location in selected scene |
-| initialStateId | ID | no | Registered state |
+| Field             | Type | Required | Constraints                           |
+| ----------------- | ---- | -------- | ------------------------------------- |
+| locationId        | ID   | yes      | Lesson-local unique ID                |
+| catalogLocationId | ID   | yes      | Registered location in selected scene |
+| initialStateId    | ID   | no       | Registered state                      |
 
 EntityInstance:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| entityId | ID | yes | Lesson-local unique ID |
-| catalogEntityId | ID | yes | Registered NPC or animal |
-| role | enum | yes | NPC or ANIMAL |
-| spawnPointId | ID | yes | Registered and reachable in selected scene |
-| displayNameJa | string | no | 1–40 characters |
-| initialStateId | ID | no | Registered state |
+| Field           | Type   | Required | Constraints                                |
+| --------------- | ------ | -------- | ------------------------------------------ |
+| entityId        | ID     | yes      | Lesson-local unique ID                     |
+| catalogEntityId | ID     | yes      | Registered NPC or animal                   |
+| role            | enum   | yes      | NPC or ANIMAL                              |
+| spawnPointId    | ID     | yes      | Registered and reachable in selected scene |
+| displayNameJa   | string | no       | 1–40 characters                            |
+| initialStateId  | ID     | no       | Registered state                           |
 
 ObjectInstance:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| objectId | ID | yes | Lesson-local unique ID |
-| catalogObjectId | ID | yes | Registered reusable object |
-| spawnPointId | ID | yes | Registered and reachable in selected scene |
-| initialStateId | ID | no | Registered state |
-| interactive | boolean | yes | True if referenced by an object primitive |
+| Field           | Type    | Required | Constraints                                |
+| --------------- | ------- | -------- | ------------------------------------------ |
+| objectId        | ID      | yes      | Lesson-local unique ID                     |
+| catalogObjectId | ID      | yes      | Registered reusable object                 |
+| spawnPointId    | ID      | yes      | Registered and reachable in selected scene |
+| initialStateId  | ID      | no       | Registered state                           |
+| interactive     | boolean | yes      | True if referenced by an object primitive  |
 
 The compiler MUST verify that spawn points do not create overlapping or
 unreachable required instances.
@@ -261,13 +269,13 @@ unreachable required instances.
 
 AudioAsset:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| audioAssetId | ID | yes | Unique within manifest |
-| textJa | string | yes | Exact spoken Japanese, 1–500 characters |
-| voiceProfileId | ID | yes | Approved server-side voice profile |
-| cacheKey | string | yes | Opaque deterministic cache key, 16–128 characters |
-| durationMs | integer | no | Positive measured duration when known |
+| Field          | Type    | Required | Constraints                                       |
+| -------------- | ------- | -------- | ------------------------------------------------- |
+| audioAssetId   | ID      | yes      | Unique within manifest                            |
+| textJa         | string  | yes      | Exact spoken Japanese, 1–500 characters           |
+| voiceProfileId | ID      | yes      | Approved server-side voice profile                |
+| cacheKey       | string  | yes      | Opaque deterministic cache key, 16–128 characters |
+| durationMs     | integer | no       | Positive measured duration when known             |
 
 The manifest contains no provider credential or arbitrary media URL. The client
 resolves audioAssetId through the application asset boundary.
@@ -288,28 +296,28 @@ does not change the 0.1.0 schema.
 
 LessonStep contains:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| stepId | ID | yes | Unique within manifest |
-| contextId | ID | yes | Stable pedagogical context identifier |
-| mode | enum | yes | EXPLORE or INTERACTION |
-| stimulus | Stimulus | yes | Japanese-first prompt or utterance |
-| interaction | Interaction union | yes | Exactly one fixed primitive |
-| targetBindings | TargetBinding[] | yes | At least one exposed or assessed target |
-| attemptPolicy | AttemptPolicy | yes | Bounded retry behavior |
-| scaffolds | Scaffold[] | yes | Ordered; may be empty |
-| feedback | Feedback | yes | Immediate authored response |
-| presentation | PresentationCues | yes | Catalog cue references only |
-| transitions | Transitions | yes | Explicit graph edges |
+| Field          | Type              | Required | Constraints                             |
+| -------------- | ----------------- | -------- | --------------------------------------- |
+| stepId         | ID                | yes      | Unique within manifest                  |
+| contextId      | ID                | yes      | Stable pedagogical context identifier   |
+| mode           | enum              | yes      | EXPLORE or INTERACTION                  |
+| stimulus       | Stimulus          | yes      | Japanese-first prompt or utterance      |
+| interaction    | Interaction union | yes      | Exactly one fixed primitive             |
+| targetBindings | TargetBinding[]   | yes      | At least one exposed or assessed target |
+| attemptPolicy  | AttemptPolicy     | yes      | Bounded retry behavior                  |
+| scaffolds      | Scaffold[]        | yes      | Ordered; may be empty                   |
+| feedback       | Feedback          | yes      | Immediate authored response             |
+| presentation   | PresentationCues  | yes      | Catalog cue references only             |
+| transitions    | Transitions       | yes      | Explicit graph edges                    |
 
 ### Stimulus
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| instructionJa | string | no | 1–300 characters |
-| utterance | Utterance | no | Spoken or displayed Japanese |
-| supportText | string | no | 1–400 characters; support locale required |
-| supportVisibility | enum | conditional | Required with supportText; ALWAYS or ON_HELP |
+| Field             | Type      | Required    | Constraints                                  |
+| ----------------- | --------- | ----------- | -------------------------------------------- |
+| instructionJa     | string    | no          | 1–300 characters                             |
+| utterance         | Utterance | no          | Spoken or displayed Japanese                 |
+| supportText       | string    | no          | 1–400 characters; support locale required    |
+| supportVisibility | enum      | conditional | Required with supportText; ALWAYS or ON_HELP |
 
 At least instructionJa or utterance is required. ON_HELP support text remains
 hidden until the learner requests help. ALWAYS should be used only when the
@@ -317,23 +325,23 @@ authored starting difficulty intentionally includes translation.
 
 Utterance:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| speakerEntityId | ID | no | Existing entity; omit for narration |
-| textJa | string | yes | 1–500 characters |
-| audioAssetId | ID | no | Existing asset whose textJa exactly matches |
-| textVisibility | enum | yes | ALWAYS, ON_REPLAY, ON_HELP, or NEVER |
-| replayAllowed | boolean | yes | Whether learner may replay |
+| Field           | Type    | Required | Constraints                                 |
+| --------------- | ------- | -------- | ------------------------------------------- |
+| speakerEntityId | ID      | no       | Existing entity; omit for narration         |
+| textJa          | string  | yes      | 1–500 characters                            |
+| audioAssetId    | ID      | no       | Existing asset whose textJa exactly matches |
+| textVisibility  | enum    | yes      | ALWAYS, ON_REPLAY, ON_HELP, or NEVER        |
+| replayAllowed   | boolean | yes      | Whether learner may replay                  |
 
 ### Target bindings
 
 TargetBinding:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| targetId | ID | yes | Existing learning target |
-| relation | enum | yes | EXPOSES or ASSESSES |
-| successEvidence | enum | no | Required for ASSESSES; forbidden for EXPOSES |
+| Field           | Type | Required | Constraints                                  |
+| --------------- | ---- | -------- | -------------------------------------------- |
+| targetId        | ID   | yes      | Existing learning target                     |
+| relation        | enum | yes      | EXPOSES or ASSESSES                          |
+| successEvidence | enum | no       | Required for ASSESSES; forbidden for EXPOSES |
 
 Evidence vocabulary:
 
@@ -347,16 +355,16 @@ Evidence vocabulary:
 
 The semantic validator MUST enforce this maximum evidence matrix:
 
-| Primitive | Maximum permitted success evidence |
-| --- | --- |
-| LISTEN | heard |
-| CLICK_OBJECT | selected_correctly |
-| CHOOSE | selected_correctly |
-| ARRANGE | arranged_correctly |
-| TYPE | actively_produced |
-| MOVE_TO | selected_correctly |
-| PICK_UP | selected_correctly |
-| GIVE | selected_correctly |
+| Primitive    | Maximum permitted success evidence |
+| ------------ | ---------------------------------- |
+| LISTEN       | heard                              |
+| CLICK_OBJECT | selected_correctly                 |
+| CHOOSE       | selected_correctly                 |
+| ARRANGE      | arranged_correctly                 |
+| TYPE         | actively_produced                  |
+| MOVE_TO      | selected_correctly                 |
+| PICK_UP      | selected_correctly                 |
+| GIVE         | selected_correctly                 |
 
 recognized may be used instead of selected_correctly for a valid recognition
 task. typed_correctly may be used instead of actively_produced when visible
@@ -369,11 +377,11 @@ metadata, but the mastery aggregator MUST distinguish it from unaided success.
 
 ### Attempt policy
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| maximumAttempts | integer | yes | 1–5 |
-| afterMaximum | enum | yes | CONTINUE_ASSISTED or FOLLOW_FAILURE_TRANSITION |
-| preserveSubmittedState | boolean | yes | Relevant to ARRANGE and TYPE |
+| Field                  | Type    | Required | Constraints                                    |
+| ---------------------- | ------- | -------- | ---------------------------------------------- |
+| maximumAttempts        | integer | yes      | 1–5                                            |
+| afterMaximum           | enum    | yes      | CONTINUE_ASSISTED or FOLLOW_FAILURE_TRANSITION |
+| preserveSubmittedState | boolean | yes      | Relevant to ARRANGE and TYPE                   |
 
 No step may retry indefinitely. CONTINUE_ASSISTED requires either a
 RECOGNITION_FALLBACK scaffold or a deterministic accepted action exposed at
@@ -386,18 +394,18 @@ integer from 1 through maximumAttempts and scaffolds are ordered ascending.
 
 Closed variants:
 
-| kind | Additional required fields |
-| --- | --- |
-| REPLAY_AUDIO | none; stimulus must reference audio and set replayAllowed true |
-| SHOW_JAPANESE_TEXT | none; utterance must exist |
-| HIGHLIGHT_OBJECTS | objectIds: non-empty existing object IDs |
-| HIGHLIGHT_ENTITIES | entityIds: non-empty existing entity IDs |
-| REDUCE_OBJECT_CANDIDATES | objectIds: non-empty subset of primitive candidates |
-| REDUCE_CHOICE_CANDIDATES | optionIds: non-empty subset of CHOOSE options |
-| SHOW_READING | textJa: 1–120 characters |
-| SHOW_MEANING | supportText: 1–240 characters; support locale required |
-| SHOW_PATTERN | textJa: 1–240 characters |
-| RECOGNITION_FALLBACK | fallbackStepId: existing easier step |
+| kind                     | Additional required fields                                     |
+| ------------------------ | -------------------------------------------------------------- |
+| REPLAY_AUDIO             | none; stimulus must reference audio and set replayAllowed true |
+| SHOW_JAPANESE_TEXT       | none; utterance must exist                                     |
+| HIGHLIGHT_OBJECTS        | objectIds: non-empty existing object IDs                       |
+| HIGHLIGHT_ENTITIES       | entityIds: non-empty existing entity IDs                       |
+| REDUCE_OBJECT_CANDIDATES | objectIds: non-empty subset of primitive candidates            |
+| REDUCE_CHOICE_CANDIDATES | optionIds: non-empty subset of CHOOSE options                  |
+| SHOW_READING             | textJa: 1–120 characters                                       |
+| SHOW_MEANING             | supportText: 1–240 characters; support locale required         |
+| SHOW_PATTERN             | textJa: 1–240 characters                                       |
+| RECOGNITION_FALLBACK     | fallbackStepId: existing easier step                           |
 
 A scaffold MUST NOT contain the correct answer in a field whose kind does not
 explicitly reveal it. The fallback step must eventually rejoin a terminal or
@@ -407,20 +415,20 @@ forward path and cannot create an unbounded cycle.
 
 Feedback contains correct, incorrect, and assisted messages:
 
-| Field | Type | Required |
-| --- | --- | --- |
-| correct | FeedbackMessage | yes |
-| incorrect | FeedbackMessage | yes |
-| assisted | FeedbackMessage | yes |
+| Field     | Type            | Required |
+| --------- | --------------- | -------- |
+| correct   | FeedbackMessage | yes      |
+| incorrect | FeedbackMessage | yes      |
+| assisted  | FeedbackMessage | yes      |
 
 FeedbackMessage:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| textJa | string | no | 1–240 characters |
-| supportText | string | no | 1–240 characters; support locale required |
-| displayMs | integer | yes | 0–4000 |
-| cueIds | ID[] | yes | Registered presentation cues; may be empty |
+| Field       | Type    | Required | Constraints                                |
+| ----------- | ------- | -------- | ------------------------------------------ |
+| textJa      | string  | no       | 1–240 characters                           |
+| supportText | string  | no       | 1–240 characters; support locale required  |
+| displayMs   | integer | yes      | 0–4000                                     |
+| cueIds      | ID[]    | yes      | Registered presentation cues; may be empty |
 
 At least textJa or one cueId is required. Feedback should remain short and
 should not turn a correct reaction into a lecture.
@@ -441,11 +449,11 @@ The scene catalog defines their deterministic effect.
 
 Transitions:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| onSuccess | TransitionTarget | yes | Forward step or COMPLETE |
-| onFailure | TransitionTarget | yes | Used after bounded failure |
-| onAssisted | TransitionTarget | yes | Used after assisted completion |
+| Field      | Type             | Required | Constraints                    |
+| ---------- | ---------------- | -------- | ------------------------------ |
+| onSuccess  | TransitionTarget | yes      | Forward step or COMPLETE       |
+| onFailure  | TransitionTarget | yes      | Used after bounded failure     |
+| onAssisted | TransitionTarget | yes      | Used after assisted completion |
 
 TransitionTarget is exactly one of:
 
@@ -463,30 +471,30 @@ Each LessonStep.interaction is exactly one of the following strict variants.
 
 ### LISTEN
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | LISTEN |
-| completion | enum | yes | AUDIO_ENDED or LEARNER_CONTINUES |
-| minimumPlaybackRatio | number | yes | 0.0–1.0 |
+| Field                | Type   | Required | Constraints                      |
+| -------------------- | ------ | -------- | -------------------------------- |
+| type                 | string | yes      | LISTEN                           |
+| completion           | enum   | yes      | AUDIO_ENDED or LEARNER_CONTINUES |
+| minimumPlaybackRatio | number | yes      | 0.0–1.0                          |
 
 The stimulus MUST contain an utterance with audioAssetId.
 
 ### CLICK_OBJECT
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | CLICK_OBJECT |
-| candidateObjectIds | ID[] | yes | 2–12 unique interactive objects |
-| acceptedObjectIds | ID[] | yes | Non-empty subset of candidates |
+| Field              | Type   | Required | Constraints                     |
+| ------------------ | ------ | -------- | ------------------------------- |
+| type               | string | yes      | CLICK_OBJECT                    |
+| candidateObjectIds | ID[]   | yes      | 2–12 unique interactive objects |
+| acceptedObjectIds  | ID[]   | yes      | Non-empty subset of candidates  |
 
 ### CHOOSE
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | CHOOSE |
-| options | ChoiceOption[] | yes | 2–8 unique options |
-| acceptedOptionIds | ID[] | yes | Non-empty subset of option IDs |
-| shuffle | boolean | yes | Uses manifest randomSeed |
+| Field             | Type           | Required | Constraints                    |
+| ----------------- | -------------- | -------- | ------------------------------ |
+| type              | string         | yes      | CHOOSE                         |
+| options           | ChoiceOption[] | yes      | 2–8 unique options             |
+| acceptedOptionIds | ID[]           | yes      | Non-empty subset of option IDs |
+| shuffle           | boolean        | yes      | Uses manifest randomSeed       |
 
 ChoiceOption contains required optionId and textJa fields. Translation or other
 support belongs in the step-level scaffold rather than revealing an answer
@@ -494,12 +502,12 @@ through individual options.
 
 ### ARRANGE
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | ARRANGE |
-| tokens | ArrangeToken[] | yes | 2–12 unique token IDs |
-| acceptedSequences | ID[][] | yes | 1–8 full token sequences |
-| shuffle | boolean | yes | Uses manifest randomSeed |
+| Field             | Type           | Required | Constraints              |
+| ----------------- | -------------- | -------- | ------------------------ |
+| type              | string         | yes      | ARRANGE                  |
+| tokens            | ArrangeToken[] | yes      | 2–12 unique token IDs    |
+| acceptedSequences | ID[][]         | yes      | 1–8 full token sequences |
+| shuffle           | boolean        | yes      | Uses manifest randomSeed |
 
 ArrangeToken contains tokenId and textJa. A sequence contains every token ID
 exactly once unless a future schema version explicitly supports unused tokens.
@@ -507,13 +515,13 @@ Duplicate surface forms use distinct token IDs.
 
 ### TYPE
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | TYPE |
-| acceptedAnswers | string[] | yes | 1–20 non-empty Japanese answers |
-| normalization | enum[] | yes | Unique ordered rules |
-| inputMode | enum | yes | JAPANESE_TEXT |
-| maximumLength | integer | yes | 1–200 |
+| Field           | Type     | Required | Constraints                     |
+| --------------- | -------- | -------- | ------------------------------- |
+| type            | string   | yes      | TYPE                            |
+| acceptedAnswers | string[] | yes      | 1–20 non-empty Japanese answers |
+| normalization   | enum[]   | yes      | Unique ordered rules            |
+| inputMode       | enum     | yes      | JAPANESE_TEXT                   |
+| maximumLength   | integer  | yes      | 1–200                           |
 
 Allowed normalization rules:
 
@@ -528,31 +536,31 @@ No fuzzy semantic matching is part of version 0.1.0.
 
 ### MOVE_TO
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | MOVE_TO |
-| candidateLocationIds | ID[] | yes | 1–12 unique existing locations |
-| acceptedLocationIds | ID[] | yes | Non-empty subset of candidates |
-| arrivalRadius | number | yes | 0.1–5 world units |
+| Field                | Type   | Required | Constraints                    |
+| -------------------- | ------ | -------- | ------------------------------ |
+| type                 | string | yes      | MOVE_TO                        |
+| candidateLocationIds | ID[]   | yes      | 1–12 unique existing locations |
+| acceptedLocationIds  | ID[]   | yes      | Non-empty subset of candidates |
+| arrivalRadius        | number | yes      | 0.1–5 world units              |
 
 ### PICK_UP
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | PICK_UP |
-| candidateObjectIds | ID[] | yes | 1–12 unique interactive objects |
-| acceptedObjectIds | ID[] | yes | Non-empty subset of candidates |
+| Field              | Type   | Required | Constraints                     |
+| ------------------ | ------ | -------- | ------------------------------- |
+| type               | string | yes      | PICK_UP                         |
+| candidateObjectIds | ID[]   | yes      | 1–12 unique interactive objects |
+| acceptedObjectIds  | ID[]   | yes      | Non-empty subset of candidates  |
 
 Accepted objects must have a catalog-authored pick-up affordance.
 
 ### GIVE
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| type | string | yes | GIVE |
-| candidateObjectIds | ID[] | yes | 1–8 objects with give affordance |
-| candidateRecipientEntityIds | ID[] | yes | 1–5 entities |
-| acceptedPairs | GivePair[] | yes | 1–12 unique accepted pairs |
+| Field                       | Type       | Required | Constraints                      |
+| --------------------------- | ---------- | -------- | -------------------------------- |
+| type                        | string     | yes      | GIVE                             |
+| candidateObjectIds          | ID[]       | yes      | 1–8 objects with give affordance |
+| candidateRecipientEntityIds | ID[]       | yes      | 1–5 entities                     |
+| acceptedPairs               | GivePair[] | yes      | 1–12 unique accepted pairs       |
 
 GivePair contains objectId and recipientEntityId. Both must occur in the
 candidate arrays. A failed GIVE must leave or restore the object to a
@@ -562,10 +570,10 @@ recoverable carry state.
 
 CompletionPolicy:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| requiredStepIds | ID[] | yes | Unique, reachable steps |
-| closingMessage | LocalizedText | no | Short completion message |
+| Field           | Type          | Required | Constraints              |
+| --------------- | ------------- | -------- | ------------------------ |
+| requiredStepIds | ID[]          | yes      | Unique, reachable steps  |
+| closingMessage  | LocalizedText | no       | Short completion message |
 
 The lesson completes when:
 
@@ -582,15 +590,15 @@ assisted evidence.
 
 QualityTargets:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| intendedReactionCount | integer | yes | 1–60 |
-| preferredReactionIntervalMinSeconds | integer | yes | Exactly 5 initially |
-| preferredReactionIntervalMaxSeconds | integer | yes | Exactly 12 initially |
-| estimatedActiveMinutes | number | yes | Positive, at most 30 for MVP |
-| maximumNpcCount | integer | yes | 0–5 |
-| maximumInteractiveObjectCount | integer | yes | 0–30 |
-| preferredMaximumDrawCalls | integer | yes | At most 100 initially |
+| Field                               | Type    | Required | Constraints                  |
+| ----------------------------------- | ------- | -------- | ---------------------------- |
+| intendedReactionCount               | integer | yes      | 1–60                         |
+| preferredReactionIntervalMinSeconds | integer | yes      | Exactly 5 initially          |
+| preferredReactionIntervalMaxSeconds | integer | yes      | Exactly 12 initially         |
+| estimatedActiveMinutes              | number  | yes      | Positive, at most 30 for MVP |
+| maximumNpcCount                     | integer | yes      | 0–5                          |
+| maximumInteractiveObjectCount       | integer | yes      | 0–30                         |
+| preferredMaximumDrawCalls           | integer | yes      | At most 100 initially        |
 
 The compiler derives these fields from the selected scene and steps; AI does
 not receive authority to relax global budgets. Exceeding a preferred target
@@ -601,20 +609,22 @@ contract maximum is invalid.
 
 Provenance:
 
-| Field | Type | Required | Constraints |
-| --- | --- | --- | --- |
-| compilerVersion | string | yes | Semantic version |
-| contractVersion | string | yes | Must equal schemaVersion |
-| source | enum | yes | AI_ASSISTED or AUTHORED |
-| inputHash | string | yes | Opaque deterministic hash |
-| promptModuleVersions | VersionReference[] | yes | May be empty for AUTHORED |
-| referenceDataVersions | VersionReference[] | yes | Every used reference provider |
+| Field                 | Type               | Required | Constraints                   |
+| --------------------- | ------------------ | -------- | ----------------------------- |
+| compilerVersion       | string             | yes      | Semantic version              |
+| contractVersion       | string             | yes      | Must equal schemaVersion      |
+| source                | enum               | yes      | AI_ASSISTED or AUTHORED       |
+| inputHash             | string             | yes      | Opaque deterministic hash     |
+| promptModuleVersions  | VersionReference[] | yes      | May be empty for AUTHORED     |
+| referenceDataVersions | VersionReference[] | yes      | Every used reference provider |
 
 VersionReference contains id and version, both non-empty strings of at most 80
 characters.
 
 Provenance records reproducibility metadata, not prompts, chain-of-thought, or
-secret configuration.
+secret configuration. M7 compiled packages use `AI_ASSISTED`, compiler version
+`0.1.0`, all three approved prompt-module identities at `0.1.0`, and the
+project-authored `bunbun_core@0.1.0` reference identity.
 
 ## Semantic validation
 
@@ -690,7 +700,7 @@ Runtime validation is defense in depth. It does not replace backend validation.
 This example is intentionally small. Catalog identifiers are illustrative and
 do not establish real assets.
 
-~~~json
+```json
 {
   "schemaVersion": "0.1.0",
   "manifestId": "manifest_find_dog",
@@ -896,7 +906,7 @@ do not establish real assets.
     ]
   }
 }
-~~~
+```
 
 The example deliberately shows support text as available data. A real lesson
 may begin with it hidden according to the scaffold policy and learner settings.

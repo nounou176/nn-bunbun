@@ -257,10 +257,11 @@ durations are read-only context and never become model-owned mechanics.
 
 Attempt 1 requires `repair: null`. Attempt 2 requires exactly one bounded
 repair context with the same request identity, input hash, prompt pack, and
-deterministic input. A JSON parse failure carries no structured prior result;
-structural and semantic failures carry the strictly parsed prior object plus
-bounded stable local diagnostics. No raw malformed response or third attempt
-is sent.
+deterministic input. JSON parse and structural failures carry no prior result
+because their content has not passed the trusted structure boundary. A
+semantic failure carries the structurally valid prior result. Every repair
+carries bounded stable local diagnostics; no raw rejected response or third
+attempt is sent.
 
 The data policy is a closed union: repository-authored fixture data or
 explicitly exported normalized learner targets. Both exclude learner identity,

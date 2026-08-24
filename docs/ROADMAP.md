@@ -311,18 +311,17 @@ Exit criteria:
 
 ## Milestone 7 — Provider-independent lesson compiler
 
-Status: In progress — D-033 classifies the M7 v3.2 Skills-only route as
-conditionally viable and selects reviewed local JSON file import. D-034
-approves the completion ExecPlan. Contract/plugin 0.2.0 is complete and
-installed. D-035 records the user's explicit waiver of external
-requalification; deterministic compiler work may proceed, while transport
-0.2.0 remains unverified and the skipped cases are not counted as passes.
+Status: Complete — implementation. D-036 closes the compiler, reviewed file
+handoff, publication, and lesson-library implementation while explicitly
+waiving new automated and manual verification. The end-to-end flow is
+`UNVERIFIED_USER_WAIVED`; transport 0.2.0 remains `UNVERIFIED`, and no skipped
+case is counted as a pass.
 
 Purpose:
 
 Compile learner targets into the already proven deterministic runtime.
 
-Decisions still required before application integration:
+Remaining decisions beyond the closed technical M7 profile:
 
 - a model/provider choice only if a later strategy requires one; and
 - production reference datasets and licenses beyond the D-034 technical
@@ -362,6 +361,8 @@ Decision resolved:
 - D-035 supersedes only that sequencing gate: requalification is
   `WAIVED_BY_USER`, deterministic compiler work proceeds with repository-owned
   fixtures, and the external 0.2.0 transport remains `UNVERIFIED`.
+- D-036 closes implementation with tests and manual acceptance waived, keeps
+  the verification risk explicit, and advances the roadmap to Milestone 8.
 
 Strategy note:
 
@@ -374,7 +375,7 @@ Strategy note:
 - M7 v2 preserves the self-built/local LLM research direction. No model,
   hardware floor, inference runtime, training method, or license set is
   selected.
-- M7 v3 is the active path. Its approved active ExecPlan is
+- M7 v3 is the completed implementation path. Its completed ExecPlan is
   `plans/2026-08-20-complete-m7-file-import-compiler.md`. It uses no
   `gpt-5.6-terra` or
   `OPENAI_API_KEY`. V3.1 remains historical provisional evidence. V3.2 packages
@@ -382,10 +383,10 @@ Strategy note:
   after a separate endpoint, network, authentication, privacy, confirmation,
   and cost decision.
 
-The repository-owned plugin proof is implemented without a new dependency,
-environment variable, app connection, browser automation, extension, GPT edit,
-tunnel, or learner-data transmission. No application compiler/provider,
-LessonManifest publication, or runtime AI is approved by this status change.
+The repository-owned plugin and application compiler are implemented without a
+new dependency, environment variable, app connection, browser automation,
+extension, GPT edit, tunnel, automatic learner-data transmission, provider
+call, or runtime AI.
 The user installed `bunbun-authoring@0.1.0` on 2026-08-20 and the fixed
 product-surface result passed the local exchange inspector. The user confirmed
 that the only file action was deliberately attaching the required input; the
@@ -422,12 +423,12 @@ The approved `docs/ai-modules/` pack provides the shared typed
 contribution contract, exact 0.1.0 prompt fragments and hashes, disjoint module
 ownership, deterministic failure/privacy rules, fixed composition order, and
 fifteen text-only evaluation fixtures. Milestone 7 phase 0 is complete. D-032
-packages the three modules in the selected local proof but does not activate an
-application compiler/provider or lesson publication. D-031
-composes the three modules in one Skill and does not authorize sequential
-direct use of the hosted GPTs.
+packages the three modules in the selected local proof. D-036 adds the
+deterministic application compiler and explicit local lesson publication, but
+no application provider or runtime AI. D-031 composes the three modules in one
+Skill and does not authorize sequential direct use of the hosted GPTs.
 
-Planned scope:
+Implemented scope:
 
 - vocabulary and grammar request normalization;
 - deterministic reference lookup;
@@ -439,6 +440,16 @@ Planned scope:
 - revisioned manifest persistence;
 - useful compiler errors; and
 - source capture and composed use of only approved, versioned prompt modules.
+
+Implementation note:
+
+The closed Bunbun Core technical profile accepts only `犬`, `猫`, and
+`〜てください`. SQLite migration 2 persists the synchronous human handoff;
+server APIs expose request/import/review/publication/library resources; and the
+web revalidates published packages through the shared park capability gate.
+Typecheck, lint, plugin validation, formatting, and production build pass. Per
+D-036, no new tests or manual browser/gameplay acceptance were run, so the exit
+criteria below describe implemented behavior rather than verified evidence.
 
 Exit criteria:
 
@@ -452,7 +463,7 @@ Exit criteria:
 
 ## Milestone 8 — Japanese voice and complete audio runtime
 
-Status: Planned
+Status: Next
 
 Purpose:
 

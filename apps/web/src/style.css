@@ -14,6 +14,168 @@
   text-rendering: optimizeLegibility;
 }
 
+.authoring-home {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+  color: var(--ink, #17332b);
+}
+
+.authoring-hero,
+.library-heading,
+.handoff-actions,
+.lesson-library-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.authoring-hero h1,
+.authoring-card h2,
+.authoring-card h3 {
+  margin: 0;
+}
+
+.transport-warning {
+  padding: 8px 12px;
+  border: 1px solid #b87b27;
+  border-radius: 999px;
+  background: #fff4d8;
+  color: #71430b;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.authoring-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+  gap: 20px;
+  margin: 24px 0 20px;
+}
+
+.authoring-card {
+  padding: 22px;
+  border: 1px solid rgb(23 51 43 / 14%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 18px 46px rgb(33 67 55 / 10%);
+}
+
+.authoring-card form {
+  display: grid;
+  gap: 12px;
+}
+
+.authoring-card label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.authoring-card input[type="text"],
+.authoring-card input:not([type]) {
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid rgb(23 51 43 / 24%);
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.authoring-status {
+  display: block;
+  min-height: 1.4em;
+  margin-top: 12px;
+  color: #315f50;
+}
+
+.authoring-status[data-state="error"] {
+  color: #a32f2f;
+}
+
+.handoff-card,
+.library-card {
+  margin-top: 20px;
+}
+
+.data-disclosure {
+  padding: 12px 14px;
+  border-left: 4px solid #c68b31;
+  border-radius: 8px;
+  background: #fff8e7;
+  font-size: 0.88rem;
+}
+
+.handoff-actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.file-picker {
+  display: inline-flex !important;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid rgb(23 51 43 / 24%);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.file-picker input {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.diagnostic-list {
+  padding: 12px 12px 12px 32px;
+  border-radius: 12px;
+  background: #fff0f0;
+  color: #7a2424;
+  overflow-wrap: anywhere;
+}
+
+.review-summary {
+  margin: 16px 0;
+  padding: 16px;
+  border-radius: 16px;
+  background: #edf8f2;
+}
+
+.lesson-library {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.lesson-library-item {
+  padding: 14px 16px;
+  border: 1px solid rgb(23 51 43 / 12%);
+  border-radius: 14px;
+  background: #f9fcfa;
+}
+
+.lesson-library-item p {
+  margin: 4px 0 0;
+}
+
+@media (max-width: 760px) {
+  .authoring-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .authoring-hero,
+  .library-heading,
+  .lesson-library-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,7 +191,7 @@ body,
 }
 
 body {
-  overflow: hidden;
+  overflow: auto;
 }
 
 button {
@@ -50,6 +212,10 @@ button:focus-visible,
   width: 100%;
   height: 100%;
   min-height: 100dvh;
+}
+
+.game-shell {
+  overflow: hidden;
 }
 
 .world-stage {

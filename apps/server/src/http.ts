@@ -15,19 +15,26 @@ import {
   validateUpdatePreferencesRequestStructure,
 } from "@bunbun/contracts";
 
+import { CompilerError } from "./compiler/core.js";
+import type { CompilationRepository } from "./compiler/repository.js";
 import { PersistenceError } from "./persistence/errors.js";
 import type { EvidenceRepository } from "./persistence/repository.js";
 
 const LOCAL_ORIGIN = "http://127.0.0.1";
-const MAX_JSON_BODY_BYTES = 256 * 1024;
+const MAX_JSON_BODY_BYTES = 512 * 1024;
 const FINGERPRINT_PATTERN = /^sha256_[0-9a-f]{64}$/;
 const ID_PATTERN = /^[A-Za-z0-9_-]+$/;
 
-export function createBunbunServer(repository: EvidenceRepository) {
+export function createBunbunServer(
+  repository: EvidenceRepository,
+  compilations: CompilationRepository,
+) {
   return createServer((request, response) => {
-    void routeRequest(request, response, repository).catch((error: unknown) => {
-      sendError(response, error);
-    });
+    void routeRequest(request, response, repository, compilations).catch(
+      (error: unknown) => {
+        sendError(response, error);
+      },
+    );
   });
 }
 
@@ -35,6 +42,7 @@ async function routeRequest(
   request: IncomingMessage,
   response: ServerResponse,
   repository: EvidenceRepository,
+  compilations: CompilationRepository,
 ): Promise<void> {
   const url = new URL(request.url ?? "/", LOCAL_ORIGIN);
 
@@ -44,6 +52,111 @@ async function routeRequest(
       service: "bunbun-server",
       contractVersion: LESSON_MANIFEST_SCHEMA_VERSION,
     });
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/v1/compilations") {
+    const input = exactRecord(await readJson(request), ["targets"]);
+    if (
+      !Array.isArray(input.targets) ||
+      !input.targets.every((target) => typeof target === "string")
+    ) {
+      throw new HttpError(
+        400,
+        "INVALID_COMPILATION_TARGETS",
+        "targets must be an array of Japanese strings.",
+      );
+    }
+    sendJson(response, 201, compilations.create(input.targets));
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/v1/compilations") {
+    sendJson(response, 200, { compilations: compilations.list() });
+    return;
+  }
+
+  const compilationMatch = /^\/api\/v1\/compilations\/([^/]+)$/.exec(
+    url.pathname,
+  );
+  if (request.method === "GET" && compilationMatch !== null) {
+    sendJson(response, 200, compilations.read(pathId(compilationMatch[1])));
+    return;
+  }
+
+  const authoringRequestMatch =
+    /^\/api\/v1\/compilations\/([^/]+)\/request$/.exec(url.pathname);
+  if (request.method === "GET" && authoringRequestMatch !== null) {
+    sendJson(
+      response,
+      200,
+      compilations.request(pathId(authoringRequestMatch[1])),
+    );
+    return;
+  }
+
+  const importMatch = /^\/api\/v1\/compilations\/([^/]+)\/imports$/.exec(
+    url.pathname,
+  );
+  if (request.method === "POST" && importMatch !== null) {
+    const input = exactRecord(await readJson(request), ["fileName", "rawText"]);
+    if (
+      typeof input.fileName !== "string" ||
+      !input.fileName.endsWith(".json") ||
+      input.fileName.length > 240
+    ) {
+      throw new HttpError(
+        400,
+        "INVALID_AUTHORING_FILE",
+        "Select one local .json result file.",
+      );
+    }
+    if (typeof input.rawText !== "string" || input.rawText.length === 0) {
+      throw new HttpError(
+        400,
+        "INVALID_AUTHORING_FILE",
+        "The selected JSON file is empty.",
+      );
+    }
+    sendJson(
+      response,
+      200,
+      compilations.importResult(pathId(importMatch[1]), input.rawText),
+    );
+    return;
+  }
+
+  const publishMatch = /^\/api\/v1\/compilations\/([^/]+)\/publish$/.exec(
+    url.pathname,
+  );
+  if (request.method === "POST" && publishMatch !== null) {
+    const body = exactRecord(await readJson(request), ["confirmation"]);
+    if (body.confirmation !== "PUBLISH_REVIEWED_LESSON") {
+      throw new HttpError(
+        400,
+        "PUBLICATION_CONFIRMATION_REQUIRED",
+        "Explicit reviewed publication confirmation is required.",
+      );
+    }
+    sendJson(response, 200, compilations.publish(pathId(publishMatch[1])));
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/v1/lessons") {
+    sendJson(response, 200, { lessons: compilations.listLessons() });
+    return;
+  }
+
+  const lessonMatch =
+    /^\/api\/v1\/lessons\/([^/]+)\/revisions\/([1-9][0-9]*)$/.exec(
+      url.pathname,
+    );
+  if (request.method === "GET" && lessonMatch !== null) {
+    sendJson(
+      response,
+      200,
+      compilations.loadLesson(pathId(lessonMatch[1]), Number(lessonMatch[2])),
+    );
     return;
   }
 
@@ -133,6 +246,7 @@ async function routeRequest(
   if (request.method === "DELETE" && url.pathname === "/api/v1/local-data") {
     const input = await readJson(request);
     validated(input, validateResetLocalDataRequestStructure(input));
+    compilations.reset();
     repository.resetLocalData();
     sendJson(response, 200, {
       schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
@@ -162,7 +276,7 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
   }
   const declaredLength = Number(request.headers["content-length"] ?? 0);
   if (declaredLength > MAX_JSON_BODY_BYTES) {
-    throw new HttpError(413, "REQUEST_TOO_LARGE", "JSON body exceeds 256 KiB.");
+    throw new HttpError(413, "REQUEST_TOO_LARGE", "JSON body exceeds 512 KiB.");
   }
 
   const chunks: Buffer[] = [];
@@ -255,7 +369,11 @@ function sendError(response: ServerResponse, error: unknown): void {
     response.destroy();
     return;
   }
-  if (error instanceof PersistenceError || error instanceof HttpError) {
+  if (
+    error instanceof PersistenceError ||
+    error instanceof CompilerError ||
+    error instanceof HttpError
+  ) {
     sendJson(response, error.statusCode, {
       status: "error",
       code: error.code,
@@ -269,6 +387,30 @@ function sendError(response: ServerResponse, error: unknown): void {
     code: "INTERNAL_ERROR",
     message: "The local evidence store could not complete the request.",
   });
+}
+
+function exactRecord(
+  input: unknown,
+  keys: readonly string[],
+): Record<string, unknown> {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw new HttpError(
+      400,
+      "INVALID_REQUEST",
+      "Expected one closed JSON object.",
+    );
+  }
+  const record = input as Record<string, unknown>;
+  const actual = Object.keys(record).sort();
+  const expected = [...keys].sort();
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+    throw new HttpError(
+      400,
+      "INVALID_REQUEST",
+      `Expected exactly these fields: ${expected.join(", ")}.`,
+    );
+  }
+  return record;
 }
 
 function sendJson(

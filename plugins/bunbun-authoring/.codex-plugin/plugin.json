@@ -1,6 +1,6 @@
 {
   "name": "bunbun-authoring",
-  "version": "0.2.0+codex.20260820053513",
+  "version": "0.2.0+codex.20260824095911",
   "description": "Local Skills-only authoring for Bunbun 0.2 lesson-draft packets and bounded repairs.",
   "author": {
     "name": "Bunbun"

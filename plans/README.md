@@ -5,7 +5,8 @@ This directory stores live and completed ExecPlans created according to
 
 ## Current status
 
-Milestones 1 through 6 are complete. D-027 now tracks three Milestone 7
+Milestones 1 through 7 are complete in implementation; M7 verification is
+waived under D-036. D-027 tracks three Milestone 7
 strategies. The former Structured Outputs proposal is preserved unchanged as
 inactive M7 v1, the self-built local LLM direction is M7 v2 research, and the
 captured Custom GPT behavior is the active M7 v3 direction. The historical v3.1
@@ -18,9 +19,10 @@ product-surface proof passes installation, invocation, strict validation, and
 observed media/tool behavior. D-033 closes Milestone 4 with ten accepted
 runnable fixtures, one strict-JSON rejection, four contract gaps, a
 conditionally viable classification, and reviewed local JSON file import as
-the named future handoff. MCP remains conditional v3.3 work. No application
-compiler/provider, external GPT edit, browser extension, environment variable,
-tunnel, or learner-data transmission is implemented.
+the named future handoff. MCP remains conditional v3.3 work. The application
+compiler is local and provider-free; no provider call, external GPT edit,
+browser extension, environment variable, tunnel, or automatic learner-data
+transmission is implemented.
 
 D-023 confirms the supplied six-GPT set and accepts the Story Sheet + Story
 Coach + Reverse Trainer responsibility map. D-024 approves Prompt Adaptation
@@ -35,22 +37,21 @@ vertical-slice outcome and complete authored-audio boundary. Its ExecPlan is
 approved but queued after Milestone 7; exact provider, voice, cache, asset,
 dialogue, and measurable acceptance gates remain open.
 
-A newly approved successor plan now covers the remaining M7 v3.2 work: forward
-authoring contract 0.2.0, the five required qualification reruns, deterministic
-compiler normalization, durable reviewed JSON-file import/publication, and the
-pre-game lesson library. Contract/plugin source Milestone 1 is complete and the
-installed registry reports the 0.2.0 compatibility line. D-035 records the
-user's explicit waiver of requalification; deterministic compiler work is now
-active while transport qualification remains unverified.
+The successor M7 v3.2 plan is now complete in implementation: authoring 0.2.0,
+the deterministic compiler, durable reviewed JSON-file import/publication, and
+the pre-game lesson library exist. D-035 waives external requalification;
+D-036 waives new automated/manual verification and closes M7 as
+`UNVERIFIED_USER_WAIVED`. The approved audio-complete showcase plan is next for
+Milestone 8.
 
 ## Index
 
 | Plan                                             | Status                                                     | Outcome                                                                                                                                                               |
 | ------------------------------------------------ | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-20-complete-m7-file-import-compiler.md   | Active; M2 waived, deterministic compiler next             | Complete M7 through contract 0.2.0, deterministic compilation, reviewed local JSON import, immutable publication, and offline play; transport remains unverified      |
+| 2026-08-20-complete-m7-file-import-compiler.md   | Complete; verification waived under D-035/D-036            | Implemented contract 0.2.0, deterministic compilation, reviewed local JSON import, immutable publication, and offline play; flow remains unverified                   |
 | 2026-08-19-m7-v3-skills-plugin.md                | Complete                                                   | Proved one repository-owned Skills-only lesson-authoring plugin; conditionally viable with reviewed file import selected after a forward contract version             |
 | 2026-08-19-m7-v3-custom-gpt-browser-bridge.md    | Superseded as implementation route; v3.1 evidence retained | Preserve the manual direct-GPT feasibility record without upgrading its truncated result                                                                              |
-| 2026-08-19-audio-complete-last-train-showcase.md | Approved; queued after an accepted M7 implementation       | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
+| 2026-08-19-audio-complete-last-train-showcase.md | Approved; next for Milestone 8                             | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
 | 2026-08-12-structured-lesson-compiler.md         | Proposed M7 v1; inactive                                   | Preserve the OpenAI Responses/Structured Outputs compiler candidate for later comparison                                                                              |
 | 2026-08-12-local-evidence-sqlite-persistence.md  | Complete                                                   | Persist evidence and resume one local lesson safely through server-owned SQLite                                                                                       |
 | 2026-08-12-complete-mvp-primitive-runtime.md     | Complete                                                   | Played one authored lesson through all eight fixed MVP primitives                                                                                                     |

@@ -73,21 +73,21 @@ function validateRepairContext(
     return;
   }
 
-  if (repair.failureStage === "JSON_PARSE" && repair.priorResult !== null) {
+  if (repair.failureStage !== "SEMANTIC" && repair.priorResult !== null) {
     errors.push(
       authoringV2Error(
-        "PARSE_FAILURE_PRIOR_RESULT_FORBIDDEN",
+        "UNTRUSTED_PRIOR_RESULT_FORBIDDEN",
         "/request/repair/priorResult",
-        "A strict JSON parse failure cannot carry a trusted structured prior result.",
+        "JSON parse and structural failures cannot carry an untrusted prior result.",
       ),
     );
   }
-  if (repair.failureStage !== "JSON_PARSE" && repair.priorResult === null) {
+  if (repair.failureStage === "SEMANTIC" && repair.priorResult === null) {
     errors.push(
       authoringV2Error(
         "STRUCTURED_PRIOR_RESULT_REQUIRED",
         "/request/repair/priorResult",
-        "Structural and semantic repair require the prior structured result.",
+        "Semantic repair requires the structurally valid prior result.",
       ),
     );
   }

@@ -92,8 +92,9 @@ comply. Attempt 1 requires `repair: null`. Attempt 2 is one bounded repair and
 must carry the same request identity, input hash, prompt pack, and deterministic
 input. Its repair context contains only a failure stage, the SHA-256 of the
 exact prior response, bounded local diagnostics, and a prior structured result
-when strict parsing succeeded. For a JSON parse failure, `priorResult` is null;
-never request, quote, or reconstruct the malformed raw response.
+only after structural validation succeeds. For a JSON parse or structural
+failure, `priorResult` is null; never request, quote, or reconstruct rejected
+raw response content.
 
 Use the prior result only to correct the listed diagnostics. Do not accept a
 third attempt and do not switch prompt versions, model behavior, transport,

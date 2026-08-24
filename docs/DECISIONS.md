@@ -1680,6 +1680,45 @@ this transport qualification risk until later evidence explicitly closes it.
 D-035 does not activate M7 v1, M7 v2, v3.3 MCP, a provider API, browser
 automation, or runtime AI.
 
+### D-036 — Close M7 implementation with verification waived by the user
+
+- Date: 2026-08-24
+- Status: Accepted by explicit user direction
+- Affects: M7 closure, verification claims, roadmap sequencing, release status
+
+Context:
+
+After directing the project to bypass the external requalification gate under
+D-035, the user requested that the remaining M7 implementation be completed
+and explicitly said to skip the test portion. The deterministic compiler,
+SQLite/API handoff, reviewed file import, explicit publication, lesson library,
+and shared browser/server package gate can be implemented without representing
+unexecuted automated or manual checks as evidence.
+
+Decision:
+
+Close Milestone 7 as **implementation complete with verification waived by the
+user**. Do not run or claim automated tests, Playwright, browser/gameplay
+acceptance, the five external transport reruns, or a real attempt-2 transport
+repair. Static type checking, linting, formatting, production build, plugin
+source validation, and diff hygiene may still be used as implementation checks;
+they do not establish runtime or transport acceptance.
+
+Preserve every validation, answer-truth, runtime-plan, privacy, review, and
+publication boundary in code. Label the skipped qualification and acceptance
+evidence `UNVERIFIED_USER_WAIVED`, keep transport 0.2.0 `UNVERIFIED`, and make
+Milestone 8 the next product milestone. This closure is not a local release-
+candidate approval and does not authorize Docker, deployment, a provider API,
+M7 v2, v3.3 MCP, browser automation, or runtime AI.
+
+Consequences:
+
+M7's implementation deliverables exist, but no M7 test suite or manual
+gameplay result is recorded for this closure. Later changes that depend on the
+compiler flow must either accept this named risk or obtain fresh explicit
+verification. Existing pre-M7 acceptance remains historical evidence only and
+does not prove the new authoring/library path.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
