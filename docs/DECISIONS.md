@@ -205,7 +205,7 @@ textures at or below 1024 px unless justified.
 ### D-008 — Cache generated media
 
 - Date: 2026-08-10
-- Status: Accepted
+- Status: Accepted; provider-specific wording superseded by D-038
 - Affects: Backend, TTS, generated images, cost
 
 Context:
@@ -1719,6 +1719,94 @@ compiler flow must either accept this named risk or obtain fresh explicit
 verification. Existing pre-M7 acceptance remains historical evidence only and
 does not prove the new authoring/library path.
 
+### D-037 — Exclude Amazon Polly from Bunbun audio
+
+- Date: 2026-08-24
+- Status: Accepted by explicit user direction
+- Affects: Milestone 8 provider research, TTS integration, local configuration,
+  cost
+
+Context:
+
+Amazon Polly was evaluated as one candidate for pre-generated Japanese speech
+because it offers Japanese voices and permits generated speech to be cached.
+Using it would nevertheless require an AWS account, an Amazon-hosted TTS API,
+AWS credentials or a local AWS profile, regional configuration, and separate
+provider usage outside the existing Bunbun and ChatGPT boundaries. No Polly
+code, dependency, account operation, credential, environment variable, or
+billable request had been added.
+
+Decision:
+
+Do not use Amazon Polly for Bunbun. Do not add the AWS SDK, Polly endpoints,
+AWS account setup, `AWS_PROFILE`, `AWS_REGION`, AWS access keys, or AWS billing
+to the Milestone 8 implementation.
+
+Keep O-010 open. The next TTS proposal must exclude Amazon Polly and compare a
+local/offline route or another explicitly reviewed non-AWS provider while
+preserving pre-generation, immutable caching, exact Japanese text identity,
+pronunciation review, and deterministic offline gameplay.
+
+Consequences:
+
+The proposed Polly voice mapping and cost estimate are discarded and create no
+implementation commitment. Milestone 8 remains at its provider/voice/cache
+decision gate; its provider-independent Web Audio mixer and local asset
+boundary are still valid but must not be implemented as if a TTS provider had
+already been selected.
+
+### D-038 — Require reviewed third-party plans and zero incremental cost
+
+- Date: 2026-08-24
+- Status: Accepted by explicit user direction
+- Affects: All third-party services, dependencies, models, assets, credentials,
+  AI, audio, cost, planning workflow
+- Supersedes: D-008's provider-specific OpenAI TTS wording
+
+Context:
+
+Bunbun is operating under a constrained budget. An option is not financially
+safe merely because it has a free tier, trial, promotional credit, low unit
+price, or existing technical integration path. OpenAI API is unaffordable for
+the current project, and replacing it with Amazon Polly would move rather than
+solve the same incremental-cost problem. Selecting a service before the user
+has reviewed its full cost and operating boundary also creates unwanted
+account, credential, privacy, and lock-in commitments.
+
+Decision:
+
+Do not select, add, download, register, activate, or configure any new
+third-party service, dependency, model, or asset that can create incremental
+cost until a self-contained plan documents its exact purpose, license, data
+flow, account and credential requirements, expected and worst-case cost,
+fallback, removal path, and zero-cost alternatives, and the user explicitly
+approves that plan.
+
+A free tier, trial, or credit-limited offering is treated as capable of cost
+and cannot be used as the financial basis of the project. OpenAI API and Amazon
+Polly are explicitly excluded under the current budget. Do not add their SDKs,
+keys, environment variables, accounts, endpoints, usage, or billing. The
+existing M7 Skills-only workflow may continue only within the user's already
+paid ChatGPT/Codex plan allowance approved by D-031; it must stop rather than
+buy extra credits or switch to API billing when that allowance is unavailable.
+
+Read-only research may compare candidates, but research does not select or
+authorize one. Even a nominally free or open-source third-party dependency,
+model, or asset must pass the reviewed-plan gate before download or addition.
+For Milestone 8, the next proposal must target zero incremental usage and
+recurring cost through a local/offline path. Provider-independent contracts,
+cache design, and mixer planning may continue, but provider/model integration
+waits for explicit approval of that focused plan.
+
+Consequences:
+
+D-008 still requires pre-generation and stable cache reuse but no longer
+selects OpenAI TTS. O-010 is constrained to a zero-incremental-cost local or
+offline route unless a later reviewed plan explicitly changes the budget
+policy. No paid-capable provider may be introduced as a convenient substitute.
+Every future handoff must report cost risk alongside happy path, edge cases,
+regressions, and technical risk.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -1727,7 +1815,7 @@ These are acknowledged but not yet ready to decide:
 | ----- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
 | O-008 | Browser/device support and WebGPU fallback policy                                                | Rendering foundation              |
 | O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture | Production reference integration  |
-| O-010 | Text-model strategy when applicable, TTS model, voice policy, and cache storage                  | AI and audio integration          |
+| O-010 | Zero-incremental-cost local/offline TTS, voice policy, and cache storage under D-038             | Audio integration                 |
 | O-012 | Deployment model and Docker topology                                                             | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should

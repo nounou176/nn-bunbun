@@ -357,6 +357,9 @@ asset metadata; a manifest cannot provide an audio URL, file path, mix value,
 or arbitrary playback instruction. Character speech receives mix priority and
 may temporarily duck ambience and music. Exact TTS provider, model, voice
 profiles, cache storage, and licensed non-speech sources remain O-010 decisions.
+D-038 requires the first M8 route to have zero incremental usage and recurring
+cost and to run locally/offline. No third-party provider, dependency, model, or
+asset may be selected or added before its focused plan is explicitly approved.
 
 ## Runtime determinism and recovery
 
@@ -511,6 +514,10 @@ state machine rather than a provider job/worker. The implemented M7 APIs:
 ## Security and privacy baseline
 
 - Provider keys remain server-side.
+- D-038 forbids adding a paid-capable third-party service, dependency, model,
+  or asset before explicit approval of a plan that documents cost, licensing,
+  data flow, fallback, and removal. Free tiers and credits are not treated as a
+  zero-cost foundation; OpenAI API and Amazon Polly are currently excluded.
 - Secret values never enter repository documentation or shared memory.
 - Environment variable names must be confirmed with the user before use.
 - Learner-entered language content is untrusted input.
@@ -529,8 +536,8 @@ Before implementation reaches the relevant boundary, decide:
   Milestone 3 desktop Chromium reference environment;
 - production reference datasets and licenses beyond the project-authored M7
   technical fixture;
-- text-model strategy when applicable, TTS model, voice policy, and cache
-  invalidation inputs; and
+- zero-incremental-cost local/offline TTS, voice policy, and cache invalidation
+  inputs under D-038; and
 - observability and privacy rules for any remote learning analytics.
 
 The contract validation and schema-generation direction was resolved by D-017.

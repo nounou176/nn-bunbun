@@ -97,6 +97,12 @@ decision.
 - Never store secret values in documentation or memory.
 - Confirm environment variable names with the user before using them in code
   or commands.
+- Under D-038, do not select, add, download, register, activate, or configure
+  any new third-party service, dependency, model, or asset until a
+  self-contained plan documents cost, license, data, and operational effects
+  and the user explicitly approves it. A free tier, trial, or promotional
+  credit is not a zero-cost guarantee. OpenAI API and Amazon Polly are
+  currently excluded.
 - Develop and manually accept a complete local game before adding Docker,
   hosting, release automation, or domain configuration. Start release planning
   only after the user explicitly approves the local release candidate.

@@ -1,9 +1,9 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Approved; queued after an accepted Milestone 7 implementation
+Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-19 21:10 Asia/Ho_Chi_Minh
+Last updated: 2026-08-24 18:07 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -45,8 +45,9 @@ D-025 approves the GLB-first world-authoring pipeline and initial Kenney CC0
 asset candidates. D-026 resolves O-001 and O-002 for this vertical slice and
 defines its audio-complete boundary. Milestone 8 owns production speech and
 the complete audio runtime. Milestone 9 owns the integrated product scenario.
-O-010 still requires exact text model, TTS provider/model, voice policy, cache
-storage, and invalidation decisions before provider-backed audio work begins.
+O-010 still requires an exact zero-incremental-cost local/offline TTS plan,
+voice policy, cache storage, and invalidation decisions before any model,
+dependency, or asset is downloaded or added.
 
 LessonManifest 0.1.0 already models exact spoken Japanese through
 `AudioAsset`, approved `voiceProfileId`, deterministic `cacheKey`, utterance
@@ -70,9 +71,11 @@ and repository-owned.
   necessary and the user approves it separately.
 - Complete Milestone 7 first so real learner targets can compile into the
   existing deterministic runtime.
-- Select and approve the current TTS provider/model, two non-cloned Japanese
-  NPC voice profiles, narration policy, cache storage, cache invalidation
-  inputs, pronunciation review, and failure behavior.
+- Select and approve a zero-incremental-cost local/offline TTS approach, two
+  non-cloned Japanese NPC voice profiles, narration policy, cache storage,
+  cache invalidation inputs, pronunciation review, and failure behavior. Do
+  not download or add a third-party candidate before its focused plan is
+  approved under D-038.
 - Replace browser SpeechSynthesis as the production path with pre-generated,
   cacheable Japanese speech resolved through the application asset boundary.
 - Build a learner-unlocked audio mixer with master, voice, ambience, effects,
@@ -80,9 +83,10 @@ and repository-owned.
   disposal.
 - Keep named NPC voice profiles consistent across every utterance in one
   lesson revision and validate exact Japanese text-to-audio identity.
-- Select, license, hash, process, and register the minimum required rain,
-  street, convenience-store, distant-station, movement, object, animal,
-  feedback, transition, and music assets.
+- Prepare the exact minimum rain, street, convenience-store, distant-station,
+  movement, object, animal, feedback, transition, and music source list with
+  cost and license review; obtain explicit approval before downloading,
+  selecting, processing, hashing, or registering any third-party asset.
 - Resolve scene ambience through code-owned scene audio metadata and non-speech
   event audio through registered deterministic cue handlers.
 - Intake, inspect, convert, and register one bounded rainy-evening neighborhood
@@ -147,8 +151,13 @@ and repository-owned.
   navigation, and performance.
 - D-026 governs the exact vertical-slice premise, target set, characters,
   narrative-only urgency, audio completeness, and exclusions.
-- O-010 remains unresolved. No TTS provider, model, voice, cache path, or new
-  environment-variable name may be assumed before explicit approval.
+- D-038 forbids unreviewed third-party selection and any paid-capable provider
+  shortcut. Free tiers and credits are not a zero-cost solution; OpenAI API and
+  Amazon Polly are excluded. M8 must first use a zero-incremental-cost
+  local/offline plan explicitly approved by the user.
+- O-010 remains unresolved. No TTS model, dependency, voice, cache path, asset,
+  account, credential, or environment-variable name may be assumed before
+  explicit approval.
 - Every third-party or generated world/audio asset needs a canonical source,
   exact rights record, source hash, processing record, runtime hash, and
   measured budget before it ships.
@@ -156,9 +165,10 @@ and repository-owned.
 ## Implementation approach
 
 Complete the compiler milestone before beginning this plan's production work.
-Then approve a focused Milestone 8 audio decision and implement speech/cache
-and non-speech playback behind application-owned ports. The browser receives
-only validated IDs and local/cache-resolved assets. It unlocks audio after one
+Then approve a focused zero-incremental-cost Milestone 8 audio plan before any
+third-party download or addition. After approval, implement speech/cache and
+non-speech playback behind application-owned ports. The browser receives only
+validated IDs and local/cache-resolved assets. It unlocks audio after one
 explicit learner gesture, preloads the first required voice and ambience,
 prioritizes voice over other buses, and retains captions and recovery.
 
@@ -197,11 +207,15 @@ validated playable technical lesson without production audio or world claims.
 
 ### 2. Approve and implement the complete audio boundary
 
-Review current official provider capabilities and pricing, select the TTS
-model and voices, define cache/storage and pronunciation review, select
-non-speech sources, and record a Milestone 8 decision before code. Implement
-cache generation, asset resolution, mix buses, ducking, autoplay unlock,
-scene ambience, cue effects, settings, fallback, and tests.
+Prepare a focused comparison of local/offline TTS candidates with zero
+incremental usage and recurring cost. Document every candidate's license,
+download size, hardware fit, Japanese short-utterance quality, dependency and
+data flow, fallback, and removal path. Obtain explicit approval before any
+download or code addition. Then select voices, define cache/storage and
+pronunciation review, approve non-speech sources, and record the Milestone 8
+decision before implementing cache generation, asset resolution, mix buses,
+ducking, autoplay unlock, scene ambience, cue effects, settings, fallback, and
+tests.
 
 Observable checkpoint: a technical lesson plays consistent cached Japanese
 voices plus registered ambience/effects, survives failure and resume, and
@@ -251,11 +265,19 @@ reproducible acceptance checklist.
 
 - [x] 2026-08-19 16:35 — User explicitly approved `PLAN AUDIO + SHOWCASE`.
 - [x] 2026-08-19 16:35 — Record D-026 and update affected product,
-  architecture, gameplay, manifest, world, performance, state, roadmap, and
-  plan records.
-- [ ] Select, approve, and complete one Milestone 7 compiler strategy.
-- [ ] Approve O-010 audio provider/model/voice/cache and non-speech source
-  decisions.
+      architecture, gameplay, manifest, world, performance, state, roadmap, and
+      plan records.
+- [x] 2026-08-24 18:04 — Close the selected Milestone 7 compiler strategy
+      under D-036 with its verification waiver retained.
+- [x] 2026-08-24 18:04 — Evaluate Amazon Polly as an M8 candidate and record
+      the user's explicit rejection under D-037 without adding AWS code,
+      configuration, credentials, or cost.
+- [x] 2026-08-24 18:07 — Record D-038: no unreviewed third-party selection and
+      no paid-capable provider substitution; free tiers and credits do not solve
+      the budget constraint, and M8 must begin with a zero-incremental-cost
+      local/offline plan.
+- [ ] Approve O-010 local TTS approach/model/voice/cache and non-speech source
+      decisions through the focused zero-incremental-cost plan required by D-038.
 - [ ] Implement milestones 2 through 6 in dependency order.
 - [ ] Hand off the manual matrix and record only results the user reports.
 
@@ -272,6 +294,13 @@ reproducible acceptance checklist.
   bounded scene and avoiding unnecessary traversal.
 - The sibling N5 data is large enough for research but lacks the fields and
   redistribution evidence required for a shipping reference provider.
+- Amazon Polly's technical fit does not override the product boundary: the user
+  explicitly rejected Amazon/AWS for Bunbun before any implementation or
+  provider request. Provider research must continue without AWS.
+- Low unit pricing, a free tier, or promotional credits do not resolve
+  Bunbun's current financial constraint. The project must solve the initial M8
+  path without a new usage-billed service and without treating research as
+  selection authority.
 
 ## Plan decisions
 
@@ -286,6 +315,15 @@ reproducible acceptance checklist.
   voice-priority ducking, captions, replay, and recoverable text fallback.
 - 2026-08-19 — Queue this approved plan after M7 and retain O-010 as a separate
   approval gate.
+- 2026-08-24 — D-037 excludes Amazon Polly, AWS dependencies, AWS local
+  configuration, credentials, and billing. Keep the provider-independent audio
+  design and reopen O-010 without AWS; D-038 further restricts the first route
+  to zero-incremental-cost local/offline execution.
+- 2026-08-24 — D-038 requires explicit plan approval before any new
+  third-party service, dependency, model, or asset is selected or added. The
+  first M8 TTS route must be local/offline with zero incremental usage and
+  recurring cost; OpenAI API, Amazon Polly, free-tier dependency, and extra
+  credits are excluded.
 
 ## Validation
 
@@ -347,12 +385,12 @@ applicable before the D-015 local release-candidate acceptance gate.
 
 ### Manual results
 
-| Scenario | Tester | Date | Result | Evidence or notes |
-| --- | --- | --- | --- | --- |
-| Complete voiced showcase | Pending | Pending | Not run | Awaiting prerequisite implementation |
-| Audio controls and fallback | Pending | Pending | Not run | Awaiting prerequisite implementation |
-| Background, resume, and replay | Pending | Pending | Not run | Awaiting prerequisite implementation |
-| WebGPU/WebGL2 and performance | Pending | Pending | Not run | Awaiting prerequisite implementation |
+| Scenario                                            | Tester  | Date    | Result  | Evidence or notes                    |
+| --------------------------------------------------- | ------- | ------- | ------- | ------------------------------------ |
+| Complete voiced showcase                            | Pending | Pending | Not run | Awaiting prerequisite implementation |
+| Audio controls and fallback                         | Pending | Pending | Not run | Awaiting prerequisite implementation |
+| Background, resume, and replay                      | Pending | Pending | Not run | Awaiting prerequisite implementation |
+| WebGPU/WebGL2 and performance                       | Pending | Pending | Not run | Awaiting prerequisite implementation |
 | Compiler, persistence, and authored-demo regression | Pending | Pending | Not run | Awaiting prerequisite implementation |
 
 ## Recovery and compatibility
@@ -384,7 +422,9 @@ set or invalid world package is never published as playable.
 ## Outcomes
 
 The product, content, world, and audio-complete outcome is approved and
-documented. No runtime, compiler, production world, or production audio code or
-asset has been implemented by this approval checkpoint. Milestone 7 remains
-the next implementation gate; M7 v3 research is active but unimplemented, and
-O-010 plus production source intake remain open.
+documented. Milestone 7 is implementation-complete with verification waived
+under D-036. No production world or production audio code or asset has been
+implemented. D-037 excludes Amazon Polly, and D-038 excludes OpenAI API,
+paid-capable provider substitution, unreviewed third-party additions, and
+free-tier dependency. O-010 remains open at a zero-incremental-cost
+local/offline planning gate; production source intake also remains open.

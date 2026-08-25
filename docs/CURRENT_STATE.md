@@ -253,6 +253,15 @@ Completed ExecPlans:
 - Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
   next, but its provider, voice, cache, non-speech source, dialogue, and
   measurable acceptance decisions remain open.
+- D-037 explicitly excludes Amazon Polly, the AWS SDK, AWS configuration,
+  credentials, and billing from Milestone 8. No AWS change or request was made;
+  D-038 now constrains O-010 to a zero-incremental-cost local/offline route.
+- D-038 generalizes the budget boundary: no new third-party service,
+  dependency, model, or asset may be selected or added before an explicit
+  reviewed plan; any option capable of incremental cost is excluded from the
+  current route. Free tiers and credits do not satisfy
+  the constraint. OpenAI API and Amazon Polly are excluded, and M8 must first
+  pursue a zero-incremental-cost local/offline route.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
@@ -515,10 +524,13 @@ implementation changes are currently uncommitted.
 
 Begin Milestone 8 without expanding M7's provider scope:
 
-1. Resolve O-010 for Japanese TTS model/provider, voice profiles, cache keys,
-   storage, invalidation, cost, and text fallback.
-2. Select and license the first showcase's ambience, effects, and restrained
-   music sources, then register them through the code-owned audio boundary.
+1. Prepare a focused, zero-incremental-cost local/offline Japanese TTS plan for
+   O-010, including model/dependency licenses, hardware fit, voice quality,
+   cache keys, storage, invalidation, fallback, and removal. Do not download or
+   add a candidate before the user approves that plan under D-038.
+2. Prepare the exact ambience, effects, and restrained-music source list with
+   cost, license, data, and removal review. Wait for explicit plan approval
+   before downloading, selecting, or registering any third-party asset.
 3. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 

@@ -475,10 +475,18 @@ Decision resolved:
 - D-026 requires the first vertical slice to be audio-complete, keeps spoken
   Japanese in LessonManifest `AudioAsset`, and assigns ambience and non-speech
   effects to application-owned scene and cue registries.
+- D-037 excludes Amazon Polly, AWS SDK/configuration, AWS credentials, and AWS
+  billing from Milestone 8; D-038 further constrains O-010 to a
+  zero-incremental-cost local/offline TTS route.
+- D-038 requires a reviewed plan before any new third-party selection and fixes
+  the first M8 TTS route to zero incremental usage and recurring cost. Free
+  tiers and credits are not accepted as the financial foundation; OpenAI API
+  and Amazon Polly are excluded.
 
 Decisions required:
 
-- TTS model, voice profiles, cache storage, and invalidation inputs from O-010;
+- zero-incremental-cost local/offline TTS, voice profiles, cache storage, and
+  invalidation inputs from O-010, after explicit plan approval;
 - pronunciation review process; and
 - exact non-speech source assets, licenses, mix targets, and fallback behavior.
 

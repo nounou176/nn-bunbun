@@ -34,15 +34,20 @@ sequentially.
 
 D-026 also approves the N5 Vietnamese `Three Minutes to the Last Train`
 vertical-slice outcome and complete authored-audio boundary. Its ExecPlan is
-approved but queued after Milestone 7; exact provider, voice, cache, asset,
-dialogue, and measurable acceptance gates remain open.
+now active at the Milestone 8 planning gate. D-037 excludes Amazon Polly, and
+D-038 requires explicit plan approval before any new third-party selection,
+rejects free tiers or credits as the financial foundation, excludes OpenAI API,
+and constrains the first TTS route to zero incremental usage and recurring cost
+through local/offline execution. Exact model, voice, cache, asset, dialogue,
+and measurable acceptance gates remain open.
 
 The successor M7 v3.2 plan is now complete in implementation: authoring 0.2.0,
 the deterministic compiler, durable reviewed JSON-file import/publication, and
 the pre-game lesson library exist. D-035 waives external requalification;
 D-036 waives new automated/manual verification and closes M7 as
-`UNVERIFIED_USER_WAIVED`. The approved audio-complete showcase plan is next for
-Milestone 8.
+`UNVERIFIED_USER_WAIVED`. The approved audio-complete showcase plan is active
+for Milestone 8 planning, but no TTS candidate or third-party asset may be
+downloaded or added before its focused plan is explicitly approved.
 
 ## Index
 
@@ -51,7 +56,7 @@ Milestone 8.
 | 2026-08-20-complete-m7-file-import-compiler.md   | Complete; verification waived under D-035/D-036            | Implemented contract 0.2.0, deterministic compilation, reviewed local JSON import, immutable publication, and offline play; flow remains unverified                   |
 | 2026-08-19-m7-v3-skills-plugin.md                | Complete                                                   | Proved one repository-owned Skills-only lesson-authoring plugin; conditionally viable with reviewed file import selected after a forward contract version             |
 | 2026-08-19-m7-v3-custom-gpt-browser-bridge.md    | Superseded as implementation route; v3.1 evidence retained | Preserve the manual direct-GPT feasibility record without upgrading its truncated result                                                                              |
-| 2026-08-19-audio-complete-last-train-showcase.md | Approved; next for Milestone 8                             | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
+| 2026-08-19-audio-complete-last-train-showcase.md | Approved; active at zero-cost M8 planning gate             | Deliver the first N5 Vietnamese product vertical slice with a reviewed Three.js neighborhood, character voices, ambience, deterministic effects, and restrained music |
 | 2026-08-12-structured-lesson-compiler.md         | Proposed M7 v1; inactive                                   | Preserve the OpenAI Responses/Structured Outputs compiler candidate for later comparison                                                                              |
 | 2026-08-12-local-evidence-sqlite-persistence.md  | Complete                                                   | Persist evidence and resume one local lesson safely through server-owned SQLite                                                                                       |
 | 2026-08-12-complete-mvp-primitive-runtime.md     | Complete                                                   | Played one authored lesson through all eight fixed MVP primitives                                                                                                     |
