@@ -154,6 +154,75 @@ const migrations: readonly Migration[] = [
         ON compilation_attempts (response_sha256);
     `,
   },
+  {
+    id: 3,
+    name: "m8_reviewed_speech_cache",
+    sql: `
+      CREATE TABLE audio_speech_assets (
+        cache_key TEXT PRIMARY KEY,
+        voice_profile_id TEXT NOT NULL,
+        text_ja TEXT NOT NULL,
+        canonical_input_json TEXT NOT NULL,
+        status TEXT NOT NULL CHECK (status IN (
+          'PENDING', 'RUNNING', 'REVIEW_REQUIRED', 'READY', 'REJECTED', 'FAILED'
+        )),
+        attempt_count INTEGER NOT NULL CHECK (attempt_count >= 0),
+        query_sha256 TEXT,
+        wav_sha256 TEXT,
+        query_relative_path TEXT,
+        wav_relative_path TEXT,
+        duration_ms INTEGER CHECK (duration_ms IS NULL OR duration_ms > 0),
+        byte_length INTEGER CHECK (byte_length IS NULL OR byte_length > 0),
+        failure_code TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        generated_at TEXT,
+        reviewed_at TEXT
+      ) STRICT;
+
+      CREATE TABLE audio_speech_references (
+        cache_key TEXT NOT NULL,
+        origin_lesson_id TEXT NOT NULL,
+        origin_revision INTEGER NOT NULL CHECK (origin_revision >= 1),
+        audio_asset_id TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY (
+          cache_key, origin_lesson_id, origin_revision, audio_asset_id
+        ),
+        FOREIGN KEY (cache_key) REFERENCES audio_speech_assets (cache_key)
+          ON DELETE CASCADE
+      ) STRICT;
+
+      CREATE TABLE audio_speech_attempts (
+        cache_key TEXT NOT NULL,
+        attempt INTEGER NOT NULL CHECK (attempt >= 1),
+        status TEXT NOT NULL CHECK (status IN ('SUCCEEDED', 'FAILED')),
+        engine_version TEXT,
+        engine_manifest_uuid TEXT,
+        speaker_uuid TEXT,
+        style_id INTEGER,
+        query_sha256 TEXT,
+        wav_sha256 TEXT,
+        duration_ms INTEGER CHECK (duration_ms IS NULL OR duration_ms > 0),
+        elapsed_ms INTEGER CHECK (elapsed_ms IS NULL OR elapsed_ms >= 0),
+        failure_code TEXT,
+        started_at TEXT NOT NULL,
+        completed_at TEXT NOT NULL,
+        PRIMARY KEY (cache_key, attempt),
+        FOREIGN KEY (cache_key) REFERENCES audio_speech_assets (cache_key)
+          ON DELETE CASCADE
+      ) STRICT;
+
+      CREATE INDEX audio_speech_assets_status_idx
+        ON audio_speech_assets (status, updated_at, cache_key);
+      CREATE INDEX audio_speech_references_origin_idx
+        ON audio_speech_references (
+          origin_lesson_id, origin_revision, audio_asset_id
+        );
+      CREATE INDEX audio_speech_attempts_completed_idx
+        ON audio_speech_attempts (completed_at, cache_key);
+    `,
+  },
 ];
 
 export const DATABASE_SCHEMA_VERSION = migrations.length;

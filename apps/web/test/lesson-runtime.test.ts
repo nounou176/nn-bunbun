@@ -19,6 +19,7 @@ import {
 import {
   LessonContentError,
   loadAuthoredLesson,
+  loadCachedSpeechLesson,
 } from "../src/lesson/content.js";
 import { InMemoryEventSink, type SessionEvent } from "../src/lesson/events.js";
 import {
@@ -44,6 +45,17 @@ test("authored package passes all eight primitive capabilities", () => {
       "GIVE",
       "CHOOSE",
     ],
+  );
+  assert.deepEqual(validateRuntimeCapabilities(lessonPackage), []);
+});
+
+test("M8 cached speech fixture passes the shared runtime capability gate", () => {
+  const lessonPackage = loadCachedSpeechLesson(false);
+  assert.equal(lessonPackage.manifest.steps.length, 1);
+  assert.equal(lessonPackage.manifest.steps[0]?.interaction.type, "LISTEN");
+  assert.equal(
+    lessonPackage.manifest.audioAssets[0]?.voiceProfileId,
+    "voice_aoi_01",
   );
   assert.deepEqual(validateRuntimeCapabilities(lessonPackage), []);
 });
@@ -102,9 +114,9 @@ test("runtime capability gate rejects unknown runtime resources and fallback", (
       },
     },
     {
-      code: "UNSUPPORTED_RUNTIME_AUDIO",
+      code: "UNSUPPORTED_RUNTIME_VOICE",
       mutate: (value) => {
-        value.manifest.audioAssets[0]!.audioAssetId = "unknown_audio";
+        value.manifest.audioAssets[0]!.voiceProfileId = "voice_unknown_01";
       },
     },
   ];
@@ -699,6 +711,6 @@ interface MutableLessonPackage {
     }>;
     objects: Array<{ objectId: string }>;
     locations: Array<{ locationId: string }>;
-    audioAssets: Array<{ audioAssetId: string }>;
+    audioAssets: Array<{ audioAssetId: string; voiceProfileId: string }>;
   };
 }

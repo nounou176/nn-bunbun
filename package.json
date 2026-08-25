@@ -35,6 +35,7 @@
     "run:authoring-eval": "npm run run:authoring-eval --workspace @bunbun/contracts --",
     "run:authoring-eval:v2": "npm run run:authoring-eval:v2 --workspace @bunbun/contracts --",
     "inspect:storage": "npm run inspect:storage --workspace @bunbun/server --",
+    "inspect:audio": "npm run inspect:audio --workspace @bunbun/server --",
     "plugin:check": "node scripts/check-m7-v3-plugin.mjs"
   },
   "devDependencies": {

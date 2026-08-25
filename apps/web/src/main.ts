@@ -7,6 +7,7 @@ import { BunbunRuntimeError, createGameRuntime } from "./game/runtime.js";
 import {
   LessonContentError,
   loadAuthoredLesson,
+  loadCachedSpeechLesson,
   loadLessonPackage,
 } from "./lesson/content.js";
 import { createLessonRuntime } from "./lesson/runtime.js";
@@ -30,7 +31,11 @@ void startApp(app);
 async function startApp(app: HTMLDivElement): Promise<void> {
   const selection = await showAuthoringHome(app);
   const selectedPackage =
-    selection.kind === "PUBLISHED" ? selection.lessonPackage : undefined;
+    selection.kind === "PUBLISHED"
+      ? selection.lessonPackage
+      : selection.kind === "CACHED_SPEECH_DEMO"
+        ? loadCachedSpeechLesson(false)
+        : undefined;
   const shell = createAppShell(app);
   const baseConfig = readRuntimeConfig(window.location.search);
   const evidenceStore = createHttpEvidenceStore(

@@ -4,6 +4,7 @@ import {
 } from "@bunbun/contracts";
 import catalogFixture from "@bunbun/contracts/fixtures/basic-catalog" with { type: "json" };
 import manifestFixture from "@bunbun/contracts/fixtures/valid-complete-primitive-loop" with { type: "json" };
+import cachedSpeechFixture from "@bunbun/contracts/fixtures/valid-m8-cached-speech" with { type: "json" };
 
 import { validateRuntimeCapabilities } from "./capabilities.js";
 
@@ -15,6 +16,17 @@ export class LessonContentError extends Error {
   ) {
     super(message);
   }
+}
+
+export function loadCachedSpeechLesson(
+  simulateManifestFailure: boolean,
+): ValidatedLessonPackage {
+  const manifestInput = structuredClone(cachedSpeechFixture) as unknown;
+  const catalogInput = structuredClone(catalogFixture) as unknown;
+  if (simulateManifestFailure && isRecord(manifestInput)) {
+    manifestInput.schemaVersion = "broken";
+  }
+  return loadLessonPackage(manifestInput, catalogInput);
 }
 
 export function loadAuthoredLesson(

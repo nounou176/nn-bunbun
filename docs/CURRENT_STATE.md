@@ -4,7 +4,8 @@ Last updated: 2026-08-25
 
 ## Current milestone
 
-Milestone 8 — Japanese voice and complete audio runtime is next. Milestone 7's
+Milestone 8 — Japanese voice and complete audio runtime is in progress.
+Milestone 7's
 provider-independent implementation is closed under D-036: authoring 0.2.0,
 the Skills-only plugin, project-authored Bunbun Core reference, deterministic
 park compiler, shared package/runtime capability gate, SQLite human-handoff
@@ -31,10 +32,15 @@ Next approved ExecPlan:
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Approved; queued for
   Milestone 8 decisions and implementation
 
-Active focused M8 qualification plan:
+Completed focused M8 qualification plan:
 
-- plans/2026-08-25-qualify-voicevox-nemo.md — Approved under D-038/D-039;
-  pinned Nemo intake and local evaluation are in progress
+- plans/2026-08-25-qualify-voicevox-nemo.md — Complete under D-038/D-039;
+  VOICEVOX Nemo and exact Aoi/Tanaka voices are `QUALIFIED`
+
+Active focused M8 implementation plan:
+
+- plans/2026-08-25-m8-reviewed-cached-japanese-speech.md — Approved under
+  D-040; implementation in progress
 
 Historical M7 v3.1 evidence plan:
 
@@ -252,12 +258,32 @@ Completed ExecPlans:
   plugin/Skill validation, Prettier formatting, production builds, and diff
   hygiene pass. No M7 tests, Playwright, manual browser/gameplay acceptance, or
   Docker build were run; the new flow is `UNVERIFIED_USER_WAIVED`.
+- Accepted D-040 and implemented immutable `voice_aoi_01`/
+  `voice_tanaka_01` records, exact canonical cache keys, checksummed SQLite
+  migration 3, durable speech/reference/attempt state, interrupted-job
+  recovery, confirmed purge, and a privacy-safe audio inspector.
+- Added bounded loopback-only Nemo identity/query/synthesis handling, PCM WAV
+  validation, atomic ignored cache artifacts, explicit serialized generation,
+  authoring preview/review/reject/retry controls, and approved-only same-origin
+  runtime resolution without a new dependency or provider.
+- Added a strict M8 Aoi technical fixture and native cached playback with one
+  voice gain, preload, replay, safe interruption/disposal, visible
+  `VOICEVOX Nemo` credit, and deterministic text fallback. The guide's browser
+  SpeechSynthesis path remains legacy-only.
 
 ## Current work
 
+- D-040 is accepted and the focused cached-speech implementation plan is now at
+  its user-review checkpoint. The authorized profile/cache/repository/Nemo/API/
+  authoring/runtime slice is implemented and automated checks pass. One fresh
+  Aoi WAV for `財布を探してください。` is `REVIEW_REQUIRED`; it is not served
+  to gameplay and Codex has not approved it for the user. No non-speech source
+  or complete mixer is selected.
 - Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
-  next, but its provider, voice, cache, non-speech source, dialogue, and
-  measurable acceptance decisions remain open.
+  active. D-039 resolves its local TTS engine and exact Aoi/Tanaka Nemo voices;
+  D-040 resolves and implements the speech cache foundation. Final utterance
+  approval, non-speech sources, complete mixer behavior, dialogue, and measured
+  runtime acceptance remain open.
 - D-037 explicitly excludes Amazon Polly, the AWS SDK, AWS configuration,
   credentials, and billing from Milestone 8. No AWS change or request was made;
   D-038 now constrains O-010 to a zero-incremental-cost local/offline route.
@@ -267,14 +293,13 @@ Completed ExecPlans:
   current route. Free tiers and credits do not satisfy
   the constraint. OpenAI API and Amazon Polly are excluded, and M8 must first
   pursue a zero-incremental-cost local/offline route.
-- D-039 accepts VOICEVOX Nemo as the first candidate to qualify, with
-  AivisSpeech available only after explicit Nemo rejection and a separate
-  approved plan. The focused plan pins the dedicated stable Nemo Engine 0.24.0
-  Linux CPU x64 release, loopback port 50121, USD 0 expected/worst recurring
-  cost, fixed evaluation text, isolated ignored storage, credit obligation,
-  offline check, and exact removal path. The verified official archive and
-  extracted engine now exist only under ignored `.bunbun-data/`; no product
-  dependency or integration exists, and exact voices and O-010 remain open.
+- D-039 qualifies the dedicated stable Nemo Engine 0.24.0 Linux CPU x64 release
+  as a removable local authoring tool. Aoi uses Female 6 style `10006`, UUID
+  `3490c392-30be-44c2-8379-b77df27fa65e`; Tanaka uses Male 2 style `10000`,
+  UUID `7ecc7a17-1465-4b22-a3b5-842a110ff55e`. Expected/worst recurring cost
+  is USD 0 and accepted credit is `VOICEVOX Nemo`. AivisSpeech remains an
+  uninstalled conditional fallback. The verified engine remains ignored local
+  data; gameplay never calls it and no product dependency was added.
 - The approved D-039 intake archive is 136,493,982 bytes and matches published
   SHA-256
   `c2af9ddf42dd28f55e831f0e76f605321daaec981dda3c8be558c734dc6830e7`;
@@ -286,8 +311,9 @@ Completed ExecPlans:
   offline synthesis now pass. The user shortlisted Female 1 and Female 6 for
   Aoi, plus Male 1 and Male 2 for Tanaka. Their 48-file, twelve-line finalist
   matrix also passes identity, unchanged-query, WAV, hash, and page validation.
-  Final pronunciation and one-voice-per-character review remain pending; Nemo
-  is not yet a production selection.
+  The user then explicitly approved `F6/M2` with no line-specific pronunciation
+  issue reported. Qualification is complete; D-040 now implements the stable
+  profiles and reviewed-cache path without promoting qualification WAVs.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
@@ -427,11 +453,13 @@ Present:
 - apps/web with Vite, Three.js, the park_small glTF fixture, isometric runtime,
   deterministic eight-step/eight-primitive lesson executor, durable
   EvidenceStore adapter, safe checkpoint restore, task-scoped carry/transfer
-  reconstruction, local data controls, DOM learning shell, diagnostics, and
-  focused tests;
-- apps/server with health, local persistence, and M7 compilation/publication
-  APIs, built-in SQLite lifecycle, checksummed migrations, evidence/compiler
-  repositories, privacy-safe inspector, and existing integration tests;
+  reconstruction, local data controls, DOM learning shell, reviewed-speech
+  authoring controls, native cached-voice playback, diagnostics, and focused
+  tests;
+- apps/server with health, local persistence, M7 compilation/publication, and
+  M8 speech-authoring/cache APIs, built-in SQLite lifecycle, three checksummed
+  migrations, evidence/compiler/speech repositories, privacy-safe inspectors,
+  bounded Nemo/WAV adapters, and integration tests;
 - packages/contracts source schemas for LessonManifest, CatalogSnapshot,
   EvidencePersistence, and authoring 0.1.0/0.2.0, inferred types, shared runtime
   capabilities, validators, fixtures, generated JSON Schema artifacts,
@@ -440,16 +468,18 @@ Present:
 
 Not present:
 
-- production 3D, audio, or image assets;
+- production 3D, approved production audio, or image assets; the ignored M8
+  technical WAV is awaiting user review;
 - learner identity, cross-device sync, mastery, scheduler, or analytics
   transport;
-- application model/provider calls or production TTS integrations;
+- application AI/model calls, runtime TTS calls, or remote/paid provider
+  integrations;
 - automated browser E2E configuration or tests;
 - Dockerfiles; and
 - deployment configuration.
 
-The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. The M7 v3.2
-implementation changes are currently uncommitted.
+The canonical repository is `/home/nunu/Desktop/nnlab/nn-bunbun`. The current
+documentation and implementation changes are uncommitted.
 
 ## Known issues
 
@@ -484,8 +514,8 @@ implementation changes are currently uncommitted.
    gzip size is 351.53 kB. Reported browser measurements must guide any future
    splitting.
 10. Browser SpeechSynthesis voice quality and availability vary by installed
-    desktop voice. It is a temporary technical adapter, not production TTS or
-    an offline-audio guarantee.
+    desktop voice. D-040 confines it to legacy `voice_guide_01` technical
+    fixtures; Aoi and Tanaka never fall back to it.
 11. Milestone 6 has only qualitative overall manual approval. There are no
     scenario-level observations, measured save/reload latency, named device or
     browser details, or numeric renderer metrics; the approval must not be
@@ -550,10 +580,10 @@ implementation changes are currently uncommitted.
 
 Continue Milestone 8 without expanding M7's provider scope:
 
-1. Have the user review the generated VOICEVOX Nemo finalist page, choose or
-   reject one exact Aoi and Tanaka voice, record pronunciation results, and then
-   record `QUALIFIED`, `REJECTED`, or `INCONCLUSIVE`. Do not begin product
-   integration or download a fallback before that decision.
+1. Have the user preview the freshly generated Aoi technical WAV, then record
+   their explicit approve/reject decision. Only approval may move it from
+   `REVIEW_REQUIRED` to `READY`; rejection is terminal for that cache row and
+   keeps it unavailable to gameplay.
 2. Prepare the exact ambience, effects, and restrained-music source list with
    cost, license, data, and removal review. Wait for explicit plan approval
    before downloading, selecting, or registering any third-party asset.
@@ -565,8 +595,8 @@ D-025 and D-026 now have an approved queued implementation plan at
 audio source/license intake, reproducible GLB export, the representative
 neighborhood chunk, catalog registration, audio completeness, performance, and
 manual browser validation. It does not reorder Milestone 7, and production
-work remains gated by the still-open Milestone 8 provider, voice, cache,
-non-speech asset, and measurable audio acceptance choices.
+work remains gated by final speech review, non-speech asset, complete mixer,
+and measurable audio acceptance choices.
 
 ## Verification status
 
@@ -579,9 +609,22 @@ non-speech asset, and measurable audio acceptance choices.
   WAV. Unknown style `999999` was rejected with HTTP 500 and no output. The user
   then shortlisted four voices; all 48 twelve-line finalist WAVs pass identity,
   query, format, hash, and page validation, averaging 560.7 ms and a realtime
-  factor of 0.342. The engine is stopped. Final human pronunciation and voice-
-  fit acceptance remain pending; no app tests, builds, Docker, or browser
-  automation apply to this isolated ignored-data qualification.
+  factor of 0.342. The user explicitly approved Female 6 style `10006` for Aoi
+  and Male 2 style `10000` for Tanaka, with no line-specific issue reported.
+  Result: `QUALIFIED`. The engine is stopped. No app tests, builds, Docker, or
+  browser automation apply to this isolated ignored-data qualification.
+- D-040 M8 speech-cache implementation: schema drift, workspace typecheck,
+  lint, format, production build, and `git diff --check` pass. All 87 tests
+  pass: contracts 41/41, server 9/9, and web 37/37. The M8 fixture passes the
+  shared contract/runtime gate. Fresh loopback generation produced one valid
+  83,500-byte, 1,739 ms, 24 kHz mono PCM Aoi WAV with query SHA-256
+  `668f6128cf9197f3441f7bf060922a38b6eff15eaf944c3e908f215f2dafac37`
+  and WAV SHA-256
+  `516bdac89cfeb577911d6ea3d287b789f6ebbfede28d12e0923a5ce57b76b5de`.
+  It remains `REVIEW_REQUIRED`; manual listening, approval, cached gameplay,
+  fallback, and regression results are pending. Nemo was stopped after
+  generation. Playwright remains excluded by D-011 and Docker is not
+  applicable under D-015.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

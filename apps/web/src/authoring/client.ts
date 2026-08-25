@@ -1,4 +1,5 @@
 import type {
+  AudioAsset,
   LessonAuthoringRequestV2,
   ValidatedLessonPackage,
 } from "@bunbun/contracts";
@@ -39,6 +40,32 @@ export interface PublishedLessonSummary {
   revision: number;
   title: { ja: string; support?: string };
   createdAt: string;
+}
+
+export type SpeechAssetStatus =
+  "PENDING" | "RUNNING" | "REVIEW_REQUIRED" | "READY" | "REJECTED" | "FAILED";
+
+export interface SpeechAssetView {
+  cacheKey: string;
+  voiceProfileId: string;
+  textJa: string;
+  status: SpeechAssetStatus;
+  attemptCount: number;
+  querySha256?: string;
+  wavSha256?: string;
+  durationMs?: number;
+  byteLength?: number;
+  failureCode?: string;
+  credit: "VOICEVOX Nemo";
+  references: Array<{
+    lessonId: string;
+    revision: number;
+    audioAssetId: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+  generatedAt?: string;
+  reviewedAt?: string;
 }
 
 export class AuthoringClientError extends Error {
@@ -89,6 +116,47 @@ export const authoringClient = {
       `/api/v1/lessons/${encodeURIComponent(lessonId)}/revisions/${revision}`,
       "GET",
     ),
+  enqueueSpeech: (
+    lessonId: string,
+    revision: number,
+    audioAssets: AudioAsset[],
+  ) =>
+    request<{ assets: SpeechAssetView[] }>(
+      "/api/v1/audio/speech/jobs",
+      "POST",
+      { lessonId, revision, audioAssets },
+    ).then((value) => value.assets),
+  listSpeech: () =>
+    request<{ assets: SpeechAssetView[] }>(
+      "/api/v1/audio/speech/jobs",
+      "GET",
+    ).then((value) => value.assets),
+  runSpeech: () =>
+    request<{ assets: SpeechAssetView[] }>("/api/v1/audio/speech/run", "POST", {
+      confirmation: "GENERATE_LOCAL_SPEECH",
+    }).then((value) => value.assets),
+  retrySpeech: (cacheKey: string) =>
+    request<SpeechAssetView>(
+      `/api/v1/audio/speech/jobs/${encodeURIComponent(cacheKey)}/retry`,
+      "POST",
+      { confirmation: "RETRY_LOCAL_SPEECH" },
+    ),
+  reviewSpeech: (cacheKey: string, decision: "APPROVE" | "REJECT") =>
+    request<SpeechAssetView>(
+      `/api/v1/audio/speech/jobs/${encodeURIComponent(cacheKey)}/review`,
+      "POST",
+      {
+        decision,
+        confirmation:
+          decision === "APPROVE"
+            ? "APPROVE_REVIEWED_SPEECH"
+            : "REJECT_REVIEWED_SPEECH",
+      },
+    ),
+  purgeSpeech: () =>
+    request<{ deleted: boolean }>("/api/v1/audio/speech/cache", "DELETE", {
+      confirmation: "DELETE_GENERATED_SPEECH",
+    }),
 };
 
 async function request<Value>(

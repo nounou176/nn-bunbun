@@ -28,7 +28,11 @@ const SUPPORTED_SCAFFOLDS = new Set([
 const SUPPORTED_CUES = new Set(["guide_gesture", "dog_happy", "dog_highlight"]);
 const SUPPORTED_WORLD_IDS = new Set(["guide", "visitor", "dog", "cat"]);
 const SUPPORTED_LOCATION_IDS = new Set(["animal_area", "bench_area"]);
-const SUPPORTED_VOICE_PROFILES = new Set(["voice_guide_01"]);
+const SUPPORTED_VOICE_PROFILES = new Set([
+  "voice_guide_01",
+  "voice_aoi_01",
+  "voice_tanaka_01",
+]);
 
 export interface RuntimeCapabilityError {
   code: string;

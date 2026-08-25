@@ -8,7 +8,7 @@ import type { GameRuntime } from "../game/runtime.js";
 import type { EvidenceStore } from "../persistence/port.js";
 import type { AppShell } from "../ui/shell.js";
 import { ActiveClock } from "./active-clock.js";
-import { createSpeechSynthesisAudioPort } from "./audio.js";
+import { createLessonAudioPort } from "./audio.js";
 import {
   checkpointFromState,
   currentStep,
@@ -53,10 +53,16 @@ export async function createLessonRuntime(
   const { manifest, catalog } = persistence.lessonPackage;
   const lifecycle = new AbortController();
   const signal = lifecycle.signal;
-  const audio = createSpeechSynthesisAudioPort(
+  const audio = createLessonAudioPort(
     manifest.audioAssets,
     simulateAudioFailure,
   );
+  const firstAudioAssetId = manifest.steps
+    .map((step) => step.stimulus.utterance?.audioAssetId)
+    .find((audioAssetId): audioAssetId is string => audioAssetId !== undefined);
+  if (firstAudioAssetId !== undefined) {
+    void audio.preload(firstAudioAssetId).catch(() => undefined);
+  }
   const clock = new ActiveClock(
     undefined,
     persistence.resumedSession?.checkpoint.activeTimeMs ?? 0,
@@ -397,6 +403,9 @@ export async function createLessonRuntime(
 
   const onVisibilityChange = () => {
     if (document.hidden) {
+      audio.interrupt(
+        "Japanese speech was interrupted in the background. Replay it or use the visible text path.",
+      );
       clock.pause();
       if (feedbackTimer !== undefined) {
         feedbackRemainingMs = Math.max(

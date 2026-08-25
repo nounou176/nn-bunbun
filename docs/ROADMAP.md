@@ -463,7 +463,7 @@ Exit criteria:
 
 ## Milestone 8 — Japanese voice and complete audio runtime
 
-Status: Next
+Status: In progress
 
 Purpose:
 
@@ -489,31 +489,51 @@ Decision resolved:
   `plans/2026-08-25-qualify-voicevox-nemo.md` under D-038; its isolated pinned
   intake, loopback/offline technical checks, and 36-anchor matrix pass. The user
   shortlisted two Aoi and two Tanaka voices; their 48-file complete-line matrix
-  also passes technical validation. Final pronunciation and one-voice-per-
-  character selection remain active; this is not production integration.
+  also passes technical validation. D-039 is now `QUALIFIED`: the user approved
+  Female 6 style `10006` for Aoi and Male 2 style `10000` for Tanaka, with
+  `VOICEVOX Nemo` credit and no reported pronunciation override. This is not
+  production integration.
+- D-040 approves immutable `voice_aoi_01` and `voice_tanaka_01` profiles,
+  canonical exact-text cache identity, SQLite generation/review state, bounded
+  loopback-only authoring, approved-only same-origin resolution, cached runtime
+  playback, visible credit, text fallback, and a USD 0 removal boundary. Its
+  focused ExecPlan is in progress.
+
+Implemented D-040 checkpoint:
+
+- migration 3 and the bounded server-owned speech repository, profile registry,
+  exact cache identity, queue, Nemo adapter, WAV validator, authoring API, and
+  privacy-safe cache inspector are present;
+- the authoring home can enqueue, explicitly generate, preview, approve,
+  reject, retry, and confirm-purge speech;
+- the web runtime preloads and plays only approved Aoi/Tanaka WAVs through
+  native audio, retains visible text fallback, and keeps `voice_guide_01` as a
+  legacy technical adapter; and
+- one freshly generated Aoi technical WAV is `REVIEW_REQUIRED`. It remains
+  unavailable to gameplay until the user listens and approves it.
 
 Decisions required:
 
-- qualification of the proposed VOICEVOX Nemo route, exact voice profiles,
-  cache storage, and invalidation inputs from O-010, after explicit focused
-  plan approval;
-- pronunciation review process; and
+- final production utterance review and any pronunciation overrides; and
 - exact non-speech source assets, licenses, mix targets, and fallback behavior.
 
-Planned scope:
+Implemented speech-foundation scope:
 
 - queued TTS generation outside gameplay;
-- normalized, versioned cache keys;
+- exact-input, versioned cache keys;
 - stable character-to-voice-profile assignment;
 - duration metadata;
 - lesson audio readiness checks;
 - preload for first stimuli;
+- replay behavior; and
+- captions and missing, disabled, interrupted, or failed audio recovery.
+
+Remaining complete-audio scope:
+
 - a learner-unlocked mixer with master, voice, ambience, effects, and music
   controls;
 - voice-priority ducking;
-- scene-owned ambience and cue-owned deterministic effects or musical stings;
-- replay behavior; and
-- captions and missing, disabled, interrupted, or failed audio recovery.
+- scene-owned ambience and cue-owned deterministic effects or musical stings.
 
 Exit criteria:
 

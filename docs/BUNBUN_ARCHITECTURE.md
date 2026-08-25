@@ -9,10 +9,12 @@ complete under D-036; its new automated/manual verification was explicitly
 waived and is `UNVERIFIED_USER_WAIVED`. D-025 defines the production world-
 authoring boundary, and D-026 defines the first N5 audio-complete vertical
 slice. M7 v3.2 uses the repository-owned Skills-only plugin plus a deterministic
-application compiler. D-039 authorizes an isolated VOICEVOX Nemo qualification
-for M8; its pinned local engine and ignored evaluation evidence now exist, but
-production integration remains unapproved. No model/provider runs inside
-Bunbun or gameplay.
+application compiler. D-039 qualifies VOICEVOX Nemo as the removable local M8
+speech-authoring engine and selects exact Aoi/Tanaka voices. D-040 implements
+the first reviewed cached-speech slice with immutable profiles, local
+generation/review state, approved-only same-origin playback, and no runtime
+engine call. Its first technical WAV still requires user listening approval.
+No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
 
@@ -103,16 +105,25 @@ Implemented Milestone 7 responsibilities:
 - enter the unchanged deterministic evidence, resume, and Three.js runtime only
   after package validation succeeds.
 
+Implemented Milestone 8 speech-foundation responsibilities:
+
+- validate and preload reviewed Aoi/Tanaka WAVs through a cache-key-only,
+  same-origin application endpoint;
+- decode and play cached speech through an owned native browser audio context
+  and voice gain, with safe interruption, disposal, visible credit, and text
+  fallback; and
+- keep browser SpeechSynthesis isolated to the legacy `voice_guide_01`
+  technical fixtures without allowing an Aoi/Tanaka fallback to it.
+
 Planned responsibilities beyond Milestone 7:
 
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
 - dynamically load only the referenced scene and asset bundles;
-- replace the temporary audio adapter with reviewed cached Japanese speech;
 - mix voice, scene ambience, deterministic cue-owned effects, and restrained
   music through learner-controlled audio buses;
-- preload speech and sound assets required for the first interaction while
-  preserving captions, replay, and a recoverable text fallback; and
+- preload non-speech assets required for the first interaction while preserving
+  captions, replay, and a recoverable text fallback; and
 - connect later compiled lesson revisions to the implemented storage boundary
   without weakening immutable package fingerprints.
 
@@ -149,21 +160,29 @@ Implemented compiler responsibilities:
 - hash exact imported text while retaining only validated structured content or
   stable failure metadata.
 
-Planned media responsibilities:
+Implemented Milestone 8 speech-authoring responsibilities:
 
-- coordinate Japanese TTS generation and cache lookup;
-- store audio cache metadata in SQLite; and
-- replace the technical browser-speech adapter with approved audio assets.
+- own immutable Aoi/Tanaka voice-profile mappings and exact canonical cache
+  identities;
+- store generation, review, reference, attempt, hash, duration, and failure
+  metadata through checksummed SQLite migration 3;
+- explicitly queue serialized loopback Nemo generation, validate bounded query
+  and PCM WAV outputs, and write cache artifacts atomically;
+- expose authoring preview/review/retry/purge resources and serve only `READY`
+  WAVs to gameplay; and
+- inspect cache state without printing authored Japanese, artifact paths,
+  credentials, or learner data.
 
 D-039 places the dedicated VOICEVOX Nemo 0.24.0 Linux CPU x64 engine first in
 the qualification order. Its intake, local API, integrity, performance-
-observation, invalid-style, and isolated offline checks pass. It remains a
-removable loopback-only authoring candidate outside gameplay and product
-distribution. The user has shortlisted two Aoi and two Tanaka voices, and their
-complete twelve-line matrix passes technical validation; one final voice per
-character and pronunciation acceptance remain required before qualification is
-recorded. AivisSpeech is conditional fallback research, not an installed
-parallel provider.
+observation, invalid-style, and isolated offline checks pass. The user approved
+Female 6 style `10006` for Aoi and Male 2 style `10000` for Tanaka, so Nemo is
+qualified as a removable loopback-only authoring tool outside gameplay and
+product distribution. D-040 maps those identities to `voice_aoi_01` and
+`voice_tanaka_01` and implements reviewed cache integration. One newly generated
+Aoi technical WAV is awaiting user review and is not runtime-ready.
+AivisSpeech is conditional fallback research, not an installed parallel
+provider.
 
 Model or browser strategy, prompt composition, transport, and retry policy
 belong behind the lesson compiler boundary. The game client should not depend
@@ -368,11 +387,14 @@ audio registry. World, feedback, and musical stings belong to registered
 presentation cues. The runtime resolves all three through application-owned
 asset metadata; a manifest cannot provide an audio URL, file path, mix value,
 or arbitrary playback instruction. Character speech receives mix priority and
-may temporarily duck ambience and music. Exact TTS provider, model, voice
-profiles, cache storage, and licensed non-speech sources remain O-010 decisions.
-D-038 requires the first M8 route to have zero incremental usage and recurring
-cost and to run locally/offline. No third-party provider, dependency, model, or
-asset may be selected or added before its focused plan is explicitly approved.
+may temporarily duck ambience and music. D-039 resolves the TTS engine and Nemo
+voice assignments. D-040 resolves immutable profile IDs, exact cache identity,
+SQLite/file storage, explicit generation and review, approved-only resolution,
+cached playback, and text fallback. Final utterance approval, licensed
+non-speech sources, and the complete mixer remain open. D-038 requires the
+first M8 route to have zero incremental usage and recurring cost and to run
+locally/offline. No third-party provider, dependency, model, or asset may be
+selected or added before its focused plan is explicitly approved.
 
 ## Runtime determinism and recovery
 
@@ -467,11 +489,11 @@ atomically binds the active candidate IDs and selection handler, reports stable
 IDs, and applies known presentation cues; it does not decide correctness or
 advance lesson state.
 
-The temporary SpeechSynthesis adapter starts only after a learner gesture and
+The legacy SpeechSynthesis adapter starts only after a learner gesture and
 records `heard` only after the browser reports playback start. Failure reveals
-an assisted text route and never claims heard evidence. No browser storage,
-backend evidence transport, learner identity, mastery, production TTS, AI, or
-network dependency is introduced by this boundary.
+an assisted text route and never claims heard evidence. D-040 later confines
+this adapter to `voice_guide_01`; production-character profiles use only
+reviewed cached WAVs and never fall back to browser speech.
 
 ### Milestone 5 complete primitive boundary
 

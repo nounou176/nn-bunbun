@@ -283,6 +283,16 @@ resolves audioAssetId through the application asset boundary.
 Two references to the same speech inputs SHOULD share a cacheKey and cached
 asset.
 
+For D-040 Aoi/Tanaka speech, the application computes
+`bunbun_tts_v1_<sha256>` from canonical JSON containing the exact `textJa`
+bytes without cache-layer normalization, the immutable code-owned voice
+profile and qualified Nemo identity, query/dictionary/pronunciation policy,
+and 24 kHz mono PCM WAV output identity. The manifest still carries only the
+opaque key and profile ID. Preview is authoring-only; gameplay resolution
+requires matching `READY` SQLite metadata and the verified cache file. The
+legacy `voice_guide_01` fixtures retain their technical browser-speech path and
+do not define the production cache algorithm.
+
 Contract 0.1.0 uses `AudioAsset` only for exact spoken Japanese attached to a
 lesson utterance. D-026 does not put ambience, footsteps, animal sounds,
 feedback effects, or music inside this array. Reusable ambience is owned by the

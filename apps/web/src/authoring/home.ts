@@ -1,13 +1,16 @@
-import type { ValidatedLessonPackage } from "@bunbun/contracts";
+import type { LessonManifest, ValidatedLessonPackage } from "@bunbun/contracts";
+import cachedSpeechFixture from "@bunbun/contracts/fixtures/valid-m8-cached-speech" with { type: "json" };
 
 import {
   authoringClient,
   type CompilationView,
   type PublishedLessonSummary,
+  type SpeechAssetView,
 } from "./client.js";
 
 export type LessonSelection =
   | { kind: "AUTHORED_DEMO" }
+  | { kind: "CACHED_SPEECH_DEMO" }
   | { kind: "PUBLISHED"; lessonPackage: ValidatedLessonPackage };
 
 export function showAuthoringHome(
@@ -38,6 +41,22 @@ export function showAuthoringHome(
           <p>Lesson tám primitive authored sẵn, luôn chơi được không cần plugin.</p>
           <button class="primary-button" data-authoring="play-demo" type="button">Play authored demo</button>
         </article>
+        <article class="authoring-card speech-card">
+          <p class="eyebrow">M8 · Reviewed local speech</p>
+          <h2>あおい · 財布を探してください。</h2>
+          <p>Generate locally, listen, then approve before gameplay. Credit: <b>VOICEVOX Nemo</b>.</p>
+          <div class="handoff-actions">
+            <button data-audio="prepare" type="button">Prepare speech</button>
+            <button class="primary-button" data-audio="run" type="button">Generate with local Nemo</button>
+            <button data-audio="play" type="button" disabled>Play cached speech demo</button>
+          </div>
+          <div data-audio="review"></div>
+          <div class="delete-data-actions">
+            <button data-audio="purge" type="button">Delete generated speech cache</button>
+            <button class="danger-button" data-audio="purge-confirm" type="button" hidden>Confirm speech deletion</button>
+            <button data-audio="purge-cancel" type="button" hidden>Cancel</button>
+          </div>
+        </article>
       </section>
       <section class="authoring-card handoff-card" data-authoring="handoff" hidden></section>
       <section class="authoring-card library-card">
@@ -54,6 +73,10 @@ export function showAuthoringHome(
     app,
     '[data-authoring="create-form"]',
   );
+  const speechReview = required<HTMLElement>(app, '[data-audio="review"]');
+  const playSpeech = required<HTMLButtonElement>(app, '[data-audio="play"]');
+  const speechManifest = cachedSpeechFixture as LessonManifest;
+  const speechAsset = speechManifest.audioAssets[0]!;
 
   return new Promise((resolve) => {
     required<HTMLButtonElement>(
@@ -61,6 +84,75 @@ export function showAuthoringHome(
       '[data-authoring="play-demo"]',
     ).addEventListener("click", () => resolve({ kind: "AUTHORED_DEMO" }), {
       once: true,
+    });
+    playSpeech.addEventListener("click", () =>
+      resolve({ kind: "CACHED_SPEECH_DEMO" }),
+    );
+    required<HTMLButtonElement>(app, '[data-audio="prepare"]').addEventListener(
+      "click",
+      () => {
+        setBusy("Đang đăng ký exact speech input vào local queue…");
+        void authoringClient
+          .enqueueSpeech(
+            speechManifest.lessonId,
+            speechManifest.revision,
+            speechManifest.audioAssets,
+          )
+          .then((assets) => {
+            renderSpeech(
+              assets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
+            );
+            status.textContent = "Speech input đã vào local queue.";
+          })
+          .catch(showError);
+      },
+    );
+    required<HTMLButtonElement>(app, '[data-audio="run"]').addEventListener(
+      "click",
+      () => {
+        setBusy("Đang gọi Nemo local trên 127.0.0.1:50121…");
+        void authoringClient
+          .runSpeech()
+          .then((assets) => {
+            renderSpeech(
+              assets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
+            );
+            status.textContent = "Local speech generation đã kết thúc.";
+          })
+          .catch(showError);
+      },
+    );
+    const purge = required<HTMLButtonElement>(app, '[data-audio="purge"]');
+    const purgeConfirm = required<HTMLButtonElement>(
+      app,
+      '[data-audio="purge-confirm"]',
+    );
+    const purgeCancel = required<HTMLButtonElement>(
+      app,
+      '[data-audio="purge-cancel"]',
+    );
+    purge.addEventListener("click", () => {
+      purge.disabled = true;
+      purgeConfirm.hidden = false;
+      purgeCancel.hidden = false;
+    });
+    purgeCancel.addEventListener("click", () => {
+      purge.disabled = false;
+      purgeConfirm.hidden = true;
+      purgeCancel.hidden = true;
+    });
+    purgeConfirm.addEventListener("click", () => {
+      void authoringClient
+        .purgeSpeech()
+        .then(() => {
+          purge.disabled = false;
+          purgeConfirm.hidden = true;
+          purgeCancel.hidden = true;
+          renderSpeech(undefined);
+          status.textContent =
+            "Generated speech cache đã được xóa; lesson data được giữ nguyên.";
+        })
+        .catch(showError);
     });
     required<HTMLButtonElement>(
       app,
@@ -89,11 +181,15 @@ export function showAuthoringHome(
 
     async function refresh(): Promise<void> {
       try {
-        const [compilations, lessons] = await Promise.all([
+        const [compilations, lessons, speechAssets] = await Promise.all([
           authoringClient.list(),
           authoringClient.listLessons(),
+          authoringClient.listSpeech(),
         ]);
         renderLibrary(lessons);
+        renderSpeech(
+          speechAssets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
+        );
         const current =
           compilations.find(
             (compilation) => compilation.status !== "PUBLISHED",
@@ -104,6 +200,71 @@ export function showAuthoringHome(
         library.innerHTML =
           "<p>Server local chưa sẵn sàng. Authored demo vẫn có thể chơi.</p>";
         showError(error);
+      }
+    }
+
+    function renderSpeech(asset: SpeechAssetView | undefined): void {
+      speechReview.replaceChildren();
+      playSpeech.disabled = asset?.status !== "READY";
+      if (asset === undefined) {
+        const message = document.createElement("p");
+        message.textContent =
+          "Not prepared. Start by registering the exact fixture input.";
+        speechReview.append(message);
+        return;
+      }
+      const summary = document.createElement("p");
+      summary.className = "review-summary";
+      summary.textContent = `${asset.status} · ${asset.voiceProfileId} · ${asset.durationMs ?? "—"} ms · attempt ${asset.attemptCount}`;
+      const detail = document.createElement("small");
+      detail.textContent = asset.failureCode
+        ? `Failure: ${asset.failureCode}`
+        : `Query SHA-256: ${asset.querySha256 ?? "pending"} · WAV SHA-256: ${asset.wavSha256 ?? "pending"} · ${asset.byteLength ?? "—"} bytes · Credit: ${asset.credit}`;
+      speechReview.append(summary, detail);
+
+      if (asset.status === "REVIEW_REQUIRED" || asset.status === "READY") {
+        const audio = document.createElement("audio");
+        audio.controls = true;
+        audio.preload = "metadata";
+        audio.src = `/api/v1/audio/speech/jobs/${encodeURIComponent(asset.cacheKey)}/preview`;
+        speechReview.append(audio);
+      }
+      if (asset.status === "REVIEW_REQUIRED") {
+        const actions = document.createElement("div");
+        actions.className = "handoff-actions";
+        const approve = button("Approve exact reviewed WAV");
+        approve.classList.add("primary-button");
+        approve.addEventListener(
+          "click",
+          () =>
+            void authoringClient
+              .reviewSpeech(asset.cacheKey, "APPROVE")
+              .then(renderSpeech)
+              .catch(showError),
+        );
+        const reject = button("Reject WAV");
+        reject.addEventListener(
+          "click",
+          () =>
+            void authoringClient
+              .reviewSpeech(asset.cacheKey, "REJECT")
+              .then(renderSpeech)
+              .catch(showError),
+        );
+        actions.append(approve, reject);
+        speechReview.append(actions);
+      }
+      if (asset.status === "FAILED") {
+        const retry = button("Retry failed generation");
+        retry.addEventListener(
+          "click",
+          () =>
+            void authoringClient
+              .retrySpeech(asset.cacheKey)
+              .then(renderSpeech)
+              .catch(showError),
+        );
+        speechReview.append(retry);
       }
     }
 

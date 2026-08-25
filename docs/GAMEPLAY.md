@@ -81,16 +81,16 @@ mechanics. They do not count as meaningful reactions.
 
 The initial runtime supports exactly these primitive types:
 
-| Primitive | Learner action | Typical evidence | Required runtime capability |
-| --- | --- | --- | --- |
-| LISTEN | Hear a Japanese stimulus and continue | heard | Audio playback and replay |
-| CLICK_OBJECT | Select a relevant visible object | recognized or selected | 3D picking |
-| CHOOSE | Choose one authored option | recognized or selected | DOM choices |
-| ARRANGE | Put authored tokens into an accepted order | arranged | DOM token arrangement |
-| TYPE | Enter an accepted Japanese response | typed or produced | DOM text input |
-| MOVE_TO | Choose and reach a relevant location | recognized or selected | Point-and-click movement |
-| PICK_UP | Select and acquire an allowed world object | recognized or selected | World state and carry state |
-| GIVE | Give an allowed held item to an allowed recipient | recognized or selected | World and carry state |
+| Primitive    | Learner action                                    | Typical evidence       | Required runtime capability |
+| ------------ | ------------------------------------------------- | ---------------------- | --------------------------- |
+| LISTEN       | Hear a Japanese stimulus and continue             | heard                  | Audio playback and replay   |
+| CLICK_OBJECT | Select a relevant visible object                  | recognized or selected | 3D picking                  |
+| CHOOSE       | Choose one authored option                        | recognized or selected | DOM choices                 |
+| ARRANGE      | Put authored tokens into an accepted order        | arranged               | DOM token arrangement       |
+| TYPE         | Enter an accepted Japanese response               | typed or produced      | DOM text input              |
+| MOVE_TO      | Choose and reach a relevant location              | recognized or selected | Point-and-click movement    |
+| PICK_UP      | Select and acquire an allowed world object        | recognized or selected | World state and carry state |
+| GIVE         | Give an allowed held item to an allowed recipient | recognized or selected | World and carry state       |
 
 SPEAK is explicitly outside the initial set. Adding it or any other primitive
 requires an accepted decision and updates to this document, the manifest
@@ -272,6 +272,17 @@ heard evidence. Backgrounding, resume, restart, and disposal stop or restore
 audio at the same safe deterministic boundaries as other transient runtime
 presentation. The audio system does not add microphone capture, voice cloning,
 realtime TTS, realtime NPC conversation, pronunciation scoring, or SPEAK.
+
+D-040 implements the first speech-only foundation for this boundary. Aoi uses
+immutable profile `voice_aoi_01`; Tanaka uses `voice_tanaka_01`. Exact authored
+Japanese is generated through the qualified local Nemo engine only during an
+explicit authoring run, then previewed and approved before the same-origin WAV
+becomes playable. Ordinary gameplay does not call the engine. Missing,
+unapproved, rejected, interrupted, or invalid speech exposes the existing text
+route and must not claim `heard`. Browser SpeechSynthesis remains only for the
+legacy `voice_guide_01` technical fixtures. Ambience, effects, music, ducking,
+and the complete learner-owned mixer remain unimplemented and separately
+gated.
 
 ## Difficulty and scaffolding
 

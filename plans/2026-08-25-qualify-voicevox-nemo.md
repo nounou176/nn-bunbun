@@ -1,9 +1,9 @@
 # Qualify VOICEVOX Nemo for cached Japanese speech
 
-Status: Approved; qualification in progress
+Status: Complete — QUALIFIED
 Owner: Codex and user
 Created: 2026-08-25
-Last updated: 2026-08-25 10:38 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 11:43 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -263,9 +263,15 @@ implement Nemo or must prepare the AivisSpeech fallback plan.
       (Male 2). Generated all twelve fixed lines for all four finalists: 48 valid
       WAV files with unchanged queries, verified identities, hashes, query JSON,
       24 kHz mono PCM format, and listening-page controls. The engine was stopped.
-- [ ] Receive the user's final one-voice-per-character selection and complete
-      pronunciation review from the finalist listening page.
-- [ ] Record the final qualification result and next M8 decision.
+- [x] 2026-08-25 11:43 — The user explicitly approved `F6/M2`: Aoi uses
+      Female 6 style `10006`, speaker UUID
+      `3490c392-30be-44c2-8379-b77df27fa65e`; Tanaka uses Male 2 style `10000`,
+      speaker UUID `7ecc7a17-1465-4b22-a3b5-842a110ff55e`. No line-specific
+      pronunciation issue was reported with the approval.
+- [x] 2026-08-25 11:43 — Recorded `QUALIFIED` for removable local authoring and
+      reviewed cached-output generation only. Production integration, stable
+      code-owned profile IDs, cache storage/invalidation, and non-speech assets
+      remain later M8 work.
 
 ## Surprises and discoveries
 
@@ -306,6 +312,9 @@ implement Nemo or must prepare the AivisSpeech fallback plan.
   without Docker, SDKs, GPU dependencies, or bundling.
 - 2026-08-25 — Do not assign final voice IDs until the user hears exact Bunbun
   lines; character fit is a manual product decision.
+- 2026-08-25 — The user approved Aoi Female 6 (`10006`) and Tanaka Male 2
+  (`10000`). The accepted credit remains `VOICEVOX Nemo`; no pronunciation
+  override is currently recorded.
 
 ## Validation
 
@@ -359,14 +368,14 @@ runtime application code.
 
 ### Manual results
 
-| Scenario                | Tester | Date       | Result  | Evidence or notes                     |
-| ----------------------- | ------ | ---------- | ------- | ------------------------------------- |
-| Rights and intake       | Codex  | 2026-08-25 | Pass    | Pinned hash, terms, size, source file |
-| Local/offline synthesis | Codex  | 2026-08-25 | Pass    | 36 anchors plus isolated offline WAV  |
-| Aoi voice fit           | User   | 2026-08-25 | Partial | Female 1 and Female 6 shortlisted     |
-| Tanaka voice fit        | User   | 2026-08-25 | Partial | Male 1 and Male 2 shortlisted         |
-| Pronunciation matrix    | User   | Pending    | Not run | Awaiting human Japanese review        |
-| Removal                 | Codex  | 2026-08-25 | Ready   | Exact isolated paths documented       |
+| Scenario                | Tester | Date       | Result | Evidence or notes                     |
+| ----------------------- | ------ | ---------- | ------ | ------------------------------------- |
+| Rights and intake       | Codex  | 2026-08-25 | Pass   | Pinned hash, terms, size, source file |
+| Local/offline synthesis | Codex  | 2026-08-25 | Pass   | 36 anchors plus isolated offline WAV  |
+| Aoi voice fit           | User   | 2026-08-25 | Pass   | Female 6 style 10006 approved         |
+| Tanaka voice fit        | User   | 2026-08-25 | Pass   | Male 2 style 10000 approved           |
+| Pronunciation matrix    | User   | 2026-08-25 | Pass   | Approved; no line issue reported      |
+| Removal                 | Codex  | 2026-08-25 | Ready  | Exact isolated paths documented       |
 
 ## Recovery and compatibility
 
@@ -395,10 +404,16 @@ automatically.
 
 ## Outcomes
 
-The pinned zero-cost candidate has passed intake, loopback API, WAV integrity,
-performance-observation, invalid-style rejection, and isolated offline-
-synthesis checks. The 36-file anchor matrix narrowed the field to two Aoi and
-two Tanaka candidates. Their complete 48-file finalist matrix passes identity,
-query, WAV, hash, and page validation. No candidate has been selected as a
-production asset or integrated into Bunbun. Final one-voice-per-character and
-pronunciation review plus the M8 qualification decision remain pending.
+`QUALIFIED`: the pinned zero-cost candidate passed intake, loopback API, WAV
+integrity, performance observation, invalid-style rejection, isolated offline
+synthesis, anchor comparison, complete finalist generation, and explicit user
+voice approval. Aoi maps to Nemo Female 6 style `10006`; Tanaka maps to Nemo
+Male 2 style `10000`. Both use model version 0.15.0 and require visible
+`VOICEVOX Nemo` credit. No pronunciation override is currently recorded.
+
+Qualification does not make the ignored evaluation WAV files production
+assets and does not integrate the engine into Bunbun. M8 may now propose stable
+code-owned profile IDs, canonical cache identity, SQLite metadata, queued local
+generation, reviewed production WAV intake, runtime asset resolution, and
+fallback behavior. Gameplay must remain deterministic and must never call the
+engine.

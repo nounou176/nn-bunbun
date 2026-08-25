@@ -17,6 +17,8 @@ import {
 
 import { CompilerError } from "./compiler/core.js";
 import type { CompilationRepository } from "./compiler/repository.js";
+import { SpeechAudioError } from "./audio/errors.js";
+import type { SpeechService } from "./audio/service.js";
 import { PersistenceError } from "./persistence/errors.js";
 import type { EvidenceRepository } from "./persistence/repository.js";
 
@@ -28,13 +30,18 @@ const ID_PATTERN = /^[A-Za-z0-9_-]+$/;
 export function createBunbunServer(
   repository: EvidenceRepository,
   compilations: CompilationRepository,
+  speech?: SpeechService,
 ) {
   return createServer((request, response) => {
-    void routeRequest(request, response, repository, compilations).catch(
-      (error: unknown) => {
-        sendError(response, error);
-      },
-    );
+    void routeRequest(
+      request,
+      response,
+      repository,
+      compilations,
+      speech,
+    ).catch((error: unknown) => {
+      sendError(response, error);
+    });
   });
 }
 
@@ -43,6 +50,7 @@ async function routeRequest(
   response: ServerResponse,
   repository: EvidenceRepository,
   compilations: CompilationRepository,
+  speech: SpeechService | undefined,
 ): Promise<void> {
   const url = new URL(request.url ?? "/", LOCAL_ORIGIN);
 
@@ -144,6 +152,138 @@ async function routeRequest(
 
   if (request.method === "GET" && url.pathname === "/api/v1/lessons") {
     sendJson(response, 200, { lessons: compilations.listLessons() });
+    return;
+  }
+
+  if (
+    speech !== undefined &&
+    request.method === "POST" &&
+    url.pathname === "/api/v1/audio/speech/jobs"
+  ) {
+    sendJson(response, 201, {
+      assets: speech.enqueue(await readJson(request)),
+    });
+    return;
+  }
+
+  if (
+    speech !== undefined &&
+    request.method === "GET" &&
+    url.pathname === "/api/v1/audio/speech/jobs"
+  ) {
+    sendJson(response, 200, { assets: speech.list() });
+    return;
+  }
+
+  if (
+    speech !== undefined &&
+    request.method === "POST" &&
+    url.pathname === "/api/v1/audio/speech/run"
+  ) {
+    const body = exactRecord(await readJson(request), ["confirmation"]);
+    if (body.confirmation !== "GENERATE_LOCAL_SPEECH") {
+      throw new HttpError(
+        400,
+        "SPEECH_GENERATION_CONFIRMATION_REQUIRED",
+        "Explicit local speech generation confirmation is required.",
+      );
+    }
+    sendJson(response, 200, { assets: await speech.runPending() });
+    return;
+  }
+
+  const speechRetryMatch =
+    /^\/api\/v1\/audio\/speech\/jobs\/([^/]+)\/retry$/.exec(url.pathname);
+  if (
+    speech !== undefined &&
+    request.method === "POST" &&
+    speechRetryMatch !== null
+  ) {
+    const body = exactRecord(await readJson(request), ["confirmation"]);
+    if (body.confirmation !== "RETRY_LOCAL_SPEECH") {
+      throw new HttpError(
+        400,
+        "SPEECH_RETRY_CONFIRMATION_REQUIRED",
+        "Explicit local speech retry confirmation is required.",
+      );
+    }
+    sendJson(response, 200, speech.retry(pathId(speechRetryMatch[1])));
+    return;
+  }
+
+  const speechReviewMatch =
+    /^\/api\/v1\/audio\/speech\/jobs\/([^/]+)\/review$/.exec(url.pathname);
+  if (
+    speech !== undefined &&
+    request.method === "POST" &&
+    speechReviewMatch !== null
+  ) {
+    const body = exactRecord(await readJson(request), [
+      "decision",
+      "confirmation",
+    ]);
+    if (
+      (body.decision !== "APPROVE" && body.decision !== "REJECT") ||
+      body.confirmation !==
+        (body.decision === "APPROVE"
+          ? "APPROVE_REVIEWED_SPEECH"
+          : "REJECT_REVIEWED_SPEECH")
+    ) {
+      throw new HttpError(
+        400,
+        "SPEECH_REVIEW_CONFIRMATION_REQUIRED",
+        "Exact speech review decision and confirmation are required.",
+      );
+    }
+    sendJson(
+      response,
+      200,
+      await speech.review(pathId(speechReviewMatch[1]), body.decision),
+    );
+    return;
+  }
+
+  const speechPreviewMatch =
+    /^\/api\/v1\/audio\/speech\/jobs\/([^/]+)\/preview$/.exec(url.pathname);
+  if (
+    speech !== undefined &&
+    request.method === "GET" &&
+    speechPreviewMatch !== null
+  ) {
+    sendWav(
+      response,
+      await speech.preview(pathId(speechPreviewMatch[1])),
+      false,
+    );
+    return;
+  }
+
+  const speechAssetMatch =
+    /^\/api\/v1\/audio\/speech\/assets\/([^/]+)\.wav$/.exec(url.pathname);
+  if (
+    speech !== undefined &&
+    request.method === "GET" &&
+    speechAssetMatch !== null
+  ) {
+    sendWav(response, await speech.ready(pathId(speechAssetMatch[1])), true);
+    return;
+  }
+
+  if (
+    speech !== undefined &&
+    request.method === "DELETE" &&
+    url.pathname === "/api/v1/audio/speech/cache"
+  ) {
+    const body = exactRecord(await readJson(request), ["confirmation"]);
+    if (body.confirmation !== "DELETE_GENERATED_SPEECH") {
+      throw new HttpError(
+        400,
+        "SPEECH_PURGE_CONFIRMATION_REQUIRED",
+        "Exact generated-speech deletion confirmation is required.",
+      );
+    }
+    await speech.purge();
+    sendJson(response, 200, { deleted: true });
     return;
   }
 
@@ -372,6 +512,7 @@ function sendError(response: ServerResponse, error: unknown): void {
   if (
     error instanceof PersistenceError ||
     error instanceof CompilerError ||
+    error instanceof SpeechAudioError ||
     error instanceof HttpError
   ) {
     sendJson(response, error.statusCode, {
@@ -387,6 +528,29 @@ function sendError(response: ServerResponse, error: unknown): void {
     code: "INTERNAL_ERROR",
     message: "The local evidence store could not complete the request.",
   });
+}
+
+function sendWav(
+  response: ServerResponse,
+  artifact: {
+    bytes: Buffer;
+    sha256: string;
+    durationMs: number;
+    credit: string;
+  },
+  immutable: boolean,
+): void {
+  response.writeHead(200, {
+    "cache-control": immutable
+      ? "private, max-age=31536000, immutable"
+      : "no-store",
+    "content-length": String(artifact.bytes.byteLength),
+    "content-type": "audio/wav",
+    etag: `"sha256-${artifact.sha256}"`,
+    "x-bunbun-audio-credit": artifact.credit,
+    "x-bunbun-audio-duration-ms": String(artifact.durationMs),
+  });
+  response.end(artifact.bytes);
 }
 
 function exactRecord(

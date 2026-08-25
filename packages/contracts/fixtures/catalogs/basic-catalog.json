@@ -109,6 +109,12 @@
   "voiceProfiles": [
     {
       "voiceProfileId": "voice_guide_01"
+    },
+    {
+      "voiceProfileId": "voice_aoi_01"
+    },
+    {
+      "voiceProfileId": "voice_tanaka_01"
     }
   ],
   "referenceRecords": [
@@ -117,6 +123,12 @@
       "targetKinds": ["VOCABULARY"],
       "providerId": "japanese_core",
       "providerVersion": "fixture_0.1.0"
+    },
+    {
+      "referenceId": "bunbun_core_te_kudasai",
+      "targetKinds": ["GRAMMAR"],
+      "providerId": "bunbun_core",
+      "providerVersion": "0.1.0"
     }
   ]
 }

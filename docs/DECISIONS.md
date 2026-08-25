@@ -1810,7 +1810,7 @@ regressions, and technical risk.
 ### D-039 — Qualify VOICEVOX Nemo before other local TTS candidates
 
 - Date: 2026-08-25
-- Status: Accepted; focused qualification plan explicitly approved
+- Status: Accepted; qualification result `QUALIFIED`
 - Affects: Milestone 8 TTS research order, Japanese voice policy, cost,
   licensing, local authoring operations
 
@@ -1857,38 +1857,123 @@ produced 36 unchanged-baseline anchors across all nine voices and is stopped.
 The user shortlisted styles `10005` and `10006` for Aoi and styles `10001` and
 `10000` for Tanaka. The resulting 48-file, twelve-line finalist matrix passes
 identity, unchanged-query, WAV, hash, and listening-page validation, and the
-engine is again stopped. This is technical and shortlist evidence only: D-039
-remains unresolved at the qualification level until the user reviews all
-finalist lines, chooses one exact voice per character, and accepts or reports
-pronunciation issues.
+engine is again stopped. D-039 was resolved when the user explicitly approved
+`F6/M2`: Aoi uses Female 6
+style `10006`, speaker UUID `3490c392-30be-44c2-8379-b77df27fa65e`; Tanaka uses
+Male 2 style `10000`, speaker UUID
+`7ecc7a17-1465-4b22-a3b5-842a110ff55e`. Both report model version 0.15.0. No
+line-specific pronunciation issue or accent override was reported with the
+approval. The qualification result is `QUALIFIED`, with accepted visible
+credit `VOICEVOX Nemo`.
 
-If Nemo qualifies, Bunbun may later propose stable code-owned voice profiles,
-cache identity, SQLite metadata, local asset resolution, and mixer integration.
-Gameplay must receive reviewed cached audio and must never call the engine. If
-Nemo is rejected, remove its exact ignored local directories and return to the
-D-038 plan gate; do not switch providers automatically.
+This qualified result permits Bunbun to later propose stable code-owned voice
+profiles, cache identity, SQLite metadata, local asset resolution, and mixer
+integration. Gameplay must receive reviewed cached audio and must never call
+the engine. If future evidence invalidates qualification, remove its exact
+ignored local directories and return to the D-038 plan gate; do not switch
+providers automatically.
 
 Consequences:
 
-O-010 remains open because exact voice UUID/style assignments, pronunciation
-overrides, production cache storage/invalidation, and runtime integration are
-not yet approved. The dedicated Nemo engine corrects an earlier research
-assumption based on ordinary VOICEVOX: its stable release and default port are
-separate, and its compressed Linux CPU x64 package is materially smaller. The
-approved qualification added only ignored local engine/evaluation data and a
-tracked source record; no product dependency, production audio asset, secret,
-account, paid route, or runtime integration was added.
+O-010 is partially resolved: the local/offline TTS engine, exact Aoi/Tanaka
+voice UUID/style assignments, credit, cost, and authoring boundary are
+accepted. Stable code-owned profile IDs, canonical cache inputs, SQLite cache
+metadata, generation workflow, production utterance review, runtime asset
+resolution, and failure behavior remain open. The dedicated Nemo engine
+corrects an earlier research assumption based on ordinary VOICEVOX: its stable
+release and default port are separate, and its compressed Linux CPU x64 package
+is materially smaller. The approved qualification added only ignored local
+engine/evaluation data and a tracked source record; no product dependency,
+production audio asset, secret, account, paid route, or runtime integration was
+added.
+
+### D-040 — Implement reviewed local Nemo speech through an immutable cache
+
+- Date: 2026-08-25
+- Status: Accepted by explicit user approval
+- Affects: Milestone 8 speech authoring, voice profiles, SQLite, local files,
+  runtime playback, cost, privacy, credits
+
+Context:
+
+D-039 qualifies VOICEVOX Nemo and exact Aoi/Tanaka voices but deliberately
+stops before application integration. The current runtime still uses browser
+SpeechSynthesis for the technical `voice_guide_01` profile. It has no stable
+production-character profile IDs, complete cache identity, durable generation
+state, reviewed WAV registration, same-origin resolver, or cached playback.
+
+D-038 requires the complete production-integration boundary to be reviewed
+before adding it. Final last-train dialogue and non-speech sources are not yet
+approved, so the smallest coherent next step is a removable speech foundation
+with one technical Aoi fixture rather than silently selecting ambience,
+effects, music, or another provider.
+
+Decision:
+
+Approve `plans/2026-08-25-m8-reviewed-cached-japanese-speech.md` exactly as the
+first implementation slice of Milestone 8.
+
+Use immutable application profile IDs `voice_aoi_01` and
+`voice_tanaka_01`. Map them in a code-owned server registry to Nemo 0.24.0,
+manifest UUID `208cf94d-43d2-4cf5-abc0-9783cac36d29`, model 0.15.0, and the
+D-039 Female 6 style `10006` and Male 2 style `10000` speaker identities. A
+changed engine, model, speaker, style, or baseline policy creates a new profile
+ID rather than mutating an accepted mapping.
+
+Compute `bunbun_tts_v1_<sha256>` from canonical JSON containing the exact
+Japanese string without cache-layer normalization, immutable profile and
+qualified engine identity, unchanged-query policy, dictionary and
+pronunciation-override fingerprints, and 24 kHz mono PCM WAV output identity.
+Preserve and hash the returned query and generated WAV separately.
+
+Add checksummed SQLite migration 3, a server-owned ignored cache under
+`.bunbun-data/audio-cache/v1/`, an explicitly triggered serialized local queue,
+bounded loopback Nemo calls, exact engine/style validation, atomic artifact
+writes, WAV validation, preview, and explicit human approval. Only `READY`
+assets may be served to gameplay through a same-origin cache-key resolver.
+Gameplay never calls port 50121.
+
+Use native browser cached-audio playback for Aoi and Tanaka. Preserve captions,
+replay, no-duplicate heard evidence, visibility interruption, disposal, and
+text fallback. Do not fall back from either production-character profile to
+SpeechSynthesis or another provider. Keep SpeechSynthesis only as a named
+legacy compatibility adapter for existing M4–M7 `voice_guide_01` technical
+fixtures until the production scenario replaces that regression coverage.
+
+Expected and worst recurring provider cost are USD 0. Add no account,
+credential, secret, SDK, npm/system dependency, paid tier, remote endpoint, or
+automatic provider fallback. Reuse the already confirmed process-local
+`XDG_DATA_HOME` name only in the manual qualified-engine authoring command; it
+is not application configuration. Send only exact project-authored Japanese
+and the selected style over loopback. Retain visible `VOICEVOX Nemo` credit and
+the machine-learning prohibition. Bound the generated cache at 512 MiB and
+provide confirmed removal that preserves lessons, learning evidence, the
+engine, and migration history.
+
+Do not select or register ambience, effects, music, another TTS source, final
+M9 dialogue, or a complete multi-bus mixer through this decision. Each remains
+a later D-038 approval gate.
+
+Consequences:
+
+O-010 is resolved for stable character speech profiles, local generation,
+cache identity/storage, review, resolution, and failure behavior. It remains
+open for final production utterance review, non-speech assets, and the complete
+mixer. The application gains a third SQLite migration and local
+authoring/runtime audio code but no new third-party product dependency.
+Qualification WAVs remain evaluation-only and must not be copied into the
+cache.
 
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
 
-| ID    | Decision needed                                                                                  | Resolve before                    |
-| ----- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
-| O-008 | Browser/device support and WebGPU fallback policy                                                | Rendering foundation              |
-| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture | Production reference integration  |
-| O-010 | Zero-incremental-cost local/offline TTS, voice policy, and cache storage under D-038             | Audio integration                 |
-| O-012 | Deployment model and Docker topology                                                             | Post-acceptance release discovery |
+| ID    | Decision needed                                                                                      | Resolve before                    |
+| ----- | ---------------------------------------------------------------------------------------------------- | --------------------------------- |
+| O-008 | Browser/device support and WebGPU fallback policy                                                    | Rendering foundation              |
+| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture     | Production reference integration  |
+| O-010 | Final production utterance approval, non-speech source assets, and complete mixer policy after D-040 | Complete audio integration        |
+| O-012 | Deployment model and Docker topology                                                                 | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

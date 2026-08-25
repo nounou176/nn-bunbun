@@ -3,7 +3,7 @@
 Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-25 10:38 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 11:43 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -44,9 +44,11 @@ D-025 approves the GLB-first world-authoring pipeline and initial Kenney CC0
 asset candidates. D-026 resolves O-001 and O-002 for this vertical slice and
 defines its audio-complete boundary. Milestone 8 owns production speech and
 the complete audio runtime. Milestone 9 owns the integrated product scenario.
-O-010 still requires an exact voice policy, cache storage, invalidation, and
-production-integration decision. D-039 permits only the isolated approved Nemo
-qualification intake; no production model, dependency, or asset is selected.
+O-010 now has an accepted local TTS engine and exact voice assignments under
+D-039. D-040 implements stable code-owned profile IDs, cache identity/storage,
+queued local generation, review state, and cached runtime playback. Its first
+technical Aoi WAV awaits user review; final speech, non-speech assets, and the
+complete mixer remain open.
 
 D-039 accepts the first qualification order without resolving O-010:
 VOICEVOX Nemo first, AivisSpeech only after explicit rejection, and Kokoro as a
@@ -54,9 +56,10 @@ later licensing-oriented fallback. The self-contained focused plan is
 `plans/2026-08-25-qualify-voicevox-nemo.md`; its isolated pinned intake and
 evaluation were explicitly approved under D-038. Technical checks and the
 36-anchor matrix pass. The user shortlisted two Aoi and two Tanaka voices, and
-their complete 48-file finalist matrix passes technical validation. Final
-pronunciation and one-voice-per-character selection remain pending; production
-integration is not authorized.
+their complete 48-file finalist matrix passes technical validation. The user
+then approved Aoi Female 6 style `10006` and Tanaka Male 2 style `10000` with
+`VOICEVOX Nemo` credit. Result: `QUALIFIED`; production integration is not
+authorized by that focused plan.
 
 LessonManifest 0.1.0 already models exact spoken Japanese through
 `AudioAsset`, approved `voiceProfileId`, deterministic `cacheKey`, utterance
@@ -164,9 +167,10 @@ and repository-owned.
   shortcut. Free tiers and credits are not a zero-cost solution; OpenAI API and
   Amazon Polly are excluded. M8 must first use a zero-incremental-cost
   local/offline plan explicitly approved by the user.
-- O-010 remains unresolved. No TTS model, dependency, voice, cache path, asset,
-  account, credential, or environment-variable name may be assumed before
-  explicit approval.
+- O-010 is partially resolved by D-039. Do not assume stable application
+  profile IDs, cache paths/identity, production assets, credentials, or new
+  environment configuration before the remaining boundary is explicitly
+  approved.
 - Every third-party or generated world/audio asset needs a canonical source,
   exact rights record, source hash, processing record, runtime hash, and
   measured budget before it ships.
@@ -287,8 +291,17 @@ reproducible acceptance checklist.
       no paid-capable provider substitution; free tiers and credits do not solve
       the budget constraint, and M8 must begin with a zero-incremental-cost
       local/offline plan.
-- [ ] Approve O-010 local TTS approach/model/voice/cache and non-speech source
-      decisions through the focused zero-incremental-cost plan required by D-038.
+- [x] 2026-08-25 11:43 — Qualify the O-010 local TTS engine and exact voices:
+      VOICEVOX Nemo 0.24.0, Aoi style `10006`, and Tanaka style `10000`.
+- [x] 2026-08-25 12:48 — Approve D-040 for stable Aoi/Tanaka profiles,
+      exact-text cache identity, local queued generation, reviewed registration,
+      runtime resolution, fallback, credit, cost, and removal.
+- [x] 2026-08-25 13:17 — Implement the D-040 speech foundation and pass its
+      supported automated checks. One fresh Aoi technical WAV is held at
+      `REVIEW_REQUIRED`; user listening and cached-playback acceptance remain
+      pending.
+- [ ] Approve final production utterances, non-speech sources, and the complete
+      mixer boundary under D-038.
 - [ ] Implement milestones 2 through 6 in dependency order.
 - [ ] Hand off the manual matrix and record only results the user reports.
 
@@ -335,6 +348,15 @@ reproducible acceptance checklist.
   first M8 TTS route must be local/offline with zero incremental usage and
   recurring cost; OpenAI API, Amazon Polly, free-tier dependency, and extra
   credits are excluded.
+- 2026-08-25 — D-039 qualifies VOICEVOX Nemo as the removable local speech-
+  authoring engine, with Female 6 style `10006` for Aoi and Male 2 style
+  `10000` for Tanaka. The focused result does not authorize runtime engine
+  calls, redistribution, or production asset registration.
+- 2026-08-25 — D-040 approves immutable `voice_aoi_01` and
+  `voice_tanaka_01`, canonical exact-text cache keys, SQLite authoring/review
+  state, bounded loopback generation, approved-only same-origin playback,
+  visible credit, text fallback, and removal at USD 0. Non-speech audio remains
+  gated.
 
 ## Validation
 
@@ -434,8 +456,10 @@ set or invalid world package is never published as playable.
 
 The product, content, world, and audio-complete outcome is approved and
 documented. Milestone 7 is implementation-complete with verification waived
-under D-036. No production world or production audio code or asset has been
-implemented. D-037 excludes Amazon Polly, and D-038 excludes OpenAI API,
+under D-036. D-040 speech-authoring/cache/runtime code is implemented, but no
+production world or approved production audio asset exists. D-037 excludes
+Amazon Polly, and D-038 excludes OpenAI API,
 paid-capable provider substitution, unreviewed third-party additions, and
-free-tier dependency. O-010 remains open at a zero-incremental-cost
-local/offline planning gate; production source intake also remains open.
+free-tier dependency. D-039 resolves the zero-cost local TTS engine and exact
+voices. D-040 resolves profile/cache/runtime details; O-010 remains open for
+final utterance approval, non-speech sources, and the complete mixer.

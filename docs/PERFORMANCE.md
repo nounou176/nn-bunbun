@@ -36,23 +36,23 @@ browser or device claim follows from this milestone.
 
 Provisional reference-machine goals are:
 
-| Measurement | Goal |
-| --- | --- |
-| Frame rate | 60 FPS preferred |
-| Draw calls | Fewer than 100 |
-| Device pixel ratio | Capped at 1.5 |
-| First visible local scene | Under 2 seconds |
-| Picking response | Under 100 ms |
-| Longest authored movement | Under 3 seconds |
+| Measurement               | Goal             |
+| ------------------------- | ---------------- |
+| Frame rate                | 60 FPS preferred |
+| Draw calls                | Fewer than 100   |
+| Device pixel ratio        | Capped at 1.5    |
+| First visible local scene | Under 2 seconds  |
+| Picking response          | Under 100 ms     |
+| Longest authored movement | Under 3 seconds  |
 
 Static production-build measurements from 2026-08-12 are:
 
-| Artifact | Measured size |
-| --- | --- |
-| Web JavaScript | 852,644 bytes minified; 234.70 kB gzip |
-| Web CSS | 5,537 bytes minified; 1.82 kB gzip |
-| Local park glTF | 5,899 bytes |
-| Web HTML | 520 bytes |
+| Artifact        | Measured size                          |
+| --------------- | -------------------------------------- |
+| Web JavaScript  | 852,644 bytes minified; 234.70 kB gzip |
+| Web CSS         | 5,537 bytes minified; 1.82 kB gzip     |
+| Local park glTF | 5,899 bytes                            |
+| Web HTML        | 520 bytes                              |
 
 The WebGPU-capable Three.js chunk triggers Vite's default warning above 500 kB
 uncompressed. It remains visible as a known optimization risk; the milestone
@@ -78,14 +78,14 @@ D-019 adds full browser-side lesson validation, a three-step controller, DOM
 learning overlays, and a temporary SpeechSynthesis adapter to the existing
 park. Static production-build measurements from 2026-08-11 are:
 
-| Artifact | Measured size |
-| --- | --- |
-| Web JavaScript | 1,229,245 bytes minified; 340.84 kB gzip |
-| Web CSS | 9,175 bytes minified; 2.58 kB gzip |
-| Local park glTF | 5,899 bytes |
-| Web HTML | 520 bytes |
-| Three-step LessonManifest fixture | 10,131 bytes authored JSON |
-| CatalogSnapshot fixture | 2,259 bytes authored JSON |
+| Artifact                          | Measured size                            |
+| --------------------------------- | ---------------------------------------- |
+| Web JavaScript                    | 1,229,245 bytes minified; 340.84 kB gzip |
+| Web CSS                           | 9,175 bytes minified; 2.58 kB gzip       |
+| Local park glTF                   | 5,899 bytes                              |
+| Web HTML                          | 520 bytes                                |
+| Three-step LessonManifest fixture | 10,131 bytes authored JSON               |
+| CatalogSnapshot fixture           | 2,259 bytes authored JSON                |
 
 The JavaScript increase is primarily the intentional first inclusion of Ajv,
 TypeBox-derived schemas, semantic validators, and the lesson runtime in the
@@ -124,14 +124,14 @@ fixture, DOM ARRANGE and TYPE, authored location targets, task-scoped dog escort
 presentation, recipient selection, and three additional diagnostic fields. Its
 static production-build measurements from 2026-08-12 are:
 
-| Artifact | Measured size |
-| --- | --- |
-| Web JavaScript | 1,254,603 bytes minified; 346.59 kB gzip reported by Vite |
-| Web CSS | 10,696 bytes minified; 2.90 kB gzip reported by Vite |
-| Local park glTF | 5,899 bytes |
-| Web HTML | 520 bytes |
-| Eight-step LessonManifest fixture | 20,432 bytes authored JSON |
-| CatalogSnapshot fixture | 2,795 bytes authored JSON |
+| Artifact                          | Measured size                                             |
+| --------------------------------- | --------------------------------------------------------- |
+| Web JavaScript                    | 1,254,603 bytes minified; 346.59 kB gzip reported by Vite |
+| Web CSS                           | 10,696 bytes minified; 2.90 kB gzip reported by Vite      |
+| Local park glTF                   | 5,899 bytes                                               |
+| Web HTML                          | 520 bytes                                                 |
+| Eight-step LessonManifest fixture | 20,432 bytes authored JSON                                |
+| CatalogSnapshot fixture           | 2,795 bytes authored JSON                                 |
 
 Compared with the recorded Milestone 4 build, the implementation adds 25,358
 minified JavaScript bytes and 1,521 CSS bytes. The existing single-chunk Vite
@@ -149,16 +149,16 @@ recorded as qualitative and no numeric runtime claim is inferred.
 
 Initial normal-scene targets:
 
-| Resource | Target |
-| --- | --- |
-| Active NPCs and animals | 1–5 |
-| Interactive objects | Approximately 5–30 |
-| Draw calls | Preferably below approximately 100 |
-| Texture dimensions | Generally 1024 px or below |
-| Realtime shadow casters | Minimal; ideally 0–1 |
-| Realtime lights | Minimal and intentionally budgeted |
-| Physics | No heavy physics engine |
-| Loaded content | Current lesson assets only |
+| Resource                | Target                             |
+| ----------------------- | ---------------------------------- |
+| Active NPCs and animals | 1–5                                |
+| Interactive objects     | Approximately 5–30                 |
+| Draw calls              | Preferably below approximately 100 |
+| Texture dimensions      | Generally 1024 px or below         |
+| Realtime shadow casters | Minimal; ideally 0–1               |
+| Realtime lights         | Minimal and intentionally budgeted |
+| Physics                 | No heavy physics engine            |
+| Loaded content          | Current lesson assets only         |
 
 These are not permission to spend every budget simultaneously. A scene with
 five animated NPCs may need fewer unique materials, smaller textures, or no
@@ -268,9 +268,18 @@ every compressor by default is not a goal.
 - Detect failed or incompatible assets before exposing an interaction that
   depends on them.
 
-The TTS cache key must include all inputs that can change the spoken output,
-such as normalized Japanese text, voice profile, model version, and relevant
-generation settings.
+The D-040 speech cache key includes every approved input that can change the
+spoken output: exact Japanese bytes without cache-layer normalization,
+immutable voice-profile revision, engine/archive/manifest/model/speaker/style
+identity, query policy, dictionary and pronunciation-override fingerprints,
+and output format. Generation accepts at most 60 assets per enqueue, preserves
+query sidecars up to 1 MiB, accepts WAVs up to 5 MiB and 60 seconds, and refuses
+new work at a 512 MiB ready-plus-staging cache boundary.
+
+The first newly generated Aoi technical result measures 83,500 bytes and
+1,739 ms at 24 kHz, 16-bit, mono PCM. It is `REVIEW_REQUIRED`, so this records
+authoring output size and duration only; it is not evidence of browser
+playback-start latency, mix performance, or human voice acceptance.
 
 The D-026 audio-complete vertical slice must additionally measure first-voice
 readiness, playback-start latency after the learner gesture, encoded bytes by

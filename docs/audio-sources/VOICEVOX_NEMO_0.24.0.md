@@ -1,6 +1,6 @@
 # VOICEVOX Nemo 0.24.0 qualification source record
 
-Status: Technical qualification passed; manual voice review pending
+Status: QUALIFIED; D-040 speech integration implemented, first WAV awaiting review
 Intake date: 2026-08-25
 Purpose: Milestone 8 local Japanese TTS qualification only
 
@@ -87,7 +87,8 @@ voices:
 
 Each bundled voice policy points to the common Nemo terms and requires the
 same `VOICEVOX Nemo` credit. The anchor review shortlisted Female 1 and Female 6
-for Aoi, plus Male 1 and Male 2 for Tanaka. No final mapping is accepted yet.
+for Aoi, plus Male 1 and Male 2 for Tanaka; the final accepted mapping is
+recorded below.
 
 ## Cost, account, and data flow
 
@@ -169,9 +170,48 @@ unique sample identities, 48 matching WAV hashes, 48 parseable query files,
 | Synthesis time, average       |  560.7 ms |
 | Realtime factor, average      |     0.342 |
 
-The user must now select one final Aoi voice and one final Tanaka voice and
-report any line-specific pronunciation or personality issue. Until then the
-candidate remains unqualified for production mapping.
+## Qualification result
+
+The user explicitly approved `F6/M2` on 2026-08-25:
+
+| Bunbun role | Nemo voice | Style ID | Speaker UUID                           | Model  |
+| ----------- | ---------- | -------: | -------------------------------------- | ------ |
+| Aoi         | Female 6   |    10006 | `3490c392-30be-44c2-8379-b77df27fa65e` | 0.15.0 |
+| Tanaka      | Male 2     |    10000 | `7ecc7a17-1465-4b22-a3b5-842a110ff55e` | 0.15.0 |
+
+Result: `QUALIFIED`. No line-specific pronunciation issue or accent override
+was reported with the approval. The accepted visible credit is
+`VOICEVOX Nemo`.
+
+Under D-040, Bunbun now maps these identities to immutable code-owned profiles
+`voice_aoi_01` and `voice_tanaka_01` and can generate reviewed cached speech
+through this local authoring tool. This does not approve runtime engine calls,
+engine/model redistribution, the ignored evaluation WAV files as production
+assets, or any cloud or paid fallback. Each production utterance still requires
+exact-text, source, hash, and listening review before registration.
+
+## D-040 technical cache checkpoint
+
+The application generated a new technical Aoi result through its own queue;
+no qualification WAV was copied:
+
+| Field           | Value                                                                            |
+| --------------- | -------------------------------------------------------------------------------- |
+| Japanese        | `財布を探してください。`                                                         |
+| Profile         | `voice_aoi_01`                                                                   |
+| Style           | Female 6 / `10006`                                                               |
+| Cache key       | `bunbun_tts_v1_34a6a1c8a7acc64b6a77f0f7aa84f21142f0b6a5715afc016db11e6f2cd0dbfe` |
+| Query SHA-256   | `668f6128cf9197f3441f7bf060922a38b6eff15eaf944c3e908f215f2dafac37`               |
+| WAV SHA-256     | `516bdac89cfeb577911d6ea3d287b789f6ebbfede28d12e0923a5ce57b76b5de`               |
+| WAV format      | 24 kHz, 16-bit, mono PCM                                                         |
+| Duration / size | 1,739 ms / 83,500 bytes                                                          |
+| Review state    | `REVIEW_REQUIRED`                                                                |
+
+The first attempt stopped before synthesis because the 754,265-byte
+`/engine_manifest` exceeded an initial 256 KiB response guard. D-040 raises
+only that identity endpoint to a 1 MiB bound; query and WAV bounds remain
+unchanged. The explicit retry then generated the valid result above. It is not
+available to gameplay until the user listens and approves it.
 
 ## Operational data-path decision
 
@@ -186,15 +226,54 @@ The smallest isolated continuation is to set the standard process-local
 This would not modify `.env`, the shell profile, `$HOME`, application code, or
 the host-wide environment. The user explicitly confirmed this
 environment-variable name and isolated value on 2026-08-25. It may now be used
-only for the approved Nemo qualification process.
+only for the approved Nemo qualification and D-040 local authoring process.
+
+Start the qualified engine only when explicitly generating speech:
+
+```bash
+cd /home/nunu/Desktop/nnlab/nn-bunbun
+XDG_DATA_HOME=/home/nunu/Desktop/nnlab/nn-bunbun/.bunbun-data/vendor/voicevox-nemo/user-data \
+  /home/nunu/Desktop/nnlab/nn-bunbun/.bunbun-data/vendor/voicevox-nemo/0.24.0/linux-cpu-x64/run \
+  --host 127.0.0.1 \
+  --port 50121 \
+  --disable_mutable_api \
+  --output_log_utf8
+```
+
+In separate terminals, start Bunbun with the repository-pinned Node version:
+
+```bash
+nvm use
+npm run dev:server
+```
+
+```bash
+nvm use
+npm run dev:web
+```
+
+Open `http://127.0.0.1:5173/`, use the M8 reviewed-speech card, and stop Nemo
+after generation. Preview and approved cached playback remain local through the
+Bunbun server. Inspect privacy-safe metadata with:
+
+```bash
+npm run inspect:audio -- --database .bunbun-data/bunbun.sqlite
+```
 
 ## Removal path
 
-If Nemo is rejected, first stop the exact engine process. Resolve and confirm
-the following exact directories, then remove only them:
+Generated application speech is removed through the authoring UI's two-step
+`Delete generated speech cache` action. Its server confirmation is
+`DELETE_GENERATED_SPEECH`; it removes migration-3 speech rows and
+`.bunbun-data/audio-cache/v1/` artifacts while preserving lesson packages,
+learning evidence, migrations, and the qualified engine.
+
+If the qualified engine itself is later removed, first stop the exact engine
+process. Resolve and confirm the following exact directories, then remove only
+them:
 
 - `.bunbun-data/vendor/voicevox-nemo/`
 - `.bunbun-data/audio-evaluation/voicevox-nemo-0.24.0/`
 
-This tracked source record may remain as historical rejection evidence. No
-application rollback or database migration is currently required.
+This tracked source record and migration 3 remain as historical evidence. The
+runtime continues through visible Japanese and never switches provider.

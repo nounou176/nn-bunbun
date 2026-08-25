@@ -475,6 +475,7 @@ h1 {
 .lesson-world-action,
 .lesson-movement-error,
 .lesson-audio-error,
+.lesson-audio-credit,
 .lesson-feedback {
   display: block;
   margin: 0.55rem 0;
@@ -502,6 +503,11 @@ h1 {
 
 .lesson-support {
   color: #665b50;
+}
+
+.lesson-audio-credit {
+  color: #665b50;
+  font-weight: 750;
 }
 
 .lesson-world-action {
@@ -546,6 +552,7 @@ h1 {
 .lesson-world-action[hidden],
 .lesson-movement-error[hidden],
 .lesson-audio-error[hidden],
+.lesson-audio-credit[hidden],
 .lesson-speaker[hidden],
 .lesson-utterance[hidden] {
   display: none;

@@ -20,6 +20,7 @@
     "./fixtures/basic-catalog": "./fixtures/catalogs/basic-catalog.json",
     "./fixtures/valid-find-dog-loop": "./fixtures/manifests/valid-find-dog-loop.json",
     "./fixtures/valid-complete-primitive-loop": "./fixtures/manifests/valid-complete-primitive-loop.json",
+    "./fixtures/valid-m8-cached-speech": "./fixtures/manifests/valid-m8-cached-speech.json",
     "./fixtures/bunbun-core-reference": "./fixtures/references/bunbun-core-0.1.0.json"
   },
   "types": "./src/index.ts",

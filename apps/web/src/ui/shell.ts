@@ -156,6 +156,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           </p>
           <p class="lesson-movement-error" data-role="lesson-movement-error" hidden></p>
           <p class="lesson-audio-error" data-role="lesson-audio-error" hidden></p>
+          <p class="lesson-audio-credit" data-role="lesson-audio-credit" hidden>Voice: VOICEVOX Nemo</p>
           <section class="arrange-control" data-role="arrange-control" aria-label="Sentence arrangement" hidden>
             <p class="control-label">ことば</p>
             <div class="token-list token-bank" data-role="arrange-bank"></div>
@@ -411,6 +412,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     app,
     '[data-role="lesson-audio-error"]',
   );
+  const lessonAudioCredit = required<HTMLElement>(
+    app,
+    '[data-role="lesson-audio-credit"]',
+  );
   const lessonFeedback = required<HTMLOutputElement>(
     app,
     '[data-role="lesson-feedback"]',
@@ -653,6 +658,13 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       lessonMovementError.hidden = state.movementError === undefined;
       lessonAudioError.textContent = audioErrorMessage ?? "";
       lessonAudioError.hidden = audioErrorMessage === undefined;
+      const currentAudioAssetId = step.stimulus.utterance?.audioAssetId;
+      const currentAudio = state.manifest.audioAssets.find(
+        (asset) => asset.audioAssetId === currentAudioAssetId,
+      );
+      lessonAudioCredit.hidden = !["voice_aoi_01", "voice_tanaka_01"].includes(
+        currentAudio?.voiceProfileId ?? "",
+      );
 
       lessonFeedback.textContent =
         state.feedback?.textJa ?? state.feedback?.supportText ?? "";

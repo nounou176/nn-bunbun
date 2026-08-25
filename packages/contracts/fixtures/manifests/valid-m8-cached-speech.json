@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "0.1.0",
+  "manifestId": "manifest_m8_cached_speech",
+  "lessonId": "lesson_m8_cached_speech",
+  "revision": 1,
+  "createdAt": "2026-08-25T05:48:00Z",
+  "randomSeed": 104729,
+  "locales": {
+    "target": "ja",
+    "support": "vi"
+  },
+  "title": {
+    "ja": "あおいの音声チェック",
+    "support": "Kiểm tra giọng nói của Aoi"
+  },
+  "learningTargets": [
+    {
+      "targetId": "target_te_kudasai",
+      "kind": "GRAMMAR",
+      "role": "REQUESTED",
+      "priority": 5,
+      "content": {
+        "kind": "GRAMMAR",
+        "pattern": "〜てください",
+        "labelJa": "〜てください",
+        "supportExplanation": "Mẫu yêu cầu lịch sự: xin hãy làm gì đó."
+      },
+      "referenceIds": ["bunbun_core_te_kudasai"],
+      "goal": {
+        "minimumEncounters": 1,
+        "minimumContexts": 1,
+        "desiredEvidence": ["heard"]
+      }
+    }
+  ],
+  "scene": {
+    "sceneId": "park_small",
+    "variantId": "day",
+    "playerSpawnPointId": "park_entry",
+    "cameraPresetId": "park_isometric_default",
+    "assetBundleIds": ["park_core", "animals_basic"]
+  },
+  "scenario": {
+    "template": "HELP_SOMEONE",
+    "objective": {
+      "ja": "あおいのお願いを聞いてください。",
+      "support": "Hãy nghe lời nhờ của Aoi."
+    },
+    "focusTargetIds": ["target_te_kudasai"],
+    "synopsis": "A technical M8 fixture proves reviewed cached speech without selecting final showcase dialogue."
+  },
+  "locations": [],
+  "entities": [
+    {
+      "entityId": "guide",
+      "catalogEntityId": "npc_guide_basic",
+      "role": "NPC",
+      "spawnPointId": "guide_spot",
+      "displayNameJa": "あおい",
+      "initialStateId": "idle"
+    }
+  ],
+  "objects": [],
+  "audioAssets": [
+    {
+      "audioAssetId": "audio_aoi_wallet_request",
+      "textJa": "財布を探してください。",
+      "voiceProfileId": "voice_aoi_01",
+      "cacheKey": "bunbun_tts_v1_34a6a1c8a7acc64b6a77f0f7aa84f21142f0b6a5715afc016db11e6f2cd0dbfe"
+    }
+  ],
+  "steps": [
+    {
+      "stepId": "listen_aoi_request",
+      "contextId": "park_aoi_request",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "あおいの話を聞いてください。",
+        "utterance": {
+          "speakerEntityId": "guide",
+          "textJa": "財布を探してください。",
+          "audioAssetId": "audio_aoi_wallet_request",
+          "textVisibility": "ALWAYS",
+          "replayAllowed": true
+        },
+        "supportText": "Aoi nói: “Xin hãy tìm chiếc ví.”",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "LISTEN",
+        "completion": "LEARNER_CONTINUES",
+        "minimumPlaybackRatio": 0.5
+      },
+      "targetBindings": [
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "EXPOSES"
+        },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 1,
+        "afterMaximum": "FOLLOW_FAILURE_TRANSITION",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "replay_aoi_request",
+          "afterAttempt": 1,
+          "kind": "REPLAY_AUDIO"
+        },
+        {
+          "scaffoldId": "show_aoi_request",
+          "afterAttempt": 1,
+          "kind": "SHOW_JAPANESE_TEXT"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "よく聞きました。",
+          "displayMs": 400,
+          "cueIds": []
+        },
+        "incorrect": {
+          "textJa": "もう一度聞きましょう。",
+          "displayMs": 600,
+          "cueIds": []
+        },
+        "assisted": {
+          "textJa": "文字を見て進みましょう。",
+          "displayMs": 600,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["guide_gesture"],
+        "onSuccessCueIds": [],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": { "kind": "COMPLETE" },
+        "onFailure": { "kind": "COMPLETE" },
+        "onAssisted": { "kind": "COMPLETE" }
+      }
+    }
+  ],
+  "entryStepId": "listen_aoi_request",
+  "completion": {
+    "requiredStepIds": ["listen_aoi_request"],
+    "closingMessage": {
+      "ja": "音声チェックが終わりました。",
+      "support": "Đã hoàn thành kiểm tra giọng nói."
+    }
+  },
+  "quality": {
+    "intendedReactionCount": 1,
+    "preferredReactionIntervalMinSeconds": 5,
+    "preferredReactionIntervalMaxSeconds": 12,
+    "estimatedActiveMinutes": 0.2,
+    "maximumNpcCount": 1,
+    "maximumInteractiveObjectCount": 0,
+    "preferredMaximumDrawCalls": 100
+  },
+  "provenance": {
+    "compilerVersion": "0.1.0",
+    "contractVersion": "0.1.0",
+    "source": "AUTHORED",
+    "inputHash": "sha256_34a6a1c8a7acc64b6a77f0f7aa84f21142f0b6a5715afc016db11e6f2cd0dbfe",
+    "promptModuleVersions": [],
+    "referenceDataVersions": [
+      {
+        "id": "bunbun_core",
+        "version": "0.1.0"
+      }
+    ]
+  }
+}
