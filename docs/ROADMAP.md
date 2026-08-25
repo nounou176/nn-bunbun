@@ -487,9 +487,10 @@ Decision resolved:
   consider AivisSpeech only after an explicit rejection and separate plan.
   The user explicitly approved
   `plans/2026-08-25-qualify-voicevox-nemo.md` under D-038; its isolated pinned
-  intake, loopback/offline technical checks, and 36-anchor matrix pass. Manual
-  pronunciation and Aoi/Tanaka voice selection remain active; this is not
-  production integration.
+  intake, loopback/offline technical checks, and 36-anchor matrix pass. The user
+  shortlisted two Aoi and two Tanaka voices; their 48-file complete-line matrix
+  also passes technical validation. Final pronunciation and one-voice-per-
+  character selection remain active; this is not production integration.
 
 Decisions required:
 

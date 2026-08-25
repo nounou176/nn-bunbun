@@ -1854,10 +1854,13 @@ plan. Retain Kokoro only as a later licensing-oriented fallback.
 The pinned intake, local API, WAV integrity, performance observation, invalid-
 style rejection, and isolated offline-synthesis checks now pass. The engine
 produced 36 unchanged-baseline anchors across all nine voices and is stopped.
-This is technical evidence only: D-039 remains unresolved at the qualification
-level until the user reviews Japanese pronunciation and selects or rejects Aoi
-and Tanaka finalists, after which the bounded twelve-line finalist set must be
-reviewed.
+The user shortlisted styles `10005` and `10006` for Aoi and styles `10001` and
+`10000` for Tanaka. The resulting 48-file, twelve-line finalist matrix passes
+identity, unchanged-query, WAV, hash, and listening-page validation, and the
+engine is again stopped. This is technical and shortlist evidence only: D-039
+remains unresolved at the qualification level until the user reviews all
+finalist lines, chooses one exact voice per character, and accepts or reports
+pronunciation issues.
 
 If Nemo qualifies, Bunbun may later propose stable code-owned voice profiles,
 cache identity, SQLite metadata, local asset resolution, and mixer integration.

@@ -3,7 +3,7 @@
 Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-25 09:36 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 10:38 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -53,8 +53,10 @@ VOICEVOX Nemo first, AivisSpeech only after explicit rejection, and Kokoro as a
 later licensing-oriented fallback. The self-contained focused plan is
 `plans/2026-08-25-qualify-voicevox-nemo.md`; its isolated pinned intake and
 evaluation were explicitly approved under D-038. Technical checks and the
-36-anchor matrix pass, while manual pronunciation/voice fit remains pending;
-production integration is not authorized.
+36-anchor matrix pass. The user shortlisted two Aoi and two Tanaka voices, and
+their complete 48-file finalist matrix passes technical validation. Final
+pronunciation and one-voice-per-character selection remain pending; production
+integration is not authorized.
 
 LessonManifest 0.1.0 already models exact spoken Japanese through
 `AudioAsset`, approved `voiceProfileId`, deterministic `cacheKey`, utterance

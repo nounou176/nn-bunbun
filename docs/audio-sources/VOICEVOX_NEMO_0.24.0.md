@@ -86,7 +86,8 @@ voices:
 | Male 3   |    10002 | `627b3e92-32c5-4c2f-860a-a5553d3d6662` | 0.15.0        |
 
 Each bundled voice policy points to the common Nemo terms and requires the
-same `VOICEVOX Nemo` credit. No final Aoi or Tanaka mapping is accepted yet.
+same `VOICEVOX Nemo` credit. The anchor review shortlisted Female 1 and Female 6
+for Aoi, plus Male 1 and Male 2 for Tanaka. No final mapping is accepted yet.
 
 ## Cost, account, and data flow
 
@@ -141,6 +142,36 @@ All generated engine, query, WAV, manifest, and listening-page evidence remains
 under Git-ignored `.bunbun-data/`. The engine is stopped. Technical success
 does not establish Japanese pronunciation quality or character fit; those
 remain explicit user-review gates.
+
+## Finalist evaluation
+
+On 2026-08-25 the user selected these anchor finalists:
+
+| Role   | Candidate | Style ID | Speaker UUID                           |
+| ------ | --------- | -------: | -------------------------------------- |
+| Aoi    | Female 1  |    10005 | `abccafa5-174f-44d8-b70c-c41eebb3061c` |
+| Aoi    | Female 6  |    10006 | `3490c392-30be-44c2-8379-b77df27fa65e` |
+| Tanaka | Male 1    |    10001 | `2171909e-d2d1-4bbb-aa45-442c12732665` |
+| Tanaka | Male 2    |    10000 | `7ecc7a17-1465-4b22-a3b5-842a110ff55e` |
+
+All twelve fixed evaluation lines were generated for every finalist with the
+engine-returned query left unchanged. Independent validation confirmed 48
+unique sample identities, 48 matching WAV hashes, 48 parseable query files,
+48 page controls, and 24 kHz, 16-bit, mono PCM format throughout.
+
+| Measurement                   |    Result |
+| ----------------------------- | --------: |
+| Finalist WAV count            |        48 |
+| Finalist WAV bytes            | 3,818,560 |
+| Finalist evaluation directory |   4.1 MiB |
+| Synthesis time, minimum       |  409.2 ms |
+| Synthesis time, maximum       |  841.1 ms |
+| Synthesis time, average       |  560.7 ms |
+| Realtime factor, average      |     0.342 |
+
+The user must now select one final Aoi voice and one final Tanaka voice and
+report any line-specific pronunciation or personality issue. Until then the
+candidate remains unqualified for production mapping.
 
 ## Operational data-path decision
 

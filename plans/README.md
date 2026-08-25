@@ -45,8 +45,9 @@ D-039 accepts the local TTS candidate order without bypassing that gate:
 qualify VOICEVOX Nemo first, consider AivisSpeech only after explicit rejection,
 and retain Kokoro as a later fallback. The user explicitly approved the focused
 Nemo qualification plan. Its pinned isolated intake, local/offline technical
-checks, and 36-anchor matrix pass; manual pronunciation and Aoi/Tanaka voice
-selection remain active.
+checks, and 36-anchor matrix pass. Two Aoi and two Tanaka finalists are now
+shortlisted, and their 48-file complete-line matrix passes technical validation;
+final pronunciation and one-voice-per-character selection remain active.
 
 The successor M7 v3.2 plan is now complete in implementation: authoring 0.2.0,
 the deterministic compiler, durable reviewed JSON-file import/publication, and
@@ -60,7 +61,7 @@ downloaded or added before its focused plan is explicitly approved.
 
 | Plan                                             | Status                                                     | Outcome                                                                                                                                                               |
 | ------------------------------------------------ | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-25-qualify-voicevox-nemo.md              | Technical pass; manual voice review in progress            | Technical and offline gates pass; qualify or reject exact Aoi/Tanaka voices before production audio integration                                                       |
+| 2026-08-25-qualify-voicevox-nemo.md              | Finalist matrix ready; final manual review in progress     | Technical/offline gates and 48-file finalist matrix pass; qualify or reject exact Aoi/Tanaka voices before production integration                                     |
 | 2026-08-20-complete-m7-file-import-compiler.md   | Complete; verification waived under D-035/D-036            | Implemented contract 0.2.0, deterministic compilation, reviewed local JSON import, immutable publication, and offline play; flow remains unverified                   |
 | 2026-08-19-m7-v3-skills-plugin.md                | Complete                                                   | Proved one repository-owned Skills-only lesson-authoring plugin; conditionally viable with reviewed file import selected after a forward contract version             |
 | 2026-08-19-m7-v3-custom-gpt-browser-bridge.md    | Superseded as implementation route; v3.1 evidence retained | Preserve the manual direct-GPT feasibility record without upgrading its truncated result                                                                              |

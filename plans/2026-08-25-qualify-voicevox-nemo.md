@@ -3,7 +3,7 @@
 Status: Approved; qualification in progress
 Owner: Codex and user
 Created: 2026-08-25
-Last updated: 2026-08-25 09:36 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 10:38 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -258,8 +258,13 @@ implement Nemo or must prepare the AivisSpeech fallback plan.
       with only loopback, zero external routes, and a blocked external connection.
       The offline 24 kHz mono PCM WAV was byte-identical to its online-baseline
       counterpart. The engine was stopped after the check.
-- [ ] Receive the user's Aoi/Tanaka finalist and pronunciation review from the
-      anchor listening page, then generate the bounded twelve-line finalist set.
+- [x] 2026-08-25 10:38 — The user shortlisted Aoi styles `10005` (Female 1)
+      and `10006` (Female 6), plus Tanaka styles `10001` (Male 1) and `10000`
+      (Male 2). Generated all twelve fixed lines for all four finalists: 48 valid
+      WAV files with unchanged queries, verified identities, hashes, query JSON,
+      24 kHz mono PCM format, and listening-page controls. The engine was stopped.
+- [ ] Receive the user's final one-voice-per-character selection and complete
+      pronunciation review from the finalist listening page.
 - [ ] Record the final qualification result and next M8 decision.
 
 ## Surprises and discoveries
@@ -358,8 +363,8 @@ runtime application code.
 | ----------------------- | ------ | ---------- | ------- | ------------------------------------- |
 | Rights and intake       | Codex  | 2026-08-25 | Pass    | Pinned hash, terms, size, source file |
 | Local/offline synthesis | Codex  | 2026-08-25 | Pass    | 36 anchors plus isolated offline WAV  |
-| Aoi voice fit           | User   | Pending    | Not run | Awaiting listening-page selection     |
-| Tanaka voice fit        | User   | Pending    | Not run | Awaiting listening-page selection     |
+| Aoi voice fit           | User   | 2026-08-25 | Partial | Female 1 and Female 6 shortlisted     |
+| Tanaka voice fit        | User   | 2026-08-25 | Partial | Male 1 and Male 2 shortlisted         |
 | Pronunciation matrix    | User   | Pending    | Not run | Awaiting human Japanese review        |
 | Removal                 | Codex  | 2026-08-25 | Ready   | Exact isolated paths documented       |
 
@@ -392,7 +397,8 @@ automatically.
 
 The pinned zero-cost candidate has passed intake, loopback API, WAV integrity,
 performance-observation, invalid-style rejection, and isolated offline-
-synthesis checks. The 36-file anchor matrix and local listening page are ready.
-No candidate has been selected as a production asset or integrated into
-Bunbun. Human pronunciation/voice-fit review, the finalist matrix, and the
-final M8 qualification decision remain pending.
+synthesis checks. The 36-file anchor matrix narrowed the field to two Aoi and
+two Tanaka candidates. Their complete 48-file finalist matrix passes identity,
+query, WAV, hash, and page validation. No candidate has been selected as a
+production asset or integrated into Bunbun. Final one-voice-per-character and
+pronunciation review plus the M8 qualification decision remain pending.

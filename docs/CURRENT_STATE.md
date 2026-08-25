@@ -283,8 +283,11 @@ Completed ExecPlans:
   `XDG_DATA_HOME` name and ignored Bunbun value, so engine state remained inside
   the approved project-local path. The loopback API, 36 unchanged-baseline anchors,
   independent hash/query/WAV validation, invalid-style rejection, and isolated
-  offline synthesis now pass. Manual pronunciation and Aoi/Tanaka voice-fit
-  review remain pending; Nemo is not yet a production selection.
+  offline synthesis now pass. The user shortlisted Female 1 and Female 6 for
+  Aoi, plus Male 1 and Male 2 for Tanaka. Their 48-file, twelve-line finalist
+  matrix also passes identity, unchanged-query, WAV, hash, and page validation.
+  Final pronunciation and one-voice-per-character review remain pending; Nemo
+  is not yet a production selection.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
@@ -547,9 +550,9 @@ implementation changes are currently uncommitted.
 
 Continue Milestone 8 without expanding M7's provider scope:
 
-1. Have the user review the generated VOICEVOX Nemo anchor page, select or
-   reject Aoi/Tanaka finalists, generate the bounded twelve-line finalist set,
-   and record `QUALIFIED`, `REJECTED`, or `INCONCLUSIVE`. Do not begin product
+1. Have the user review the generated VOICEVOX Nemo finalist page, choose or
+   reject one exact Aoi and Tanaka voice, record pronunciation results, and then
+   record `QUALIFIED`, `REJECTED`, or `INCONCLUSIVE`. Do not begin product
    integration or download a fallback before that decision.
 2. Prepare the exact ambience, effects, and restrained-music source list with
    cost, license, data, and removal review. Wait for explicit plan approval
@@ -573,10 +576,12 @@ non-speech asset, and measurable audio acceptance choices.
   pass format, query, identity, and SHA-256 verification; average synthesis was
   711.1 ms and average realtime factor was 0.335. A separate namespace with
   only loopback and zero external routes generated a byte-identical offline
-  WAV. Unknown style `999999` was rejected with HTTP 500 and no output. The
-  engine is stopped. Human pronunciation and voice-fit acceptance remain
-  pending; no app tests, builds, Docker, or browser automation apply to this
-  isolated ignored-data qualification.
+  WAV. Unknown style `999999` was rejected with HTTP 500 and no output. The user
+  then shortlisted four voices; all 48 twelve-line finalist WAVs pass identity,
+  query, format, hash, and page validation, averaging 560.7 ms and a realtime
+  factor of 0.342. The engine is stopped. Final human pronunciation and voice-
+  fit acceptance remain pending; no app tests, builds, Docker, or browser
+  automation apply to this isolated ignored-data qualification.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

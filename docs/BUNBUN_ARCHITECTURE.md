@@ -159,9 +159,11 @@ D-039 places the dedicated VOICEVOX Nemo 0.24.0 Linux CPU x64 engine first in
 the qualification order. Its intake, local API, integrity, performance-
 observation, invalid-style, and isolated offline checks pass. It remains a
 removable loopback-only authoring candidate outside gameplay and product
-distribution until the user accepts exact voices and pronunciation and the
-qualification is recorded. AivisSpeech is conditional fallback research, not
-an installed parallel provider.
+distribution. The user has shortlisted two Aoi and two Tanaka voices, and their
+complete twelve-line matrix passes technical validation; one final voice per
+character and pronunciation acceptance remain required before qualification is
+recorded. AivisSpeech is conditional fallback research, not an installed
+parallel provider.
 
 Model or browser strategy, prompt composition, transport, and retry policy
 belong behind the lesson compiler boundary. The game client should not depend
