@@ -3,7 +3,7 @@
 Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-24 18:07 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 09:36 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -35,19 +35,26 @@ local evidence persistence, safe resume, and a temporary browser
 SpeechSynthesis `AudioPlaybackPort`. There are no production world or audio
 assets.
 
-Milestone 7 is next. D-027 preserves the old Responses API proposal as inactive
-M7 v1 and keeps self-built local LLM work as M7 v2 research. D-031 selects the
-Skills-only personal ChatGPT/Codex plugin as M7 v3.2. Its separate proposed
-ExecPlan is `plans/2026-08-19-m7-v3-skills-plugin.md`. No M7 implementation is
-approved. This plan does not choose or bypass an M7 strategy.
+Milestone 7 is implemented and closed under D-036, with its new automated and
+manual verification explicitly waived as `UNVERIFIED_USER_WAIVED`. Its local
+compiler, reviewed JSON-file handoff, publication, and lesson library exist.
+Milestone 8 is now the active product milestone.
 
 D-025 approves the GLB-first world-authoring pipeline and initial Kenney CC0
 asset candidates. D-026 resolves O-001 and O-002 for this vertical slice and
 defines its audio-complete boundary. Milestone 8 owns production speech and
 the complete audio runtime. Milestone 9 owns the integrated product scenario.
-O-010 still requires an exact zero-incremental-cost local/offline TTS plan,
-voice policy, cache storage, and invalidation decisions before any model,
-dependency, or asset is downloaded or added.
+O-010 still requires an exact voice policy, cache storage, invalidation, and
+production-integration decision. D-039 permits only the isolated approved Nemo
+qualification intake; no production model, dependency, or asset is selected.
+
+D-039 accepts the first qualification order without resolving O-010:
+VOICEVOX Nemo first, AivisSpeech only after explicit rejection, and Kokoro as a
+later licensing-oriented fallback. The self-contained focused plan is
+`plans/2026-08-25-qualify-voicevox-nemo.md`; its isolated pinned intake and
+evaluation were explicitly approved under D-038. Technical checks and the
+36-anchor matrix pass, while manual pronunciation/voice fit remains pending;
+production integration is not authorized.
 
 LessonManifest 0.1.0 already models exact spoken Japanese through
 `AudioAsset`, approved `voiceProfileId`, deterministic `cacheKey`, utterance
@@ -204,6 +211,8 @@ alternative transports and do not alter this plan's manifest/audio boundary.
 
 Observable checkpoint: reviewed vocabulary and grammar targets compile into a
 validated playable technical lesson without production audio or world claims.
+
+Status: implementation complete under D-036; verification waived by the user.
 
 ### 2. Approve and implement the complete audio boundary
 

@@ -1807,6 +1807,75 @@ policy. No paid-capable provider may be introduced as a convenient substitute.
 Every future handoff must report cost risk alongside happy path, edge cases,
 regressions, and technical risk.
 
+### D-039 — Qualify VOICEVOX Nemo before other local TTS candidates
+
+- Date: 2026-08-25
+- Status: Accepted; focused qualification plan explicitly approved
+- Affects: Milestone 8 TTS research order, Japanese voice policy, cost,
+  licensing, local authoring operations
+
+Context:
+
+D-038 requires a zero-incremental-cost local/offline TTS route and a complete
+reviewed plan before any candidate is downloaded or added. Read-only research
+compared VOICEVOX Nemo, AivisSpeech, Kokoro-82M, MeloTTS, Open JTalk,
+COEIROINK, and Style-Bert-VITS2. Bunbun first needs two consistent non-cloned
+Japanese NPC voices and reviewed cached speech for a bounded N5 showcase; it
+does not yet need realtime or high-concurrency synthesis.
+
+VOICEVOX Nemo has a dedicated character-less voice library and official local
+HTTP engine for Linux. Its output terms allow commercial and non-commercial
+use with `VOICEVOX Nemo` credit and prohibit machine-learning use. The official
+Nemo engine repository identifies port 50121 and a stable 0.24.0 Linux CPU x64
+release. It needs no account, API key, metered endpoint, GPU, or recurring fee.
+AivisSpeech offers greater future model/style expansion but adds per-model
+license review; Kokoro has a permissive Apache-2.0 boundary but its own voice
+card reports weaker Japanese and short-utterance confidence.
+
+Decision:
+
+Qualify VOICEVOX Nemo first through
+`plans/2026-08-25-qualify-voicevox-nemo.md`. Keep the qualification isolated
+from product code and Git-tracked assets: use the official stable 0.24.0 Linux
+CPU x64 engine as a removable loopback-only authoring tool, generate only the
+fixed evaluation set, and require the user to choose or reject exact Aoi and
+Tanaka voice candidates after listening. Expected and worst-case usage or
+recurring monetary cost are both USD 0. Do not add an account, credential,
+environment variable, SDK, Docker image, GPU dependency, runtime TTS path, or
+cloud fallback.
+
+The user explicitly approved the complete focused qualification plan on
+2026-08-25. This authorizes only its pinned Nemo download, isolated local
+execution, fixed evaluation output, and evidence work. It does not authorize
+production integration. Do not download AivisSpeech in parallel. Consider
+AivisSpeech only after an explicit Nemo rejection and a separate approved
+plan. Retain Kokoro only as a later licensing-oriented fallback.
+
+The pinned intake, local API, WAV integrity, performance observation, invalid-
+style rejection, and isolated offline-synthesis checks now pass. The engine
+produced 36 unchanged-baseline anchors across all nine voices and is stopped.
+This is technical evidence only: D-039 remains unresolved at the qualification
+level until the user reviews Japanese pronunciation and selects or rejects Aoi
+and Tanaka finalists, after which the bounded twelve-line finalist set must be
+reviewed.
+
+If Nemo qualifies, Bunbun may later propose stable code-owned voice profiles,
+cache identity, SQLite metadata, local asset resolution, and mixer integration.
+Gameplay must receive reviewed cached audio and must never call the engine. If
+Nemo is rejected, remove its exact ignored local directories and return to the
+D-038 plan gate; do not switch providers automatically.
+
+Consequences:
+
+O-010 remains open because exact voice UUID/style assignments, pronunciation
+overrides, production cache storage/invalidation, and runtime integration are
+not yet approved. The dedicated Nemo engine corrects an earlier research
+assumption based on ordinary VOICEVOX: its stable release and default port are
+separate, and its compressed Linux CPU x64 package is materially smaller. The
+approved qualification added only ignored local engine/evaluation data and a
+tracked source record; no product dependency, production audio asset, secret,
+account, paid route, or runtime integration was added.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

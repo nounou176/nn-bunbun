@@ -482,11 +482,20 @@ Decision resolved:
   the first M8 TTS route to zero incremental usage and recurring cost. Free
   tiers and credits are not accepted as the financial foundation; OpenAI API
   and Amazon Polly are excluded.
+- D-039 accepts the candidate order: qualify the dedicated VOICEVOX Nemo
+  0.24.0 Linux CPU x64 engine first, keep it outside product/runtime code, and
+  consider AivisSpeech only after an explicit rejection and separate plan.
+  The user explicitly approved
+  `plans/2026-08-25-qualify-voicevox-nemo.md` under D-038; its isolated pinned
+  intake, loopback/offline technical checks, and 36-anchor matrix pass. Manual
+  pronunciation and Aoi/Tanaka voice selection remain active; this is not
+  production integration.
 
 Decisions required:
 
-- zero-incremental-cost local/offline TTS, voice profiles, cache storage, and
-  invalidation inputs from O-010, after explicit plan approval;
+- qualification of the proposed VOICEVOX Nemo route, exact voice profiles,
+  cache storage, and invalidation inputs from O-010, after explicit focused
+  plan approval;
 - pronunciation review process; and
 - exact non-speech source assets, licenses, mix targets, and fallback behavior.
 

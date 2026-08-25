@@ -9,7 +9,10 @@ complete under D-036; its new automated/manual verification was explicitly
 waived and is `UNVERIFIED_USER_WAIVED`. D-025 defines the production world-
 authoring boundary, and D-026 defines the first N5 audio-complete vertical
 slice. M7 v3.2 uses the repository-owned Skills-only plugin plus a deterministic
-application compiler. No model/provider runs inside Bunbun or gameplay.
+application compiler. D-039 authorizes an isolated VOICEVOX Nemo qualification
+for M8; its pinned local engine and ignored evaluation evidence now exist, but
+production integration remains unapproved. No model/provider runs inside
+Bunbun or gameplay.
 
 ## Architectural goals
 
@@ -151,6 +154,14 @@ Planned media responsibilities:
 - coordinate Japanese TTS generation and cache lookup;
 - store audio cache metadata in SQLite; and
 - replace the technical browser-speech adapter with approved audio assets.
+
+D-039 places the dedicated VOICEVOX Nemo 0.24.0 Linux CPU x64 engine first in
+the qualification order. Its intake, local API, integrity, performance-
+observation, invalid-style, and isolated offline checks pass. It remains a
+removable loopback-only authoring candidate outside gameplay and product
+distribution until the user accepts exact voices and pronunciation and the
+qualification is recorded. AivisSpeech is conditional fallback research, not
+an installed parallel provider.
 
 Model or browser strategy, prompt composition, transport, and retry policy
 belong behind the lesson compiler boundary. The game client should not depend

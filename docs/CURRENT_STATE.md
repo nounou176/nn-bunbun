@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-24
+Last updated: 2026-08-25
 
 ## Current milestone
 
@@ -30,6 +30,11 @@ Next approved ExecPlan:
 
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Approved; queued for
   Milestone 8 decisions and implementation
+
+Active focused M8 qualification plan:
+
+- plans/2026-08-25-qualify-voicevox-nemo.md — Approved under D-038/D-039;
+  pinned Nemo intake and local evaluation are in progress
 
 Historical M7 v3.1 evidence plan:
 
@@ -262,6 +267,24 @@ Completed ExecPlans:
   current route. Free tiers and credits do not satisfy
   the constraint. OpenAI API and Amazon Polly are excluded, and M8 must first
   pursue a zero-incremental-cost local/offline route.
+- D-039 accepts VOICEVOX Nemo as the first candidate to qualify, with
+  AivisSpeech available only after explicit Nemo rejection and a separate
+  approved plan. The focused plan pins the dedicated stable Nemo Engine 0.24.0
+  Linux CPU x64 release, loopback port 50121, USD 0 expected/worst recurring
+  cost, fixed evaluation text, isolated ignored storage, credit obligation,
+  offline check, and exact removal path. The verified official archive and
+  extracted engine now exist only under ignored `.bunbun-data/`; no product
+  dependency or integration exists, and exact voices and O-010 remain open.
+- The approved D-039 intake archive is 136,493,982 bytes and matches published
+  SHA-256
+  `c2af9ddf42dd28f55e831f0e76f605321daaec981dda3c8be558c734dc6830e7`;
+  extracted disk use is 316 MiB. Its default user-data path is outside the
+  workspace; the user has now explicitly confirmed the process-local
+  `XDG_DATA_HOME` name and ignored Bunbun value, so engine state remained inside
+  the approved project-local path. The loopback API, 36 unchanged-baseline anchors,
+  independent hash/query/WAV validation, invalid-style rejection, and isolated
+  offline synthesis now pass. Manual pronunciation and Aoi/Tanaka voice-fit
+  review remain pending; Nemo is not yet a production selection.
 - Accepted D-027 and `docs/M7_VARIANTS.md` now separate three M7 strategies:
   inactive M7 v1 preserves proposed D-022 and the Responses/Structured Outputs
   plan; M7 v2 preserves self-built local LLM research; active M7 v3 reuses
@@ -522,12 +545,12 @@ implementation changes are currently uncommitted.
 
 ## Next recommended work
 
-Begin Milestone 8 without expanding M7's provider scope:
+Continue Milestone 8 without expanding M7's provider scope:
 
-1. Prepare a focused, zero-incremental-cost local/offline Japanese TTS plan for
-   O-010, including model/dependency licenses, hardware fit, voice quality,
-   cache keys, storage, invalidation, fallback, and removal. Do not download or
-   add a candidate before the user approves that plan under D-038.
+1. Have the user review the generated VOICEVOX Nemo anchor page, select or
+   reject Aoi/Tanaka finalists, generate the bounded twelve-line finalist set,
+   and record `QUALIFIED`, `REJECTED`, or `INCONCLUSIVE`. Do not begin product
+   integration or download a fallback before that decision.
 2. Prepare the exact ambience, effects, and restrained-music source list with
    cost, license, data, and removal review. Wait for explicit plan approval
    before downloading, selecting, or registering any third-party asset.
@@ -544,6 +567,16 @@ non-speech asset, and measurable audio acceptance choices.
 
 ## Verification status
 
+- D-039 VOICEVOX Nemo qualification: the official 0.24.0 CPU archive matches
+  its published hash and passes archive validation. The live API reported nine
+  voices and bound only to `127.0.0.1:50121`. All 36 unchanged-baseline WAVs
+  pass format, query, identity, and SHA-256 verification; average synthesis was
+  711.1 ms and average realtime factor was 0.335. A separate namespace with
+  only loopback and zero external routes generated a byte-identical offline
+  WAV. Unknown style `999999` was rejected with HTTP 500 and no output. The
+  engine is stopped. Human pronunciation and voice-fit acceptance remain
+  pending; no app tests, builds, Docker, or browser automation apply to this
+  isolated ignored-data qualification.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,
