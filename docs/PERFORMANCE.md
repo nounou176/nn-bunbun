@@ -356,6 +356,22 @@ named-device details were not supplied and must not be inferred.
 
 Diagnostics should not appear in the normal learner UI.
 
+## Milestone 8 reviewed cached-speech observations
+
+The user's 2026-08-25 M8 Test A retest screenshot records WebGL2, 61 FPS,
+16.5/25.0 ms average/p95 frame time, 32 draw calls, 2,053 triangles, DPR 1.5,
+and 78 ms scene ready while a cached-speech session resumes at
+`listen_aoi_request`. Test B records WebGL2, 120 FPS, 8.3/8.4 ms average/p95,
+32 draw calls, 2,053 triangles, DPR 1.0, and 90 ms scene ready while the
+simulated unavailable-audio checkpoint is saved at `AWAITING_CONTINUE`.
+
+These screenshots validate diagnostic continuity across resume and assisted
+audio failure only. Browser/GPU identity, cold/warm classification, audio-start
+latency, memory, and device/display details were not supplied, so the values
+are observations rather than a general performance baseline. Test C manually
+accepts background interruption, non-overlapping replay, evidence
+deduplication, and completion but supplies no numeric audio latency.
+
 ## Manual performance protocol
 
 The user performs browser and gameplay validation manually. Do not create an

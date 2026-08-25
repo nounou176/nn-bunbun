@@ -20,6 +20,7 @@ import {
   isInsideWalkableBounds,
   stepToward,
 } from "../src/game/navigation.js";
+import { createRenderer } from "../src/game/renderer.js";
 
 const bounds = {
   minX: -4,
@@ -126,6 +127,61 @@ test("runtime query controls are explicit and closed", () => {
     simulateCarryFailure: false,
     simulatePersistenceFailure: false,
   });
+});
+
+test("resume prompt is visibly actionable while runtime startup waits", async () => {
+  const [mainSource, shellSource, styles] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/main.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/style.css"), "utf8"),
+  ]);
+
+  assert.match(styles, /\.resume-actions button:not\(\.primary-button\),/);
+  assert.match(
+    shellSource,
+    /setResumePrompt:[\s\S]*resumeButton\.disabled = false;[\s\S]*rendererPill\.textContent = "Waiting…";/,
+  );
+  assert.equal(
+    [
+      ...mainSource.matchAll(
+        /selection\.abort\(\);\s+shell\.setLoading\(\);\s+resolve\("(?:RESUME|START_NEW)"\);/g,
+      ),
+    ].length,
+    2,
+  );
+});
+
+test("renderer retry replaces a canvas that may own a failed GPU context", async () => {
+  const initialCanvas = { id: "initial" } as unknown as HTMLCanvasElement;
+  const replacementCanvas = {
+    id: "replacement",
+  } as unknown as HTMLCanvasElement;
+  const calls: Array<{ canvas: HTMLCanvasElement; forceWebGL: boolean }> = [];
+  let replacementCount = 0;
+
+  const handle = await createRenderer(
+    initialCanvas,
+    false,
+    () => {
+      replacementCount += 1;
+      return replacementCanvas;
+    },
+    async (canvas, forceWebGL) => {
+      calls.push({ canvas, forceWebGL });
+      if (!forceWebGL) throw new Error("automatic backend failed");
+      return {
+        backend: { isWebGPUBackend: false },
+      } as never;
+    },
+  );
+
+  assert.equal(replacementCount, 1);
+  assert.deepEqual(calls, [
+    { canvas: initialCanvas, forceWebGL: false },
+    { canvas: replacementCanvas, forceWebGL: true },
+  ]);
+  assert.equal(handle.backend, "webgl2");
+  assert.equal(handle.recoveredWithWebGL2, true);
 });
 
 test("frame meter reports stable average, FPS, and p95", () => {

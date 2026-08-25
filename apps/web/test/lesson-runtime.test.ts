@@ -380,6 +380,10 @@ test("audio failure creates no heard evidence and continues assisted", () => {
   harness.dispatch({ type: "AUDIO_FAILED", ...harness.tick() });
   assert.equal(harness.state.phase, "AWAITING_CONTINUE");
   assert.equal(eventsOfKind(harness, "HEARD").length, 0);
+  assert.deepEqual(harness.state.activeScaffoldIds, []);
+  const checkpoint = checkpointFromState(harness.state, 1, harness.now);
+  assert.equal(checkpoint.attempt, 0);
+  assert.deepEqual(checkpoint.activeScaffoldIds, []);
   harness.dispatch({ type: "CONTINUE", ...harness.tick() });
   assert.equal(eventsOfKind(harness, "STEP_COMPLETED")[0]?.assisted, true);
 });

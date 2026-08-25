@@ -9,12 +9,19 @@ export interface RendererHandle {
   recoveredWithWebGL2: boolean;
 }
 
+type RendererInitializer = (
+  canvas: HTMLCanvasElement,
+  forceWebGL: boolean,
+) => Promise<WebGPURenderer>;
+
 export async function createRenderer(
   canvas: HTMLCanvasElement,
   forceWebGL2: boolean,
+  replaceCanvas: () => HTMLCanvasElement = () => canvas,
+  initialize: RendererInitializer = initializeRenderer,
 ): Promise<RendererHandle> {
   try {
-    const renderer = await initializeRenderer(canvas, forceWebGL2);
+    const renderer = await initialize(canvas, forceWebGL2);
     return {
       renderer,
       backend: detectBackend(renderer),
@@ -26,7 +33,8 @@ export async function createRenderer(
     }
 
     try {
-      const renderer = await initializeRenderer(canvas, true);
+      const fallbackCanvas = replaceCanvas();
+      const renderer = await initialize(fallbackCanvas, true);
       return {
         renderer,
         backend: "webgl2",
@@ -45,12 +53,14 @@ async function initializeRenderer(
   canvas: HTMLCanvasElement,
   forceWebGL: boolean,
 ): Promise<WebGPURenderer> {
+  const context = forceWebGL ? acquireHealthyWebGL2Context(canvas) : undefined;
   const renderer = new WebGPURenderer({
     canvas,
     antialias: true,
     alpha: false,
     forceWebGL,
     powerPreference: "high-performance",
+    ...(context === undefined ? {} : { context }),
   });
 
   try {
@@ -61,9 +71,48 @@ async function initializeRenderer(
     renderer.setClearColor(new Color("#dce9d2"), 1);
     return renderer;
   } catch (error) {
-    renderer.dispose();
+    try {
+      renderer.dispose();
+    } catch {
+      /* A partially initialized backend must not hide the original error. */
+    }
     throw error;
   }
+}
+
+function acquireHealthyWebGL2Context(
+  canvas: HTMLCanvasElement,
+): WebGL2RenderingContext {
+  const context = canvas.getContext("webgl2", {
+    antialias: true,
+    alpha: true,
+    depth: true,
+    stencil: false,
+    powerPreference: "high-performance",
+  });
+  if (context === null) {
+    throw new Error(
+      "WebGL2 context is unavailable. Reload the page; if it persists, restart the browser to recover its GPU process.",
+    );
+  }
+  const scissor = context.getParameter(
+    context.SCISSOR_BOX,
+  ) as ArrayLike<number> | null;
+  const viewport = context.getParameter(
+    context.VIEWPORT,
+  ) as ArrayLike<number> | null;
+  if (
+    context.isContextLost() ||
+    scissor === null ||
+    scissor.length < 4 ||
+    viewport === null ||
+    viewport.length < 4
+  ) {
+    throw new Error(
+      "WebGL2 context is already lost. Reload the page; if it persists, restart the browser to recover its GPU process.",
+    );
+  }
+  return context;
 }
 
 function detectBackend(renderer: WebGPURenderer): RendererBackend {

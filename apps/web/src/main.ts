@@ -184,6 +184,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         "click",
         () => {
           selection.abort();
+          shell.setLoading();
           resolve("RESUME");
         },
         { once: true, signal: selection.signal },
@@ -192,6 +193,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         "click",
         () => {
           selection.abort();
+          shell.setLoading();
           resolve("START_NEW");
         },
         { once: true, signal: selection.signal },

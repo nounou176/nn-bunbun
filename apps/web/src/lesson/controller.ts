@@ -207,9 +207,6 @@ export function reduceLesson(
           phase: "AWAITING_CONTINUE",
           helpUsed: true,
           audioFailed: true,
-          activeScaffoldIds: step.scaffolds.map(
-            (scaffold) => scaffold.scaffoldId,
-          ),
         },
         effects: [],
       };

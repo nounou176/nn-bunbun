@@ -519,8 +519,13 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       stateTitle.textContent = "Continue your lesson?";
       stateMessage.textContent = `${lessonTitle} is saved at step ${stepId}. Last local save: ${new Date(lastSavedAt).toLocaleString()}.`;
       retryButton.hidden = true;
+      resumeButton.disabled = false;
+      startAgainButton.disabled = false;
       resumeActions.hidden = false;
       lessonPanel.hidden = true;
+      rendererPill.textContent = "Waiting…";
+      rendererPill.dataset.backend = "loading";
+      runtimeState.textContent = "awaiting choice";
       resumeButton.focus({ preventScroll: true });
     },
     setDataDeleted: () => {

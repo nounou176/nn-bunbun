@@ -1964,6 +1964,52 @@ authoring/runtime audio code but no new third-party product dependency.
 Qualification WAVs remain evaluation-only and must not be copied into the
 cache.
 
+### D-041 — Accept the first reviewed Aoi cache artifact and playback checkpoint
+
+- Date: 2026-08-25
+- Status: Accepted by explicit user approval and manual confirmation
+- Affects: Milestone 8 speech artifact review and cached runtime acceptance
+
+Context:
+
+D-040 produced one fresh technical Aoi artifact for the exact Japanese text
+`財布を探してください。`. It remained unavailable to gameplay until the user
+could preview and explicitly approve the exact WAV. The renderer fallback was
+separately repaired and manually confirmed before the cached lesson could be
+exercised.
+
+Decision:
+
+Accept the exact Aoi artifact with cache key
+`bunbun_tts_v1_34a6a1c8a7acc64b6a77f0f7aa84f21142f0b6a5715afc016db11e6f2cd0dbfe`,
+WAV SHA-256
+`516bdac89cfeb577911d6ea3d287b789f6ebbfede28d12e0923a5ce57b76b5de`,
+83,500 bytes, and duration 1,739 ms. The user's authoring action moved the row
+to immutable `READY`, and the user then reported the cached gameplay test as
+OK. Repository inspection confirms the exact `READY` metadata, and port 50121
+was not listening, so this acceptance covers same-origin cached playback
+without a runtime Nemo call.
+
+This accepts only the first technical Aoi happy path. It does not claim manual
+coverage for replay, reload/resume, interruption, missing/rejected audio, or
+the legacy guide path. It does not approve final production utterances,
+non-speech assets, a complete mixer, another provider, or any incremental
+cost.
+
+Consequences:
+
+The D-040 artifact review and core cached-playback checkpoint pass. The focused
+plan remains open only for its remaining manual edge/regression matrix. O-010
+remains open for final production speech, non-speech assets, and the complete
+mixer.
+
+Closure evidence on 2026-08-25: the user reports A/B/C manual acceptance for
+resume/replay, unavailable-audio assistance, background interruption, evidence
+deduplication, and completion. Isolated tests cover the destructive and invalid
+artifact cases without mutating the accepted WAV. The D-040 focused plan is
+complete with no expansion to final dialogue, non-speech assets, providers, or
+the mixer.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

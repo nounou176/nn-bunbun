@@ -37,10 +37,10 @@ Completed focused M8 qualification plan:
 - plans/2026-08-25-qualify-voicevox-nemo.md — Complete under D-038/D-039;
   VOICEVOX Nemo and exact Aoi/Tanaka voices are `QUALIFIED`
 
-Active focused M8 implementation plan:
+Completed focused M8 implementation plan:
 
 - plans/2026-08-25-m8-reviewed-cached-japanese-speech.md — Approved under
-  D-040; implementation in progress
+  D-040 and accepted under D-041; complete
 
 Historical M7 v3.1 evidence plan:
 
@@ -273,12 +273,46 @@ Completed ExecPlans:
 
 ## Current work
 
-- D-040 is accepted and the focused cached-speech implementation plan is now at
-  its user-review checkpoint. The authorized profile/cache/repository/Nemo/API/
-  authoring/runtime slice is implemented and automated checks pass. One fresh
-  Aoi WAV for `財布を探してください。` is `REVIEW_REQUIRED`; it is not served
-  to gameplay and Codex has not approved it for the user. No non-speech source
-  or complete mixer is selected.
+- D-041 records the user's approval of the exact Aoi WAV for
+  `財布を探してください。` and their successful cached-gameplay check. The row
+  is immutable `READY`; repository inspection confirms its reviewed hash,
+  duration, and byte length. Port 50121 was not listening during confirmation,
+  so gameplay used the Bunbun cache rather than the Nemo authoring engine. No
+  non-speech source or complete mixer is selected.
+- The renderer fallback regression is fixed and manually reconfirmed by the
+  user's 2026-08-25 screenshot: the park renders under WebGL2 and the lesson UI
+  starts. That screenshot exercised the legacy `voice_guide_01` authored demo,
+  not the M8 cached Aoi fixture. Browser SpeechSynthesis failed there, while the
+  assisted-text fallback remained visible. The user subsequently selected the
+  correct M8 cached demo and reported it as OK.
+- Test A of the remaining speech matrix exposed a resume-prompt UX regression:
+  `Resume lesson` looked disabled because a generic group-button rule overrode
+  its primary background, and the renderer badge remained `STARTING…` while
+  startup waited for the user's choice. The prompt now shows `WAITING…`, both
+  choices are explicitly enabled, the primary style remains visible, and the
+  loading state resumes immediately after either selection. Automated checks
+  pass. The user's `A RETEST: PASS` screenshot confirms the M8 session resumes
+  at `listen_aoi_request` in `AWAITING_AUDIO` under WebGL2. The observed run
+  reports 61 FPS, 16.5/25.0 ms average/p95 frame time, 32 draw calls, 2,053
+  triangles, and 78 ms scene-ready time; these are not generalized as a
+  performance baseline.
+- Test B exposed a controller/persistence mismatch on simulated audio failure:
+  the client activated `afterAttempt: 1` scaffolds at attempt 0, and the server
+  correctly rejected the invalid checkpoint before storage. `AUDIO_FAILED` now
+  preserves authored scaffold timing and exposes fallback through `helpUsed`
+  and `audioFailed`. The regression test asserts the persisted checkpoint stays
+  at attempt 0 with no premature scaffold. All 89 tests and supported static/
+  build checks pass. The user's retest screenshot confirms a saved sequence-1
+  `AWAITING_CONTINUE` checkpoint with `Heard / step results` 0/0 and visible
+  Japanese/support text. The user then reports `B RETEST: PASS` after `次へ`:
+  assisted completion succeeds without heard evidence or a runtime/checkpoint
+  failure.
+- Test C passes by explicit user report. The supplied screenshot confirms the
+  background-interruption message, visible Japanese, replay control, and Nemo
+  credit; the user confirms replay has no overlapping source or duplicate
+  heard evidence and assisted completion succeeds. The D-040 focused
+  cached-speech plan is complete. Full M7 gameplay regression remains waived
+  under D-036 rather than inferred from this M8 acceptance.
 - Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
   active. D-039 resolves its local TTS engine and exact Aoi/Tanaka Nemo voices;
   D-040 resolves and implements the speech cache foundation. Final utterance
@@ -580,13 +614,12 @@ documentation and implementation changes are uncommitted.
 
 Continue Milestone 8 without expanding M7's provider scope:
 
-1. Have the user preview the freshly generated Aoi technical WAV, then record
-   their explicit approve/reject decision. Only approval may move it from
-   `REVIEW_REQUIRED` to `READY`; rejection is terminal for that cache row and
-   keeps it unavailable to gameplay.
-2. Prepare the exact ambience, effects, and restrained-music source list with
-   cost, license, data, and removal review. Wait for explicit plan approval
-   before downloading, selecting, or registering any third-party asset.
+1. Prepare a self-contained D-038 plan for the exact ambience, effects, and
+   restrained-music source list, including cost, license, data, operational,
+   credit, and removal effects. Do not select, download, or register anything
+   before explicit approval.
+2. After that approval, implement the remaining complete-audio mixer boundary
+   without changing the accepted cached-speech profiles or artifacts.
 3. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
@@ -614,17 +647,28 @@ and measurable audio acceptance choices.
   Result: `QUALIFIED`. The engine is stopped. No app tests, builds, Docker, or
   browser automation apply to this isolated ignored-data qualification.
 - D-040 M8 speech-cache implementation: schema drift, workspace typecheck,
-  lint, format, production build, and `git diff --check` pass. All 87 tests
-  pass: contracts 41/41, server 9/9, and web 37/37. The M8 fixture passes the
+  lint, format, production build, and `git diff --check` pass. All 89 tests
+  pass: contracts 41/41, server 9/9, and web 39/39. The M8 fixture passes the
   shared contract/runtime gate. Fresh loopback generation produced one valid
   83,500-byte, 1,739 ms, 24 kHz mono PCM Aoi WAV with query SHA-256
   `668f6128cf9197f3441f7bf060922a38b6eff15eaf944c3e908f215f2dafac37`
   and WAV SHA-256
   `516bdac89cfeb577911d6ea3d287b789f6ebbfede28d12e0923a5ce57b76b5de`.
-  It remains `REVIEW_REQUIRED`; manual listening, approval, cached gameplay,
-  fallback, and regression results are pending. Nemo was stopped after
-  generation. Playwright remains excluded by D-011 and Docker is not
-  applicable under D-015.
+  The user explicitly approved that exact artifact, moving it to immutable
+  `READY`, and reported the cached gameplay path as OK. Repository inspection
+  confirms the same metadata, and no listener was present on port 50121. The
+  user's earlier screenshot also confirms WebGL2 park startup and records the
+  separate legacy `voice_guide_01` SpeechSynthesis failure with assisted text
+  visible. Test A found the misleading resume-prompt state described above;
+  its fix passes automated checks and the user's retest passes. Test B found a
+  premature scaffold checkpoint; the server rejected it without storing
+  invalid state, and its fix plus retest pass. Test C background interruption,
+  replay, evidence, and completion pass by explicit user report. A focused
+  Node 24.18.0 rerun passes 25/25 web playback,
+  interruption, fallback, resume, and evidence checks plus 7/7 server cache,
+  review, recovery, capacity, identity, purge, and HTTP-boundary checks. The
+  real `READY` artifact was not mutated. Playwright remains excluded by D-011
+  and Docker is not applicable under D-015.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

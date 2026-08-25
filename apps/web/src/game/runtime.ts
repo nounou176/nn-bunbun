@@ -73,7 +73,16 @@ export async function createGameRuntime(
   let rendererHandle;
 
   try {
-    rendererHandle = await createRenderer(shell.canvas, config.forceWebGL2);
+    rendererHandle = await createRenderer(
+      shell.canvas,
+      config.forceWebGL2,
+      () => {
+        const replacement = shell.canvas.cloneNode(false) as HTMLCanvasElement;
+        shell.canvas.replaceWith(replacement);
+        shell.canvas = replacement;
+        return replacement;
+      },
+    );
   } catch (error) {
     throw new BunbunRuntimeError(
       "RUNTIME_RENDERER_INIT_FAILED",

@@ -497,9 +497,13 @@ Decision resolved:
   canonical exact-text cache identity, SQLite generation/review state, bounded
   loopback-only authoring, approved-only same-origin resolution, cached runtime
   playback, visible credit, text fallback, and a USD 0 removal boundary. Its
-  focused ExecPlan is in progress.
+  focused ExecPlan is complete.
+- D-041 accepts the exact first Aoi technical WAV and the user's successful
+  cached-gameplay happy-path check. The artifact is immutable `READY`, and the
+  check ran without a listener on the Nemo authoring port. Remaining manual
+  edge/regression checks do not expand this acceptance.
 
-Implemented D-040 checkpoint:
+Implemented and accepted D-040 speech foundation:
 
 - migration 3 and the bounded server-owned speech repository, profile registry,
   exact cache identity, queue, Nemo adapter, WAV validator, authoring API, and
@@ -509,8 +513,14 @@ Implemented D-040 checkpoint:
 - the web runtime preloads and plays only approved Aoi/Tanaka WAVs through
   native audio, retains visible text fallback, and keeps `voice_guide_01` as a
   legacy technical adapter; and
-- one freshly generated Aoi technical WAV is `REVIEW_REQUIRED`. It remains
-  unavailable to gameplay until the user listens and approves it.
+- one freshly generated Aoi technical WAV is immutable `READY`; the user
+  approved it and reported the engine-stopped cached gameplay path as OK.
+- the user's A/B/C manual matrix passes resume/replay, unavailable-audio
+  assistance, background interruption, evidence deduplication, and completion;
+  isolated tests cover destructive/rejected/missing artifact cases; and
+- the focused D-040 reviewed cached-speech foundation is complete. Full M7
+  gameplay regression retains its D-036 waiver, and no non-speech source or
+  complete mixer is selected by this checkpoint.
 
 Decisions required:
 

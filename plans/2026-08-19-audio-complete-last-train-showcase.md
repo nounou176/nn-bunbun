@@ -3,7 +3,7 @@
 Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-25 11:43 Asia/Ho_Chi_Minh
+Last updated: 2026-08-25 14:45 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -46,9 +46,9 @@ defines its audio-complete boundary. Milestone 8 owns production speech and
 the complete audio runtime. Milestone 9 owns the integrated product scenario.
 O-010 now has an accepted local TTS engine and exact voice assignments under
 D-039. D-040 implements stable code-owned profile IDs, cache identity/storage,
-queued local generation, review state, and cached runtime playback. Its first
-technical Aoi WAV awaits user review; final speech, non-speech assets, and the
-complete mixer remain open.
+queued local generation, review state, and cached runtime playback. D-041
+accepts the first exact Aoi technical WAV and cached-gameplay happy path; final
+speech, non-speech assets, and the complete mixer remain open.
 
 D-039 accepts the first qualification order without resolving O-010:
 VOICEVOX Nemo first, AivisSpeech only after explicit rejection, and Kokoro as a
@@ -297,13 +297,20 @@ reproducible acceptance checklist.
       exact-text cache identity, local queued generation, reviewed registration,
       runtime resolution, fallback, credit, cost, and removal.
 - [x] 2026-08-25 13:17 — Implement the D-040 speech foundation and pass its
-      supported automated checks. One fresh Aoi technical WAV is held at
-      `REVIEW_REQUIRED`; user listening and cached-playback acceptance remain
-      pending.
+      supported automated checks.
+- [x] 2026-08-25 14:05 — Record D-041: the user approved the exact Aoi
+      technical WAV and reported engine-stopped cached gameplay as OK. The row
+      is immutable `READY`.
+- [x] 2026-08-25 14:45 — Close the focused D-040 speech plan. A/B/C manual
+      checks accept resume/replay, unavailable-audio assistance, interruption,
+      evidence deduplication, and completion. Isolated tests cover destructive
+      failure cases, the real artifact remains `READY`, and gameplay makes no
+      runtime Nemo call.
 - [ ] Approve final production utterances, non-speech sources, and the complete
       mixer boundary under D-038.
 - [ ] Implement milestones 2 through 6 in dependency order.
-- [ ] Hand off the manual matrix and record only results the user reports.
+- [x] Hand off the focused speech matrix and record only results the user
+      reports. Full M7 regression remains waived under D-036.
 
 ## Surprises and discoveries
 
@@ -456,10 +463,12 @@ set or invalid world package is never published as playable.
 
 The product, content, world, and audio-complete outcome is approved and
 documented. Milestone 7 is implementation-complete with verification waived
-under D-036. D-040 speech-authoring/cache/runtime code is implemented, but no
-production world or approved production audio asset exists. D-037 excludes
+under D-036. D-040 speech-authoring/cache/runtime code and its applicable
+manual matrix are complete, and D-041 accepts the exact technical Aoi artifact;
+no final production world or complete audio set exists. D-037 excludes
 Amazon Polly, and D-038 excludes OpenAI API,
 paid-capable provider substitution, unreviewed third-party additions, and
 free-tier dependency. D-039 resolves the zero-cost local TTS engine and exact
 voices. D-040 resolves profile/cache/runtime details; O-010 remains open for
-final utterance approval, non-speech sources, and the complete mixer.
+final utterance approval, non-speech sources, and the complete mixer. D-041
+accepts only the first technical Aoi artifact and cached-playback happy path.

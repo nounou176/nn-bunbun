@@ -713,7 +713,7 @@ h1 {
   display: none;
 }
 
-.resume-actions button,
+.resume-actions button:not(.primary-button),
 .local-data-heading button,
 .delete-data-actions button {
   min-height: 2.65rem;
