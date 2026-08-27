@@ -1,4 +1,5 @@
 import type { ParkSceneDefinition } from "./scene-definition.js";
+import { PARK_AMBIENCE_ASSET_IDS } from "../audio/assets.js";
 
 const parkAssetUrl = new URL("../assets/park-small.gltf", import.meta.url).href;
 
@@ -7,6 +8,7 @@ export const PARK_SCENE_DEFINITION = {
   assetBundleId: "park_core",
   cameraPresetId: "park_isometric_default",
   assetUrl: parkAssetUrl,
+  ambienceAssetIds: PARK_AMBIENCE_ASSET_IDS,
   playerSpawn: { x: 0, y: 0.38, z: 2.35 },
   cameraTarget: { x: 0, y: 0, z: 0 },
   walkableBounds: {

@@ -7,10 +7,12 @@ export interface RuntimeConfig {
   simulateMovementFailure: boolean;
   simulateCarryFailure: boolean;
   simulatePersistenceFailure: boolean;
+  nonSpeechFailure: "ambience" | "effects" | "music" | undefined;
 }
 
 export function readRuntimeConfig(search: string): RuntimeConfig {
   const parameters = new URLSearchParams(search);
+  const nonSpeechFailure = parameters.get("nonSpeechFailure");
   return {
     forceWebGL2: parameters.get("renderer") === "webgl2",
     diagnosticsOpen: parameters.get("debug") === "1",
@@ -20,5 +22,11 @@ export function readRuntimeConfig(search: string): RuntimeConfig {
     simulateMovementFailure: parameters.get("movementFailure") === "1",
     simulateCarryFailure: parameters.get("carryFailure") === "1",
     simulatePersistenceFailure: parameters.get("persistenceFailure") === "1",
+    nonSpeechFailure:
+      nonSpeechFailure === "ambience" ||
+      nonSpeechFailure === "effects" ||
+      nonSpeechFailure === "music"
+        ? nonSpeechFailure
+        : undefined,
   };
 }

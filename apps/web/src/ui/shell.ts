@@ -1,5 +1,6 @@
 import type { RendererBackend } from "../game/renderer.js";
 import { currentStep, type LessonState } from "../lesson/controller.js";
+import type { AudioGainName, AudioMixerSnapshot } from "../audio/mixer.js";
 
 export interface DiagnosticsSnapshot {
   renderer: RendererBackend;
@@ -25,6 +26,12 @@ export interface AppShell {
   zoomInButton: HTMLButtonElement;
   zoomOutButton: HTMLButtonElement;
   diagnosticsButton: HTMLButtonElement;
+  soundButton: HTMLButtonElement;
+  closeSoundButton: HTMLButtonElement;
+  unlockSoundButton: HTMLButtonElement;
+  muteSoundButton: HTMLButtonElement;
+  audioGainInputs: Readonly<Record<AudioGainName, HTMLInputElement>>;
+  audioPreviewButtons: readonly HTMLButtonElement[];
   localDataButton: HTMLButtonElement;
   closeLocalDataButton: HTMLButtonElement;
   deleteLocalDataButton: HTMLButtonElement;
@@ -56,6 +63,8 @@ export interface AppShell {
   setAudioError: (message?: string) => void;
   renderLesson: (state: LessonState) => void;
   setDiagnosticsOpen: (open: boolean) => void;
+  setSoundPanelOpen: (open: boolean) => void;
+  setSoundStatus: (message: string) => void;
   setLocalDataOpen: (open: boolean) => void;
   setPersistenceStatus: (
     status: "saving" | "saved" | "error",
@@ -64,6 +73,7 @@ export interface AppShell {
   renderLocalData: (snapshot: LocalDataSnapshot) => void;
   setDeleteConfirmation: (visible: boolean) => void;
   updateDiagnostics: (snapshot: DiagnosticsSnapshot) => void;
+  updateAudioMixer: (snapshot: AudioMixerSnapshot) => void;
   updateLessonDiagnostics: (snapshot: LessonDiagnosticsSnapshot) => void;
 }
 
@@ -196,6 +206,9 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           <div class="button-row">
             <button type="button" data-role="zoom-out" aria-label="Zoom out">−</button>
             <button type="button" data-role="zoom-in" aria-label="Zoom in">＋</button>
+            <button type="button" data-role="sound" aria-expanded="false">
+              Sound
+            </button>
             <button type="button" data-role="diagnostics" aria-expanded="false">
               Diagnostics
             </button>
@@ -203,6 +216,59 @@ export function createAppShell(app: HTMLDivElement): AppShell {
               Local data
             </button>
           </div>
+        </aside>
+
+        <aside class="sound-panel" data-role="sound-panel" aria-label="Audio mixer" hidden>
+          <div class="sound-heading">
+            <div>
+              <p class="eyebrow">Local audio mixer</p>
+              <p>One browser mixer · controls reset when this page closes.</p>
+            </div>
+            <button type="button" data-role="sound-close" aria-label="Close sound panel">×</button>
+          </div>
+          <output class="sound-state" data-role="sound-state">Audio waits for a learner action.</output>
+          <div class="sound-actions">
+            <button class="primary-button" type="button" data-role="sound-unlock">Start audio</button>
+            <button type="button" data-role="sound-mute" aria-pressed="false">Mute</button>
+          </div>
+          <div class="sound-gains">
+            <label>Master <output data-audio-gain-value="master">100%</output><input data-audio-gain="master" type="range" min="0" max="1" step="0.01" value="1"></label>
+            <label>Voice <output data-audio-gain-value="voice">100%</output><input data-audio-gain="voice" type="range" min="0" max="1" step="0.01" value="1"></label>
+            <label>Ambience <output data-audio-gain-value="ambience">35%</output><input data-audio-gain="ambience" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+            <label>Effects <output data-audio-gain-value="effects">65%</output><input data-audio-gain="effects" type="range" min="0" max="1" step="0.01" value="0.65"></label>
+            <label>Music <output data-audio-gain-value="music">20%</output><input data-audio-gain="music" type="range" min="0" max="1" step="0.01" value="0.2"></label>
+          </div>
+          <div class="sound-preview" aria-label="Approved audio previews">
+            <button type="button" data-audio-preview="amb_rain_03">Rain</button>
+            <button type="button" data-audio-preview="amb_distant_road_01">Road</button>
+            <button type="button" data-audio-preview="amb_distant_rail_01">Rail</button>
+            <button type="button" data-audio-preview="amb_store_hum_01">Store</button>
+            <button type="button" data-audio-preview="sfx_footstep_01">Step</button>
+            <button type="button" data-audio-preview="sfx_cat_mew_01">Cat</button>
+            <button type="button" data-audio-preview="amb_cat_purr_01">Purr</button>
+            <button type="button" data-audio-preview="sfx_pickup_generic_000">Pickup</button>
+            <button type="button" data-audio-preview="sfx_give_soft_001">Give</button>
+            <button type="button" data-audio-preview="sfx_clue_wood_001">Clue</button>
+            <button type="button" data-audio-preview="sfx_correct_001">Correct</button>
+            <button type="button" data-audio-preview="sfx_incorrect_004">Incorrect</button>
+            <button type="button" data-audio-preview="sfx_neutral_001">Neutral</button>
+            <button type="button" data-audio-preview="cue_station_chime_01">Station</button>
+            <button type="button" data-audio-preview="music_tension_pulse_01">Tension</button>
+            <button type="button" data-audio-preview="music_resolution_sting_01">Resolve</button>
+          </div>
+          <details class="sound-credits">
+            <summary>Audio sources and rights</summary>
+            <ul>
+              <li><a href="https://opengameart.org/content/rain-loopable" target="_blank" rel="noreferrer">Rain (loopable)</a> · Ylmir · CC0</li>
+              <li><a href="https://opengameart.org/content/high-traffic-road-sounds" target="_blank" rel="noreferrer">High traffic road sounds</a> · IgnasD · CC0</li>
+              <li><a href="https://opengameart.org/content/step-sound-walking" target="_blank" rel="noreferrer">Step sound (walking)</a> · IgnasD · CC0</li>
+              <li><a href="https://opengameart.org/content/cat-purr-meow" target="_blank" rel="noreferrer">Cat Purr &amp; Meow</a> · Kerzoven · CC0</li>
+              <li><a href="https://opengameart.org/content/underwater-or-space-engine-rumble" target="_blank" rel="noreferrer">underwater or space engine rumble</a> · gmason · CC0</li>
+              <li><a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noreferrer">Impact Sounds 1.0</a> · Kenney · CC0</li>
+              <li><a href="https://kenney.nl/assets/interface-sounds" target="_blank" rel="noreferrer">Interface Sounds 1.0</a> · Kenney · CC0</li>
+              <li>Store hum, station chime, tension pulse, and resolution sting · Bunbun project-authored</li>
+            </ul>
+          </details>
         </aside>
 
         <aside class="local-data-panel" data-role="local-data-panel" aria-label="Local learning data" hidden>
@@ -252,6 +318,11 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <div><dt>Scene ready</dt><dd data-diagnostic="scene-ready">—</dd></div>
             <div><dt>Pick response</dt><dd data-diagnostic="picking">—</dd></div>
             <div><dt>Selected ID</dt><dd data-diagnostic="selected">—</dd></div>
+            <div><dt>Audio context</dt><dd data-diagnostic="audio-context">—</dd></div>
+            <div><dt>Audio sources / loops</dt><dd data-diagnostic="audio-sources">—</dd></div>
+            <div><dt>Audio decoded</dt><dd data-diagnostic="audio-decoded">—</dd></div>
+            <div><dt>Audio duck / mute</dt><dd data-diagnostic="audio-state">—</dd></div>
+            <div><dt>Audio unavailable</dt><dd data-diagnostic="audio-unavailable">—</dd></div>
             <div><dt>Lesson step</dt><dd data-diagnostic="lesson-step">—</dd></div>
             <div><dt>Lesson phase</dt><dd data-diagnostic="lesson-phase">—</dd></div>
             <div><dt>Events / reactions</dt><dd data-diagnostic="lesson-events">—</dd></div>
@@ -316,6 +387,43 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     app,
     '[data-role="diagnostics-panel"]',
   );
+  const soundButton = required<HTMLButtonElement>(app, '[data-role="sound"]');
+  const soundPanel = required<HTMLElement>(app, '[data-role="sound-panel"]');
+  const closeSoundButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="sound-close"]',
+  );
+  const unlockSoundButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="sound-unlock"]',
+  );
+  const muteSoundButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="sound-mute"]',
+  );
+  const soundState = required<HTMLOutputElement>(
+    app,
+    '[data-role="sound-state"]',
+  );
+  const audioGainInputs = Object.fromEntries(
+    (["master", "voice", "ambience", "effects", "music"] as const).map(
+      (name) => [
+        name,
+        required<HTMLInputElement>(app, `[data-audio-gain="${name}"]`),
+      ],
+    ),
+  ) as Record<AudioGainName, HTMLInputElement>;
+  const audioGainValues = Object.fromEntries(
+    (["master", "voice", "ambience", "effects", "music"] as const).map(
+      (name) => [
+        name,
+        required<HTMLOutputElement>(app, `[data-audio-gain-value="${name}"]`),
+      ],
+    ),
+  ) as Record<AudioGainName, HTMLOutputElement>;
+  const audioPreviewButtons = [
+    ...app.querySelectorAll<HTMLButtonElement>("[data-audio-preview]"),
+  ];
   const localDataButton = required<HTMLButtonElement>(
     app,
     '[data-role="local-data"]',
@@ -467,6 +575,11 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     diagnosticsButton.setAttribute("aria-expanded", String(open));
   }
 
+  function setSoundPanelOpen(open: boolean): void {
+    soundPanel.hidden = !open;
+    soundButton.setAttribute("aria-expanded", String(open));
+  }
+
   function setLocalDataOpen(open: boolean): void {
     localDataPanel.hidden = !open;
     localDataButton.setAttribute("aria-expanded", String(open));
@@ -481,6 +594,12 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     zoomInButton,
     zoomOutButton,
     diagnosticsButton,
+    soundButton,
+    closeSoundButton,
+    unlockSoundButton,
+    muteSoundButton,
+    audioGainInputs,
+    audioPreviewButtons,
     localDataButton,
     closeLocalDataButton,
     deleteLocalDataButton,
@@ -498,6 +617,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
     typeForm,
     typeInput,
     setLoading: () => {
+      setSoundPanelOpen(false);
       statePanel.hidden = false;
       stateLabel.textContent = "Milestone 6";
       stateTitle.textContent = "Preparing the lesson…";
@@ -555,6 +675,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       runtimeState.textContent = "ready";
     },
     setError: (code, message) => {
+      setSoundPanelOpen(false);
       statePanel.hidden = false;
       stateLabel.textContent = code;
       stateTitle.textContent = "The park could not start";
@@ -746,6 +867,10 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       restartLessonButton.hidden = state.phase !== "COMPLETED";
     },
     setDiagnosticsOpen,
+    setSoundPanelOpen,
+    setSoundStatus: (message) => {
+      soundState.textContent = message;
+    },
     setLocalDataOpen,
     setPersistenceStatus: (status, detail) => {
       persistenceStatus.dataset.status = status;
@@ -789,6 +914,36 @@ export function createAppShell(app: HTMLDivElement): AppShell {
           : `${snapshot.pickingMs.toFixed(1)} ms`;
       diagnostic("selected").textContent = snapshot.selectedId ?? "—";
       movementState.textContent = snapshot.movement;
+    },
+    updateAudioMixer: (snapshot) => {
+      soundState.textContent = snapshot.unlocked
+        ? `${snapshot.contextState} · ${snapshot.activeSourceCount} active · ${snapshot.decodedAssetCount} decoded`
+        : "Audio waits for a learner action.";
+      unlockSoundButton.textContent = snapshot.unlocked
+        ? "Audio started"
+        : "Start audio";
+      unlockSoundButton.disabled = snapshot.unlocked;
+      muteSoundButton.textContent = snapshot.muted ? "Unmute" : "Mute";
+      muteSoundButton.setAttribute("aria-pressed", String(snapshot.muted));
+      (Object.keys(snapshot.gains) as AudioGainName[]).forEach((name) => {
+        audioGainInputs[name].value = String(snapshot.gains[name]);
+        audioGainValues[name].textContent =
+          `${Math.round(snapshot.gains[name] * 100)}%`;
+      });
+      diagnostic("audio-context").textContent = snapshot.unlocked
+        ? snapshot.contextState
+        : `${snapshot.contextState} (locked)`;
+      diagnostic("audio-sources").textContent =
+        `${snapshot.activeSourceCount} / ${snapshot.activeLoopCount}`;
+      diagnostic("audio-decoded").textContent = String(
+        snapshot.decodedAssetCount,
+      );
+      diagnostic("audio-state").textContent =
+        `${snapshot.ducking ? "duck" : "full"} / ${snapshot.muted ? "muted" : "audible"}`;
+      diagnostic("audio-unavailable").textContent =
+        snapshot.unavailableAssetIds.length === 0
+          ? "—"
+          : snapshot.unavailableAssetIds.join(", ");
     },
     updateLessonDiagnostics: (snapshot) => {
       diagnostic("lesson-step").textContent =

@@ -13,7 +13,11 @@ application compiler. D-039 qualifies VOICEVOX Nemo as the removable local M8
 speech-authoring engine and selects exact Aoi/Tanaka voices. D-040 implements
 the first reviewed cached-speech slice with immutable profiles, local
 generation/review state, approved-only same-origin playback, and no runtime
-engine call. Its first technical WAV still requires user listening approval.
+engine call. D-041 accepts its first exact technical Aoi WAV and the complete
+A/B/C cached-playback matrix. D-042 accepts the zero-cost non-speech/mixer plan
+and bounded intake. D-043 accepts the exact 16-file hash-bound runtime set and
+implements one native five-bus mixer; manual browser/audio acceptance remains
+pending.
 No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
@@ -115,15 +119,30 @@ Implemented Milestone 8 speech-foundation responsibilities:
 - keep browser SpeechSynthesis isolated to the legacy `voice_guide_01`
   technical fixtures without allowing an Aoi/Tanaka fallback to it.
 
+Implemented Milestone 8 non-speech and mixer responsibilities:
+
+- resolve only the 16 exact D-043-approved static assets through a code-owned
+  Vite registry carrying stable IDs, byte/hash identity, bus, loop, role, and
+  visible source rights;
+- use one learner-unlocked native `AudioContext` graph for cached speech,
+  ambience, effects, and music, with master plus four content buses;
+- apply session-local gain/mute controls and deterministic 80 ms attack/250 ms
+  release voice ducking without changing persistence contracts;
+- start scene-owned rain/road/rail loops only after unlock and map registered
+  presentation cues plus movement, cat, pickup/give, feedback, and completion
+  events to bounded code-owned sources;
+- isolate missing/invalid non-speech files from controller state, Japanese text,
+  evidence, persistence, and completion; and
+- stop transients on background/restart/disposal and restore only desired scene
+  loops on resume.
+
 Planned responsibilities beyond Milestone 7:
 
 - load accepted lesson packages from the future compiler/cache boundary rather
   than a repository fixture;
 - dynamically load only the referenced scene and asset bundles;
-- mix voice, scene ambience, deterministic cue-owned effects, and restrained
-  music through learner-controlled audio buses;
-- preload non-speech assets required for the first interaction while preserving
-  captions, replay, and a recoverable text fallback; and
+- replace the technical park mix and utterance set with the reviewed first M9
+  production vertical slice while retaining the same registry/mixer boundary;
 - connect later compiled lesson revisions to the implemented storage boundary
   without weakening immutable package fingerprints.
 
@@ -179,8 +198,9 @@ observation, invalid-style, and isolated offline checks pass. The user approved
 Female 6 style `10006` for Aoi and Male 2 style `10000` for Tanaka, so Nemo is
 qualified as a removable loopback-only authoring tool outside gameplay and
 product distribution. D-040 maps those identities to `voice_aoi_01` and
-`voice_tanaka_01` and implements reviewed cache integration. One newly generated
-Aoi technical WAV is awaiting user review and is not runtime-ready.
+`voice_tanaka_01` and implements reviewed cache integration. D-041 accepts the
+exact first Aoi technical WAV as immutable `READY`, and the user's A/B/C manual
+matrix passes.
 AivisSpeech is conditional fallback research, not an installed parallel
 provider.
 
@@ -571,8 +591,8 @@ Before implementation reaches the relevant boundary, decide:
   Milestone 3 desktop Chromium reference environment;
 - production reference datasets and licenses beyond the project-authored M7
   technical fixture;
-- zero-incremental-cost local/offline TTS, voice policy, and cache invalidation
-  inputs under D-038; and
+- final production utterance approval plus manual browser/audio acceptance of
+  the implemented D-043 zero-cost non-speech and mixer boundary; and
 - observability and privacy rules for any remote learning analytics.
 
 The contract validation and schema-generation direction was resolved by D-017.

@@ -106,19 +106,36 @@ function fakeAudioContext(): {
     closed: false,
   };
   const gain = {
-    gain: { value: 1 },
+    gain: {
+      value: 1,
+      cancelScheduledValues: () => undefined,
+      setValueAtTime(value: number) {
+        this.value = value;
+        return this;
+      },
+      linearRampToValueAtTime(value: number) {
+        this.value = value;
+        return this;
+      },
+    },
     connect: () => undefined,
     disconnect: () => undefined,
   } as unknown as GainNode;
   const context = {
     state: "running",
+    currentTime: 0,
     destination: {},
     createGain: () => gain,
+    createDynamicsCompressor: () => ({
+      connect: () => undefined,
+      disconnect: () => undefined,
+    }),
     decodeAudioData: async () => ({}) as AudioBuffer,
     resume: async () => undefined,
     createBufferSource: () => {
       const source = {
         buffer: null,
+        loop: false,
         onended: null,
         connect: () => undefined,
         disconnect: () => undefined,

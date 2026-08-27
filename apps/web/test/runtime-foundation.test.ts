@@ -104,7 +104,7 @@ test("orthographic sizing preserves aspect and clamps zoom", () => {
 test("runtime query controls are explicit and closed", () => {
   assert.deepEqual(
     readRuntimeConfig(
-      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1&persistenceFailure=1",
+      "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1&persistenceFailure=1&nonSpeechFailure=music",
     ),
     {
       forceWebGL2: true,
@@ -115,6 +115,7 @@ test("runtime query controls are explicit and closed", () => {
       simulateMovementFailure: true,
       simulateCarryFailure: true,
       simulatePersistenceFailure: true,
+      nonSpeechFailure: "music",
     },
   );
   assert.deepEqual(readRuntimeConfig("?renderer=webgpu&debug=yes"), {
@@ -126,7 +127,12 @@ test("runtime query controls are explicit and closed", () => {
     simulateMovementFailure: false,
     simulateCarryFailure: false,
     simulatePersistenceFailure: false,
+    nonSpeechFailure: undefined,
   });
+  assert.equal(
+    readRuntimeConfig("?nonSpeechFailure=unregistered").nonSpeechFailure,
+    undefined,
+  );
 });
 
 test("resume prompt is visibly actionable while runtime startup waits", async () => {

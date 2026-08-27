@@ -36,6 +36,11 @@
     "run:authoring-eval:v2": "npm run run:authoring-eval:v2 --workspace @bunbun/contracts --",
     "inspect:storage": "npm run inspect:storage --workspace @bunbun/server --",
     "inspect:audio": "npm run inspect:audio --workspace @bunbun/server --",
+    "audio:m8:generate": "node scripts/generate-m8-authored-audio.mjs .bunbun-data/audio-intake/non-speech/v1/authored",
+    "audio:m8:approval-check": "node scripts/validate-m8-non-speech-approval.mjs",
+    "audio:m8:runtime-check": "node scripts/validate-m8-runtime-audio.mjs",
+    "audio:m8:review": "node scripts/serve-m8-audio-review.mjs",
+    "audio:m8:test": "node scripts/generate-m8-authored-audio.test.mjs",
     "plugin:check": "node scripts/check-m7-v3-plugin.mjs"
   },
   "devDependencies": {

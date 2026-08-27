@@ -1,0 +1,63 @@
+{
+  "schema": "bunbun_authored_audio_parameters",
+  "version": "1.0.0",
+  "sampleRate": 48000,
+  "bitDepth": 16,
+  "channels": 1,
+  "assets": [
+    {
+      "id": "amb_store_hum_01",
+      "filename": "amb_store_hum_01.wav",
+      "kind": "storeHum",
+      "durationSeconds": 12,
+      "targetPeak": 0.24,
+      "expectedSha256": "4e82d3c7abbcec1c2f3b7c375d5cf783a73d1a6afa1bf2ed937f35e08e0e153f",
+      "parameters": {
+        "fundamentalHz": 72,
+        "modulationHz": 0.25,
+        "harmonicGains": [1, 0.32, 0.11]
+      }
+    },
+    {
+      "id": "cue_station_chime_01",
+      "filename": "cue_station_chime_01.wav",
+      "kind": "stationChime",
+      "durationSeconds": 2.8,
+      "targetPeak": 0.4,
+      "expectedSha256": "b7341a20c1e3cd6495ac2f3aac93c0d40811e9ac9de672e3a15a8be3bda907ab",
+      "parameters": {
+        "firstHz": 587.33,
+        "secondHz": 783.99,
+        "secondStartSeconds": 1.15,
+        "toneDurationSeconds": 1.55
+      }
+    },
+    {
+      "id": "music_tension_pulse_01",
+      "filename": "music_tension_pulse_01.wav",
+      "kind": "tensionPulse",
+      "durationSeconds": 5,
+      "targetPeak": 0.32,
+      "expectedSha256": "21eb08f2b46504ad484856b202890abf8d1e5de6143674d7942e90521c92346a",
+      "parameters": {
+        "pulseHz": 110,
+        "upperHz": 164.81,
+        "pulseIntervalSeconds": 1,
+        "pulseDurationSeconds": 0.7
+      }
+    },
+    {
+      "id": "music_resolution_sting_01",
+      "filename": "music_resolution_sting_01.wav",
+      "kind": "resolutionSting",
+      "durationSeconds": 2.75,
+      "targetPeak": 0.36,
+      "expectedSha256": "df31d79d0c59f3ba5b5505e0f39ec6c3849d67e5a26cd9075f81d610dc0777f9",
+      "parameters": {
+        "firstChordHz": [293.66, 369.99, 440],
+        "secondChordHz": [329.63, 415.3, 493.88],
+        "secondStartSeconds": 0.92
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-25
+Last updated: 2026-08-27
 
 ## Current milestone
 
@@ -41,6 +41,12 @@ Completed focused M8 implementation plan:
 
 - plans/2026-08-25-m8-reviewed-cached-japanese-speech.md — Approved under
   D-040 and accepted under D-041; complete
+
+Approved active M8 plan:
+
+- plans/2026-08-25-m8-zero-cost-non-speech-audio-mixer.md — Approved under
+  D-038/D-042/D-043; implementation complete and manual browser/audio
+  acceptance pending
 
 Historical M7 v3.1 evidence plan:
 
@@ -267,9 +273,24 @@ Completed ExecPlans:
   authoring preview/review/reject/retry controls, and approved-only same-origin
   runtime resolution without a new dependency or provider.
 - Added a strict M8 Aoi technical fixture and native cached playback with one
-  voice gain, preload, replay, safe interruption/disposal, visible
+  shared mixer voice bus, preload, replay, safe interruption/disposal, visible
   `VOICEVOX Nemo` credit, and deterministic text fallback. The guide's browser
   SpeechSynthesis path remains legacy-only.
+- Promoted exactly 16 user-approved non-speech binaries into the Vite-owned
+  runtime tree. Runtime validation binds every file to the exact approval hash
+  and byte count and rejects any extra or rejected file. The encoded set is
+  4,958,589 bytes and the first-interaction preload is 925,841 bytes.
+- Added one native learner-unlocked Web Audio graph with master, voice,
+  ambience, effects, and music buses; session-local gain/mute controls;
+  voice-priority ducking; decoded-buffer reuse; bounded active sources;
+  failure isolation; background/resume/restart/disposal handling; visible
+  credits; and audio diagnostics.
+- Registered rainy park ambience plus deterministic footsteps, cat reaction,
+  pickup/give, presentation cue, correct/incorrect/assisted feedback, tension,
+  and completion sounds without changing manifest or evidence contracts.
+- Added closed debug-only `nonSpeechFailure=ambience|effects|music` routes so
+  the user can manually verify optional-file isolation without deleting or
+  mutating an approved asset.
 
 ## Current work
 
@@ -278,7 +299,7 @@ Completed ExecPlans:
   is immutable `READY`; repository inspection confirms its reviewed hash,
   duration, and byte length. Port 50121 was not listening during confirmation,
   so gameplay used the Bunbun cache rather than the Nemo authoring engine. No
-  non-speech source or complete mixer is selected.
+  D-043 now separately selects the exact non-speech runtime set and mixer.
 - The renderer fallback regression is fixed and manually reconfirmed by the
   user's 2026-08-25 screenshot: the park renders under WebGL2 and the lesson UI
   starts. That screenshot exercised the legacy `voice_guide_01` authored demo,
@@ -313,11 +334,29 @@ Completed ExecPlans:
   heard evidence and assisted completion succeeds. The D-040 focused
   cached-speech plan is complete. Full M7 gameplay regression remains waived
   under D-036 rather than inferred from this M8 acceptance.
+- D-042 is accepted and its bounded ignored intake is complete. Eight files
+  from seven exact CC0 source rows total 6,223,378 bytes. Four archives pass
+  member, traversal, symlink, nested-archive, executable, and expanded-size
+  checks. Retained page/license evidence, source downloads, and 26 listening
+  candidates all pass byte/hash validation. Four Bunbun-authored mono 48 kHz
+  16-bit PCM WAVs regenerate byte-identically under 2/2 focused tests. The
+  candidate catalog and loopback-only review server are present. The user then
+  supplied an exact hash-bound result: 16 candidates are approved and 10 are
+  rejected. The durable decision is
+  `docs/audio-sources/M8_NON_SPEECH_APPROVAL_2026-08-25.json`; the catalog is
+  now `APPROVED_BY_USER`.
+- D-043 promotes only the approved binaries unchanged and implements the
+  native mixer. The runtime set totals 4,958,589 bytes: 3,676,430 ambience,
+  538,071 effects, and 744,088 music. The first preload is 925,841 bytes. The
+  implementation uses no new provider, service, account, key, environment
+  variable, dependency, or incremental cost. Automated checks pass; the
+  browser/audio mix matrix remains pending user execution.
 - Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
   active. D-039 resolves its local TTS engine and exact Aoi/Tanaka Nemo voices;
-  D-040 resolves and implements the speech cache foundation. Final utterance
-  approval, non-speech sources, complete mixer behavior, dialogue, and measured
-  runtime acceptance remain open.
+  D-040 resolves and implements the speech cache foundation; D-042 resolves
+  the bounded source route; D-043 selects and implements the exact non-speech
+  set and mixer. Final production utterance approval, dialogue, final mix
+  acceptance, and measured runtime acceptance remain open.
 - D-037 explicitly excludes Amazon Polly, the AWS SDK, AWS configuration,
   credentials, and billing from Milestone 8. No AWS change or request was made;
   D-038 now constrains O-010 to a zero-incremental-cost local/offline route.
@@ -502,8 +541,9 @@ Present:
 
 Not present:
 
-- production 3D, approved production audio, or image assets; the ignored M8
-  technical WAV is awaiting user review;
+- production 3D, approved production non-speech audio, or image assets; the
+  accepted technical Aoi speech WAV is ignored local cache data rather than a
+  production source set;
 - learner identity, cross-device sync, mastery, scheduler, or analytics
   transport;
 - application AI/model calls, runtime TTS calls, or remote/paid provider
@@ -614,13 +654,16 @@ documentation and implementation changes are uncommitted.
 
 Continue Milestone 8 without expanding M7's provider scope:
 
-1. Prepare a self-contained D-038 plan for the exact ambience, effects, and
-   restrained-music source list, including cost, license, data, operational,
-   credit, and removal effects. Do not select, download, or register anything
-   before explicit approval.
-2. After that approval, implement the remaining complete-audio mixer boundary
-   without changing the accepted cached-speech profiles or artifacts.
-3. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
+1. Run the D-043 manual browser/audio matrix against the cached-speech demo:
+   unlock, ambience, voice duck/recovery, movement/cat/object/feedback/music,
+   independent controls, background/resume, replay, restart, credits, and
+   optional-file failure isolation.
+2. Record the user's exact PASS/FAIL evidence and measured browser diagnostics;
+   do not infer final mix acceptance from unit tests or source review.
+3. After that checkpoint, return to final production dialogue/utterance review
+   for the first M9 vertical slice without expanding the approved provider or
+   asset route.
+4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
 D-025 and D-026 now have an approved queued implementation plan at
@@ -669,6 +712,19 @@ and measurable audio acceptance choices.
   review, recovery, capacity, identity, purge, and HTTP-boundary checks. The
   real `READY` artifact was not mutated. Playwright remains excluded by D-011
   and Docker is not applicable under D-015.
+- D-043 M8 non-speech/mixer implementation: exact approval validation passes
+  16 approved / 10 rejected; runtime validation passes 16 files / 4,958,589
+  bytes; deterministic authored-audio tests pass 2/2; schema drift checks 56
+  generated files; workspace typecheck, lint, repository and extended-document
+  formatting, production build, and `git diff --check` pass. All 96 workspace
+  tests pass when the server's loopback integration boundary is permitted:
+  contracts 41/41, server 9/9, and web 46/46. The restricted sandbox blocks
+  `listen(127.0.0.1)` and causes Node 24 to abort inside the server test runner;
+  the required rerun outside that network restriction passes 9/9. The build
+  reports 1,322,650 bytes of JavaScript (367.94 kB gzip), 16,253 bytes of CSS
+  (4.02 kB gzip), and the known large-chunk warning. Playwright remains
+  excluded by D-011; Docker is not applicable because no Dockerfiles exist and
+  D-015 defers release packaging. Manual browser/audio acceptance is pending.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

@@ -277,9 +277,10 @@ query sidecars up to 1 MiB, accepts WAVs up to 5 MiB and 60 seconds, and refuses
 new work at a 512 MiB ready-plus-staging cache boundary.
 
 The first newly generated Aoi technical result measures 83,500 bytes and
-1,739 ms at 24 kHz, 16-bit, mono PCM. It is `REVIEW_REQUIRED`, so this records
-authoring output size and duration only; it is not evidence of browser
-playback-start latency, mix performance, or human voice acceptance.
+1,739 ms at 24 kHz, 16-bit, mono PCM. It was `REVIEW_REQUIRED` at generation;
+D-041 later records the user's exact hash-bound acceptance and cached-playback
+check. These values still do not establish browser playback-start latency or
+complete-mix performance.
 
 The D-026 audio-complete vertical slice must additionally measure first-voice
 readiness, playback-start latency after the learner gesture, encoded bytes by
@@ -371,6 +372,54 @@ latency, memory, and device/display details were not supplied, so the values
 are observations rather than a general performance baseline. Test C manually
 accepts background interruption, non-overlapping replay, evidence
 deduplication, and completion but supplies no numeric audio latency.
+
+## Milestone 8 non-speech candidate observations
+
+The accepted D-042 ignored intake contains 8 downloaded files from 7 exact
+source rows totaling 6,223,378 bytes. With retained page/license evidence,
+bounded extraction, shortlist files, and generated review WAVs, the complete
+local staging directory is 11,431,741 bytes. Four inspected archives contain
+4, 2, 134, and 104 members and expand to 2,756,371, 24,644, 1,035,004, and
+961,273 bytes respectively. None contains an absolute/traversal path, symlink,
+nested archive, or executable member.
+
+The listening catalog validates 26 exact candidate files before the local
+review server starts. The four deterministic project-authored mono 48 kHz,
+16-bit PCM files total 2,164,976 bytes and last 12.0, 2.8, 5.0, and 2.75
+seconds. Their measured peaks range from -12.4 to -8.0 dBFS. Third-party
+candidates range from a -24.2 dBFS footstep to near -1 dBFS Kenney/interface
+one-shots; this is source-review evidence, not permission to normalize or ship
+them. The user subsequently approved the 96 kHz stereo, 84.589-second deep-
+rumble file and all other selected roles by exact hash under D-043. This is the
+source listening decision; runtime attenuation and loop interaction still
+require the browser mix matrix.
+
+## Milestone 8 non-speech runtime implementation observations
+
+The D-043 runtime registry contains exactly 16 approved files totaling
+4,958,589 encoded bytes: 3,676,430 ambience, 538,071 effects, and 744,088
+music. The initial preload is rain 03 plus one footstep, totaling 925,841
+bytes. These values pass the accepted 6 MiB complete-set and 1.5 MiB initial-
+preload ceilings. Runtime and unit validators recompute each tracked file's
+SHA-256 and byte count against the user's exact approval record; none of the 10
+rejected files appears in the runtime tree.
+
+The native graph permits at most 16 simultaneous tracked sources, reuses
+decoded promises, uses one `AudioContext`, and begins scene loops only after
+learner unlock. Cached voice ramps ambience to 25 percent and music to 15
+percent of their current bus settings over 80 ms, then restores them over
+250 ms. Unit doubles verify graph construction, no pre-unlock autoplay,
+duck/recovery, gain clamping, mute, optional-file failure isolation,
+background transient removal, loop-only resume, and disposal. These are code
+behavior checks rather than acoustic or device measurements.
+
+The 2026-08-27 web production build with all approved audio contains a
+1,322,650-byte minified JavaScript chunk (367.94 kB gzip), 16,253 bytes of CSS
+(4.02 kB gzip), 4,958,589 bytes of non-speech media, the 5,899-byte park glTF,
+and 520-byte HTML. Vite's existing large-JavaScript-chunk warning remains. No
+decode time, audio-unlock latency, first-voice latency, memory use, frame
+impact, speaker/headphone loudness, or final ducking quality is accepted until
+the user supplies the manual browser/audio matrix.
 
 ## Manual performance protocol
 

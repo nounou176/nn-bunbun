@@ -1,0 +1,115 @@
+{
+  "schema": "bunbun_non_speech_hash_approval",
+  "version": "1.0.0",
+  "catalogVersion": "1.0.0",
+  "approvedAt": "2026-08-25",
+  "approvalEvidence": "User supplied M8 NON-SPEECH HASH REVIEW",
+  "approved": [
+    {
+      "id": "amb_rain_03",
+      "sha256": "73a0f5ef19ed9f64599c0425b1fb52d857acfc42c0fd5eab85c4577ace18f0ed"
+    },
+    {
+      "id": "amb_distant_road_01",
+      "sha256": "1c7ce49677ade7ebc4c7f3bd58657a730b892713382d197ea96a2c0f4ead0c51"
+    },
+    {
+      "id": "sfx_footstep_01",
+      "sha256": "62c2dfaafdd9f79e2f5599d56d826b7d35ba038a05b3001c2f17487bd1b5d3b3"
+    },
+    {
+      "id": "sfx_cat_mew_01",
+      "sha256": "7de9fed4401b677ccbf072781182857d875093a8e9b5727fc21b38028cfd5a90"
+    },
+    {
+      "id": "amb_cat_purr_01",
+      "sha256": "7f06368e25e6a7aec9b106c3e2915f236b3fa10b41781733ecc8a1866fc749b9"
+    },
+    {
+      "id": "amb_distant_rail_01",
+      "sha256": "fd107cd69bb2204e07325a2505ef2be74d7ba2432b0f3a8763f46c0c1cee4e12"
+    },
+    {
+      "id": "sfx_pickup_generic_000",
+      "sha256": "f0e982611e97512fee5f777986b67e8b435434b601f94992ec044f7e89fb5acb"
+    },
+    {
+      "id": "sfx_give_soft_001",
+      "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf"
+    },
+    {
+      "id": "sfx_clue_wood_001",
+      "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f"
+    },
+    {
+      "id": "sfx_correct_001",
+      "sha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a"
+    },
+    {
+      "id": "sfx_incorrect_004",
+      "sha256": "0b574cea597d96507e782ae9764f88482ce49f46e931e57054bf7150047f2d69"
+    },
+    {
+      "id": "sfx_neutral_001",
+      "sha256": "aec0c31ea934a35936ae0d2ab8fac8123c93aa5647f935853a58dbaf90278b7a"
+    },
+    {
+      "id": "amb_store_hum_01",
+      "sha256": "4e82d3c7abbcec1c2f3b7c375d5cf783a73d1a6afa1bf2ed937f35e08e0e153f"
+    },
+    {
+      "id": "cue_station_chime_01",
+      "sha256": "b7341a20c1e3cd6495ac2f3aac93c0d40811e9ac9de672e3a15a8be3bda907ab"
+    },
+    {
+      "id": "music_tension_pulse_01",
+      "sha256": "21eb08f2b46504ad484856b202890abf8d1e5de6143674d7942e90521c92346a"
+    },
+    {
+      "id": "music_resolution_sting_01",
+      "sha256": "df31d79d0c59f3ba5b5505e0f39ec6c3849d67e5a26cd9075f81d610dc0777f9"
+    }
+  ],
+  "rejected": [
+    {
+      "id": "amb_rain_01",
+      "sha256": "4f659f68cf5219007d0bb0969a1862491ceee4057fda4c491c6001e8608fa2cb"
+    },
+    {
+      "id": "amb_rain_02",
+      "sha256": "204bbdba67bd69f744bbb07d81155d0ee775960b979abd0a9b662b23dbc124fd"
+    },
+    {
+      "id": "amb_rain_04",
+      "sha256": "de24aeefd113daf0d12769c61adb1a262606e7df683e3bb52a27c4d0ff356549"
+    },
+    {
+      "id": "sfx_pickup_generic_001",
+      "sha256": "c3cd1c073d186ae8fa35788ba94de581f1826e7427a7bb26490b2695fac18efa"
+    },
+    {
+      "id": "sfx_give_soft_000",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3"
+    },
+    {
+      "id": "sfx_clue_wood_000",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3"
+    },
+    {
+      "id": "sfx_clue_bell_004",
+      "sha256": "49fe4fafa2001bd0d312976796824571ca8429851f285997e1327d17bb34fd00"
+    },
+    {
+      "id": "sfx_correct_003",
+      "sha256": "3091bf0be0497f825769ee0733ca7bdc3bcd59bd6c6e8f2ba8f93d580ff38022"
+    },
+    {
+      "id": "sfx_incorrect_005",
+      "sha256": "3f75b11df5b06d68d2c25fbf0e9c9d9e7dd9250562a4007ee34856b8a309a2ae"
+    },
+    {
+      "id": "sfx_neutral_002",
+      "sha256": "4cc6ac5341b9b2c86fef80c347de028e9ab9f2e037586ac7d9fa59a403a1c012"
+    }
+  ]
+}

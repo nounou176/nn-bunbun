@@ -1,6 +1,9 @@
 import "./style.css";
 
 import type { ValidatedLessonPackage } from "@bunbun/contracts";
+import { bindAudioMixerControls } from "./audio/controls.js";
+import { createBunbunAudioMixer } from "./audio/mixer.js";
+import { findNonSpeechAudioAsset } from "./audio/assets.js";
 import { showAuthoringHome } from "./authoring/home.js";
 import { readRuntimeConfig } from "./game/config.js";
 import { BunbunRuntimeError, createGameRuntime } from "./game/runtime.js";
@@ -38,6 +41,29 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         : undefined;
   const shell = createAppShell(app);
   const baseConfig = readRuntimeConfig(window.location.search);
+  const failedNonSpeechAssetId =
+    baseConfig.nonSpeechFailure === "ambience"
+      ? "amb_rain_03"
+      : baseConfig.nonSpeechFailure === "effects"
+        ? "sfx_correct_001"
+        : baseConfig.nonSpeechFailure === "music"
+          ? "music_tension_pulse_01"
+          : undefined;
+  const failedNonSpeechAsset =
+    failedNonSpeechAssetId === undefined
+      ? undefined
+      : findNonSpeechAudioAsset(failedNonSpeechAssetId);
+  const audioMixer = createBunbunAudioMixer({
+    ...(failedNonSpeechAsset === undefined
+      ? {}
+      : {
+          fetchImplementation: (input, init) =>
+            String(input) === failedNonSpeechAsset.url
+              ? Promise.resolve(new Response(null, { status: 503 }))
+              : fetch(input, init),
+        }),
+  });
+  const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);
   const evidenceStore = createHttpEvidenceStore(
     baseConfig.simulatePersistenceFailure,
   );
@@ -102,6 +128,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
           simulateAssetFailure:
             baseConfig.simulateAssetFailure && attempt === 0,
         },
+        audioMixer,
         handleFatalError,
       );
       let lessonRuntime;
@@ -109,6 +136,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         lessonRuntime = await createLessonRuntime(
           shell,
           worldRuntime,
+          audioMixer,
           {
             store: evidenceStore,
             lessonPackage,
@@ -155,6 +183,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         dispose: () => {
           lessonRuntime.dispose();
           worldRuntime.dispose();
+          audioMixer.restart();
         },
       };
       if (sequence !== bootSequence) {
@@ -252,6 +281,8 @@ async function startApp(app: HTMLDivElement): Promise<void> {
   shell.localDataButton.addEventListener(
     "click",
     () => {
+      shell.setSoundPanelOpen(false);
+      shell.setDiagnosticsOpen(false);
       shell.setLocalDataOpen(true);
       void refreshLocalData().catch((error: unknown) =>
         shell.setPersistenceStatus(
@@ -331,19 +362,26 @@ async function startApp(app: HTMLDivElement): Promise<void> {
     { signal: lifecycle.signal },
   );
 
-  window.addEventListener("pagehide", () => runtime?.dispose(), {
+  window.addEventListener("pagehide", disposeApp, {
     once: true,
     signal: lifecycle.signal,
   });
 
   if (import.meta.hot !== undefined) {
     import.meta.hot.dispose(() => {
-      lifecycle.abort();
-      runtime?.dispose();
+      disposeApp();
     });
   }
 
   void boot();
+
+  function disposeApp(): void {
+    lifecycle.abort();
+    runtime?.dispose();
+    runtime = undefined;
+    unbindAudioMixer();
+    audioMixer.dispose();
+  }
 }
 
 function loadSelectedLesson(

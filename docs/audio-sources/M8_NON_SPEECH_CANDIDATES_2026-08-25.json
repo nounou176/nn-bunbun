@@ -1,0 +1,680 @@
+{
+  "schema": "bunbun_non_speech_candidate_review",
+  "version": "1.0.0",
+  "observedAt": "2026-08-25",
+  "license": {
+    "spdx": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "reviewState": "VERIFIED_ON_SOURCE_PAGES",
+    "evidenceSnapshot": {
+      "relativePath": "pages/cc0-1.0.html",
+      "sha256": "4ceb8ae6835f2f5263caa0e39c9e1adca9469686c267475049b33521dabbe339"
+    }
+  },
+  "stagingRoot": ".bunbun-data/audio-intake/non-speech/v1",
+  "selectionState": "APPROVED_BY_USER",
+  "approvalRecord": "M8_NON_SPEECH_APPROVAL_2026-08-25.json",
+  "sources": [
+    {
+      "sourceId": "oga_rain_loopable",
+      "title": "Rain (loopable)",
+      "author": "Ylmir",
+      "publishedAt": "2016-03-28",
+      "pageUrl": "https://opengameart.org/content/rain-loopable",
+      "pageSnapshotPath": "pages/rain-loopable.html",
+      "pageSnapshotSha256": "8d9a10178103c70670202f50129a7b1fc94914353a3878173cbfd473dfee1430",
+      "downloadArtifacts": [
+        {
+          "filename": "Rain OGG.zip",
+          "relativePath": "downloads/rain-ogg.zip",
+          "bytes": 2736596,
+          "sha256": "e68f3e1c77493cf43bec84cebff5043bff6be9ce16d59b24caa988cd460aa75b"
+        }
+      ],
+      "archiveInspection": "PASS: 4 regular OGG members; 2,756,371 expanded bytes"
+    },
+    {
+      "sourceId": "oga_high_traffic_road",
+      "title": "High traffic road sounds",
+      "author": "IgnasD",
+      "publishedAt": "2015-12-14",
+      "pageUrl": "https://opengameart.org/content/high-traffic-road-sounds",
+      "pageSnapshotPath": "pages/high-traffic-road-sounds.html",
+      "pageSnapshotSha256": "4d5d4808c429756dbf34e02191ee99075694cb853823388fa6f8ee7485a69840",
+      "downloadArtifacts": [
+        {
+          "filename": "gatve Varniu.ogg",
+          "relativePath": "downloads/traffic-road.ogg",
+          "bytes": 558092,
+          "sha256": "1c7ce49677ade7ebc4c7f3bd58657a730b892713382d197ea96a2c0f4ead0c51"
+        }
+      ],
+      "archiveInspection": "NOT_APPLICABLE"
+    },
+    {
+      "sourceId": "oga_step_walking",
+      "title": "Step sound (walking)",
+      "author": "IgnasD",
+      "publishedAt": "2015-03-07",
+      "pageUrl": "https://opengameart.org/content/step-sound-walking",
+      "pageSnapshotPath": "pages/step-sound-walking.html",
+      "pageSnapshotSha256": "10ddb3919c84305fee426328013891d1841ebb217ad77993ca282d8231a42ed0",
+      "downloadArtifacts": [
+        {
+          "filename": "Ejimas1.zip",
+          "relativePath": "downloads/walking-steps.zip",
+          "bytes": 22159,
+          "sha256": "5c909edbb490aee8ad5ae5652bfb2f3b41db3e5bdbf4c6f3d365094a3ed73c24"
+        }
+      ],
+      "archiveInspection": "PASS: 2 regular media members; 24,644 expanded bytes"
+    },
+    {
+      "sourceId": "oga_cat_purr_meow",
+      "title": "Cat Purr & Meow",
+      "author": "Kerzoven",
+      "publishedAt": "2022-04-16",
+      "pageUrl": "https://opengameart.org/content/cat-purr-meow",
+      "pageSnapshotPath": "pages/cat-purr-meow.html",
+      "pageSnapshotSha256": "ea5c00362b1ea24fa4ac6e94df4b9ebdf31fcebe1989c34cd671aa35db065a15",
+      "downloadArtifacts": [
+        {
+          "filename": "cat_softmew.wav",
+          "relativePath": "downloads/cat-soft-mew.wav",
+          "bytes": 218620,
+          "sha256": "7de9fed4401b677ccbf072781182857d875093a8e9b5727fc21b38028cfd5a90"
+        },
+        {
+          "filename": "cat_purrsleepy_loop.wav",
+          "relativePath": "downloads/cat-purr-sleepy-loop.wav",
+          "bytes": 498694,
+          "sha256": "7f06368e25e6a7aec9b106c3e2915f236b3fa10b41781733ecc8a1866fc749b9"
+        }
+      ],
+      "archiveInspection": "NOT_APPLICABLE"
+    },
+    {
+      "sourceId": "oga_deep_rumble",
+      "title": "underwater or space engine rumble",
+      "author": "gmason",
+      "publishedAt": "2024-09-04",
+      "pageUrl": "https://opengameart.org/content/underwater-or-space-engine-rumble",
+      "pageSnapshotPath": "pages/underwater-or-space-engine-rumble.html",
+      "pageSnapshotSha256": "a42041e1f246022bc6aff1a4b0c570402938a55e28513d811f33412aedc34c70",
+      "downloadArtifacts": [
+        {
+          "filename": "deep_rumble.ogg",
+          "relativePath": "downloads/deep-rumble.ogg",
+          "bytes": 553831,
+          "sha256": "fd107cd69bb2204e07325a2505ef2be74d7ba2432b0f3a8763f46c0c1cee4e12"
+        }
+      ],
+      "archiveInspection": "NOT_APPLICABLE"
+    },
+    {
+      "sourceId": "kenney_impact_sounds_1_0",
+      "title": "Impact Sounds 1.0",
+      "author": "Kenney",
+      "publishedAt": "2019-12-19",
+      "pageUrl": "https://kenney.nl/assets/impact-sounds",
+      "pageSnapshotPath": "pages/kenney-impact-sounds.html",
+      "pageSnapshotSha256": "6eb0f247668dc9eaf9bddbd44042f823954767cd2215001fd1b529a876c91ceb",
+      "downloadArtifacts": [
+        {
+          "filename": "kenney_impact-sounds.zip",
+          "relativePath": "downloads/kenney-impact-sounds-1.0.zip",
+          "bytes": 800850,
+          "sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8"
+        }
+      ],
+      "archiveInspection": "PASS: 134 regular/directory members; 1,035,004 expanded bytes; retained License.txt"
+    },
+    {
+      "sourceId": "kenney_interface_sounds_1_0",
+      "title": "Interface Sounds 1.0",
+      "author": "Kenney",
+      "publishedAt": "2020-02-11",
+      "pageUrl": "https://kenney.nl/assets/interface-sounds",
+      "pageSnapshotPath": "pages/kenney-interface-sounds.html",
+      "pageSnapshotSha256": "29ab93ff7c82e22d22670505ed1031df6cce0738a55ec2371b15eaa4f2c8e6d5",
+      "downloadArtifacts": [
+        {
+          "filename": "kenney_interface-sounds.zip",
+          "relativePath": "downloads/kenney-interface-sounds-1.0.zip",
+          "bytes": 834536,
+          "sha256": "f2193d072726d6758a5f7871b2dcc54dcce0d5c35c6f0a62f92549b327c81232"
+        }
+      ],
+      "archiveInspection": "PASS: 104 regular/directory members; 961,273 expanded bytes; retained License.txt"
+    },
+    {
+      "sourceId": "bunbun_authored_audio_v1",
+      "title": "Bunbun project-authored audio v1",
+      "author": "Bunbun",
+      "publishedAt": "2026-08-25",
+      "pageUrl": null,
+      "downloadArtifacts": [],
+      "archiveInspection": "NOT_APPLICABLE; generated deterministically from M8_AUTHORED_AUDIO_V1.json"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "amb_rain_01",
+      "sourceId": "oga_rain_loopable",
+      "role": "Rainy exterior loop",
+      "bus": "ambience",
+      "choiceGroup": "rainExterior",
+      "recommended": false,
+      "relativePath": "extracted/rain/1.ogg",
+      "sourceFilename": "Rain OGG.zip::1.ogg",
+      "sha256": "4f659f68cf5219007d0bb0969a1862491ceee4057fda4c491c6001e8608fa2cb",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 550049,
+        "durationSeconds": 27,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -22.3,
+        "peakDbfs": -4.9
+      }
+    },
+    {
+      "id": "amb_rain_02",
+      "sourceId": "oga_rain_loopable",
+      "role": "Rainy exterior loop",
+      "bus": "ambience",
+      "choiceGroup": "rainExterior",
+      "recommended": false,
+      "relativePath": "extracted/rain/2.ogg",
+      "sourceFilename": "Rain OGG.zip::2.ogg",
+      "sha256": "204bbdba67bd69f744bbb07d81155d0ee775960b979abd0a9b662b23dbc124fd",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 529890,
+        "durationSeconds": 26,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -17.5,
+        "peakDbfs": -2.4
+      }
+    },
+    {
+      "id": "amb_rain_03",
+      "sourceId": "oga_rain_loopable",
+      "role": "Rainy exterior loop",
+      "bus": "ambience",
+      "choiceGroup": "rainExterior",
+      "recommended": true,
+      "relativePath": "extracted/rain/3.ogg",
+      "sourceFilename": "Rain OGG.zip::3.ogg",
+      "sha256": "73a0f5ef19ed9f64599c0425b1fb52d857acfc42c0fd5eab85c4577ace18f0ed",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 913769,
+        "durationSeconds": 45,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -27,
+        "peakDbfs": -7.4
+      }
+    },
+    {
+      "id": "amb_rain_04",
+      "sourceId": "oga_rain_loopable",
+      "role": "Rainy exterior loop",
+      "bus": "ambience",
+      "choiceGroup": "rainExterior",
+      "recommended": false,
+      "relativePath": "extracted/rain/4.ogg",
+      "sourceFilename": "Rain OGG.zip::4.ogg",
+      "sha256": "de24aeefd113daf0d12769c61adb1a262606e7df683e3bb52a27c4d0ff356549",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 762663,
+        "durationSeconds": 37.5,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -35,
+        "peakDbfs": -9.7
+      }
+    },
+    {
+      "id": "amb_distant_road_01",
+      "sourceId": "oga_high_traffic_road",
+      "role": "Distant road bed",
+      "bus": "ambience",
+      "fixed": true,
+      "relativePath": "downloads/traffic-road.ogg",
+      "sourceFilename": "gatve Varniu.ogg",
+      "sha256": "1c7ce49677ade7ebc4c7f3bd58657a730b892713382d197ea96a2c0f4ead0c51",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 558092,
+        "durationSeconds": 59.591882,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "meanDbfs": -21.6,
+        "peakDbfs": -1.9
+      }
+    },
+    {
+      "id": "sfx_footstep_01",
+      "sourceId": "oga_step_walking",
+      "role": "Movement footstep",
+      "bus": "effects",
+      "fixed": true,
+      "relativePath": "extracted/footstep/Ejimas1.ogg",
+      "sourceFilename": "Ejimas1.zip::Ejimas1.ogg",
+      "sha256": "62c2dfaafdd9f79e2f5599d56d826b7d35ba038a05b3001c2f17487bd1b5d3b3",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 12072,
+        "durationSeconds": 0.912948,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "meanDbfs": -46.5,
+        "peakDbfs": -24.2
+      }
+    },
+    {
+      "id": "sfx_cat_mew_01",
+      "sourceId": "oga_cat_purr_meow",
+      "role": "Momo clue reaction",
+      "bus": "effects",
+      "fixed": true,
+      "relativePath": "downloads/cat-soft-mew.wav",
+      "sourceFilename": "cat_softmew.wav",
+      "sha256": "7de9fed4401b677ccbf072781182857d875093a8e9b5727fc21b38028cfd5a90",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 218620,
+        "durationSeconds": 2.478186,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -20.2,
+        "peakDbfs": -1.4
+      }
+    },
+    {
+      "id": "amb_cat_purr_01",
+      "sourceId": "oga_cat_purr_meow",
+      "role": "Optional calm cat loop",
+      "bus": "ambience",
+      "fixed": true,
+      "optional": true,
+      "relativePath": "downloads/cat-purr-sleepy-loop.wav",
+      "sourceFilename": "cat_purrsleepy_loop.wav",
+      "sha256": "7f06368e25e6a7aec9b106c3e2915f236b3fa10b41781733ecc8a1866fc749b9",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 498694,
+        "durationSeconds": 5.653628,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -15.2,
+        "peakDbfs": -2.5
+      }
+    },
+    {
+      "id": "amb_distant_rail_01",
+      "sourceId": "oga_deep_rumble",
+      "role": "Distant rail rumble",
+      "bus": "ambience",
+      "fixed": true,
+      "relativePath": "downloads/deep-rumble.ogg",
+      "sourceFilename": "deep_rumble.ogg",
+      "sha256": "fd107cd69bb2204e07325a2505ef2be74d7ba2432b0f3a8763f46c0c1cee4e12",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 553831,
+        "durationSeconds": 84.589333,
+        "sampleRateHz": 96000,
+        "channels": 2,
+        "meanDbfs": -18.7,
+        "peakDbfs": -4
+      }
+    },
+    {
+      "id": "sfx_pickup_generic_000",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Object pickup",
+      "bus": "effects",
+      "choiceGroup": "objectPickup",
+      "recommended": true,
+      "relativePath": "extracted/kenney-impact/impactGeneric_light_000.ogg",
+      "sourceFilename": "Audio/impactGeneric_light_000.ogg",
+      "sha256": "f0e982611e97512fee5f777986b67e8b435434b601f94992ec044f7e89fb5acb",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5827,
+        "durationSeconds": 0.138685,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -21,
+        "peakDbfs": -1.2
+      }
+    },
+    {
+      "id": "sfx_pickup_generic_001",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Object pickup",
+      "bus": "effects",
+      "choiceGroup": "objectPickup",
+      "recommended": false,
+      "relativePath": "extracted/kenney-impact/impactGeneric_light_001.ogg",
+      "sourceFilename": "Audio/impactGeneric_light_001.ogg",
+      "sha256": "c3cd1c073d186ae8fa35788ba94de581f1826e7427a7bb26490b2695fac18efa",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5636,
+        "durationSeconds": 0.117506,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -20,
+        "peakDbfs": -1
+      }
+    },
+    {
+      "id": "sfx_give_soft_000",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Give or soft drop",
+      "bus": "effects",
+      "choiceGroup": "objectGive",
+      "recommended": false,
+      "relativePath": "extracted/kenney-impact/impactSoft_medium_000.ogg",
+      "sourceFilename": "Audio/impactSoft_medium_000.ogg",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5351,
+        "durationSeconds": 0.118005,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -14.2,
+        "peakDbfs": -1
+      }
+    },
+    {
+      "id": "sfx_give_soft_001",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Give or soft drop",
+      "bus": "effects",
+      "choiceGroup": "objectGive",
+      "recommended": true,
+      "relativePath": "extracted/kenney-impact/impactSoft_medium_001.ogg",
+      "sourceFilename": "Audio/impactSoft_medium_001.ogg",
+      "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5506,
+        "durationSeconds": 0.183288,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -14.8,
+        "peakDbfs": -0.9
+      }
+    },
+    {
+      "id": "sfx_clue_wood_000",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Clue impact",
+      "bus": "effects",
+      "choiceGroup": "clueImpact",
+      "recommended": false,
+      "relativePath": "extracted/kenney-impact/impactWood_light_000.ogg",
+      "sourceFilename": "Audio/impactWood_light_000.ogg",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 6343,
+        "durationSeconds": 0.265601,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -22.3,
+        "peakDbfs": -1.1
+      }
+    },
+    {
+      "id": "sfx_clue_wood_001",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Clue impact",
+      "bus": "effects",
+      "choiceGroup": "clueImpact",
+      "recommended": true,
+      "relativePath": "extracted/kenney-impact/impactWood_light_001.ogg",
+      "sourceFilename": "Audio/impactWood_light_001.ogg",
+      "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 6373,
+        "durationSeconds": 0.265601,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -24,
+        "peakDbfs": -0.9
+      }
+    },
+    {
+      "id": "sfx_clue_bell_004",
+      "sourceId": "kenney_impact_sounds_1_0",
+      "role": "Clue impact",
+      "bus": "effects",
+      "choiceGroup": "clueImpact",
+      "recommended": false,
+      "relativePath": "extracted/kenney-impact/impactBell_heavy_004.ogg",
+      "sourceFilename": "Audio/impactBell_heavy_004.ogg",
+      "sha256": "49fe4fafa2001bd0d312976796824571ca8429851f285997e1327d17bb34fd00",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 6529,
+        "durationSeconds": 0.301451,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -22.2,
+        "peakDbfs": -1.1
+      }
+    },
+    {
+      "id": "sfx_correct_001",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Correct feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackCorrect",
+      "recommended": true,
+      "relativePath": "extracted/kenney-interface/confirmation_001.ogg",
+      "sourceFilename": "Audio/confirmation_001.ogg",
+      "sha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 8968,
+        "durationSeconds": 0.289841,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "meanDbfs": -11.3,
+        "peakDbfs": -0.9
+      }
+    },
+    {
+      "id": "sfx_correct_003",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Correct feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackCorrect",
+      "recommended": false,
+      "relativePath": "extracted/kenney-interface/confirmation_003.ogg",
+      "sourceFilename": "Audio/confirmation_003.ogg",
+      "sha256": "3091bf0be0497f825769ee0733ca7bdc3bcd59bd6c6e8f2ba8f93d580ff38022",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 9535,
+        "durationSeconds": 0.322018,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "meanDbfs": -15.2,
+        "peakDbfs": -1
+      }
+    },
+    {
+      "id": "sfx_incorrect_004",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Incorrect feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackIncorrect",
+      "recommended": true,
+      "relativePath": "extracted/kenney-interface/error_004.ogg",
+      "sourceFilename": "Audio/error_004.ogg",
+      "sha256": "0b574cea597d96507e782ae9764f88482ce49f46e931e57054bf7150047f2d69",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 6393,
+        "durationSeconds": 0.102698,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -16.4,
+        "peakDbfs": -1.3
+      }
+    },
+    {
+      "id": "sfx_incorrect_005",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Incorrect feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackIncorrect",
+      "recommended": false,
+      "relativePath": "extracted/kenney-interface/error_005.ogg",
+      "sourceFilename": "Audio/error_005.ogg",
+      "sha256": "3f75b11df5b06d68d2c25fbf0e9c9d9e7dd9250562a4007ee34856b8a309a2ae",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 7266,
+        "durationSeconds": 0.500045,
+        "sampleRateHz": 44100,
+        "channels": 1,
+        "meanDbfs": -18.7,
+        "peakDbfs": -1
+      }
+    },
+    {
+      "id": "sfx_neutral_001",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Neutral UI feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackNeutral",
+      "recommended": true,
+      "relativePath": "extracted/kenney-interface/select_001.ogg",
+      "sourceFilename": "Audio/select_001.ogg",
+      "sha256": "aec0c31ea934a35936ae0d2ab8fac8123c93aa5647f935853a58dbaf90278b7a",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5468,
+        "durationSeconds": 0.043288,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -17.3,
+        "peakDbfs": -1.1
+      }
+    },
+    {
+      "id": "sfx_neutral_002",
+      "sourceId": "kenney_interface_sounds_1_0",
+      "role": "Neutral UI feedback",
+      "bus": "effects",
+      "choiceGroup": "feedbackNeutral",
+      "recommended": false,
+      "relativePath": "extracted/kenney-interface/select_002.ogg",
+      "sourceFilename": "Audio/select_002.ogg",
+      "sha256": "4cc6ac5341b9b2c86fef80c347de028e9ab9f2e037586ac7d9fa59a403a1c012",
+      "media": {
+        "codec": "vorbis",
+        "bytes": 5463,
+        "durationSeconds": 0.043288,
+        "sampleRateHz": 44100,
+        "channels": 2,
+        "meanDbfs": -15.9,
+        "peakDbfs": -1
+      }
+    },
+    {
+      "id": "amb_store_hum_01",
+      "sourceId": "bunbun_authored_audio_v1",
+      "role": "Store room tone",
+      "bus": "ambience",
+      "fixed": true,
+      "relativePath": "authored/amb_store_hum_01.wav",
+      "sourceFilename": "amb_store_hum_01.wav",
+      "sha256": "4e82d3c7abbcec1c2f3b7c375d5cf783a73d1a6afa1bf2ed937f35e08e0e153f",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 1152044,
+        "durationSeconds": 12,
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -18.2,
+        "peakDbfs": -12.4
+      }
+    },
+    {
+      "id": "cue_station_chime_01",
+      "sourceId": "bunbun_authored_audio_v1",
+      "role": "Original distant-station chime",
+      "bus": "effects",
+      "fixed": true,
+      "relativePath": "authored/cue_station_chime_01.wav",
+      "sourceFilename": "cue_station_chime_01.wav",
+      "sha256": "b7341a20c1e3cd6495ac2f3aac93c0d40811e9ac9de672e3a15a8be3bda907ab",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 268844,
+        "durationSeconds": 2.8,
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -19.7,
+        "peakDbfs": -8
+      }
+    },
+    {
+      "id": "music_tension_pulse_01",
+      "sourceId": "bunbun_authored_audio_v1",
+      "role": "Tension pulse",
+      "bus": "music",
+      "fixed": true,
+      "relativePath": "authored/music_tension_pulse_01.wav",
+      "sourceFilename": "music_tension_pulse_01.wav",
+      "sha256": "21eb08f2b46504ad484856b202890abf8d1e5de6143674d7942e90521c92346a",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 480044,
+        "durationSeconds": 5,
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -21,
+        "peakDbfs": -9.9
+      }
+    },
+    {
+      "id": "music_resolution_sting_01",
+      "sourceId": "bunbun_authored_audio_v1",
+      "role": "Resolution sting",
+      "bus": "music",
+      "fixed": true,
+      "relativePath": "authored/music_resolution_sting_01.wav",
+      "sourceFilename": "music_resolution_sting_01.wav",
+      "sha256": "df31d79d0c59f3ba5b5505e0f39ec6c3849d67e5a26cd9075f81d610dc0777f9",
+      "media": {
+        "codec": "pcm_s16le",
+        "bytes": 264044,
+        "durationSeconds": 2.75,
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "meanDbfs": -22.3,
+        "peakDbfs": -8.9
+      }
+    }
+  ]
+}

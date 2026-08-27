@@ -502,6 +502,17 @@ Decision resolved:
   cached-gameplay happy-path check. The artifact is immutable `READY`, and the
   check ran without a listener on the Nemo authoring port. Remaining manual
   edge/regression checks do not expand this acceptance.
+- D-042 accepts an exact zero-cost CC0/project-authored non-speech route and a
+  dependency-free native Web Audio mixer. Its ignored exact-candidate intake is
+  complete: seven source rows, four safe archives, retained license/page
+  evidence, 26 listening candidates, and four deterministic authored WAVs pass
+  technical validation. The user subsequently completed the exact listening
+  gate under D-043.
+- D-043 accepts 16 exact hash-bound runtime files and rejects the other 10
+  candidates. The approved encoded set is 4,958,589 bytes, uses only CC0 and
+  project-authored files, and adds no account, service, dependency, key, or
+  incremental cost. The native mixer implementation is complete; manual
+  browser/audio acceptance remains pending.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -519,13 +530,13 @@ Implemented and accepted D-040 speech foundation:
   assistance, background interruption, evidence deduplication, and completion;
   isolated tests cover destructive/rejected/missing artifact cases; and
 - the focused D-040 reviewed cached-speech foundation is complete. Full M7
-  gameplay regression retains its D-036 waiver, and no non-speech source or
-  complete mixer is selected by this checkpoint.
+  gameplay regression retains its D-036 waiver.
 
 Decisions required:
 
 - final production utterance review and any pronunciation overrides; and
-- exact non-speech source assets, licenses, mix targets, and fallback behavior.
+- manual acceptance of the D-043 runtime mix and lifecycle on the user's
+  browser/reference device.
 
 Implemented speech-foundation scope:
 
@@ -538,12 +549,21 @@ Implemented speech-foundation scope:
 - replay behavior; and
 - captions and missing, disabled, interrupted, or failed audio recovery.
 
-Remaining complete-audio scope:
+Implemented complete-audio foundation:
 
 - a learner-unlocked mixer with master, voice, ambience, effects, and music
   controls;
 - voice-priority ducking;
-- scene-owned ambience and cue-owned deterministic effects or musical stings.
+- scene-owned ambience and cue-owned deterministic effects or musical stings;
+- exact hash/byte-bound runtime assets with visible source rights; and
+- background/resume/restart/disposal behavior that restores loops without
+  replaying stale transients.
+
+Remaining complete-audio scope:
+
+- user acceptance of loudness, ducking, loop quality, controls, lifecycle, and
+  browser performance; and
+- final M9 production dialogue generation, review, and exact manifest linkage.
 
 Exit criteria:
 

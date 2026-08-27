@@ -5,6 +5,7 @@ import {
 } from "@bunbun/contracts";
 
 import type { GameRuntime } from "../game/runtime.js";
+import type { BunbunAudioMixer } from "../audio/mixer.js";
 import type { EvidenceStore } from "../persistence/port.js";
 import type { AppShell } from "../ui/shell.js";
 import { ActiveClock } from "./active-clock.js";
@@ -45,6 +46,7 @@ export interface LessonRuntimePersistence {
 export async function createLessonRuntime(
   shell: AppShell,
   world: GameRuntime,
+  audioMixer: BunbunAudioMixer,
   persistence: LessonRuntimePersistence,
   simulateAudioFailure: boolean,
   firstStimulusMs: number,
@@ -56,6 +58,7 @@ export async function createLessonRuntime(
   const audio = createLessonAudioPort(
     manifest.audioAssets,
     simulateAudioFailure,
+    { mixer: audioMixer },
   );
   const firstAudioAssetId = manifest.steps
     .map((step) => step.stimulus.utterance?.audioAssetId)
@@ -79,6 +82,8 @@ export async function createLessonRuntime(
   let feedbackStartedAt = 0;
   let feedbackRemainingMs = 0;
   let focusedStateKey: string | undefined;
+  let lastAppliedPhase: LessonState["phase"] | undefined;
+  let audioTransitionsEnabled = persistence.resumedSession === undefined;
   let disposed = false;
 
   const timed = <Type extends LessonInput["type"]>(type: Type) => ({
@@ -304,6 +309,26 @@ export async function createLessonRuntime(
     state = update.state;
     render();
     applyEffects(update.effects);
+    if (audioTransitionsEnabled) {
+      if (state.phase === "FEEDBACK" && lastAppliedPhase !== "FEEDBACK") {
+        switch (state.feedbackKind) {
+          case "CORRECT":
+            void audioMixer.playOneShot("sfx_correct_001");
+            break;
+          case "INCORRECT":
+            void audioMixer.playOneShot("sfx_incorrect_004");
+            void audioMixer.playOneShot("music_tension_pulse_01");
+            break;
+          case "ASSISTED":
+            void audioMixer.playOneShot("sfx_neutral_001");
+            break;
+        }
+      }
+      if (state.phase === "COMPLETED" && lastAppliedPhase !== "COMPLETED") {
+        void audioMixer.playOneShot("music_resolution_sting_01");
+      }
+    }
+    lastAppliedPhase = state.phase;
   };
 
   function safeDispatch(input: LessonInput): void {
@@ -406,6 +431,7 @@ export async function createLessonRuntime(
       audio.interrupt(
         "Japanese speech was interrupted in the background. Replay it or use the visible text path.",
       );
+      void audioMixer.suspendForBackground();
       clock.pause();
       if (feedbackTimer !== undefined) {
         feedbackRemainingMs = Math.max(
@@ -416,6 +442,7 @@ export async function createLessonRuntime(
       }
       return;
     }
+    void audioMixer.resumeFromBackground();
     clock.resume();
     resumeFeedbackTimer();
   };
@@ -519,6 +546,7 @@ export async function createLessonRuntime(
     state = restoreLesson(manifest, persistence.resumedSession.checkpoint);
     world.restoreLessonWorld(state.carriedObjectId, state.transferredObjects);
     applyUpdate({ state, effects: [] });
+    audioTransitionsEnabled = true;
     if (state.phase === "FEEDBACK" && state.feedback !== undefined) {
       scheduleFeedback(state.feedback.displayMs);
     }

@@ -37,4 +37,6 @@ export interface ParkSceneDefinition {
   entities: readonly WorldPlacement[];
   objects: readonly WorldPlacement[];
   locations: readonly LocationPlacement[];
+  ambienceAssetIds: readonly NonSpeechAudioAssetId[];
 }
+import type { NonSpeechAudioAssetId } from "../audio/assets.js";

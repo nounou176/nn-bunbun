@@ -1,9 +1,9 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Approved; active at the zero-incremental-cost Milestone 8 planning gate
+Status: Active; M8 audio foundation awaits manual browser acceptance
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-25 14:45 Asia/Ho_Chi_Minh
+Last updated: 2026-08-27 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -306,8 +306,23 @@ reproducible acceptance checklist.
       evidence deduplication, and completion. Isolated tests cover destructive
       failure cases, the real artifact remains `READY`, and gameplay makes no
       runtime Nemo call.
+- [x] 2026-08-25 14:58 — Prepare the self-contained proposed D-042 zero-cost
+      non-speech and native-mixer plan. This documentation checkpoint performs
+      no download, generation, source selection, registration, or implementation.
+- [x] 2026-08-25 — User explicitly approved D-042 and
+      `plans/2026-08-25-m8-zero-cost-non-speech-audio-mixer.md`.
+- [x] 2026-08-25 15:25 — Complete D-042's bounded ignored candidate intake,
+      archive/source/hash qualification, deterministic authored-WAV generation,
+      and local listening sheet. Runtime selection remains pending exact user
+      hash approval.
+- [x] 2026-08-25 — User approved 16 exact non-speech hashes and rejected the
+      remaining 10 candidates; D-043 records the accepted runtime set.
+- [x] 2026-08-27 — Implement the one-context five-bus mixer, exact runtime
+      registry, park ambience, deterministic effects/music, controls, credits,
+      diagnostics, ducking, and lifecycle. Supported static/unit/build checks
+      pass; manual browser/audio acceptance remains open.
 - [ ] Approve final production utterances, non-speech sources, and the complete
-      mixer boundary under D-038.
+      browser mix boundary under D-038/D-043.
 - [ ] Implement milestones 2 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

@@ -2010,16 +2010,149 @@ artifact cases without mutating the accepted WAV. The D-040 focused plan is
 complete with no expansion to final dialogue, non-speech assets, providers, or
 the mixer.
 
+### D-042 — Qualify exact CC0 non-speech audio before building the native mixer
+
+- Date: 2026-08-25
+- Status: Accepted by explicit user approval
+- Affects: Milestone 8 non-speech audio, Web Audio mixer, assets, licensing,
+  cost, privacy, credits, runtime lifecycle
+
+Context:
+
+D-040 and D-041 complete the reviewed cached-speech foundation. Bunbun still
+has no ambience, effects, music, ducking, non-speech registry, or learner mix
+controls. D-038 requires a self-contained cost, license, data, account,
+operational, fallback, and removal plan before any third-party asset is
+selected or downloaded. A broad audio library, account-gated archive, paid
+sample source, or middleware dependency would exceed the smallest remaining
+M8 boundary.
+
+Decision:
+
+Approve
+`plans/2026-08-25-m8-zero-cost-non-speech-audio-mixer.md` as the bounded M8
+qualification and implementation plan. Its proposed route uses only exact
+CC0 candidates from two Kenney audio packs and five named OpenGameArt
+submissions, plus four dependency-free repository-authored PCM WAVs. It uses
+native Web Audio and adds no account, credential, environment variable,
+runtime service, model, npm/system dependency, metered endpoint, donation,
+purchase, free-tier dependency, or recurring cost. Expected and worst-case
+authorized monetary cost are USD 0.
+
+Approval authorizes only the exact ignored candidate intake and safety
+inspection named in the plan. Every proposed runtime file must then receive
+separate user listening approval bound to its SHA-256 before it may enter Git
+or an application registry. Changed license, price, login requirement,
+unexpected speech, brand identity, recognizable melody, personal information,
+unclear provenance, or failed audio quality stops that candidate. No automatic
+substitution is allowed.
+
+Keep LessonManifest, CatalogSnapshot, and EvidencePersistence at 0.1.0. Scene
+definitions own ambience IDs; a code-owned cue registry owns deterministic
+visual/effect/music mappings; manifests continue to carry only registered cue
+IDs and exact speech metadata. Build one native learner-unlocked mixer with
+master, voice, ambience, effects, and music buses, session-local controls,
+voice-priority ducking, bounded loading, visible credits, failure isolation,
+background/resume/restart/replay safety, and disposal. Non-speech playback
+never creates answer truth, transitions, heard evidence, or persistence writes.
+
+Freesound remains outside the proposed primary route because its official FAQ
+requires account login for downloads. Paid packs, optional donations, other
+OpenGameArt submissions, other Kenney packs, music libraries, audio
+middleware, and final M9 production files remain unapproved.
+
+Consequences:
+
+The user explicitly approved this decision and its complete plan with
+`DUYỆT PLAN M8 NON-SPEECH + MIXER`. The exact ignored candidate intake,
+safety inspection, deterministic authored-audio generation, and local
+listening sheet are now authorized. A second exact listening gate still
+precedes tracked runtime intake or mixer implementation. Removal
+requires only bounded local files, registry/source records, and a replacement
+lesson revision; it requires no account closure, credential rotation, provider
+coordination, database rollback, or manifest migration. The current
+speech/text-only path remains the zero-cost fallback.
+
+The 2026-08-25 technical intake checkpoint passes for all seven source rows.
+The ignored downloads, page/license snapshots, four bounded archives, 26-file
+listening catalog, and four deterministic Bunbun WAVs validate against the
+hashes and media facts in
+`docs/audio-sources/M8_NON_SPEECH_CANDIDATES_2026-08-25.json`. This checkpoint
+does not select a runtime file or satisfy the still-active listening gate.
+
+### D-043 — Accept the exact M8 non-speech runtime set and native mixer implementation
+
+- Date: 2026-08-25
+- Status: Accepted by exact user hash approval; implementation pending manual browser acceptance
+- Affects: Milestone 8 runtime audio assets, source ledger, Web Audio graph,
+  scene ambience, presentation cues, controls, lifecycle, performance budgets
+
+Context:
+
+D-042 authorized bounded candidate intake but required a second user listening
+decision bound to exact `assetId + SHA-256` before any binary could enter Git or
+the runtime. The candidate sheet exposed 26 validated files: four rain options,
+paired alternatives for four Kenney roles, two interface alternatives for each
+feedback role, six fixed natural/context files, and four deterministic Bunbun
+WAVs.
+
+Decision:
+
+Accept the 16 exact files in
+`docs/audio-sources/M8_NON_SPEECH_APPROVAL_2026-08-25.json` and reject the other
+10 files recorded there. The accepted set is rain 03, distant road, one
+footstep, cat mew and purr, distant rail, pickup 000, soft give 001, wood clue
+001, correct 001, incorrect 004, neutral 001, and the four Bunbun-authored
+store/station/tension/resolution files. Exact hashes in that approval record
+are authoritative; a changed binary is a new candidate and is not approved by
+this decision.
+
+Promote only those 16 unchanged binaries into the Vite-owned runtime asset
+tree. Keep the rejected files in ignored review staging and out of runtime
+registries. The encoded runtime set is 4,958,589 bytes: 3,676,430 ambience,
+538,071 effects, and 744,088 music. The first-interaction preload set is
+925,841 bytes, below D-042's 1.5 MiB ceiling; the complete set is below its
+6 MiB ceiling.
+
+Implement one learner-unlocked native `AudioContext` with master, voice,
+ambience, effects, and music buses. Initial session-local gains are 1.00, 1.00,
+0.35, 0.65, and 0.20. While cached Aoi/Tanaka speech plays, ambience ducks to
+25 percent of its current bus gain and music to 15 percent, with 80 ms attack
+and 250 ms release. Scene metadata owns ambience IDs; the code-owned cue
+registry owns deterministic visual/effect mappings. Movement, cat selection,
+pickup/give, feedback, tension, and completion use bounded one-shots. No
+non-speech event may alter answer truth, evidence, checkpoints, or lesson
+transitions.
+
+Controls are session-only and do not change EvidencePersistence 0.1.0.
+Backgrounding stops voice and transient sources, suspends the context, and
+resumes only desired scene loops. Restart and disposal stop stale sources.
+Missing or undecodable non-speech files remain optional failures with visible
+diagnostics; captions, cached-speech replay, input, and completion remain
+usable.
+
+Consequences:
+
+This decision adds no service, account, key, environment variable, runtime
+provider, model, package dependency, or recurring cost. All third-party files
+remain CC0 with visible voluntary credit; the four generated files are
+project-authored. Runtime and unit validators bind the registry to the exact
+approval hashes and byte counts. Static/unit/build success establishes the
+implementation checkpoint only. Final mix loudness, loop quality, speech
+intelligibility, unlock latency, frame impact, and browser lifecycle remain
+pending the user's manual M8 audio matrix and are not inferred from this
+decision.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
 
-| ID    | Decision needed                                                                                      | Resolve before                    |
-| ----- | ---------------------------------------------------------------------------------------------------- | --------------------------------- |
-| O-008 | Browser/device support and WebGPU fallback policy                                                    | Rendering foundation              |
-| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture     | Production reference integration  |
-| O-010 | Final production utterance approval, non-speech source assets, and complete mixer policy after D-040 | Complete audio integration        |
-| O-012 | Deployment model and Docker topology                                                                 | Post-acceptance release discovery |
+| ID    | Decision needed                                                                                       | Resolve before                    |
+| ----- | ----------------------------------------------------------------------------------------------------- | --------------------------------- |
+| O-008 | Browser/device support and WebGPU fallback policy                                                     | Rendering foundation              |
+| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture      | Production reference integration  |
+| O-010 | Final production utterance approval plus approval/rejection and execution evidence for proposed D-042 | Complete audio integration        |
+| O-012 | Deployment model and Docker topology                                                                  | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

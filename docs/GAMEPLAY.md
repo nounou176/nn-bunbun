@@ -281,8 +281,16 @@ becomes playable. Ordinary gameplay does not call the engine. Missing,
 unapproved, rejected, interrupted, or invalid speech exposes the existing text
 route and must not claim `heard`. Browser SpeechSynthesis remains only for the
 legacy `voice_guide_01` technical fixtures. Ambience, effects, music, ducking,
-and the complete learner-owned mixer remain unimplemented and separately
-gated.
+and the learner-owned mixer are implemented under D-043 from the exact
+hash-approved 16-file set. The technical park starts rain, distant road, and
+distant rail only after a learner audio gesture; footsteps, cat selection,
+pickup/give, registered cues, feedback, tension, and completion resolve through
+bounded code-owned mappings. Master, voice, ambience, effects, and music gains
+plus mute are session-local. Cached speech ducks ambience/music, while missing
+non-speech files affect only presentation. Backgrounding drops voice and
+one-shots, and resume restores only desired scene loops. Manual mix and browser
+acceptance remain pending; implementation does not yet make the D-026 vertical
+slice audio-complete.
 
 ## Difficulty and scaffolding
 

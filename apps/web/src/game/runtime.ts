@@ -2,6 +2,9 @@ import { Object3D, Raycaster, Vector2, Vector3 } from "three";
 
 import type { TransferredObject } from "@bunbun/contracts";
 
+import { FIRST_INTERACTION_PRELOAD_IDS } from "../audio/assets.js";
+import { audioAssetsForCues, visualTargetsForCues } from "../audio/cues.js";
+import type { BunbunAudioMixer } from "../audio/mixer.js";
 import type { AppShell, DiagnosticsSnapshot } from "../ui/shell.js";
 import {
   clampZoom,
@@ -24,6 +27,8 @@ const MAXIMUM_DEVICE_PIXEL_RATIO = 1.5;
 const MOVEMENT_SPEED = 3.4;
 const MAXIMUM_FRAME_DELTA_SECONDS = 0.05;
 const DIAGNOSTIC_UPDATE_INTERVAL_MS = 250;
+const FOOTSTEP_INTERVAL_MS = 360;
+const CAT_REACTION_COOLDOWN_MS = 2_000;
 
 interface LessonMovementRequest {
   locationId: string;
@@ -65,6 +70,7 @@ export class BunbunRuntimeError extends Error {
 export async function createGameRuntime(
   shell: AppShell,
   config: RuntimeConfig,
+  audioMixer: BunbunAudioMixer,
   onFatalError: (error: BunbunRuntimeError) => void,
 ): Promise<GameRuntime> {
   const startedAt = performance.now();
@@ -136,6 +142,8 @@ export async function createGameRuntime(
   let movementFailureUsed = false;
   let carryFailureUsed = false;
   let movement: DiagnosticsSnapshot["movement"] = "idle";
+  let lastFootstepAt = Number.NEGATIVE_INFINITY;
+  let lastCatReactionAt = Number.NEGATIVE_INFINITY;
 
   const resize = () => {
     const width = Math.max(1, shell.viewport.clientWidth);
@@ -220,6 +228,10 @@ export async function createGameRuntime(
         setMovement("idle");
       } else {
         setMovement("moving");
+        if (time - lastFootstepAt >= FOOTSTEP_INTERVAL_MS) {
+          lastFootstepAt = time;
+          void audioMixer.playOneShot("sfx_footstep_01");
+        }
       }
     }
 
@@ -269,6 +281,13 @@ export async function createGameRuntime(
   const routeObject = (root: Object3D, startedPickingAt: number) => {
     const objectId = String(root.userData.selectableObjectId);
     showSelection(root, objectId);
+    if (
+      objectId === "cat" &&
+      startedPickingAt - lastCatReactionAt >= CAT_REACTION_COOLDOWN_MS
+    ) {
+      lastCatReactionAt = startedPickingAt;
+      void audioMixer.playOneShot("sfx_cat_mew_01");
+    }
     lessonInput.routeObject(objectId);
     finishPickingMeasurement(startedPickingAt);
   };
@@ -480,7 +499,7 @@ export async function createGameRuntime(
     setMovement("moving");
   };
 
-  const setCarriedObject = (objectId: string) => {
+  const setCarriedObject = (objectId: string, audible = true) => {
     if (!world.objectRoots.has(objectId)) {
       throw new BunbunRuntimeError(
         "RUNTIME_CARRY_OBJECT_UNKNOWN",
@@ -495,11 +514,13 @@ export async function createGameRuntime(
     }
     carriedObjectId = objectId;
     updateCarriedPresentation();
+    if (audible) void audioMixer.playOneShot("sfx_pickup_generic_000");
   };
 
   const transferCarriedObject = (
     objectId: string,
     recipientEntityId: string,
+    audible = true,
   ) => {
     const object = world.objectRoots.get(objectId);
     const recipient = world.entityRoots.get(recipientEntityId);
@@ -523,6 +544,7 @@ export async function createGameRuntime(
     );
     const marker = world.highlightMarkers.get(objectId);
     marker?.position.set(object.position.x, 0.04, object.position.z);
+    if (audible) void audioMixer.playOneShot("sfx_give_soft_001");
   };
 
   const restoreLessonWorld = (
@@ -531,29 +553,22 @@ export async function createGameRuntime(
   ) => {
     resetLessonWorld();
     transferredObjects.forEach(({ objectId, recipientEntityId }) => {
-      setCarriedObject(objectId);
-      transferCarriedObject(objectId, recipientEntityId);
+      setCarriedObject(objectId, false);
+      transferCarriedObject(objectId, recipientEntityId, false);
     });
     if (restoredCarriedObjectId !== undefined) {
-      setCarriedObject(restoredCarriedObjectId);
+      setCarriedObject(restoredCarriedObjectId, false);
     }
   };
 
   const applyCues = (cueIds: readonly string[]) => {
-    const highlightedIds = cueIds.flatMap((cueId) => {
-      switch (cueId) {
-        case "guide_gesture":
-          return ["guide"];
-        case "dog_happy":
-        case "dog_highlight":
-          return ["dog"];
-        default:
-          return [];
-      }
-    });
+    const highlightedIds = visualTargetsForCues(cueIds);
     highlightedIds.forEach((targetId) => {
       const marker = world.highlightMarkers.get(targetId);
       if (marker !== undefined) marker.visible = true;
+    });
+    audioAssetsForCues(cueIds).forEach((assetId) => {
+      void audioMixer.playOneShot(assetId);
     });
   };
 
@@ -563,6 +578,7 @@ export async function createGameRuntime(
     abortController.abort();
     resizeObserver.disconnect();
     cancelMovement();
+    audioMixer.setSceneAmbience([]);
     void renderer.setAnimationLoop(null);
     world.dispose();
     renderer.dispose();
@@ -580,6 +596,8 @@ export async function createGameRuntime(
     () => {
       const open =
         shell.diagnosticsButton.getAttribute("aria-expanded") !== "true";
+      shell.setSoundPanelOpen(false);
+      shell.setLocalDataOpen(false);
       shell.setDiagnosticsOpen(open);
     },
     { signal },
@@ -600,6 +618,8 @@ export async function createGameRuntime(
   document.addEventListener("visibilitychange", onVisibilityChange, { signal });
 
   renderer.render(world.scene, camera);
+  audioMixer.setSceneAmbience(PARK_SCENE_DEFINITION.ambienceAssetIds);
+  void audioMixer.preload(FIRST_INTERACTION_PRELOAD_IDS);
   sceneReadyMs = performance.now() - startedAt;
   shell.setReady(backend, recoveredWithWebGL2);
   shell.setDiagnosticsOpen(config.diagnosticsOpen);

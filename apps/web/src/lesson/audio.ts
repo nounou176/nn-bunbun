@@ -1,5 +1,10 @@
 import type { AudioAsset } from "@bunbun/contracts";
 
+import {
+  createBunbunAudioMixer,
+  type BunbunAudioMixer,
+} from "../audio/mixer.js";
+
 export interface AudioPlaybackCallbacks {
   onStart: () => void;
   onEnd: () => void;
@@ -17,6 +22,7 @@ export interface AudioPlaybackPort {
 interface AudioPortDependencies {
   fetchImplementation?: typeof fetch;
   createAudioContext?: () => AudioContext;
+  mixer?: BunbunAudioMixer;
 }
 
 const CACHED_VOICE_PROFILES = new Set(["voice_aoi_01", "voice_tanaka_01"]);
@@ -30,26 +36,20 @@ export function createLessonAudioPort(
     audioAssets.map((audio) => [audio.audioAssetId, audio] as const),
   );
   const fetchImplementation = dependencies.fetchImplementation ?? fetch;
-  const createAudioContext =
-    dependencies.createAudioContext ?? (() => new AudioContext());
+  const ownsMixer = dependencies.mixer === undefined;
+  const mixer =
+    dependencies.mixer ??
+    createBunbunAudioMixer({
+      fetchImplementation,
+      ...(dependencies.createAudioContext === undefined
+        ? {}
+        : { createAudioContext: dependencies.createAudioContext }),
+    });
   const decoded = new Map<string, Promise<AudioBuffer>>();
   const lifecycle = new AbortController();
-  let context: AudioContext | undefined;
-  let voiceGain: GainNode | undefined;
-  let currentSource: AudioBufferSourceNode | undefined;
   let currentCallbacks: AudioPlaybackCallbacks | undefined;
   let generation = 0;
   let disposed = false;
-
-  const ensureContext = (): AudioContext => {
-    if (context === undefined) {
-      context = createAudioContext();
-      voiceGain = context.createGain();
-      voiceGain.gain.value = 1;
-      voiceGain.connect(context.destination);
-    }
-    return context;
-  };
 
   const loadCached = (audio: AudioAsset): Promise<AudioBuffer> => {
     const existing = decoded.get(audio.audioAssetId);
@@ -69,7 +69,7 @@ export function createLessonAudioPort(
       if (bytes.byteLength === 0 || bytes.byteLength > 5 * 1024 * 1024) {
         throw new Error("Cached speech file size is invalid.");
       }
-      return ensureContext().decodeAudioData(bytes.slice(0));
+      return mixer.decodeAudioData(bytes);
     })();
     decoded.set(audio.audioAssetId, loading);
     loading.catch(() => decoded.delete(audio.audioAssetId));
@@ -79,16 +79,7 @@ export function createLessonAudioPort(
   const stopCurrent = (): void => {
     generation += 1;
     currentCallbacks = undefined;
-    if (currentSource !== undefined) {
-      currentSource.onended = null;
-      try {
-        currentSource.stop();
-      } catch {
-        /* source already stopped */
-      }
-      currentSource.disconnect();
-      currentSource = undefined;
-    }
+    mixer.stopVoice();
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   };
 
@@ -110,29 +101,12 @@ export function createLessonAudioPort(
     void loadCached(audio)
       .then(async (buffer) => {
         if (disposed || generation !== currentGeneration) return;
-        const audioContext = ensureContext();
-        await audioContext.resume();
-        if (
-          disposed ||
-          generation !== currentGeneration ||
-          audioContext.state !== "running" ||
-          voiceGain === undefined
-        ) {
-          throw new Error("Browser audio did not unlock.");
-        }
-        const source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(voiceGain);
-        source.onended = () => {
+        await mixer.playVoice(buffer, () => {
           if (disposed || generation !== currentGeneration) return;
-          source.onended = null;
-          currentSource = undefined;
           currentCallbacks = undefined;
-          source.disconnect();
           callbacks.onEnd();
-        };
-        currentSource = source;
-        source.start();
+        });
+        if (disposed || generation !== currentGeneration) return;
         callbacks.onStart();
       })
       .catch(() =>
@@ -257,10 +231,7 @@ export function createLessonAudioPort(
       lifecycle.abort();
       stopCurrent();
       decoded.clear();
-      voiceGain?.disconnect();
-      voiceGain = undefined;
-      if (context !== undefined) void context.close();
-      context = undefined;
+      if (ownsMixer) mixer.dispose();
     },
   };
 }

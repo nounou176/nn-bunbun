@@ -1,6 +1,6 @@
 # VOICEVOX Nemo 0.24.0 qualification source record
 
-Status: QUALIFIED; D-040 speech integration implemented, first WAV awaiting review
+Status: QUALIFIED; D-040 speech integration and D-041 first-WAV acceptance complete
 Intake date: 2026-08-25
 Purpose: Milestone 8 local Japanese TTS qualification only
 
@@ -205,13 +205,14 @@ no qualification WAV was copied:
 | WAV SHA-256     | `516bdac89cfeb577911d6ea3d287b789f6ebbfede28d12e0923a5ce57b76b5de`               |
 | WAV format      | 24 kHz, 16-bit, mono PCM                                                         |
 | Duration / size | 1,739 ms / 83,500 bytes                                                          |
-| Review state    | `REVIEW_REQUIRED`                                                                |
+| Review state    | `READY` under D-041                                                              |
 
 The first attempt stopped before synthesis because the 754,265-byte
 `/engine_manifest` exceeded an initial 256 KiB response guard. D-040 raises
 only that identity endpoint to a 1 MiB bound; query and WAV bounds remain
-unchanged. The explicit retry then generated the valid result above. It is not
-available to gameplay until the user listens and approves it.
+unchanged. The explicit retry then generated the valid result above. The user
+later approved this exact hash under D-041, and the artifact is now immutable
+and available to gameplay as `READY`.
 
 ## Operational data-path decision
 
