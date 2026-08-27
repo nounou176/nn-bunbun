@@ -1998,10 +1998,10 @@ cost.
 
 Consequences:
 
-The D-040 artifact review and core cached-playback checkpoint pass. The focused
-plan remains open only for its remaining manual edge/regression matrix. O-010
-remains open for final production speech, non-speech assets, and the complete
-mixer.
+The D-040 artifact review and core cached-playback checkpoint pass. At that
+checkpoint, the focused plan remained open only for its manual edge/regression
+matrix, and O-010 still included final production speech, non-speech assets,
+and the complete mixer.
 
 Closure evidence on 2026-08-25: the user reports A/B/C manual acceptance for
 resume/replay, unavailable-audio assistance, background interruption, evidence
@@ -2066,8 +2066,8 @@ Consequences:
 The user explicitly approved this decision and its complete plan with
 `DUYỆT PLAN M8 NON-SPEECH + MIXER`. The exact ignored candidate intake,
 safety inspection, deterministic authored-audio generation, and local
-listening sheet are now authorized. A second exact listening gate still
-precedes tracked runtime intake or mixer implementation. Removal
+listening sheet are now authorized. At this checkpoint, a second exact
+listening gate preceded tracked runtime intake or mixer implementation. Removal
 requires only bounded local files, registry/source records, and a replacement
 lesson revision; it requires no account closure, credential rotation, provider
 coordination, database rollback, or manifest migration. The current
@@ -2078,12 +2078,12 @@ The ignored downloads, page/license snapshots, four bounded archives, 26-file
 listening catalog, and four deterministic Bunbun WAVs validate against the
 hashes and media facts in
 `docs/audio-sources/M8_NON_SPEECH_CANDIDATES_2026-08-25.json`. This checkpoint
-does not select a runtime file or satisfy the still-active listening gate.
+did not select a runtime file; D-043 subsequently satisfied the listening gate.
 
 ### D-043 — Accept the exact M8 non-speech runtime set and native mixer implementation
 
 - Date: 2026-08-25
-- Status: Accepted by exact user hash approval; implementation pending manual browser acceptance
+- Status: Accepted; implementation and A/B/C manual matrix complete
 - Affects: Milestone 8 runtime audio assets, source ledger, Web Audio graph,
   scene ambience, presentation cues, controls, lifecycle, performance budgets
 
@@ -2138,21 +2138,22 @@ provider, model, package dependency, or recurring cost. All third-party files
 remain CC0 with visible voluntary credit; the four generated files are
 project-authored. Runtime and unit validators bind the registry to the exact
 approval hashes and byte counts. Static/unit/build success establishes the
-implementation checkpoint only. Final mix loudness, loop quality, speech
-intelligibility, unlock latency, frame impact, and browser lifecycle remain
-pending the user's manual M8 audio matrix and are not inferred from this
-decision.
+implementation checkpoint. On 2026-08-27 the user reported `M8 MIX A: PASS`,
+`M8 MIX B: PASS`, and `M8 MIX C: PASS`, accepting the planned qualitative
+happy-path, optional-file isolation, background/replay/restart, credits, and
+session-reset matrix. No numeric loudness, unlock latency, frame impact,
+memory, device, or source-growth baseline is inferred from those reports.
 
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
 
-| ID    | Decision needed                                                                                       | Resolve before                    |
-| ----- | ----------------------------------------------------------------------------------------------------- | --------------------------------- |
-| O-008 | Browser/device support and WebGPU fallback policy                                                     | Rendering foundation              |
-| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture      | Production reference integration  |
-| O-010 | Final production utterance approval plus approval/rejection and execution evidence for proposed D-042 | Complete audio integration        |
-| O-012 | Deployment model and Docker topology                                                                  | Post-acceptance release discovery |
+| ID    | Decision needed                                                                                  | Resolve before                    |
+| ----- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
+| O-008 | Browser/device support and WebGPU fallback policy                                                | Rendering foundation              |
+| O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture | Production reference integration  |
+| O-010 | Final production utterance approval and contextual M9 audio linkage                              | Complete audio integration        |
+| O-012 | Deployment model and Docker topology                                                             | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should
 not be filled with convenient defaults during unrelated work.

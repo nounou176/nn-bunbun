@@ -16,8 +16,8 @@ generation/review state, approved-only same-origin playback, and no runtime
 engine call. D-041 accepts its first exact technical Aoi WAV and the complete
 A/B/C cached-playback matrix. D-042 accepts the zero-cost non-speech/mixer plan
 and bounded intake. D-043 accepts the exact 16-file hash-bound runtime set and
-implements one native five-bus mixer; manual browser/audio acceptance remains
-pending.
+implements one native five-bus mixer; the user's qualitative A/B/C browser/
+audio matrix is complete.
 No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
@@ -411,10 +411,12 @@ may temporarily duck ambience and music. D-039 resolves the TTS engine and Nemo
 voice assignments. D-040 resolves immutable profile IDs, exact cache identity,
 SQLite/file storage, explicit generation and review, approved-only resolution,
 cached playback, and text fallback. Final utterance approval, licensed
-non-speech sources, and the complete mixer remain open. D-038 requires the
-first M8 route to have zero incremental usage and recurring cost and to run
-locally/offline. No third-party provider, dependency, model, or asset may be
-selected or added before its focused plan is explicitly approved.
+production speech, rainy-neighborhood assembly, and contextual M9 linkage
+remain open. D-043 resolves the exact non-speech sources and focused complete
+mixer boundary. D-038 requires the first M8 route to have zero incremental
+usage and recurring cost and to run locally/offline. No third-party provider,
+dependency, model, or asset may be selected or added before its focused plan
+is explicitly approved.
 
 ## Runtime determinism and recovery
 
@@ -591,8 +593,8 @@ Before implementation reaches the relevant boundary, decide:
   Milestone 3 desktop Chromium reference environment;
 - production reference datasets and licenses beyond the project-authored M7
   technical fixture;
-- final production utterance approval plus manual browser/audio acceptance of
-  the implemented D-043 zero-cost non-speech and mixer boundary; and
+- final production utterance approval and contextual mix acceptance in the M9
+  vertical slice; and
 - observability and privacy rules for any remote learning analytics.
 
 The contract validation and schema-generation direction was resolved by D-017.

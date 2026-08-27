@@ -27,26 +27,23 @@ Most recently completed ExecPlan:
   implementation delivered, requalification and testing/manual acceptance
   waived under D-035/D-036
 
-Next approved ExecPlan:
+Active parent ExecPlan:
 
-- plans/2026-08-19-audio-complete-last-train-showcase.md — Approved; queued for
-  Milestone 8 decisions and implementation
+- plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
+  Milestone 2 complete and Milestone 3 rainy-neighborhood planning next
 
 Completed focused M8 qualification plan:
 
 - plans/2026-08-25-qualify-voicevox-nemo.md — Complete under D-038/D-039;
   VOICEVOX Nemo and exact Aoi/Tanaka voices are `QUALIFIED`
 
-Completed focused M8 implementation plan:
+Completed focused M8 implementation plans:
 
 - plans/2026-08-25-m8-reviewed-cached-japanese-speech.md — Approved under
   D-040 and accepted under D-041; complete
-
-Approved active M8 plan:
-
 - plans/2026-08-25-m8-zero-cost-non-speech-audio-mixer.md — Approved under
-  D-038/D-042/D-043; implementation complete and manual browser/audio
-  acceptance pending
+  D-038/D-042/D-043; exact assets, implementation, and A/B/C manual
+  browser/audio matrix complete
 
 Historical M7 v3.1 evidence plan:
 
@@ -298,7 +295,7 @@ Completed ExecPlans:
   `財布を探してください。` and their successful cached-gameplay check. The row
   is immutable `READY`; repository inspection confirms its reviewed hash,
   duration, and byte length. Port 50121 was not listening during confirmation,
-  so gameplay used the Bunbun cache rather than the Nemo authoring engine. No
+  so gameplay used the Bunbun cache rather than the Nemo authoring engine.
   D-043 now separately selects the exact non-speech runtime set and mixer.
 - The renderer fallback regression is fixed and manually reconfirmed by the
   user's 2026-08-25 screenshot: the park renders under WebGL2 and the lesson UI
@@ -349,14 +346,30 @@ Completed ExecPlans:
   native mixer. The runtime set totals 4,958,589 bytes: 3,676,430 ambience,
   538,071 effects, and 744,088 music. The first preload is 925,841 bytes. The
   implementation uses no new provider, service, account, key, environment
-  variable, dependency, or incremental cost. Automated checks pass; the
-  browser/audio mix matrix remains pending user execution.
+  variable, dependency, or incremental cost. Automated checks pass.
+- The user reports `M8 MIX A: PASS`: the learner-unlocked happy path confirms
+  scene ambience, clear Aoi playback, ambience/music duck and smooth recovery,
+  master/voice/ambience/effects/music controls, mute, and non-overlapping
+  replacement previews.
+- The user reports `M8 MIX B: PASS` across the closed debug routes
+  `nonSpeechFailure=ambience|effects|music`. Missing rain, correct-feedback
+  effect, or tension music is diagnosed without trapping cached speech,
+  unaffected buses, feedback, or completion. Optional-file isolation is now
+  manually accepted.
+- The user reports `M8 MIX C: PASS` under forced WebGL2. Backgrounded one-shots
+  do not replay, only desired loops return, interrupted Aoi playback clears
+  ducking, replay keeps one voice source without duplicate heard evidence,
+  restart/reload leaves no stale sound or growing active-source count, credits
+  remain visible, and full reload resets session-local controls. This closes
+  the focused D-043 manual matrix qualitatively; no numeric runtime or device
+  measurements are inferred.
 - Milestone 7 implementation is closed under D-036. Milestone 8 audio work is
   active. D-039 resolves its local TTS engine and exact Aoi/Tanaka Nemo voices;
   D-040 resolves and implements the speech cache foundation; D-042 resolves
-  the bounded source route; D-043 selects and implements the exact non-speech
-  set and mixer. Final production utterance approval, dialogue, final mix
-  acceptance, and measured runtime acceptance remain open.
+  the bounded source route; D-043 selects, implements, and manually accepts the
+  exact non-speech set and mixer. Final production utterance approval,
+  dialogue, vertical-slice mix acceptance, and measured runtime acceptance
+  remain open.
 - D-037 explicitly excludes Amazon Polly, the AWS SDK, AWS configuration,
   credentials, and billing from Milestone 8. No AWS change or request was made;
   D-038 now constrains O-010 to a zero-incremental-cost local/offline route.
@@ -654,15 +667,13 @@ documentation and implementation changes are uncommitted.
 
 Continue Milestone 8 without expanding M7's provider scope:
 
-1. Run the D-043 manual browser/audio matrix against the cached-speech demo:
-   unlock, ambience, voice duck/recovery, movement/cat/object/feedback/music,
-   independent controls, background/resume, replay, restart, credits, and
-   optional-file failure isolation.
-2. Record the user's exact PASS/FAIL evidence and measured browser diagnostics;
-   do not infer final mix acceptance from unit tests or source review.
-3. After that checkpoint, return to final production dialogue/utterance review
-   for the first M9 vertical slice without expanding the approved provider or
-   asset route.
+1. Treat parent showcase Milestone 2, the complete technical audio boundary,
+   as complete under D-043.
+2. Prepare the self-contained plan for parent showcase Milestone 3: intake,
+   review, and assemble the rainy-evening neighborhood chunk under D-025 and
+   D-038. Do not add a new world asset or dependency before explicit approval.
+3. Keep final production dialogue/utterance review and exact M9 manifest
+   linkage behind that reviewed world checkpoint.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
@@ -671,8 +682,8 @@ D-025 and D-026 now have an approved queued implementation plan at
 audio source/license intake, reproducible GLB export, the representative
 neighborhood chunk, catalog registration, audio completeness, performance, and
 manual browser validation. It does not reorder Milestone 7, and production
-work remains gated by final speech review, non-speech asset, complete mixer,
-and measurable audio acceptance choices.
+work remains gated by rainy-neighborhood approval, final speech review, and
+measurable vertical-slice acceptance choices.
 
 ## Verification status
 
@@ -724,7 +735,9 @@ and measurable audio acceptance choices.
   reports 1,322,650 bytes of JavaScript (367.94 kB gzip), 16,253 bytes of CSS
   (4.02 kB gzip), and the known large-chunk warning. Playwright remains
   excluded by D-011; Docker is not applicable because no Dockerfiles exist and
-  D-015 defers release packaging. Manual browser/audio acceptance is pending.
+  D-015 defers release packaging. The user's qualitative `M8 MIX A/B/C: PASS`
+  reports complete the focused manual browser/audio matrix without supplying a
+  numeric performance baseline.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

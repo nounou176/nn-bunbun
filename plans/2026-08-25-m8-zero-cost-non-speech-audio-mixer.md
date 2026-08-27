@@ -1,6 +1,6 @@
 # Deliver zero-cost non-speech audio and a native Web Audio mixer
 
-Status: Implementation complete; manual browser/audio acceptance pending
+Status: Complete — exact assets and native mixer manually accepted
 Owner: Codex and user
 Created: 2026-08-25
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -440,7 +440,20 @@ a reproducible browser checklist.
 - [x] 2026-08-27 — Implement and statically verify the one-context five-bus
       mixer, speech ducking, scene ambience, cue/gameplay effects, music,
       controls, credits, diagnostics, failure isolation, and lifecycle.
-- [ ] Obtain manual browser/audio acceptance.
+- [x] 2026-08-27 — User reports `M8 MIX A: PASS` for the learner-unlocked
+      happy path: scene ambience, Aoi speech priority and smooth duck/recovery,
+      all five bus controls, mute, and replacement preview behavior.
+- [x] 2026-08-27 — User reports `M8 MIX B: PASS` for all three closed
+      non-speech failure routes. Missing rain, correct-feedback effect, or
+      tension music remains visible in diagnostics while unaffected buses,
+      cached speech, feedback, and lesson completion continue.
+- [x] 2026-08-27 — User reports `M8 MIX C: PASS` under forced WebGL2.
+      Backgrounded one-shots do not replay, only desired scene loops return,
+      interrupted Aoi playback clears ducking, rapid replay retains one voice
+      source without duplicate heard evidence, restart/reload leaves no stale
+      sound or growing active-source count, credits remain visible, and a full
+      reload resets session-local controls.
+- [x] Obtain manual browser/audio acceptance.
 
 ## Surprises and discoveries
 
@@ -612,5 +625,6 @@ byte counts. One learner-unlocked native mixer now owns cached voice,
 rain/road/rail ambience, bounded gameplay/cue effects, restrained music,
 session controls, ducking, diagnostics, and lifecycle without a new dependency
 or cost. Static, unit, type, lint, hash, and production-build checks pass. The
-plan remains open only for the user's manual browser/audio matrix; no acoustic
-or device acceptance is inferred.
+user's `M8 MIX A/B/C: PASS` results complete the planned qualitative browser/
+audio matrix and close this focused plan. No numeric latency, frame, memory,
+source-growth, device, or loudness baseline is inferred from those reports.

@@ -418,8 +418,28 @@ The 2026-08-27 web production build with all approved audio contains a
 (4.02 kB gzip), 4,958,589 bytes of non-speech media, the 5,899-byte park glTF,
 and 520-byte HTML. Vite's existing large-JavaScript-chunk warning remains. No
 decode time, audio-unlock latency, first-voice latency, memory use, frame
-impact, speaker/headphone loudness, or final ducking quality is accepted until
-the user supplies the manual browser/audio matrix.
+impact, speaker/headphone loudness, or final ducking quality was supplied by
+the automated checks.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 MIX A: PASS`. This
+qualitatively accepts learner unlock, the normal park ambience mix, clear Aoi
+speech, audible ambience/music duck and smooth recovery, all five gain
+controls, mute, and preview replacement. No numeric unlock/decode latency,
+frame diagnostic, device identity, or loudness measurement was supplied.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 MIX B: PASS` for the
+three bounded missing-file simulations. Ambience, effects, and music failures
+are individually observable without stalling unaffected audio, cached speech,
+feedback, or lesson completion. This accepts functional failure isolation but
+does not add numeric latency, frame, memory, or source-growth measurements.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 MIX C: PASS` under
+forced WebGL2. This qualitatively accepts background one-shot suppression,
+desired-loop-only resume, interrupted-voice duck release, single-source replay
+without duplicate heard evidence, restart/reload source cleanup, visible
+credits, and full-reload reset of session-local controls. Together, A/B/C close
+the planned D-043 browser/audio matrix. No numeric latency, frame, memory,
+device, loudness, or source-growth baseline is inferred.
 
 ## Manual performance protocol
 

@@ -289,8 +289,9 @@ bounded code-owned mappings. Master, voice, ambience, effects, and music gains
 plus mute are session-local. Cached speech ducks ambience/music, while missing
 non-speech files affect only presentation. Backgrounding drops voice and
 one-shots, and resume restores only desired scene loops. Manual mix and browser
-acceptance remain pending; implementation does not yet make the D-026 vertical
-slice audio-complete.
+acceptance for this focused technical boundary pass under D-043; the D-026
+vertical slice still requires its production world, dialogue, and contextual
+mix.
 
 ## Difficulty and scaffolding
 

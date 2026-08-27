@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; M8 audio foundation awaits manual browser acceptance
+Status: Active; Milestone 2 complete, rainy-neighborhood planning next
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -48,7 +48,8 @@ O-010 now has an accepted local TTS engine and exact voice assignments under
 D-039. D-040 implements stable code-owned profile IDs, cache identity/storage,
 queued local generation, review state, and cached runtime playback. D-041
 accepts the first exact Aoi technical WAV and cached-gameplay happy path; final
-speech, non-speech assets, and the complete mixer remain open.
+production speech and contextual M9 linkage remain open, while D-043 completes
+the exact non-speech set and focused native-mixer matrix.
 
 D-039 accepts the first qualification order without resolving O-010:
 VOICEVOX Nemo first, AivisSpeech only after explicit rejection, and Kokoro as a
@@ -236,6 +237,9 @@ Observable checkpoint: a technical lesson plays consistent cached Japanese
 voices plus registered ambience/effects, survives failure and resume, and
 makes no provider call during gameplay.
 
+Status: complete under D-043. The exact non-speech set, native mixer, and
+user-reported A/B/C browser matrix satisfy this checkpoint qualitatively.
+
 ### 3. Intake and assemble the rainy-evening neighborhood
 
 Download only approved world and audio sources, retain rights and hashes,
@@ -320,10 +324,21 @@ reproducible acceptance checklist.
 - [x] 2026-08-27 — Implement the one-context five-bus mixer, exact runtime
       registry, park ambience, deterministic effects/music, controls, credits,
       diagnostics, ducking, and lifecycle. Supported static/unit/build checks
-      pass; manual browser/audio acceptance remains open.
-- [ ] Approve final production utterances, non-speech sources, and the complete
-      browser mix boundary under D-038/D-043.
-- [ ] Implement milestones 2 through 6 in dependency order.
+      pass; manual browser/audio acceptance was still open at this checkpoint.
+- [x] 2026-08-27 — User reports `M8 MIX A: PASS` for ambience, voice duck and
+      recovery, learner bus controls, mute, and preview replacement. Failure
+      isolation and lifecycle/regression manual checks were still open at this
+      checkpoint.
+- [x] 2026-08-27 — User reports `M8 MIX B: PASS`: simulated missing ambience,
+      effect, and music assets remain isolated and visible while speech and
+      lesson completion continue. Lifecycle/regression acceptance was still
+      open at this checkpoint.
+- [x] 2026-08-27 — User reports `M8 MIX C: PASS`: background/replay/restart,
+      source lifecycle, credits, and session-reset behavior pass under forced
+      WebGL2. This completes parent Milestone 2 under D-043.
+- [ ] Prepare and approve parent Milestone 3 rainy-neighborhood intake and
+      assembly under D-025/D-038.
+- [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.
 
@@ -479,11 +494,13 @@ set or invalid world package is never published as playable.
 The product, content, world, and audio-complete outcome is approved and
 documented. Milestone 7 is implementation-complete with verification waived
 under D-036. D-040 speech-authoring/cache/runtime code and its applicable
-manual matrix are complete, and D-041 accepts the exact technical Aoi artifact;
-no final production world or complete audio set exists. D-037 excludes
+manual matrix are complete, and D-041 accepts the exact technical Aoi artifact.
+D-043 now completes the exact non-speech set, native mixer, and focused A/B/C
+manual matrix; no final production world or production dialogue set exists.
+D-037 excludes
 Amazon Polly, and D-038 excludes OpenAI API,
 paid-capable provider substitution, unreviewed third-party additions, and
 free-tier dependency. D-039 resolves the zero-cost local TTS engine and exact
 voices. D-040 resolves profile/cache/runtime details; O-010 remains open for
-final utterance approval, non-speech sources, and the complete mixer. D-041
-accepts only the first technical Aoi artifact and cached-playback happy path.
+final production utterance approval and contextual M9 linkage. D-041 accepts
+only the first technical Aoi artifact and cached-playback happy path.

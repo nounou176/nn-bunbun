@@ -511,8 +511,8 @@ Decision resolved:
 - D-043 accepts 16 exact hash-bound runtime files and rejects the other 10
   candidates. The approved encoded set is 4,958,589 bytes, uses only CC0 and
   project-authored files, and adds no account, service, dependency, key, or
-  incremental cost. The native mixer implementation is complete; manual
-  browser/audio acceptance remains pending.
+  incremental cost. The native mixer implementation and the user's qualitative
+  A/B/C browser/audio matrix are complete.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -535,8 +535,8 @@ Implemented and accepted D-040 speech foundation:
 Decisions required:
 
 - final production utterance review and any pronunciation overrides; and
-- manual acceptance of the D-043 runtime mix and lifecycle on the user's
-  browser/reference device.
+- rainy-neighborhood world intake and assembly under D-025/D-038 before M9
+  lesson linkage.
 
 Implemented speech-foundation scope:
 
@@ -561,9 +561,9 @@ Implemented complete-audio foundation:
 
 Remaining complete-audio scope:
 
-- user acceptance of loudness, ducking, loop quality, controls, lifecycle, and
-  browser performance; and
-- final M9 production dialogue generation, review, and exact manifest linkage.
+- final vertical-slice dialogue generation, review, exact manifest linkage,
+  and contextual mix acceptance in the M9 world; and
+- numeric audio/performance measurements if they become release criteria.
 
 Exit criteria:
 
