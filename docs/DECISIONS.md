@@ -2202,6 +2202,55 @@ license evidence, animation compatibility, or plan budget fails, work stops
 and returns for another explicit decision rather than adding a convenient
 third party.
 
+### D-045 — Accept the exact M8 rainy-neighborhood visual selection
+
+- Date: 2026-08-27
+- Status: Accepted by explicit user approval
+- Affects: Milestone 8 world assembly, immutable GLB bundle, actor identities,
+  neighborhood layout, runtime registry
+
+Context:
+
+D-044 authorized only bounded ignored intake and local visual review. The user
+completed the corrected 55-candidate Three.js review and returned one complete
+proposal bound to catalog SHA-256
+`a843db08d0c73f25441d349bcf7a73ad765fdab2b246bfba3dbf25c590a95f8b`.
+Local validation confirmed 55/55 decisions, every source-member hash, group
+cardinality, and distinct Aoi/Tanaka assignments. The proposal packet SHA-256
+is `e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
+The user explicitly approved that exact packet with `DUYỆT M8 WORLD GATE 2 —
+PACKET e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
+
+Decision:
+
+Accept exactly 18 candidates and reject exactly 37. The approved set consists
+of all five reviewed road pieces, curved street light, traffic light, building
+type N, all seven reviewed park-edge props, character N as Aoi, character Q as
+Tanaka, and the cat as Momo. Exact IDs, source members, assignments, and hashes
+belong in `docs/world-sources/M8_WORLD_APPROVAL_2026-08-27.json`; that artifact
+and its validator are authoritative over this prose summary.
+
+Authorize deterministic assembly, validation, and local runtime registration
+of only that exact approved set under
+`plans/2026-08-27-m8-rainy-neighborhood-world.md`. Project-authored layout,
+unbranded convenience-store accents, simple umbrella-stand geometry, lighting,
+fog, rain presentation, stable selectors, and clue anchors may be added within
+the approved plan. No rejected model may be copied, embedded, registered, or
+used as a visual fallback.
+
+The financial, privacy, and operational boundaries do not change: committed
+incremental cost remains USD 0; no account, credential, environment variable,
+runtime network request, new dependency, service, model, source pack,
+converter, pathfinding system, physics engine, or VFX middleware is approved.
+
+Consequences:
+
+Gate 2 is closed and assembly/runtime work may proceed. A source, member,
+texture, catalog, proposal, approval, layout, or derived-output hash mismatch
+must stop promotion. A later visual substitution or additional asset requires
+a new explicit decision; it cannot inherit D-045 approval. The existing
+technical park and LessonManifest 0.1.0 behavior remain regression boundaries.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

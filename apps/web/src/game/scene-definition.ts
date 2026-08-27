@@ -26,11 +26,10 @@ export interface LocationPlacement {
   position: Point3;
 }
 
-export interface ParkSceneDefinition {
-  sceneId: "park_small";
-  assetBundleId: "park_core";
-  cameraPresetId: "park_isometric_default";
-  assetUrl: string;
+interface BaseSceneDefinition {
+  sceneId: "park_small" | "neighborhood_small";
+  assetBundleId: string;
+  cameraPresetId: string;
   playerSpawn: Point3;
   cameraTarget: Point3;
   walkableBounds: WalkableBounds;
@@ -38,5 +37,38 @@ export interface ParkSceneDefinition {
   objects: readonly WorldPlacement[];
   locations: readonly LocationPlacement[];
   ambienceAssetIds: readonly NonSpeechAudioAssetId[];
+  catReactionObjectId?: string;
 }
+
+export interface ParkSceneDefinition extends BaseSceneDefinition {
+  kind: "park-fixture";
+  sceneId: "park_small";
+  assetBundleId: "park_core";
+  cameraPresetId: "park_isometric_default";
+  assetUrl: string;
+}
+
+export interface ActorAssetPlacement extends WorldPlacement {
+  assetId:
+    | "neighborhood_actor_aoi_v1"
+    | "neighborhood_actor_tanaka_v1"
+    | "neighborhood_actor_momo_v1";
+  rootNodeName: string;
+  idleClipName: string;
+  role: "entity" | "object";
+}
+
+export interface NeighborhoodSceneDefinition extends BaseSceneDefinition {
+  kind: "neighborhood-glb";
+  sceneId: "neighborhood_small";
+  assetBundleId: "neighborhood_rainy_core_v1";
+  cameraPresetId: "neighborhood_isometric_default";
+  staticAssetId: "neighborhood_rainy_static_v1";
+  fixtureRootName: "neighborhood_fixture_root";
+  walkableNodeName: "walkable_ground";
+  actorAssets: readonly ActorAssetPlacement[];
+}
+
+export type WorldSceneDefinition =
+  ParkSceneDefinition | NeighborhoodSceneDefinition;
 import type { NonSpeechAudioAssetId } from "../audio/assets.js";

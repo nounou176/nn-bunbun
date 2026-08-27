@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestone 2 complete, Milestone 3 exact visual gate next
+Status: Active; Milestones 2 and 3 complete, Milestone 4 next
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -349,6 +349,23 @@ reproducible acceptance checklist.
 - [x] 2026-08-27 19:47 — User reports `PASS` for the corrected local 3D review
       UI and model loading after the complete Three.js module chain is served.
       Exact candidate assignment/approval JSON remains the Milestone 3 gate.
+- [x] 2026-08-27 — User approves Gate 2 packet
+      `e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
+      D-045 fixes 18 exact runtime sources. The deterministic four-GLB bundle,
+      code-owned registry, two-scene loader, rainy presentation, actor idle
+      clips, approved ambience, closed preview route, validators, tests, and
+      production build pass. Parent Milestone 3 awaits manual browser
+      acceptance before Milestone 4 lesson authoring begins.
+- [x] 2026-08-27 — User reports `M8 WORLD A: PASS` for the automatic-renderer
+      neighborhood preview checklist. Forced-WebGL2 and failure/lifecycle
+      acceptance remain before parent Milestone 3 closes.
+- [x] 2026-08-27 — User reports `M8 WORLD B: PASS` for the forced-WebGL2
+      neighborhood preview with no reported visual, interaction, animation, or
+      audio regression. Failure/retry and lifecycle acceptance remain.
+- [x] 2026-08-27 — User reports `M8 WORLD C: PASS` for asset-failure retry,
+      background/resume, reload/disposal, and default lesson-library/park
+      regression. The complete A/B/C matrix closes parent Milestone 3; parent
+      Milestone 4 lesson authoring is next.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

@@ -5,8 +5,9 @@ import { bindAudioMixerControls } from "./audio/controls.js";
 import { createBunbunAudioMixer } from "./audio/mixer.js";
 import { findNonSpeechAudioAsset } from "./audio/assets.js";
 import { showAuthoringHome } from "./authoring/home.js";
-import { readRuntimeConfig } from "./game/config.js";
+import { readRuntimeConfig, type RuntimeConfig } from "./game/config.js";
 import { BunbunRuntimeError, createGameRuntime } from "./game/runtime.js";
+import { resolveWorldScene } from "./game/world-assets.js";
 import {
   LessonContentError,
   loadAuthoredLesson,
@@ -32,6 +33,11 @@ interface AppRuntime {
 void startApp(app);
 
 async function startApp(app: HTMLDivElement): Promise<void> {
+  const baseConfig = readRuntimeConfig(window.location.search);
+  if (baseConfig.worldPreviewSceneId !== undefined) {
+    await startWorldPreview(app, baseConfig);
+    return;
+  }
   const selection = await showAuthoringHome(app);
   const selectedPackage =
     selection.kind === "PUBLISHED"
@@ -40,29 +46,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         ? loadCachedSpeechLesson(false)
         : undefined;
   const shell = createAppShell(app);
-  const baseConfig = readRuntimeConfig(window.location.search);
-  const failedNonSpeechAssetId =
-    baseConfig.nonSpeechFailure === "ambience"
-      ? "amb_rain_03"
-      : baseConfig.nonSpeechFailure === "effects"
-        ? "sfx_correct_001"
-        : baseConfig.nonSpeechFailure === "music"
-          ? "music_tension_pulse_01"
-          : undefined;
-  const failedNonSpeechAsset =
-    failedNonSpeechAssetId === undefined
-      ? undefined
-      : findNonSpeechAudioAsset(failedNonSpeechAssetId);
-  const audioMixer = createBunbunAudioMixer({
-    ...(failedNonSpeechAsset === undefined
-      ? {}
-      : {
-          fetchImplementation: (input, init) =>
-            String(input) === failedNonSpeechAsset.url
-              ? Promise.resolve(new Response(null, { status: 503 }))
-              : fetch(input, init),
-        }),
-  });
+  const audioMixer = createConfiguredAudioMixer(baseConfig);
   const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);
   const evidenceStore = createHttpEvidenceStore(
     baseConfig.simulatePersistenceFailure,
@@ -382,6 +366,124 @@ async function startApp(app: HTMLDivElement): Promise<void> {
     unbindAudioMixer();
     audioMixer.dispose();
   }
+}
+
+function createConfiguredAudioMixer(config: RuntimeConfig) {
+  const failedNonSpeechAssetId =
+    config.nonSpeechFailure === "ambience"
+      ? "amb_rain_03"
+      : config.nonSpeechFailure === "effects"
+        ? "sfx_correct_001"
+        : config.nonSpeechFailure === "music"
+          ? "music_tension_pulse_01"
+          : undefined;
+  const failedNonSpeechAsset =
+    failedNonSpeechAssetId === undefined
+      ? undefined
+      : findNonSpeechAudioAsset(failedNonSpeechAssetId);
+  return createBunbunAudioMixer({
+    ...(failedNonSpeechAsset === undefined
+      ? {}
+      : {
+          fetchImplementation: (input, init) =>
+            String(input) === failedNonSpeechAsset.url
+              ? Promise.resolve(new Response(null, { status: 503 }))
+              : fetch(input, init),
+        }),
+  });
+}
+
+async function startWorldPreview(
+  app: HTMLDivElement,
+  config: RuntimeConfig,
+): Promise<void> {
+  const sceneId = config.worldPreviewSceneId;
+  if (sceneId === undefined) return;
+  const definition = resolveWorldScene(sceneId);
+  const shell = createAppShell(app, {
+    worldTitle: "Bunbun Neighborhood",
+    worldSceneId: sceneId,
+    worldAriaLabel:
+      "Bunbun rainy evening neighborhood preview. Click the pedestrian area to move and select Aoi, Tanaka, Momo, or a clue object.",
+    loadingMessage:
+      "Loading the approved local neighborhood bundle and actor animations.",
+    instructionJa: "雨の町を歩いて、人物や手がかりを確認しよう。",
+    instructionSupport:
+      "Closed M8 world preview · click the pedestrian area to move and click actors or clue objects to inspect IDs.",
+    previewMode: true,
+  });
+  const audioMixer = createConfiguredAudioMixer(config);
+  const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);
+  const lifecycle = new AbortController();
+  let runtime: AppRuntime | undefined;
+  let attempt = 0;
+
+  const fail = (error: BunbunRuntimeError) => {
+    runtime?.dispose();
+    runtime = undefined;
+    shell.setError(error.code, error.message);
+  };
+
+  const boot = async () => {
+    runtime?.dispose();
+    runtime = undefined;
+    shell.setLoading();
+    try {
+      const worldRuntime = await createGameRuntime(
+        shell,
+        {
+          ...config,
+          simulateAssetFailure: config.simulateAssetFailure && attempt === 0,
+        },
+        audioMixer,
+        fail,
+        definition,
+      );
+      runtime = {
+        dispose: () => {
+          worldRuntime.dispose();
+          audioMixer.restart();
+        },
+      };
+      shell.setPersistenceStatus(
+        "saved",
+        "Closed local world preview · no lesson session is being recorded.",
+      );
+    } catch (error) {
+      fail(
+        error instanceof BunbunRuntimeError
+          ? error
+          : new BunbunRuntimeError(
+              "RUNTIME_START_FAILED",
+              error instanceof Error ? error.message : "Unknown runtime error.",
+              { cause: error },
+            ),
+      );
+    }
+  };
+
+  shell.retryButton.addEventListener(
+    "click",
+    () => {
+      attempt += 1;
+      void boot();
+    },
+    { signal: lifecycle.signal },
+  );
+
+  const dispose = () => {
+    lifecycle.abort();
+    runtime?.dispose();
+    runtime = undefined;
+    unbindAudioMixer();
+    audioMixer.dispose();
+  };
+  window.addEventListener("pagehide", dispose, {
+    once: true,
+    signal: lifecycle.signal,
+  });
+  if (import.meta.hot !== undefined) import.meta.hot.dispose(dispose);
+  await boot();
 }
 
 function loadSelectedLesson(

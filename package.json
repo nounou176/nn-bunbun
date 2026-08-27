@@ -43,8 +43,11 @@
     "audio:m8:test": "node scripts/generate-m8-authored-audio.test.mjs",
     "world:m8:intake": "node scripts/intake-m8-world-assets.mjs",
     "world:m8:intake-check": "node scripts/validate-m8-world-intake.mjs",
+    "world:m8:approval-check": "node scripts/validate-m8-world-approval.mjs check",
+    "world:m8:assemble": "node scripts/assemble-m8-neighborhood.mjs",
+    "world:m8:runtime-check": "node scripts/validate-m8-runtime-world.mjs",
     "world:m8:review": "node scripts/serve-m8-world-review.mjs",
-    "world:m8:test": "node --test scripts/intake-m8-world-assets.test.mjs scripts/validate-m8-world-intake.test.mjs scripts/serve-m8-world-review.test.mjs",
+    "world:m8:test": "node --test scripts/intake-m8-world-assets.test.mjs scripts/validate-m8-world-intake.test.mjs scripts/serve-m8-world-review.test.mjs scripts/assemble-m8-neighborhood.test.mjs",
     "plugin:check": "node scripts/check-m7-v3-plugin.mjs"
   },
   "devDependencies": {

@@ -21,6 +21,10 @@ import {
   stepToward,
 } from "../src/game/navigation.js";
 import { createRenderer } from "../src/game/renderer.js";
+import {
+  resolveWorldAssetUrl,
+  resolveWorldScene,
+} from "../src/game/world-assets.js";
 
 const bounds = {
   minX: -4,
@@ -107,6 +111,7 @@ test("runtime query controls are explicit and closed", () => {
       "?renderer=webgl2&debug=1&assetFailure=1&manifestFailure=1&audioFailure=1&movementFailure=1&carryFailure=1&persistenceFailure=1&nonSpeechFailure=music",
     ),
     {
+      worldPreviewSceneId: undefined,
       forceWebGL2: true,
       diagnosticsOpen: true,
       simulateAssetFailure: true,
@@ -119,6 +124,7 @@ test("runtime query controls are explicit and closed", () => {
     },
   );
   assert.deepEqual(readRuntimeConfig("?renderer=webgpu&debug=yes"), {
+    worldPreviewSceneId: undefined,
     forceWebGL2: false,
     diagnosticsOpen: false,
     simulateAssetFailure: false,
@@ -133,7 +139,64 @@ test("runtime query controls are explicit and closed", () => {
     readRuntimeConfig("?nonSpeechFailure=unregistered").nonSpeechFailure,
     undefined,
   );
+  assert.equal(
+    readRuntimeConfig("?world=neighborhood").worldPreviewSceneId,
+    "neighborhood_small",
+  );
+  assert.equal(
+    readRuntimeConfig("?world=https://example.com/world.glb")
+      .worldPreviewSceneId,
+    undefined,
+  );
 });
+
+test("world registry resolves only the approved neighborhood bundle", async () => {
+  const definition = resolveWorldScene("neighborhood_small");
+  assert.equal(definition.kind, "neighborhood-glb");
+  assert.equal(definition.staticAssetId, "neighborhood_rainy_static_v1");
+  assert.deepEqual(
+    definition.actorAssets.map((actor) => actor.localId),
+    ["aoi", "tanaka", "momo"],
+  );
+
+  for (const actor of definition.actorAssets) {
+    const bytes = await readFile(
+      fileURLToPath(resolveWorldAssetUrl(actor.assetId)),
+    );
+    const document = parseGlbDocument(bytes);
+    assert.ok(document.nodes.some((node) => node.name === actor.rootNodeName));
+    assert.deepEqual(
+      document.animations.map((animation) => animation.name),
+      actor.localId === "momo"
+        ? ["idle", "walk", "gesture-positive"]
+        : ["idle", "walk", "emote-yes"],
+    );
+  }
+});
+
+function parseGlbDocument(bytes: Buffer): {
+  nodes: Array<{ name?: string }>;
+  animations: Array<{ name?: string }>;
+} {
+  let offset = 12;
+  while (offset < bytes.length) {
+    const length = bytes.readUInt32LE(offset);
+    const type = bytes.readUInt32LE(offset + 4);
+    if (type === 0x4e4f534a) {
+      return JSON.parse(
+        bytes
+          .subarray(offset + 8, offset + 8 + length)
+          .toString("utf8")
+          .trimEnd(),
+      ) as {
+        nodes: Array<{ name?: string }>;
+        animations: Array<{ name?: string }>;
+      };
+    }
+    offset += 8 + length;
+  }
+  throw new Error("GLB JSON chunk was not found.");
+}
 
 test("resume prompt is visibly actionable while runtime startup waits", async () => {
   const [mainSource, shellSource, styles] = await Promise.all([

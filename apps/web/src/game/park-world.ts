@@ -25,23 +25,24 @@ import type {
   WorldPlacement,
 } from "./scene-definition.js";
 
-export interface ParkWorld {
+export interface RuntimeWorld {
   scene: Scene;
   walkableGround: Object3D;
   player: Group;
-  objectRoots: ReadonlyMap<string, Group>;
-  entityRoots: ReadonlyMap<string, Group>;
-  locationRoots: ReadonlyMap<string, Group>;
+  objectRoots: ReadonlyMap<string, Object3D>;
+  entityRoots: ReadonlyMap<string, Object3D>;
+  locationRoots: ReadonlyMap<string, Object3D>;
   destinationMarker: Mesh;
   selectionMarker: Mesh;
   highlightMarkers: ReadonlyMap<string, Mesh>;
+  update: (deltaSeconds: number) => void;
   dispose: () => void;
 }
 
 export async function loadParkWorld(
   definition: ParkSceneDefinition,
   simulateAssetFailure: boolean,
-): Promise<ParkWorld> {
+): Promise<RuntimeWorld> {
   const scene = new Scene();
   scene.name = definition.sceneId;
   scene.background = new Color("#dce9d2");
@@ -124,6 +125,7 @@ export async function loadParkWorld(
       destinationMarker,
       selectionMarker,
       highlightMarkers,
+      update: () => undefined,
       dispose: () => disposeObjectTree(scene),
     };
   } catch (error) {

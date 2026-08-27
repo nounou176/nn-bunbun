@@ -30,7 +30,7 @@ Most recently completed ExecPlan:
 Active parent ExecPlan:
 
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
-  Milestone 2 complete and Milestone 3 rainy-neighborhood planning next
+  Milestones 2 and 3 complete; Milestone 4 complete-lesson authoring next
 
 Completed focused M8 qualification plan:
 
@@ -45,12 +45,12 @@ Completed focused M8 implementation plans:
   D-038/D-042/D-043; exact assets, implementation, and A/B/C manual
   browser/audio matrix complete
 
-Approved focused M8 world plan:
+Completed focused M8 world plan:
 
 - plans/2026-08-27-m8-rainy-neighborhood-world.md — Approved under
-  D-025/D-038/D-044; bounded ignored intake and technical qualification are
-  complete, the local 55-candidate review is ready, and exact visual/hash
-  selection plus runtime registration remain unapproved
+  D-025/D-038/D-044/D-045; exact selection, deterministic assembly, validation,
+  local preview registration, and user-reported A/B/C browser acceptance are
+  complete
 
 Historical M7 v3.1 evidence plan:
 
@@ -303,18 +303,25 @@ Completed ExecPlans:
 
 ## Current work
 
-- Parent M8 Milestone 3 is at its second user gate. The loopback Three.js
-  reviewer displays the exact 55 candidates, their animations and hashes,
-  persists review/assignment progress locally, and exports a complete proposed
-  decision packet. Assembly and runtime registration remain blocked until the
-  user returns and explicitly approves that exact packet.
-- The user has returned one structurally and semantically valid 55/55 proposal
-  bound to the current catalog: 18 approved, 37 rejected, Aoi
+- Parent M8 Milestone 3 has passed its second user gate. The user approved the
+  complete 55/55 proposal: 18 approved, 37 rejected, Aoi
   `world_character_n`, Tanaka `world_character_q`, Momo `world_animal_cat`, and
   storefront `world_building_type_n`. The proposal packet SHA-256 is
   `e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
-  Its own status remains `PROPOSED_FOR_USER_APPROVAL`, so it is not yet an
-  accepted D-044 Gate 2 decision and authorizes no assembly/runtime work.
+  D-045 and the immutable approval artifact authorize exactly that set.
+- Four self-contained deterministic GLBs are registered behind the closed
+  `?world=neighborhood` route. The neighborhood has Aoi, Tanaka, Momo, clue and
+  location anchors, a bounded direct-movement area, idle animation, code-owned
+  rain presentation, and D-043 ambience. The default park path remains intact.
+  Runtime manifest SHA-256 is
+  `8ebd2fe6263b58ac5ac4eeaafecd97de2053a2be5bd0a37489f18e67e250ec59`.
+  The user reports `M8 WORLD A: PASS` for the automatic-renderer visual,
+  movement, picking, animation, ambience, and diagnostics checklist. No numeric
+  diagnostics were supplied. The user also reports `M8 WORLD B: PASS` for the
+  forced-WebGL2 path with no reported visual, interaction, animation, or audio
+  regression. Finally, `M8 WORLD C: PASS` accepts required-asset failure and
+  retry, background/resume, reload/disposal, and default lesson-library/park
+  regression. The focused world plan and parent M8 Milestone 3 are complete.
 - The user's first review screenshot showed static page chrome but no
   assignment controls, candidate cards, or model. The reviewer no longer lets
   GPU initialization block catalog DOM rendering, automatically requests the
@@ -606,11 +613,10 @@ documentation and implementation changes are uncommitted.
 
 ## Known issues
 
-1. The fixture catalog proves identities and capabilities but does not provide
-   production scene, mesh, navigation, image, or audio assets. D-025 selects
-   the world-authoring pipeline and initial source candidates, but source
-   intake, retained licenses, hashes, conversion, and runtime measurements are
-   not implemented.
+1. The first rainy-neighborhood bundle has exact source/hash/license and
+   asset-budget evidence plus qualitative automatic-renderer and forced-WebGL2
+   acceptance. Numeric cold/warm timings, frame-local diagnostics, picking
+   latency, and movement duration were not supplied and remain unclaimed.
 2. Contract 0.1.0 rejects every graph cycle because it has no counter or
    condition language with which to prove an arbitrary cycle bounded.
 3. Deterministic validators cannot judge natural Japanese quality or future
@@ -620,45 +626,51 @@ documentation and implementation changes are uncommitted.
    passed by user report, but numeric runtime measurements and named-device
    details were not supplied. No wider browser, mobile, or touch support is
    claimed.
-5. D-026 selects the first learner level, Vietnamese support locale, rainy-
+5. On the accepted reference run, Vite's client console intermittently logged
+   a Three.js WebGPU-to-WebGL2 initialization rejection (`Vector4.fromArray`)
+   while the runtime recovered and the user completed the A/B/C matrix. This
+   does not invalidate the accepted visible fallback path, but the console-level
+   upstream/backend behavior remains a known diagnostic risk for later renderer
+   maintenance.
+6. D-026 selects the first learner level, Vietnamese support locale, rainy-
    evening scene variant, scenario, and initial target set, but exact dialogue,
    reviewed reference fixture, production asset files, and measured acceptance
    thresholds are not yet selected or implemented.
-6. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
+7. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. M7 compiler normalization is
    implemented only for the closed three-target Bunbun Core technical profile;
    arbitrary Japanese coverage remains unsupported.
-7. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
+8. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
-8. Deployment topology remains intentionally deferred until local
+9. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-9. The Milestone 6 WebGPU-capable web build is 1,273.78 kB minified and
-   triggers Vite's default uncompressed chunk warning, although its measured
-   gzip size is 351.53 kB. Reported browser measurements must guide any future
-   splitting.
-10. Browser SpeechSynthesis voice quality and availability vary by installed
+10. The Milestone 6 WebGPU-capable web build is 1,273.78 kB minified and
+    triggers Vite's default uncompressed chunk warning, although its measured
+    gzip size is 351.53 kB. Reported browser measurements must guide any future
+    splitting.
+11. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. D-040 confines it to legacy `voice_guide_01` technical
     fixtures; Aoi and Tanaka never fall back to it.
-11. Milestone 6 has only qualitative overall manual approval. There are no
+12. Milestone 6 has only qualitative overall manual approval. There are no
     scenario-level observations, measured save/reload latency, named device or
     browser details, or numeric renderer metrics; the approval must not be
     represented as evidence for those finer-grained claims.
-12. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
+13. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
     Milestone 5 rather than guessing behavior.
-13. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
+14. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
-14. Milestone 5 browser behavior is manually accepted, but the user supplied no
+15. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
-15. Six Custom GPT configurations and their local Knowledge assets are
+16. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
     0.1.0 is approved. The three selected modules are compile-time inputs via
     manual file handoff and remain absent from gameplay. GPT-editor model,
     capability/action, and version-history metadata was not supplied and is not
     inherited; config hashes identify the reviewed local source snapshots.
     Supplied images and the APKG remain style/output examples only.
-16. M7 v3 cannot assume that the original GPTs satisfy the approved typed
+17. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
     strong structural compliance but fails strict world-fact discipline; Run
@@ -666,17 +678,17 @@ documentation and implementation changes are uncommitted.
     viability an implementation dependency by selecting the repository-owned
     prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
     a quality risk and must not be upgraded to a full pass.
-17. D-032 closes the transport-proof output-budget gap by putting explicit
+18. D-032 closes the transport-proof output-budget gap by putting explicit
     title, objective, premise, setting-context, and synopsis limits in the
     request packet. These authored fixture values are proof inputs, not yet
     accepted production-profile defaults.
-18. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
+19. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
     claim IDs, per-beat claim allowlists, and returned claim bindings. This
     makes unknown or out-of-beat claims deterministically rejectable, but code
     still cannot prove that every nuance of free-form natural-language copy is
     semantically entailed. Application publication therefore remains gated by
     later catalog/runtime validation and review.
-19. Product-surface availability, install behavior, and strict composed output
+20. Product-surface availability, install behavior, and strict composed output
     validation now pass for `bunbun-authoring@0.1.0`. Installation exposed two
     local setup constraints now recorded in the runbook: a repository
     marketplace manifest belongs at `.agents/plugins/marketplace.json`, and the
@@ -686,13 +698,13 @@ documentation and implementation changes are uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
-20. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
+21. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
     compiler-owned practice text, exact accepted Japanese answer truth,
     read-only runtime-plan context, and bounded repair diagnostics. The
     installed plugin is 0.2.0, but D-035 waives rather than passes external
     requalification. No transport result may be inferred from source validation
     or the waiver.
-21. D-036 closes M7 implementation without focused compiler/repository/API/web
+22. D-036 closes M7 implementation without focused compiler/repository/API/web
     tests or manual end-to-end gameplay. Static checks and build pass, but
     create/import/repair/restart/publish/play behavior, idempotency, reset, and
     authored-demo regressions remain `UNVERIFIED_USER_WAIVED`. A fresh job after
@@ -705,11 +717,9 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Have the user complete D-044's local 3D review and return its exact JSON
-   proposal. Do not assemble or register a runtime world before the second
-   visual/hash approval.
-3. Keep final production dialogue/utterance review and exact M9 manifest
-   linkage behind that reviewed world checkpoint.
+2. Begin parent M8 Milestone 4: author and validate the complete lesson package
+   and exact production utterances against the accepted fixed world registry.
+3. Keep M9 linkage behind that complete package and speech review checkpoint.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 

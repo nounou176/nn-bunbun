@@ -1,4 +1,5 @@
 export interface RuntimeConfig {
+  worldPreviewSceneId: "neighborhood_small" | undefined;
   forceWebGL2: boolean;
   diagnosticsOpen: boolean;
   simulateAssetFailure: boolean;
@@ -14,6 +15,10 @@ export function readRuntimeConfig(search: string): RuntimeConfig {
   const parameters = new URLSearchParams(search);
   const nonSpeechFailure = parameters.get("nonSpeechFailure");
   return {
+    worldPreviewSceneId:
+      parameters.get("world") === "neighborhood"
+        ? "neighborhood_small"
+        : undefined,
     forceWebGL2: parameters.get("renderer") === "webgl2",
     diagnosticsOpen: parameters.get("debug") === "1",
     simulateAssetFailure: parameters.get("assetFailure") === "1",

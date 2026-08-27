@@ -1,0 +1,428 @@
+{
+  "packetFormat": "bunbun_m8_world_runtime_bundle",
+  "packetVersion": "1.0.0",
+  "bundleVersion": "1.0.0",
+  "status": "REGISTERED_FOR_LOCAL_PREVIEW",
+  "sceneId": "neighborhood_small",
+  "variantId": "rainy_evening_last_train_v1",
+  "authority": {
+    "decisionId": "D-045",
+    "approvalPath": "docs/world-sources/M8_WORLD_APPROVAL_2026-08-27.json",
+    "approvalSha256": "6e44a9a5b64c2f217ac8b92b8dc58435118b803139daedb1c78d3b654adfc790",
+    "proposalSha256": "e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390"
+  },
+  "layout": {
+    "path": "docs/world-sources/M8_WORLD_LAYOUT_V1.json",
+    "sha256": "9ecb1c93fe0ab30fe33c000bcfbe623f8c6b572fbc68258adefd8360bf47f12f",
+    "layoutVersion": "1.0.0"
+  },
+  "assembler": {
+    "id": "bunbun_m8_deterministic_glb_assembler",
+    "version": "1.0.0",
+    "threeVersion": "0.185.1"
+  },
+  "outputDirectory": "apps/web/src/assets/world/neighborhood-rainy-evening/v1",
+  "outputs": [
+    {
+      "filename": "neighborhood-rainy-evening-static.glb",
+      "bytes": 455284,
+      "sha256": "a1260595e5f87f5242a2a7c7dca99d0d13e2dedd0d4b907c103e78749c2e028d",
+      "facts": {
+        "glbVersion": 2,
+        "generator": "Bunbun M8 deterministic assembler 1.0.0",
+        "chunkCount": 2,
+        "binaryChunkBytes": 425492,
+        "sceneCount": 1,
+        "nodeCount": 53,
+        "meshCount": 18,
+        "primitiveCount": 18,
+        "triangleCount": 2988,
+        "materialCount": 18,
+        "textureCount": 15,
+        "imageCount": 15,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": [],
+        "localAccessorBounds": {
+          "minimum": [-0.8921357989311218, -0.5, -0.809999942779541],
+          "maximum": [0.892135739326477, 1.1375000476837158, 0.6889455318450928]
+        }
+      }
+    },
+    {
+      "filename": "actor-aoi.glb",
+      "bytes": 113924,
+      "sha256": "4e46418d3b87d9afffc68bb557b2a10b780e4caa1b683e3db35753b28ca5143c",
+      "facts": {
+        "glbVersion": 2,
+        "generator": "Bunbun M8 deterministic assembler 1.0.0",
+        "chunkCount": 2,
+        "binaryChunkBytes": 54988,
+        "sceneCount": 1,
+        "nodeCount": 9,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 3,
+        "animations": [
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": [],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "filename": "actor-tanaka.glb",
+      "bytes": 113212,
+      "sha256": "fc0c0afd395ea408e7dfcfef9aa4471dfac7662c4148c54ea05da9e5dfc02300",
+      "facts": {
+        "glbVersion": 2,
+        "generator": "Bunbun M8 deterministic assembler 1.0.0",
+        "chunkCount": 2,
+        "binaryChunkBytes": 54268,
+        "sceneCount": 1,
+        "nodeCount": 9,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 3,
+        "animations": [
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": [],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "filename": "actor-momo.glb",
+      "bytes": 161232,
+      "sha256": "e4b2a49e2b4d90e65761d156b43b4717aaae955d6257363d23cef98836820cd5",
+      "facts": {
+        "glbVersion": 2,
+        "generator": "Bunbun M8 deterministic assembler 1.0.0",
+        "chunkCount": 2,
+        "binaryChunkBytes": 84292,
+        "sceneCount": 1,
+        "nodeCount": 10,
+        "meshCount": 7,
+        "primitiveCount": 7,
+        "triangleCount": 684,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 3,
+        "animations": [
+          { "name": "idle", "durationSeconds": 1, "trackCount": 24 },
+          { "name": "walk", "durationSeconds": 0.5, "trackCount": 24 },
+          {
+            "name": "gesture-positive",
+            "durationSeconds": 0.25,
+            "trackCount": 24
+          }
+        ],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": [],
+        "localAccessorBounds": {
+          "minimum": [-0.625, -0.30000001192092896, -0.625],
+          "maximum": [0.625, 1.4044666290283203, 0.7024125456809998]
+        }
+      }
+    }
+  ],
+  "requiredNodes": {
+    "static": [
+      "neighborhood_fixture_root",
+      "road_bend_west",
+      "road_straight_west",
+      "road_crossing_center",
+      "road_half_east",
+      "road_side_east",
+      "storefront_base",
+      "street_light_west",
+      "street_light_east",
+      "traffic_light_crossing",
+      "park_path_long_west",
+      "park_path_long_center",
+      "park_path_short_turn",
+      "park_path_short_north",
+      "park_fence_north_west",
+      "park_fence_north_center",
+      "park_fence_low_west",
+      "park_fence_low_north",
+      "planter_storefront",
+      "planter_park",
+      "tree_large_west",
+      "tree_large_north",
+      "tree_small_path",
+      "tree_small_store",
+      "walkable_ground",
+      "store_sign",
+      "umbrella_stand_base",
+      "umbrella_stand_left",
+      "umbrella_stand_right",
+      "umbrella_stand_rail"
+    ],
+    "actors": {
+      "aoi": ["actor_aoi_root"],
+      "tanaka": ["actor_tanaka_root"],
+      "momo": ["actor_momo_root"]
+    }
+  },
+  "actorClips": {
+    "aoi": ["idle", "walk", "emote-yes"],
+    "tanaka": ["idle", "walk", "emote-yes"],
+    "momo": ["idle", "walk", "gesture-positive"]
+  },
+  "provenance": [
+    {
+      "assetId": "world_animal_cat",
+      "sha256": "1e73aaf7d497dd7d2946badf92d189d2333f163e66dced91feb446bc9bdee850"
+    },
+    {
+      "assetId": "world_building_type_n",
+      "sha256": "f2a29ececcca4a27bbef187caba0e7bb0e35de7a0de9742a8b8440ce6874c48c"
+    },
+    {
+      "assetId": "world_character_n",
+      "sha256": "1ea5a0cb0c65f51d6a1b40caa15a27f625365d341f33392a2bd926b0bf695394"
+    },
+    {
+      "assetId": "world_character_q",
+      "sha256": "9193d03bc9ee1cfb080a1d561522f45806fe0b522b9807ef2b7c451b77547999"
+    },
+    {
+      "assetId": "world_fence",
+      "sha256": "073bd2000ac51879516d49f835d5156dac4d5038085380b1232858fc3f562d02"
+    },
+    {
+      "assetId": "world_fence_low",
+      "sha256": "fe0272d73820bb4c8db3bed408a28cbd5c042da1373142bd13122a1ac9d1a168"
+    },
+    {
+      "assetId": "world_light_curved",
+      "sha256": "154dcce9d58ec2cd165e26c91a89c97bdd2838cf06d255099b3570df84f82ec6"
+    },
+    {
+      "assetId": "world_path_long",
+      "sha256": "af6869e19f9922e84df23a48795618f03565587dc2c397bd84cf1f066cfa39d5"
+    },
+    {
+      "assetId": "world_path_short",
+      "sha256": "0f657ebadf8c56adcd54335b8da2e54120f539918ea50509812731790ef99c2b"
+    },
+    {
+      "assetId": "world_planter",
+      "sha256": "a876e87d908f0397dcaf94b7705835447825c4c5b39195319535415386542c17"
+    },
+    {
+      "assetId": "world_road_bend_sidewalk",
+      "sha256": "4e8f7a4cc6c130d55bd754693d5aaba94e037d8639389656964ad57abefd882d"
+    },
+    {
+      "assetId": "world_road_crossing",
+      "sha256": "eb8575335f77da513add4a5277a7b60cad4886c07966f024b15cf55e5966cde3"
+    },
+    {
+      "assetId": "world_road_side",
+      "sha256": "f5482c921a40719f89b1e7c0f6cc9d662b1f3a6149060e9b6bb543390fbdff66"
+    },
+    {
+      "assetId": "world_road_straight",
+      "sha256": "f8f744fb6fc96dedd5ad1f763b550166f2624a3757bf36b4b39969d2e7cacac5"
+    },
+    {
+      "assetId": "world_road_straight_half",
+      "sha256": "8dc2e2f4f6d38094f9c35004f78f20a596554454246d348db2832e6c443188bc"
+    },
+    {
+      "assetId": "world_traffic_light",
+      "sha256": "6c9ee253b7370e1043168493b2e662b349484a0cdd02100cff04d9d8d1bd9abb"
+    },
+    {
+      "assetId": "world_tree_large",
+      "sha256": "16d1f95c149bc727a953a473cf20bf21de9bf1a88747c4f9d2eeb4ac7d43e291"
+    },
+    {
+      "assetId": "world_tree_small",
+      "sha256": "5f63359e5f392609d7617cc98070855ca1ffd4f4b4bc3978a5ff56ece88a58d6"
+    }
+  ],
+  "textures": [
+    {
+      "assetId": "world_animal_cat",
+      "sha256": "2f6d0032e51c2d49b13b8e689d59eb39aa3ee6c32f2a1851213e11fc7593177d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_building_type_n",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_character_n",
+      "sha256": "b4af32a544b70da2ba99c6a142f33f0c5ee50a06b71ca71f8ac928bb5a15bb64",
+      "width": 1024,
+      "height": 1024,
+      "estimatedDecodedBytes": 4194304
+    },
+    {
+      "assetId": "world_character_q",
+      "sha256": "bf220bbc945072a4fce31118b6585207445ddac1c2836b350d10fe0d49fed5ca",
+      "width": 1024,
+      "height": 1024,
+      "estimatedDecodedBytes": 4194304
+    },
+    {
+      "assetId": "world_fence",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_fence_low",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_light_curved",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_path_long",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_path_short",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_planter",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_road_bend_sidewalk",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_road_crossing",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_road_side",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_road_straight",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_road_straight_half",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_traffic_light",
+      "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_tree_large",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    },
+    {
+      "assetId": "world_tree_small",
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d",
+      "width": 512,
+      "height": 512,
+      "estimatedDecodedBytes": 1048576
+    }
+  ],
+  "budgets": {
+    "ceilings": {
+      "encodedBytes": 6291456,
+      "visibleTriangles": 50000,
+      "drawCalls": 99,
+      "exportedNodes": 250,
+      "materials": 32,
+      "textureDimension": 1024,
+      "estimatedDecodedTextureBytes": 33554432,
+      "activeAnimationMixers": 3,
+      "shippedClipsPerActor": 3
+    },
+    "actual": {
+      "encodedBytes": 843652,
+      "visibleTriangles": 4524,
+      "drawCallEstimate": 48,
+      "exportedNodes": 81,
+      "materialCount": 21,
+      "textureCount": 18,
+      "maximumTextureDimension": 1024,
+      "estimatedDecodedTextureBytes": 25165824,
+      "activeAnimationMixers": 3,
+      "shippedClipsPerActor": 3
+    }
+  }
+}

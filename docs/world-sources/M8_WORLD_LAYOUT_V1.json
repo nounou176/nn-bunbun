@@ -1,0 +1,332 @@
+{
+  "packetFormat": "bunbun_m8_world_layout",
+  "packetVersion": "1.0.0",
+  "layoutVersion": "1.0.0",
+  "sceneId": "neighborhood_small",
+  "variantId": "rainy_evening_last_train_v1",
+  "approval": {
+    "path": "docs/world-sources/M8_WORLD_APPROVAL_2026-08-27.json",
+    "sha256": "6e44a9a5b64c2f217ac8b92b8dc58435118b803139daedb1c78d3b654adfc790"
+  },
+  "coordinateSystem": {
+    "up": "+Y",
+    "forward": "-Z",
+    "unit": "meter"
+  },
+  "runtimeIds": {
+    "assetBundleId": "neighborhood_rainy_core_v1",
+    "characterBundleId": "last_train_characters_v1",
+    "animalBundleId": "neighborhood_animals_v1",
+    "cameraPresetId": "neighborhood_isometric_default"
+  },
+  "outputs": {
+    "static": "neighborhood-rainy-evening-static.glb",
+    "aoi": "actor-aoi.glb",
+    "tanaka": "actor-tanaka.glb",
+    "momo": "actor-momo.glb"
+  },
+  "walkable": {
+    "nodeName": "walkable_ground",
+    "bounds": {
+      "minX": -4.8,
+      "maxX": 4.8,
+      "minZ": -1.2,
+      "maxZ": 3.7
+    }
+  },
+  "camera": {
+    "target": { "x": 0, "y": 0.35, "z": 0.8 },
+    "defaultZoom": 1,
+    "minimumZoom": 0.72,
+    "maximumZoom": 1.65
+  },
+  "staticPlacements": [
+    {
+      "localId": "road_bend_west",
+      "assetId": "world_road_bend_sidewalk",
+      "position": { "x": -6, "y": 0.01, "z": 0 },
+      "rotationY": 0,
+      "scale": 3
+    },
+    {
+      "localId": "road_straight_west",
+      "assetId": "world_road_straight",
+      "position": { "x": -3, "y": 0.01, "z": 0 },
+      "rotationY": 0,
+      "scale": 3
+    },
+    {
+      "localId": "road_crossing_center",
+      "assetId": "world_road_crossing",
+      "position": { "x": 0, "y": 0.01, "z": 0 },
+      "rotationY": 0,
+      "scale": 3
+    },
+    {
+      "localId": "road_half_east",
+      "assetId": "world_road_straight_half",
+      "position": { "x": 2.25, "y": 0.01, "z": 0 },
+      "rotationY": 0,
+      "scale": 3
+    },
+    {
+      "localId": "road_side_east",
+      "assetId": "world_road_side",
+      "position": { "x": 4.5, "y": 0.01, "z": 0 },
+      "rotationY": 0,
+      "scale": 3
+    },
+    {
+      "localId": "storefront_base",
+      "assetId": "world_building_type_n",
+      "position": { "x": 2.55, "y": 0, "z": -2.85 },
+      "rotationY": 0,
+      "scale": 2.5
+    },
+    {
+      "localId": "street_light_west",
+      "assetId": "world_light_curved",
+      "position": { "x": -2.6, "y": 0, "z": -1.58 },
+      "rotationY": 0,
+      "scale": 3.4
+    },
+    {
+      "localId": "street_light_east",
+      "assetId": "world_light_curved",
+      "position": { "x": 2.65, "y": 0, "z": -1.58 },
+      "rotationY": 3.141592653589793,
+      "scale": 3.4
+    },
+    {
+      "localId": "traffic_light_crossing",
+      "assetId": "world_traffic_light",
+      "position": { "x": 0.55, "y": 0, "z": -1.62 },
+      "rotationY": 0,
+      "scale": 4
+    },
+    {
+      "localId": "park_path_long_west",
+      "assetId": "world_path_long",
+      "position": { "x": -3.4, "y": 0.02, "z": 2.25 },
+      "rotationY": 1.5707963267948966,
+      "scale": 4
+    },
+    {
+      "localId": "park_path_long_center",
+      "assetId": "world_path_long",
+      "position": { "x": -1.8, "y": 0.02, "z": 2.25 },
+      "rotationY": 1.5707963267948966,
+      "scale": 4
+    },
+    {
+      "localId": "park_path_short_turn",
+      "assetId": "world_path_short",
+      "position": { "x": -0.85, "y": 0.02, "z": 2.25 },
+      "rotationY": 0,
+      "scale": 4
+    },
+    {
+      "localId": "park_path_short_north",
+      "assetId": "world_path_short",
+      "position": { "x": -0.85, "y": 0.02, "z": 3.05 },
+      "rotationY": 0,
+      "scale": 4
+    },
+    {
+      "localId": "park_fence_north_west",
+      "assetId": "world_fence",
+      "position": { "x": -3.8, "y": 0, "z": 3.92 },
+      "rotationY": 1.5707963267948966,
+      "scale": 4
+    },
+    {
+      "localId": "park_fence_north_center",
+      "assetId": "world_fence",
+      "position": { "x": -1.9, "y": 0, "z": 3.92 },
+      "rotationY": 1.5707963267948966,
+      "scale": 4
+    },
+    {
+      "localId": "park_fence_low_west",
+      "assetId": "world_fence_low",
+      "position": { "x": -4.85, "y": 0, "z": 2.8 },
+      "rotationY": 1.5707963267948966,
+      "scale": 2.2
+    },
+    {
+      "localId": "park_fence_low_north",
+      "assetId": "world_fence_low",
+      "position": { "x": -3.8, "y": 0, "z": 4.02 },
+      "rotationY": 0,
+      "scale": 2.2
+    },
+    {
+      "localId": "planter_storefront",
+      "assetId": "world_planter",
+      "position": { "x": 1.25, "y": 0, "z": -1.02 },
+      "rotationY": 0,
+      "scale": 2.4
+    },
+    {
+      "localId": "planter_park",
+      "assetId": "world_planter",
+      "position": { "x": -4.25, "y": 0, "z": 1.75 },
+      "rotationY": 0.35,
+      "scale": 2.4
+    },
+    {
+      "localId": "tree_large_west",
+      "assetId": "world_tree_large",
+      "position": { "x": -4.35, "y": 0, "z": 3.4 },
+      "rotationY": 0.2,
+      "scale": 3.2
+    },
+    {
+      "localId": "tree_large_north",
+      "assetId": "world_tree_large",
+      "position": { "x": -2.55, "y": 0, "z": 3.55 },
+      "rotationY": 1.1,
+      "scale": 3
+    },
+    {
+      "localId": "tree_small_path",
+      "assetId": "world_tree_small",
+      "position": { "x": -1.35, "y": 0, "z": 3.35 },
+      "rotationY": 0.7,
+      "scale": 2.8
+    },
+    {
+      "localId": "tree_small_store",
+      "assetId": "world_tree_small",
+      "position": { "x": 4.45, "y": 0, "z": -1.05 },
+      "rotationY": 0.1,
+      "scale": 2.5
+    }
+  ],
+  "projectAuthoredPrimitives": [
+    {
+      "localId": "walkable_ground",
+      "kind": "box",
+      "position": { "x": 0, "y": -0.055, "z": 1.25 },
+      "scale": { "x": 9.6, "y": 0.1, "z": 4.9 },
+      "material": "walkable"
+    },
+    {
+      "localId": "store_sign",
+      "kind": "box",
+      "position": { "x": 2.55, "y": 2.42, "z": -1.1 },
+      "scale": { "x": 2.5, "y": 0.38, "z": 0.12 },
+      "material": "storeSign"
+    },
+    {
+      "localId": "umbrella_stand_base",
+      "kind": "box",
+      "position": { "x": 0.8, "y": 0.08, "z": -0.92 },
+      "scale": { "x": 0.72, "y": 0.16, "z": 0.42 },
+      "material": "umbrellaStand"
+    },
+    {
+      "localId": "umbrella_stand_left",
+      "kind": "box",
+      "position": { "x": 0.5, "y": 0.48, "z": -0.92 },
+      "scale": { "x": 0.08, "y": 0.8, "z": 0.08 },
+      "material": "umbrellaStand"
+    },
+    {
+      "localId": "umbrella_stand_right",
+      "kind": "box",
+      "position": { "x": 1.1, "y": 0.48, "z": -0.92 },
+      "scale": { "x": 0.08, "y": 0.8, "z": 0.08 },
+      "material": "umbrellaStand"
+    },
+    {
+      "localId": "umbrella_stand_rail",
+      "kind": "box",
+      "position": { "x": 0.8, "y": 0.8, "z": -0.92 },
+      "scale": { "x": 0.68, "y": 0.08, "z": 0.08 },
+      "material": "umbrellaStand"
+    }
+  ],
+  "projectMaterials": {
+    "walkable": { "baseColor": [0.48, 0.52, 0.49, 1], "roughness": 1 },
+    "storeSign": { "baseColor": [0.12, 0.38, 0.42, 1], "roughness": 0.82 },
+    "umbrellaStand": { "baseColor": [0.24, 0.27, 0.29, 1], "roughness": 0.72 }
+  },
+  "actors": [
+    {
+      "localId": "aoi",
+      "catalogId": "npc_aoi_student",
+      "assetId": "world_character_n",
+      "output": "aoi",
+      "rootNodeName": "actor_aoi_root",
+      "normalization": { "scale": 0.2, "groundOffsetY": 0.2 },
+      "clips": ["idle", "walk", "emote-yes"],
+      "position": { "x": -1.35, "y": 0, "z": 1.35 }
+    },
+    {
+      "localId": "tanaka",
+      "catalogId": "npc_tanaka_clerk",
+      "assetId": "world_character_q",
+      "output": "tanaka",
+      "rootNodeName": "actor_tanaka_root",
+      "normalization": { "scale": 0.2, "groundOffsetY": 0.2 },
+      "clips": ["idle", "walk", "emote-yes"],
+      "position": { "x": 2, "y": 0, "z": -0.75 }
+    },
+    {
+      "localId": "momo",
+      "catalogId": "animal_momo_cat",
+      "assetId": "world_animal_cat",
+      "output": "momo",
+      "rootNodeName": "actor_momo_root",
+      "normalization": { "scale": 0.35, "groundOffsetY": 0.105 },
+      "clips": ["idle", "walk", "gesture-positive"],
+      "position": { "x": -3.25, "y": 0, "z": 2.55 }
+    }
+  ],
+  "playerSpawn": { "x": 0, "y": 0.38, "z": 2.85 },
+  "locations": [
+    {
+      "localId": "store_front",
+      "catalogId": "neighborhood_store_front",
+      "position": { "x": 2, "y": 0, "z": -0.65 }
+    },
+    {
+      "localId": "park_edge",
+      "catalogId": "neighborhood_park_edge",
+      "position": { "x": -3.1, "y": 0, "z": 2.45 }
+    },
+    {
+      "localId": "road_crossing",
+      "catalogId": "neighborhood_road_crossing",
+      "position": { "x": 0, "y": 0, "z": 0.65 }
+    },
+    {
+      "localId": "umbrella_stand_area",
+      "catalogId": "neighborhood_umbrella_stand",
+      "position": { "x": 0.8, "y": 0, "z": -0.65 }
+    },
+    {
+      "localId": "staff_only_door",
+      "catalogId": "neighborhood_staff_door",
+      "position": { "x": 3.35, "y": 0, "z": -0.65 }
+    }
+  ],
+  "futureObjectAnchors": [
+    {
+      "localId": "wallet_clue",
+      "catalogId": "object_wallet_clue",
+      "position": { "x": -2.75, "y": 0, "z": 2.15 }
+    },
+    {
+      "localId": "mistaken_umbrella",
+      "catalogId": "object_mistaken_umbrella",
+      "position": { "x": 0.8, "y": 0, "z": -0.8 }
+    }
+  ],
+  "ambienceAssetIds": [
+    "amb_rain_03",
+    "amb_distant_road_01",
+    "amb_distant_rail_01"
+  ]
+}

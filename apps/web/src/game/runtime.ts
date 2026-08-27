@@ -20,8 +20,9 @@ import {
 } from "./lesson-input-gate.js";
 import { isInsideWalkableBounds, stepToward } from "./navigation.js";
 import { PARK_SCENE_DEFINITION } from "./park-definition.js";
-import { loadParkWorld } from "./park-world.js";
 import { createRenderer } from "./renderer.js";
+import type { WorldSceneDefinition } from "./scene-definition.js";
+import { loadWorld } from "./world-loader.js";
 
 const MAXIMUM_DEVICE_PIXEL_RATIO = 1.5;
 const MOVEMENT_SPEED = 3.4;
@@ -72,6 +73,7 @@ export async function createGameRuntime(
   config: RuntimeConfig,
   audioMixer: BunbunAudioMixer,
   onFatalError: (error: BunbunRuntimeError) => void,
+  definition: WorldSceneDefinition = PARK_SCENE_DEFINITION,
 ): Promise<GameRuntime> {
   const startedAt = performance.now();
   const abortController = new AbortController();
@@ -99,10 +101,7 @@ export async function createGameRuntime(
 
   let world;
   try {
-    world = await loadParkWorld(
-      PARK_SCENE_DEFINITION,
-      config.simulateAssetFailure,
-    );
+    world = await loadWorld(definition, config.simulateAssetFailure);
   } catch (error) {
     rendererHandle.renderer.dispose();
     throw new BunbunRuntimeError(
@@ -113,14 +112,14 @@ export async function createGameRuntime(
   }
 
   const { renderer, backend, recoveredWithWebGL2 } = rendererHandle;
-  const camera = createIsometricCamera(PARK_SCENE_DEFINITION.cameraTarget);
+  const camera = createIsometricCamera(definition.cameraTarget);
   const raycaster = new Raycaster();
   const pointer = new Vector2();
   const frameMeter = new FrameMeter();
   const lessonInput = new LessonWorldInputGate();
   const worldPosition = new Vector3();
   const initialObjectPositions = new Map<string, Vector3>(
-    PARK_SCENE_DEFINITION.objects.map((placement) => [
+    definition.objects.map((placement) => [
       placement.localId,
       new Vector3(
         placement.position.x,
@@ -236,6 +235,7 @@ export async function createGameRuntime(
     }
 
     updateCarriedPresentation();
+    world.update(deltaSeconds);
     renderer.render(world.scene, camera);
 
     if (time - lastDiagnosticUpdate >= DIAGNOSTIC_UPDATE_INTERVAL_MS) {
@@ -282,7 +282,7 @@ export async function createGameRuntime(
     const objectId = String(root.userData.selectableObjectId);
     showSelection(root, objectId);
     if (
-      objectId === "cat" &&
+      objectId === definition.catReactionObjectId &&
       startedPickingAt - lastCatReactionAt >= CAT_REACTION_COOLDOWN_MS
     ) {
       lastCatReactionAt = startedPickingAt;
@@ -319,7 +319,7 @@ export async function createGameRuntime(
     if (
       !isInsideWalkableBounds(
         { x: point.x, z: point.z },
-        PARK_SCENE_DEFINITION.walkableBounds,
+        definition.walkableBounds,
       )
     ) {
       return;
@@ -333,12 +333,47 @@ export async function createGameRuntime(
   };
 
   const onPointerDown = (event: PointerEvent) => {
-    if (event.button !== 0 || !lessonInput.enabled) return;
+    if (
+      event.button !== 0 ||
+      (!lessonInput.enabled && config.worldPreviewSceneId === undefined)
+    )
+      return;
     const startedPickingAt = performance.now();
     const bounds = shell.canvas.getBoundingClientRect();
     pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
     pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
+
+    if (config.worldPreviewSceneId !== undefined) {
+      const objectHit = raycaster.intersectObjects(
+        [...world.objectRoots.values()],
+        true,
+      )[0];
+      const objectRoot = findTargetRoot(
+        objectHit?.object,
+        "selectableObjectId",
+      );
+      if (objectRoot !== undefined) {
+        routeObject(objectRoot, startedPickingAt);
+        return;
+      }
+      const entityHit = raycaster.intersectObjects(
+        [...world.entityRoots.values()],
+        true,
+      )[0];
+      const entityRoot = findTargetRoot(
+        entityHit?.object,
+        "selectableEntityId",
+      );
+      if (entityRoot !== undefined) {
+        showSelection(
+          entityRoot,
+          String(entityRoot.userData.selectableEntityId),
+        );
+        finishPickingMeasurement(startedPickingAt);
+        return;
+      }
+    }
 
     if (lessonInput.mode === "OBJECT") {
       const hit = raycaster.intersectObjects(
@@ -425,13 +460,11 @@ export async function createGameRuntime(
     cancelMovement();
     carriedObjectId = undefined;
     world.player.position.set(
-      PARK_SCENE_DEFINITION.playerSpawn.x,
-      PARK_SCENE_DEFINITION.playerSpawn.y,
-      PARK_SCENE_DEFINITION.playerSpawn.z,
+      definition.playerSpawn.x,
+      definition.playerSpawn.y,
+      definition.playerSpawn.z,
     );
-    PARK_SCENE_DEFINITION.objects.forEach((placement) =>
-      restoreObject(placement.localId),
-    );
+    definition.objects.forEach((placement) => restoreObject(placement.localId));
     world.selectionMarker.visible = false;
     world.locationRoots.forEach((root) => {
       root.visible = false;
@@ -618,7 +651,7 @@ export async function createGameRuntime(
   document.addEventListener("visibilitychange", onVisibilityChange, { signal });
 
   renderer.render(world.scene, camera);
-  audioMixer.setSceneAmbience(PARK_SCENE_DEFINITION.ambienceAssetIds);
+  audioMixer.setSceneAmbience(definition.ambienceAssetIds);
   void audioMixer.preload(FIRST_INTERACTION_PRELOAD_IDS);
   sceneReadyMs = performance.now() - startedAt;
   shell.setReady(backend, recoveredWithWebGL2);

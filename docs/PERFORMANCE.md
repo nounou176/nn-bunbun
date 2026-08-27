@@ -183,6 +183,39 @@ measured after source selection, conversion, and registration. Record at least:
 - active NPC/animal animation cost; and
 - WebGPU and forced-WebGL2 behavior on the named reference device.
 
+### M8 rainy-neighborhood assembled asset measurements
+
+The D-045 deterministic bundle records the following non-browser facts:
+
+- 843,652 encoded bytes across one static GLB and three actor GLBs;
+- 4,524 visible triangles and 48 estimated draw calls with repeated placements;
+- 81 exported nodes, 21 materials, and 18 embedded textures;
+- maximum texture dimension 1024 px and 25,165,824 estimated decoded texture
+  bytes; and
+- three active animation mixers with exactly three shipped clips per actor.
+
+All are below the focused plan ceilings. The production Vite build ships the
+static GLB at 455.28 kB, Aoi at 113.92 kB, Tanaka at 113.21 kB, and Momo at
+161.23 kB. Cold/warm scene-ready time, frame-local FPS/draw calls, picking
+latency, movement duration, and automatic/forced-WebGL2 browser behavior remain
+manual acceptance facts and are not inferred from these asset measurements.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 WORLD A: PASS` for the
+automatic-renderer neighborhood preview checklist, including visual
+composition, movement, picking, idle animation, approved ambience, and visible
+diagnostics. No numeric FPS, frame-time, draw-call, scene-ready, picking, or
+movement values were supplied, so this is qualitative acceptance only.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 WORLD B: PASS` for the
+forced-WebGL2 neighborhood route with no reported visual, movement, picking,
+animation, or audio regression. No numeric diagnostics were supplied.
+
+Manual checkpoint on 2026-08-27: the user reports `M8 WORLD C: PASS` for
+required-asset failure and retry, background/resume, reload/disposal, and the
+default lesson-library/technical-park regression. Together, A/B/C close the
+focused world plan and parent M8 Milestone 3 qualitatively. Numeric diagnostics
+remain unreported and are not reconstructed.
+
 THREE.Terrain output receives the same review as hand-assembled geometry. A
 procedurally authored source does not authorize unbounded runtime terrain or
 exemption from scene budgets. Keep chunks independently loadable and avoid

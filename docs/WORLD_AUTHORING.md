@@ -3,10 +3,13 @@
 ## Status
 
 This document defines the approved world-authoring direction under D-025 and
-the first production variant selected by D-026. D-044 authorizes a bounded
-ignored intake and local review of four official Kenney candidate packs. No
-exact source member, derived GLB, runtime world asset, terrain tool, navigation
-dependency, or production world chunk is approved or implemented yet.
+the first production variant selected by D-026. D-044 authorized a bounded
+ignored intake and local review of four official Kenney candidate packs. D-045
+accepts the exact 18-source selection and authorizes the deterministic first
+rainy-neighborhood bundle. The bundle and closed local preview are implemented,
+and the user's `M8 WORLD A/B/C: PASS` matrix accepts automatic rendering,
+forced WebGL2, interaction, animation, ambience, failure retry, lifecycle, and
+technical-park regression.
 
 ## Outcome
 
@@ -32,14 +35,14 @@ open world or a second station scene.
 
 ## Approved authoring stack
 
-| Source or tool                                                           | License              | Approved role                                                                     | Runtime status                                     |
-| ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------- |
-| [Three.js Editor](https://threejs.org/editor/)                           | MIT through Three.js | Assemble, inspect, and export scene assets against the current Three.js ecosystem | Authoring tool only                                |
-| [Kenney City Kit (Roads)](https://kenney.nl/assets/city-kit-roads)       | CC0                  | Initial road and street candidates                                                | Technically qualified; exact candidates unselected |
-| [Kenney City Kit (Suburban)](https://kenney.nl/assets/city-kit-suburban) | CC0                  | Initial building and neighborhood candidates                                      | Technically qualified; exact candidates unselected |
-| [Kenney Blocky Characters](https://kenney.nl/assets/blocky-characters)   | CC0                  | Initial animated NPC candidates                                                   | Technically qualified; exact candidates unselected |
-| [Kenney Cube Pets](https://kenney.nl/assets/cube-pets)                   | CC0                  | Initial animated animal candidates                                                | Technically qualified; exact candidates unselected |
-| [THREE.Terrain](https://github.com/IceCreamYou/THREE.Terrain)            | MIT                  | Optional terrain generation before GLB export                                     | Not approved as a runtime dependency               |
+| Source or tool                                                           | License              | Approved role                                                                     | Runtime status                       |
+| ------------------------------------------------------------------------ | -------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
+| [Three.js Editor](https://threejs.org/editor/)                           | MIT through Three.js | Assemble, inspect, and export scene assets against the current Three.js ecosystem | Authoring tool only                  |
+| [Kenney City Kit (Roads)](https://kenney.nl/assets/city-kit-roads)       | CC0                  | Approved road, crossing, curved-light, and traffic-light sources                  | Exact D-045 subset registered        |
+| [Kenney City Kit (Suburban)](https://kenney.nl/assets/city-kit-suburban) | CC0                  | Approved storefront, path, fence, planter, and tree sources                       | Exact D-045 subset registered        |
+| [Kenney Blocky Characters](https://kenney.nl/assets/blocky-characters)   | CC0                  | Approved Aoi and Tanaka animated sources                                          | Exact D-045 subset registered        |
+| [Kenney Cube Pets](https://kenney.nl/assets/cube-pets)                   | CC0                  | Approved Momo animated cat source                                                 | Exact D-045 subset registered        |
+| [THREE.Terrain](https://github.com/IceCreamYou/THREE.Terrain)            | MIT                  | Optional terrain generation before GLB export                                     | Not approved as a runtime dependency |
 
 The source pages and license terms must be checked again at intake time. An
 asset is not production-approved merely because its source pack appears in
@@ -47,17 +50,20 @@ this table.
 
 D-044 authorizes only the four individual Kenney downloads above, within the
 cost, data, archive, and staging bounds in
-`plans/2026-08-27-m8-rainy-neighborhood-world.md`. A second exact
-`assetId + SHA-256` user decision is required before assembly or runtime
-registration. The paid All-in-One bundle, donations, accounts, credentials,
-new dependencies, and additional asset sources remain excluded.
+`plans/2026-08-27-m8-rainy-neighborhood-world.md`. The exact
+`assetId + SHA-256` decision was satisfied by Gate 2 packet
+`e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390` and
+D-045. The paid All-in-One bundle, donations, accounts, credentials, new
+dependencies, and additional asset sources remain excluded.
 
 The 2026-08-27 intake is recorded in
 `docs/world-sources/M8_WORLD_CANDIDATES_2026-08-27.json`: four exact archives,
 177 structurally qualified GLBs, 55 bounded visual candidates, and 122 explicit
 out-of-review records. Some official GLBs reference sibling PNG textures; only
-those exact texture members are staged and hash-validated. This qualification
-does not select a model or authorize a runtime copy.
+those exact texture members are staged and hash-validated. The exact approval,
+source transforms, output hashes, and runtime facts are recorded in
+`M8_WORLD_APPROVAL_2026-08-27.json`, `M8_WORLD_LAYOUT_V1.json`, and
+`M8_WORLD_RUNTIME_V1.json`. Only the approved derived GLBs enter runtime.
 
 ## Authoring and runtime boundary
 

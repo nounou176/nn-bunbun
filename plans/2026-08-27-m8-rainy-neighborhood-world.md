@@ -1,9 +1,9 @@
 # Qualify and assemble the first rainy-evening neighborhood world
 
-Status: Approved — intake qualified and local review ready; exact visual selection pending
+Status: Complete — exact bundle registered and manual A/B/C matrix accepted
 Owner: Codex and user
 Created: 2026-08-27
-Last updated: 2026-08-27 20:01 Asia/Ho_Chi_Minh
+Last updated: 2026-08-27 23:12 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -430,8 +430,26 @@ checks pass, and the user receives a reproducible world acceptance checklist.
       every group constraint, and assigns distinct Aoi/Tanaka models. The
       packet remains `PROPOSED_FOR_USER_APPROVAL`; explicit Gate 2 approval is
       still required before recording an approval artifact or assembling.
-- [ ] Obtain exact hash-bound visual selection approval.
-- [ ] Assemble, register, verify, and manually accept the neighborhood.
+- [x] 2026-08-27 — User explicitly approved Gate 2 proposal SHA-256
+      `e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
+      D-045 records the exact 18 approved and 37 rejected candidates.
+- [x] 2026-08-27 — Assemble four deterministic, self-contained GLBs, record
+      layout/runtime manifests, validate a second byte-identical export, and
+      register the closed `?world=neighborhood` preview while preserving the
+      default technical park. Static checks, 4/4 world tests, 47/47 web tests,
+      runtime validation, production build, and loopback HTTP smoke checks
+      pass.
+- [x] 2026-08-27 — User reports `M8 WORLD A: PASS` for the automatic-renderer
+      neighborhood checklist: visual composition, movement, registered-target
+      picking, actor idle animation, approved ambience, and diagnostics are
+      accepted qualitatively. No numeric diagnostics were supplied.
+- [x] 2026-08-27 — User reports `M8 WORLD B: PASS` for the forced-WebGL2
+      neighborhood path with no reported visual, movement, picking, animation,
+      or audio regression.
+- [x] 2026-08-27 — User reports `M8 WORLD C: PASS` for required-asset failure
+      visibility and retry, background/resume, reload/disposal, and the default
+      lesson-library/technical-park regression. This closes the focused plan
+      and parent M8 Milestone 3 on qualitative manual acceptance.
 
 ## Surprises and discoveries
 
@@ -466,6 +484,11 @@ checks pass, and the user receives a reproducible world acceptance checklist.
   local review server did not serve `/vendor/three.core.js`. The server now
   serves both build modules plus contained addons, and the review page renders
   catalog controls before GPU initialization rather than failing blank.
+- During the accepted preview matrix, the Vite client console intermittently
+  logged a Three.js `Vector4.fromArray` rejection while automatic renderer
+  initialization fell back from unavailable WebGPU to WebGL2. The visible
+  runtime recovered and the user passed A/B/C; retain the console event as a
+  known renderer-maintenance risk rather than claiming it disappeared.
 
 ## Plan decisions
 

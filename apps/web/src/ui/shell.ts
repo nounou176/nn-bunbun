@@ -110,14 +110,41 @@ export interface LessonDiagnosticsSnapshot {
   lastSavedAt: string;
 }
 
-export function createAppShell(app: HTMLDivElement): AppShell {
+export interface AppShellOptions {
+  worldTitle?: string;
+  worldSceneId?: string;
+  worldAriaLabel?: string;
+  loadingMessage?: string;
+  instructionJa?: string;
+  instructionSupport?: string;
+  previewMode?: boolean;
+}
+
+export function createAppShell(
+  app: HTMLDivElement,
+  options: AppShellOptions = {},
+): AppShell {
+  const worldTitle = options.worldTitle ?? "Bunbun Park";
+  const worldSceneId = options.worldSceneId ?? "park_small";
+  const worldAriaLabel =
+    options.worldAriaLabel ??
+    "Bunbun isometric park. Follow the current Japanese instruction to select an object, location, or person.";
+  const loadingMessage =
+    options.loadingMessage ??
+    "Validating the authored lesson before initializing the park.";
+  const instructionJa =
+    options.instructionJa ?? "日本語を使って、ゆきを助けよう。";
+  const instructionSupport =
+    options.instructionSupport ??
+    "Complete the authored Japanese actions in the park.";
+  const localDataHidden = options.previewMode === true ? "hidden" : "";
   app.innerHTML = `
     <main class="game-shell">
       <section class="world-stage" aria-labelledby="world-title">
         <canvas
           class="world-canvas"
           tabindex="0"
-          aria-label="Bunbun isometric park. Follow the current Japanese instruction to select an object, location, or person."
+          aria-label="${worldAriaLabel}"
         ></canvas>
 
         <header class="world-header">
@@ -125,7 +152,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <span class="brand-mark" aria-hidden="true">ぶ</span>
             <div>
               <p class="eyebrow">ローカル・ランタイム</p>
-              <h1 id="world-title">Bunbun Park</h1>
+              <h1 id="world-title">${worldTitle}</h1>
             </div>
           </div>
           <span class="renderer-pill" data-role="renderer">Starting…</span>
@@ -200,8 +227,8 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         </section>
 
         <aside class="world-controls" aria-label="World controls">
-          <p class="instruction-ja">日本語を使って、ゆきを助けよう。</p>
-          <p class="instruction-support">Complete the authored Japanese actions in the park.</p>
+          <p class="instruction-ja">${instructionJa}</p>
+          <p class="instruction-support">${instructionSupport}</p>
           <output class="selection-output" data-role="selection">Nothing selected</output>
           <div class="button-row">
             <button type="button" data-role="zoom-out" aria-label="Zoom out">−</button>
@@ -212,7 +239,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
             <button type="button" data-role="diagnostics" aria-expanded="false">
               Diagnostics
             </button>
-            <button type="button" data-role="local-data" aria-expanded="false">
+            <button type="button" data-role="local-data" aria-expanded="false" ${localDataHidden}>
               Local data
             </button>
           </div>
@@ -344,7 +371,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
         </aside>
 
         <footer class="world-footer">
-          <span>park_small</span>
+          <span>${worldSceneId}</span>
           <span data-role="runtime-state">loading</span>
           <span data-role="persistence-state">storage: loading</span>
         </footer>
@@ -621,8 +648,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       statePanel.hidden = false;
       stateLabel.textContent = "Milestone 6";
       stateTitle.textContent = "Preparing the lesson…";
-      stateMessage.textContent =
-        "Validating the authored lesson before initializing the park.";
+      stateMessage.textContent = loadingMessage;
       retryButton.hidden = true;
       retryButton.textContent = "Retry runtime";
       resumeActions.hidden = true;
@@ -678,7 +704,7 @@ export function createAppShell(app: HTMLDivElement): AppShell {
       setSoundPanelOpen(false);
       statePanel.hidden = false;
       stateLabel.textContent = code;
-      stateTitle.textContent = "The park could not start";
+      stateTitle.textContent = `${worldTitle} could not start`;
       stateMessage.textContent = message;
       retryButton.hidden = false;
       resumeActions.hidden = true;

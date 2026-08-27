@@ -515,9 +515,15 @@ Decision resolved:
   A/B/C browser/audio matrix are complete.
 - D-044 approves a zero-cost, four-pack Kenney candidate intake into bounded
   ignored staging using only the existing pinned Three.js toolchain. Runtime
-  selection remains behind a second exact visual/hash user gate. The intake
-  and structural qualification now pass; 55 exact candidates await local 3D
-  review and 122 qualified models are explicitly outside this review scope.
+  selection remained behind a second exact visual/hash user gate.
+- D-045 accepts the user's complete Gate 2 packet: 18 exact candidates are
+  approved and 37 rejected. Four deterministic self-contained GLBs, a
+  code-owned registry, the rainy-neighborhood definition and closed preview
+  route are implemented without a new dependency or service. Static/runtime
+  validation passes. The user's `M8 WORLD A/B/C: PASS` matrix accepts automatic
+  rendering, forced WebGL2, interaction, animation, ambience, asset-failure
+  retry, lifecycle, and technical-park regression. Parent Milestone 3 is
+  complete.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -540,8 +546,8 @@ Implemented and accepted D-040 speech foundation:
 Decisions required:
 
 - final production utterance review and any pronunciation overrides; and
-- exact rainy-neighborhood visual/hash selection and assembly under
-  D-025/D-038/D-044 before M9 lesson linkage.
+- complete lesson package authoring and exact production utterance review
+  before M9 linkage.
 
 Implemented speech-foundation scope:
 
