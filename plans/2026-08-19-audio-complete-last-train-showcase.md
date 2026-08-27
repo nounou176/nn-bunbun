@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestone 2 complete, rainy-neighborhood planning next
+Status: Active; Milestone 2 complete, Milestone 3 exact visual gate next
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -336,8 +336,19 @@ reproducible acceptance checklist.
 - [x] 2026-08-27 — User reports `M8 MIX C: PASS`: background/replay/restart,
       source lifecycle, credits, and session-reset behavior pass under forced
       WebGL2. This completes parent Milestone 2 under D-043.
-- [ ] Prepare and approve parent Milestone 3 rainy-neighborhood intake and
-      assembly under D-025/D-038.
+- [x] 2026-08-27 12:53 — Prepare the self-contained proposed parent Milestone
+      3 rainy-neighborhood intake and assembly plan under D-025/D-038. No
+      candidate download or implementation is authorized yet.
+- [x] 2026-08-27 16:36 — User explicitly approves the focused Milestone 3
+      world plan. D-044 authorizes bounded candidate intake and local review;
+      exact source-member/runtime selection remains a second gate.
+- [x] 2026-08-27 17:05 — Complete bounded four-pack intake and technical
+      qualification: 177 GLBs pass structural/provenance validation, 55 exact
+      candidates enter the local 3D review, and 122 are explicitly outside the
+      bounded review. Assembly waits for the user's exact hash selection.
+- [x] 2026-08-27 19:47 — User reports `PASS` for the corrected local 3D review
+      UI and model loading after the complete Three.js module chain is served.
+      Exact candidate assignment/approval JSON remains the Milestone 3 gate.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

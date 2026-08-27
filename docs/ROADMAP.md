@@ -513,6 +513,11 @@ Decision resolved:
   project-authored files, and adds no account, service, dependency, key, or
   incremental cost. The native mixer implementation and the user's qualitative
   A/B/C browser/audio matrix are complete.
+- D-044 approves a zero-cost, four-pack Kenney candidate intake into bounded
+  ignored staging using only the existing pinned Three.js toolchain. Runtime
+  selection remains behind a second exact visual/hash user gate. The intake
+  and structural qualification now pass; 55 exact candidates await local 3D
+  review and 122 qualified models are explicitly outside this review scope.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -535,8 +540,8 @@ Implemented and accepted D-040 speech foundation:
 Decisions required:
 
 - final production utterance review and any pronunciation overrides; and
-- rainy-neighborhood world intake and assembly under D-025/D-038 before M9
-  lesson linkage.
+- exact rainy-neighborhood visual/hash selection and assembly under
+  D-025/D-038/D-044 before M9 lesson linkage.
 
 Implemented speech-foundation scope:
 

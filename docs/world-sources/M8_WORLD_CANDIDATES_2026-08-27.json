@@ -1,0 +1,5110 @@
+{
+  "packetFormat": "bunbun_m8_world_candidate_catalog",
+  "packetVersion": "1.0.0",
+  "catalogVersion": "1.0.0",
+  "status": "TECHNICALLY_QUALIFIED_UNSELECTED",
+  "observedAt": "2026-08-27T09:51:10.339Z",
+  "generatedFrom": {
+    "intakeManifest": ".bunbun-data/world-intake/m8-neighborhood/v1/intake-manifest.json",
+    "intakeManifestSha256": "287b0ab440d47523f39c66b3bd052544d6e2b80d9e006e15553d699ca16aac93"
+  },
+  "stagingRoot": ".bunbun-data/world-intake/m8-neighborhood/v1",
+  "authority": {
+    "decisionId": "D-044",
+    "plan": "plans/2026-08-27-m8-rainy-neighborhood-world.md",
+    "candidateIntakeAuthorized": true,
+    "runtimeSelectionAuthorized": false,
+    "nextGate": "USER_APPROVAL_BY_ASSET_ID_AND_SHA256"
+  },
+  "license": {
+    "id": "CC0-1.0",
+    "sourceUrl": "https://kenney.nl/support",
+    "evidenceSnapshot": {
+      "relativePath": "pages/kenney_support_cc0_2026_08_27-d1770c8e715b5607da177bf5a4c17a20a851aff025c93a8fb55ba3afff8b12a8.html",
+      "bytes": 11891,
+      "sha256": "d1770c8e715b5607da177bf5a4c17a20a851aff025c93a8fb55ba3afff8b12a8"
+    },
+    "attributionRequired": false,
+    "voluntaryCredit": "Kenney"
+  },
+  "costAndData": {
+    "committedCost": 0,
+    "accountRequired": false,
+    "environmentVariablesRequired": [],
+    "runtimeNetworkRequired": false,
+    "stagedFilesCommittedToGit": false
+  },
+  "qualification": {
+    "archiveCount": 4,
+    "archiveBytes": 10849076,
+    "expandedBytes": 42954997,
+    "memberCount": 1017,
+    "extractedBytes": 9930991,
+    "extractedFileCount": 202,
+    "qualifiedModelCount": 177,
+    "reviewCandidateCount": 55,
+    "excludedFromReviewCount": 122
+  },
+  "selectionGroups": [
+    {
+      "id": "roadPieces",
+      "label": "Road composition",
+      "minimum": 2,
+      "maximum": 5
+    },
+    {
+      "id": "streetLight",
+      "label": "Street light",
+      "minimum": 1,
+      "maximum": 1
+    },
+    {
+      "id": "streetContext",
+      "label": "Optional traffic light",
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "id": "storefront",
+      "label": "Storefront base",
+      "minimum": 1,
+      "maximum": 1
+    },
+    {
+      "id": "parkProps",
+      "label": "Park edge props",
+      "minimum": 2,
+      "maximum": 7
+    },
+    { "id": "aoi", "label": "Aoi actor", "minimum": 1, "maximum": 1 },
+    { "id": "tanaka", "label": "Tanaka actor", "minimum": 1, "maximum": 1 },
+    { "id": "momo", "label": "Momo cat", "minimum": 1, "maximum": 1 }
+  ],
+  "crossConstraints": [
+    {
+      "kind": "DISTINCT_ASSIGNMENTS",
+      "groups": ["aoi", "tanaka"],
+      "reason": "Aoi and Tanaka must use visibly distinct character models."
+    }
+  ],
+  "projectAuthoredAfterApproval": [
+    "Unbranded convenience-store sign/frontage accents",
+    "Simple umbrella stand geometry",
+    "Rain presentation, lighting, fog, layout, selectors, and clue anchors"
+  ],
+  "sources": [
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "title": "Kenney City Kit (Roads)",
+      "advertisedVersion": "2.1",
+      "pageUrl": "https://kenney.nl/assets/city-kit-roads",
+      "resolvedPageUrl": "https://kenney.nl/assets/city-kit-roads",
+      "pageSnapshot": {
+        "relativePath": "pages/kenney_city_kit_roads_2_1-e114e7b8a0558f6afe9f67ddc7915ba22cc7a5abc1b2cea92eb98f01388a5332.html",
+        "bytes": 18474,
+        "sha256": "e114e7b8a0558f6afe9f67ddc7915ba22cc7a5abc1b2cea92eb98f01388a5332"
+      },
+      "archiveUrl": "https://kenney.nl/media/pages/assets/city-kit-roads/74288c9459-1787042796/kenney_city-kit-roads.zip",
+      "resolvedArchiveUrl": "https://kenney.nl/media/pages/assets/city-kit-roads/74288c9459-1787042796/kenney_city-kit-roads.zip",
+      "archive": {
+        "relativePath": "archives/kenney_city_kit_roads_2_1-22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e.zip",
+        "bytes": 2849382,
+        "sha256": "22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e"
+      },
+      "archiveInspection": { "memberCount": 496, "expandedBytes": 7012577 },
+      "licenseArtifact": {
+        "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/License.txt",
+        "bytes": 703,
+        "sha256": "87b9404aef5dff6162ae1e53a27bc6427fe1cdd2e2dd5ec05fdd25f17da10498"
+      },
+      "qualifiedModelCount": 95,
+      "reviewCandidateCount": 8
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "title": "Kenney City Kit (Suburban)",
+      "advertisedVersion": "2.0",
+      "pageUrl": "https://kenney.nl/assets/city-kit-suburban",
+      "resolvedPageUrl": "https://kenney.nl/assets/city-kit-suburban",
+      "pageSnapshot": {
+        "relativePath": "pages/kenney_city_kit_suburban_2_0-50d907facb6a12c77ef1be9e586f5bb31baee8963dc558f10b13287a542e175a.html",
+        "bytes": 19099,
+        "sha256": "50d907facb6a12c77ef1be9e586f5bb31baee8963dc558f10b13287a542e175a"
+      },
+      "archiveUrl": "https://kenney.nl/media/pages/assets/city-kit-suburban/2c871b7af2-1745479373/kenney_city-kit-suburban_20.zip",
+      "resolvedArchiveUrl": "https://kenney.nl/media/pages/assets/city-kit-suburban/2c871b7af2-1745479373/kenney_city-kit-suburban_20.zip",
+      "archive": {
+        "relativePath": "archives/kenney_city_kit_suburban_2_0-5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39.zip",
+        "bytes": 3038740,
+        "sha256": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39"
+      },
+      "archiveInspection": { "memberCount": 225, "expandedBytes": 8069616 },
+      "licenseArtifact": {
+        "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/License.txt",
+        "bytes": 706,
+        "sha256": "d778fa769a89a7d9f167bc337fdf8fc2144e47d9abb0c35eb6ad897c0ee24d0a"
+      },
+      "qualifiedModelCount": 40,
+      "reviewCandidateCount": 28
+    },
+    {
+      "sourceId": "kenney_blocky_characters_2_0",
+      "title": "Kenney Blocky Characters",
+      "advertisedVersion": "2.0",
+      "pageUrl": "https://kenney.nl/assets/blocky-characters",
+      "resolvedPageUrl": "https://kenney.nl/assets/blocky-characters",
+      "pageSnapshot": {
+        "relativePath": "pages/kenney_blocky_characters_2_0-936850bd91fa5785215d7548e83d43ecf8b617420785000b82b1717ad1abbe9a.html",
+        "bytes": 17645,
+        "sha256": "936850bd91fa5785215d7548e83d43ecf8b617420785000b82b1717ad1abbe9a"
+      },
+      "archiveUrl": "https://kenney.nl/media/pages/assets/blocky-characters/8369c0cf30-1749547469/kenney_blocky-characters_20.zip",
+      "resolvedArchiveUrl": "https://kenney.nl/media/pages/assets/blocky-characters/8369c0cf30-1749547469/kenney_blocky-characters_20.zip",
+      "archive": {
+        "relativePath": "archives/kenney_blocky_characters_2_0-5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e.zip",
+        "bytes": 2148510,
+        "sha256": "5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e"
+      },
+      "archiveInspection": { "memberCount": 158, "expandedBytes": 12858189 },
+      "licenseArtifact": {
+        "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/License.txt",
+        "bytes": 706,
+        "sha256": "610fec89c16826112e9d6b80497b726c43fea0e42c9cd9d7cb081f8ad550c0ec"
+      },
+      "qualifiedModelCount": 18,
+      "reviewCandidateCount": 18
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "title": "Kenney Cube Pets",
+      "advertisedVersion": "2.0",
+      "pageUrl": "https://kenney.nl/assets/cube-pets",
+      "resolvedPageUrl": "https://kenney.nl/assets/cube-pets",
+      "pageSnapshot": {
+        "relativePath": "pages/kenney_cube_pets_page_2_0-260de6573a797b2ae38a16ae0622bafbbdd657831d1f4774ffa882b07d32c808.html",
+        "bytes": 17291,
+        "sha256": "260de6573a797b2ae38a16ae0622bafbbdd657831d1f4774ffa882b07d32c808"
+      },
+      "archiveUrl": "https://kenney.nl/media/pages/assets/cube-pets/44e58e945f-1774520254/kenney_cube-pets_1.0.zip",
+      "resolvedArchiveUrl": "https://kenney.nl/media/pages/assets/cube-pets/44e58e945f-1774520254/kenney_cube-pets_1.0.zip",
+      "archive": {
+        "relativePath": "archives/kenney_cube_pets_page_2_0-b3bdc99a2ec92c687b875718c5d01e9231d2711ed0e2845f295b474bb42a1283.zip",
+        "bytes": 2812444,
+        "sha256": "b3bdc99a2ec92c687b875718c5d01e9231d2711ed0e2845f295b474bb42a1283"
+      },
+      "archiveInspection": { "memberCount": 138, "expandedBytes": 15014615 },
+      "licenseArtifact": {
+        "relativePath": "extracted/kenney_cube_pets_page_2_0/b3bdc99a2ec92c687b875718c5d01e9231d2711ed0e2845f295b474bb42a1283/License.txt",
+        "bytes": 698,
+        "sha256": "73ac1d7002d33d6ec517fd1070ed99c0b58b58b7a41e92e42225cccab6a7c216"
+      },
+      "qualifiedModelCount": 24,
+      "reviewCandidateCount": 1
+    }
+  ],
+  "candidates": [
+    {
+      "assetId": "world_animal_cat",
+      "label": "animal-cat",
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-cat.glb",
+      "relativePath": "extracted/kenney_cube_pets_page_2_0/b3bdc99a2ec92c687b875718c5d01e9231d2711ed0e2845f295b474bb42a1283/Models/GLB format/animal-cat.glb",
+      "bytes": 165164,
+      "sha256": "1e73aaf7d497dd7d2946badf92d189d2333f163e66dced91feb446bc9bdee850",
+      "eligibleGroups": ["momo"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_cube_pets_page_2_0/b3bdc99a2ec92c687b875718c5d01e9231d2711ed0e2845f295b474bb42a1283/Models/GLB format/Textures/colormap.png",
+          "bytes": 10915,
+          "sha256": "2f6d0032e51c2d49b13b8e689d59eb39aa3ee6c32f2a1851213e11fc7593177d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 73376,
+        "sceneCount": 1,
+        "nodeCount": 9,
+        "meshCount": 7,
+        "primitiveCount": 7,
+        "triangleCount": 684,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 8,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 24 },
+          { "name": "idle", "durationSeconds": 1, "trackCount": 24 },
+          { "name": "walk", "durationSeconds": 0.5, "trackCount": 24 },
+          { "name": "run", "durationSeconds": 0.25, "trackCount": 24 },
+          { "name": "eat", "durationSeconds": 0.5, "trackCount": 24 },
+          { "name": "dance", "durationSeconds": 0.5, "trackCount": 24 },
+          {
+            "name": "gesture-positive",
+            "durationSeconds": 0.25,
+            "trackCount": 24
+          },
+          {
+            "name": "gesture-negative",
+            "durationSeconds": 0.25,
+            "trackCount": 24
+          }
+        ],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.625, -0.30000001192092896, -0.625],
+          "maximum": [0.625, 1.4044666290283203, 0.7024125456809998]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_a",
+      "label": "building-type-a",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-a.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-a.glb",
+      "bytes": 98604,
+      "sha256": "49f32e20b9dcd24b1c8f6d6488807b8c8cb684cbb595bfb0bb36ad903e470faa",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 96804,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1174,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6499999761581421, 0, -0.5140689015388489],
+          "maximum": [
+            0.6499999761581421, 0.8335409760475159, 0.5140689015388489
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_b",
+      "label": "building-type-b",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-b.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-b.glb",
+      "bytes": 146720,
+      "sha256": "a964a10c51bb334be677657fd8fa483531974dd15b4243575990192818e2300e",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 144792,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1748,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.9140000343322754, 0, -0.5699999928474426],
+          "maximum": [
+            0.9140000343322754, 1.1375000476837158, 0.5699999928474426
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_c",
+      "label": "building-type-c",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-c.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-c.glb",
+      "bytes": 99592,
+      "sha256": "86a69f30f1a09461283e158514945ae5cc9d56357b0ddc83a9a3f0eecd113591",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 97704,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1196,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6431901454925537, 0, -0.5140689015388489],
+          "maximum": [0.6431901454925537, 1.033540964126587, 0.5140689015388489]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_d",
+      "label": "building-type-d",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-d.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-d.glb",
+      "bytes": 147368,
+      "sha256": "a41cd28265b2b224e700373c3a8356562619699998b7fa4d70ed41de629a6731",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 145472,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1757,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.8781901597976685, 0, -0.5139999985694885],
+          "maximum": [
+            0.8781901597976685, 1.2375000715255737, 0.5139999985694885
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_e",
+      "label": "building-type-e",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-e.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-e.glb",
+      "bytes": 145512,
+      "sha256": "9ec43994c8c332b1ae5b058d8b9646255831fd91047c1a35b1fc1ecae4c082fc",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 143684,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1731,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [
+            -0.6499999761581421, 2.707167856703783e-16, -0.5139999985694885
+          ],
+          "maximum": [
+            0.6499999761581421, 1.1375000476837158, 0.5139999985694885
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_f",
+      "label": "building-type-f",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-f.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-f.glb",
+      "bytes": 138536,
+      "sha256": "6f778f50d7f03c86f9a018e428cf8ffdd9e918df09954c0651d1c9559584a22b",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 136608,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1616,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.7139999866485596, 0, -0.7029455900192261],
+          "maximum": [
+            0.7140000462532043, 1.1375000476837158, 0.7029456496238708
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_g",
+      "label": "building-type-g",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-g.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-g.glb",
+      "bytes": 93596,
+      "sha256": "f497a7bc3a8e6b6273ba99f090042d1cfb3141da57d3c51998c57a479a0ece11",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 91796,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1067,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.7250000238418579, 0, -0.5889999866485596],
+          "maximum": [0.7250000238418579, 0.76820969581604, 0.5889999866485596]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_h",
+      "label": "building-type-h",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-h.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-h.glb",
+      "bytes": 65364,
+      "sha256": "b8b8eb7a50f85fa20b4862723e133157f553d69a0daad39b850ddbd2099ebb84",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 63564,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 770,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6499999761581421, 0, -0.4580000042915344],
+          "maximum": [
+            0.6499999761581421, 0.7374999523162842, 0.4580000042915344
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_i",
+      "label": "building-type-i",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-i.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-i.glb",
+      "bytes": 69772,
+      "sha256": "798bb0f1eb644b64a19584e6765da23750f04a86c3703704ce56bc63e5512b39",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 67968,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 800,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6431901454925537, 0, -0.5139999985694885],
+          "maximum": [
+            0.6431901454925537, 0.7374999523162842, 0.5139999985694885
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_j",
+      "label": "building-type-j",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-j.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-j.glb",
+      "bytes": 99512,
+      "sha256": "fbdce9cb6bb6cf60a861bab36a896403aff604afbf2cb2b86676ae6f49fa2de3",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 97596,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1210,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6850000023841858, 0, -0.4580000042915344],
+          "maximum": [0.6850000023841858, 1.037500023841858, 0.4580000042915344]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_k",
+      "label": "building-type-k",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-k.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-k.glb",
+      "bytes": 89152,
+      "sha256": "c1b819a526bbcf9663bc40c98e22337cded7fff7c50c14679132d5d98d75f583",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 87264,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1024,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.46046897768974304, 0, -0.5099999904632568],
+          "maximum": [
+            0.46046900749206543, 1.1495962142944336, 0.5099999904632568
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_l",
+      "label": "building-type-l",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-l.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-l.glb",
+      "bytes": 109232,
+      "sha256": "5f03bf2e65a3a795afc18f7e56a5da891908d59d937e660be8478b66905d2cee",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 107316,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1310,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.516793966293335, 0, -0.5099999904632568],
+          "maximum": [0.516793966293335, 1.0491933822631836, 0.5100000500679016]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_m",
+      "label": "building-type-m",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-m.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-m.glb",
+      "bytes": 96996,
+      "sha256": "36d31f4e45498f6229805b6a7a1577ef00230daeea4c6a4469481e9d5a0fdb7c",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 95088,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1112,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.7140000462532043, 0, -0.7140000462532043],
+          "maximum": [
+            0.7140000462532043, 0.7374999523162842, 0.7139999866485596
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_n",
+      "label": "building-type-n",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-n.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-n.glb",
+      "bytes": 139464,
+      "sha256": "f2a29ececcca4a27bbef187caba0e7bb0e35de7a0de9742a8b8440ce6874c48c",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 137544,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1612,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.8921357989311218, 0, -0.6889456510543823],
+          "maximum": [0.892135739326477, 1.1375000476837158, 0.6889455318450928]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_o",
+      "label": "building-type-o",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-o.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-o.glb",
+      "bytes": 114424,
+      "sha256": "aa256fa55613bb4c5fbdf379123454e4f98cde4d07a68bc826bb143d287ae0c1",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 112500,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1326,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6350000500679016, 0, -0.5139999985694885],
+          "maximum": [
+            0.6349999904632568, 1.1375000476837158, 0.5139999985694885
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_p",
+      "label": "building-type-p",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-p.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-p.glb",
+      "bytes": 109260,
+      "sha256": "561b2eff15bd2bfe2799a8a049cafc70a1c7bfb6e35f3b2a4d95c8f4f376458c",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 107340,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1282,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6200000643730164, 0, -0.4950000047683716],
+          "maximum": [
+            0.6200000643730164, 0.9179999828338623, 0.49500006437301636
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_q",
+      "label": "building-type-q",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-q.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-q.glb",
+      "bytes": 98632,
+      "sha256": "9b56037cab0de804e308766cc5e69b95b3576ffb444084c9016a0748cbcaca04",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 96696,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1140,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [
+            -0.6200000047683716, -8.823155091021372e-19, -0.4220000207424164
+          ],
+          "maximum": [
+            0.6200000047683716, 0.9179999828338623, 0.4635879099369049
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_r",
+      "label": "building-type-r",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-r.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-r.glb",
+      "bytes": 88544,
+      "sha256": "9b76ee3b9061b680ca14fd8cc838d1d5ca91b959e02833254f15d9236b8b20b7",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 86628,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1030,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.5140000581741333, 0, -0.5100000500679016],
+          "maximum": [
+            0.5140000581741333, 1.1411428451538086, 0.5099999904632568
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_s",
+      "label": "building-type-s",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-s.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-s.glb",
+      "bytes": 103172,
+      "sha256": "56dfd278f10bea2546cb0946f48659dde5876bc9ce100ea1fbe37c0cc94bf9e6",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 101256,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1212,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.7030144929885864, 0, -0.5431901812553406],
+          "maximum": [
+            0.7030145525932312, 1.1375000476837158, 0.5431902408599854
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_t",
+      "label": "building-type-t",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-t.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-t.glb",
+      "bytes": 167512,
+      "sha256": "3b729b473fc995a632ebc4d96cc8f18ef9d43bdc1a6c26010a02ec0b298c34e7",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 165588,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 2062,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6635879278182983, 0, -0.7031901478767395],
+          "maximum": [
+            0.6499999761581421, 1.1563305854797363, 0.7031901478767395
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_building_type_u",
+      "label": "building-type-u",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/building-type-u.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/building-type-u.glb",
+      "bytes": 117912,
+      "sha256": "fb259246fc73bdce626eed8b7167d5e97bd63651890551661ec4507311eba279",
+      "eligibleGroups": ["storefront"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 115992,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 1332,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.7140002250671387, 0, -0.5434674620628357],
+          "maximum": [
+            0.7140000462532043, 1.1375000476837158, 0.5434675216674805
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_character_a",
+      "label": "character-a",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-a.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-a.glb",
+      "bytes": 113596,
+      "sha256": "8ee5dae167ec589863f6bba222467eb90ace8be357a4c5abfcab289290181616",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-a.png",
+          "sourceMember": "Models/GLB format/Textures/texture-a.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-a.png",
+          "bytes": 20171,
+          "sha256": "257e944c582ce7cda206fbd8ceb717be648f9721756baf377a36478c11c0059a"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-a.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_b",
+      "label": "character-b",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-b.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-b.glb",
+      "bytes": 113596,
+      "sha256": "30ed390a741a1b285f587544819aa8a02c8f7f270e552ed742eb84785034f62a",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-b.png",
+          "sourceMember": "Models/GLB format/Textures/texture-b.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-b.png",
+          "bytes": 15606,
+          "sha256": "c614148428fbf63ab701ab95e2ebe0b6103ea0e2e6212c986d8931899bad7692"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-b.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_c",
+      "label": "character-c",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-c.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-c.glb",
+      "bytes": 113580,
+      "sha256": "ad2425ba0da5d9adff791b949bd62389ddcb09963ff89265930eab0d6484398c",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-c.png",
+          "sourceMember": "Models/GLB format/Textures/texture-c.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-c.png",
+          "bytes": 12829,
+          "sha256": "582a62eae6ca086f65e6bfdde16d0d1d15a95fdaf484c0def4769d5a47ba1c8e"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-c.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_d",
+      "label": "character-d",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-d.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-d.glb",
+      "bytes": 113596,
+      "sha256": "bd7cbf0d45e58f6809e3249a84502ce629ac53bfa13bc39fb0a83d171faf84bf",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-d.png",
+          "sourceMember": "Models/GLB format/Textures/texture-d.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-d.png",
+          "bytes": 13151,
+          "sha256": "c61bc29ec4d96229b979fc9196500afac13c2b448bbab1085832354fb4ef849a"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-d.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_e",
+      "label": "character-e",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-e.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-e.glb",
+      "bytes": 113596,
+      "sha256": "9a12684981bc7763aebeceaffed82abfcc458d27b1ed3e169b92bebcc4870675",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-e.png",
+          "sourceMember": "Models/GLB format/Textures/texture-e.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-e.png",
+          "bytes": 14509,
+          "sha256": "6bbdb4f76b8d2ba7feb1ad8e4a341ca87afd655a4f061c77a86c400ad3125049"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-e.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_f",
+      "label": "character-f",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-f.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-f.glb",
+      "bytes": 113592,
+      "sha256": "04223c1c6cdce5da6fe9c9729a24e1aa9c765dec93af952379112f7da24a828a",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-f.png",
+          "sourceMember": "Models/GLB format/Textures/texture-f.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-f.png",
+          "bytes": 15886,
+          "sha256": "54404f22588bac5a7f8df09c2aac0520e101a6f32944ce4070f550d7ad80c6f7"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-f.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_g",
+      "label": "character-g",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-g.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-g.glb",
+      "bytes": 113596,
+      "sha256": "e3249ffc0aaa55eba973696ba4b36a204b35a10574b373e9945b56d918e8c9fd",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-g.png",
+          "sourceMember": "Models/GLB format/Textures/texture-g.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-g.png",
+          "bytes": 16069,
+          "sha256": "cce3f8d545625998c27e91016672366eb84f21bbc520f8227022c23d0dd557fc"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-g.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_h",
+      "label": "character-h",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-h.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-h.glb",
+      "bytes": 113596,
+      "sha256": "f62fcf774dc6d61d64a3616803bc3a71176e1aee252020dd3ef680ef0a95d588",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-h.png",
+          "sourceMember": "Models/GLB format/Textures/texture-h.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-h.png",
+          "bytes": 16215,
+          "sha256": "7d908f3f12ac56b3debc5036dd962e2151c151f7a379cb37fe757a6ab4147536"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-h.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_i",
+      "label": "character-i",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-i.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-i.glb",
+      "bytes": 113532,
+      "sha256": "2b566d3b6261faa3e151b352396d823a285834f039ff6476db248ec6da902fe8",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-i.png",
+          "sourceMember": "Models/GLB format/Textures/texture-i.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-i.png",
+          "bytes": 14496,
+          "sha256": "2c721b0a8837836ab0bf0eb0de12ca14e5d518ccba7420b8c673ed4600dc6b63"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/texture-i.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_j",
+      "label": "character-j",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-j.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-j.glb",
+      "bytes": 113584,
+      "sha256": "5bae1cabb44a719fba8e18a8c519f45c92531bc02a2a1324cd316ffa5903e311",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-j.png",
+          "sourceMember": "Models/GLB format/Textures/texture-j.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-j.png",
+          "bytes": 17576,
+          "sha256": "11b6625d2d3119c9340fe93095374c45687be00fc7d1256c1f8db7d78cd7b531"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-j.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_k",
+      "label": "character-k",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-k.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-k.glb",
+      "bytes": 113596,
+      "sha256": "1b0f9b218eda8444e68e988b1b87786ca058928a6c091bc3e44986363fefbc3b",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-k.png",
+          "sourceMember": "Models/GLB format/Textures/texture-k.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-k.png",
+          "bytes": 17437,
+          "sha256": "4e063c40b02955bab6cb177268f56d8837346cb9661c4022ac79310bd80774fc"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-k.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_l",
+      "label": "character-l",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-l.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-l.glb",
+      "bytes": 113596,
+      "sha256": "ac3d350aba9311cf522f6b5ef56e1838fd8cd6bd3fb61795db4416dd2cc73a3d",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-l.png",
+          "sourceMember": "Models/GLB format/Textures/texture-l.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-l.png",
+          "bytes": 22764,
+          "sha256": "437c06e18a41def8449afb84c843b819927c7f8b423e653cd669c1f60c3e0741"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-l.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_m",
+      "label": "character-m",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-m.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-m.glb",
+      "bytes": 113596,
+      "sha256": "5289ed1e5f79a93c28d1bb0e4b8afda6fce298ab53a04fb2cc1f8f77cf661ccc",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-m.png",
+          "sourceMember": "Models/GLB format/Textures/texture-m.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-m.png",
+          "bytes": 19343,
+          "sha256": "ee5652737837e662a756d66828218b2b784a6990eeee8c4e1e95a1f70d1af994"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-m.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_n",
+      "label": "character-n",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-n.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-n.glb",
+      "bytes": 113596,
+      "sha256": "1ea5a0cb0c65f51d6a1b40caa15a27f625365d341f33392a2bd926b0bf695394",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-n.png",
+          "sourceMember": "Models/GLB format/Textures/texture-n.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-n.png",
+          "bytes": 16824,
+          "sha256": "b4af32a544b70da2ba99c6a142f33f0c5ee50a06b71ca71f8ac928bb5a15bb64"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-n.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_o",
+      "label": "character-o",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-o.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-o.glb",
+      "bytes": 113596,
+      "sha256": "a5033b736d13be3434fbf31e8b222d1e3767e532baa5f10ae8ba7cb1b059c148",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-o.png",
+          "sourceMember": "Models/GLB format/Textures/texture-o.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-o.png",
+          "bytes": 21064,
+          "sha256": "782e0873431934fc39d8ebd48a3283085619863a7477508099a66c3734a6b479"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-o.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_p",
+      "label": "character-p",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-p.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-p.glb",
+      "bytes": 113584,
+      "sha256": "50e18edd3003eeeca60c215a12f2c8230f9d12bc07e656eb06c3727ab0dba6cd",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-p.png",
+          "sourceMember": "Models/GLB format/Textures/texture-p.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-p.png",
+          "bytes": 18000,
+          "sha256": "29176841e85fa8547322cf74ea34051c2b531039867de317f51728c4e54eef88"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-p.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_q",
+      "label": "character-q",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-q.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-q.glb",
+      "bytes": 113596,
+      "sha256": "9193d03bc9ee1cfb080a1d561522f45806fe0b522b9807ef2b7c451b77547999",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-q.png",
+          "sourceMember": "Models/GLB format/Textures/texture-q.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-q.png",
+          "bytes": 16102,
+          "sha256": "bf220bbc945072a4fce31118b6585207445ddac1c2836b350d10fe0d49fed5ca"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-q.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_character_r",
+      "label": "character-r",
+      "sourceId": "kenney_blocky_characters_2_0",
+      "sourceMember": "Models/GLB format/character-r.glb",
+      "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/character-r.glb",
+      "bytes": 113596,
+      "sha256": "b880654e0bcf4cfda119750d1ae0842ccfb73ae22f7844ab95015122b746808a",
+      "eligibleGroups": ["aoi", "tanaka"],
+      "dependencies": [
+        {
+          "uri": "Textures/texture-r.png",
+          "sourceMember": "Models/GLB format/Textures/texture-r.png",
+          "relativePath": "extracted/kenney_blocky_characters_2_0/5e123859aa0c1598342b600c6db197024a1d63eb9ec531398b310725f589887e/Models/GLB format/Textures/texture-r.png",
+          "bytes": 13909,
+          "sha256": "fd29fd9fc745ca7b4231d704830b7508a3ec6894c54eeacc6cff722e851d9236"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 38164,
+        "sceneCount": 1,
+        "nodeCount": 8,
+        "meshCount": 6,
+        "primitiveCount": 6,
+        "triangleCount": 72,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 27,
+        "animations": [
+          { "name": "static", "durationSeconds": 0.1, "trackCount": 21 },
+          { "name": "idle", "durationSeconds": 1.3333, "trackCount": 4 },
+          { "name": "walk", "durationSeconds": 0.6667, "trackCount": 6 },
+          { "name": "sprint", "durationSeconds": 0.5, "trackCount": 7 },
+          { "name": "sit", "durationSeconds": 0.1667, "trackCount": 3 },
+          { "name": "drive", "durationSeconds": 0.1667, "trackCount": 5 },
+          { "name": "die", "durationSeconds": 0.3333, "trackCount": 8 },
+          { "name": "pick-up", "durationSeconds": 0.3333, "trackCount": 4 },
+          { "name": "emote-yes", "durationSeconds": 0.6667, "trackCount": 4 },
+          { "name": "emote-no", "durationSeconds": 0.6667, "trackCount": 4 },
+          {
+            "name": "holding-right",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-left",
+            "durationSeconds": 0.1667,
+            "trackCount": 1
+          },
+          {
+            "name": "holding-both",
+            "durationSeconds": 0.1667,
+            "trackCount": 2
+          },
+          {
+            "name": "holding-right-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-left-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 3
+          },
+          {
+            "name": "holding-both-shoot",
+            "durationSeconds": 0.2,
+            "trackCount": 4
+          },
+          {
+            "name": "attack-melee-right",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-melee-left",
+            "durationSeconds": 0.4167,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-right",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "attack-kick-left",
+            "durationSeconds": 0.5833,
+            "trackCount": 7
+          },
+          {
+            "name": "interact-right",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "interact-left",
+            "durationSeconds": 0.6667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-sit",
+            "durationSeconds": 0.1667,
+            "trackCount": 4
+          },
+          {
+            "name": "wheelchair-move-forward",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-back",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-left",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          },
+          {
+            "name": "wheelchair-move-right",
+            "durationSeconds": 0.5,
+            "trackCount": 6
+          }
+        ],
+        "extensionsUsed": ["KHR_materials_unlit", "KHR_texture_transform"],
+        "extensionsRequired": ["KHR_materials_unlit"],
+        "externalResourceUris": ["Textures/texture-r.png"],
+        "localAccessorBounds": { "minimum": [-4, -1, -4], "maximum": [4, 8, 4] }
+      }
+    },
+    {
+      "assetId": "world_fence",
+      "label": "fence",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/fence.glb",
+      "bytes": 9672,
+      "sha256": "073bd2000ac51879516d49f835d5156dac4d5038085380b1232858fc3f562d02",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 7944,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 88,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.23750001192092896, 0, -0.03750000149011612],
+          "maximum": [
+            0.23750001192092896, 0.26999998092651367, 0.03750000149011612
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_fence_low",
+      "label": "fence-low",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-low.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/fence-low.glb",
+      "bytes": 18552,
+      "sha256": "fe0272d73820bb4c8db3bed408a28cbd5c042da1373142bd13122a1ac9d1a168",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 16824,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 180,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.6375000476837158, 0, -0.4375],
+          "maximum": [
+            0.6375000476837158, 0.17000000178813934, 0.3999999761581421
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_light_curved",
+      "label": "light-curved",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-curved.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/light-curved.glb",
+      "bytes": 9492,
+      "sha256": "154dcce9d58ec2cd165e26c91a89c97bdd2838cf06d255099b3570df84f82ec6",
+      "eligibleGroups": ["streetLight"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 7764,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 92,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.02500000037252903, 0, -0.20000000298023224],
+          "maximum": [
+            0.02500000037252903, 0.6749999523162842, 0.02500000037252903
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_light_square",
+      "label": "light-square",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-square.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/light-square.glb",
+      "bytes": 6996,
+      "sha256": "6230d136c8883d7f9bc1b86f0309077e452e26e5e1e587ef1b77abef3c5f047c",
+      "eligibleGroups": ["streetLight"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 5268,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 60,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.02500000037252903, 0, -0.21250002086162567],
+          "maximum": [
+            0.02500000037252903, 0.6000000238418579, 0.02500000037252903
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_path_long",
+      "label": "path-long",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/path-long.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/path-long.glb",
+      "bytes": 2940,
+      "sha256": "af6869e19f9922e84df23a48795618f03565587dc2c397bd84cf1f066cfa39d5",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 1188,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 12,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.10000000149011612, 0, -0.20000000298023224],
+          "maximum": [
+            0.10000000149011612, 0.009999999776482582, 0.20000000298023224
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_path_short",
+      "label": "path-short",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/path-short.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/path-short.glb",
+      "bytes": 2944,
+      "sha256": "0f657ebadf8c56adcd54335b8da2e54120f539918ea50509812731790ef99c2b",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 1188,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 12,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.10000000149011612, 0, -0.10000000149011612],
+          "maximum": [
+            0.10000000149011612, 0.009999999776482582, 0.10000000149011612
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_planter",
+      "label": "planter",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/planter.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/planter.glb",
+      "bytes": 20368,
+      "sha256": "a876e87d908f0397dcaf94b7705835447825c4c5b39195319535415386542c17",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 18504,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 204,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.20000000298023224, 0, -0.15057337284088135],
+          "maximum": [
+            0.20000000298023224, 0.17710953950881958, 0.1494266241788864
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_road_bend_sidewalk",
+      "label": "road-bend-sidewalk",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bend-sidewalk.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/road-bend-sidewalk.glb",
+      "bytes": 17024,
+      "sha256": "4e8f7a4cc6c130d55bd754693d5aaba94e037d8639389656964ad57abefd882d",
+      "eligibleGroups": ["roadPieces"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 15336,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 220,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.5, 0, -0.5],
+          "maximum": [0.5, 0.019999999552965164, 0.5]
+        }
+      }
+    },
+    {
+      "assetId": "world_road_crossing",
+      "label": "road-crossing",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-crossing.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/road-crossing.glb",
+      "bytes": 8700,
+      "sha256": "eb8575335f77da513add4a5277a7b60cad4886c07966f024b15cf55e5966cde3",
+      "eligibleGroups": ["roadPieces"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 7032,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 104,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.5, 0, -0.5],
+          "maximum": [0.5, 0.019999999552965164, 0.5]
+        }
+      }
+    },
+    {
+      "assetId": "world_road_side",
+      "label": "road-side",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/road-side.glb",
+      "bytes": 5272,
+      "sha256": "f5482c921a40719f89b1e7c0f6cc9d662b1f3a6149060e9b6bb543390fbdff66",
+      "eligibleGroups": ["roadPieces"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 3588,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 44,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.5, -2.6507684326086516e-16, -0.809999942779541],
+          "maximum": [0.5, 0.019999999552965164, 0.5]
+        }
+      }
+    },
+    {
+      "assetId": "world_road_straight",
+      "label": "road-straight",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-straight.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/road-straight.glb",
+      "bytes": 5248,
+      "sha256": "f8f744fb6fc96dedd5ad1f763b550166f2624a3757bf36b4b39969d2e7cacac5",
+      "eligibleGroups": ["roadPieces"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 3588,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 44,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.5, 0, -0.5],
+          "maximum": [0.5, 0.019999999552965164, 0.5]
+        }
+      }
+    },
+    {
+      "assetId": "world_road_straight_half",
+      "label": "road-straight-half",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-straight-half.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/road-straight-half.glb",
+      "bytes": 5264,
+      "sha256": "8dc2e2f4f6d38094f9c35004f78f20a596554454246d348db2832e6c443188bc",
+      "eligibleGroups": ["roadPieces"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 3588,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 44,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.25, 0, -0.5],
+          "maximum": [0.25, 0.019999999552965164, 0.5]
+        }
+      }
+    },
+    {
+      "assetId": "world_traffic_light",
+      "label": "traffic-light",
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/traffic-light.glb",
+      "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/traffic-light.glb",
+      "bytes": 20344,
+      "sha256": "6c9ee253b7370e1043168493b2e662b349484a0cdd02100cff04d9d8d1bd9abb",
+      "eligibleGroups": ["streetContext"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_roads_2_1/22058af3d68173a7cf9bda9f0e243a8cef6bd68168c302ebc76327063849674e/Models/GLB format/Textures/colormap.png",
+          "bytes": 11428,
+          "sha256": "a48e2962661ae44368ffddf3054f80ed8491d082b757dcc3011184cd9a98b185"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 18552,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 212,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [
+            -0.07259999960660934, 2.2558181451276527e-17, -0.044999998062849045
+          ],
+          "maximum": [
+            0.044999998062849045, 0.5149999856948853, 0.044999998062849045
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_tree_large",
+      "label": "tree-large",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/tree-large.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/tree-large.glb",
+      "bytes": 5812,
+      "sha256": "16d1f95c149bc727a953a473cf20bf21de9bf1a88747c4f9d2eeb4ac7d43e291",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 3968,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 42,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.10522209107875824, 0, -0.12149999290704727],
+          "maximum": [
+            0.10522209107875824, 0.7669999599456787, 0.12149999290704727
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "world_tree_small",
+      "label": "tree-small",
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/tree-small.glb",
+      "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/tree-small.glb",
+      "bytes": 5812,
+      "sha256": "5f63359e5f392609d7617cc98070855ca1ffd4f4b4bc3978a5ff56ece88a58d6",
+      "eligibleGroups": ["parkProps"],
+      "dependencies": [
+        {
+          "uri": "Textures/colormap.png",
+          "sourceMember": "Models/GLB format/Textures/colormap.png",
+          "relativePath": "extracted/kenney_city_kit_suburban_2_0/5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39/Models/GLB format/Textures/colormap.png",
+          "bytes": 11784,
+          "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+        }
+      ],
+      "facts": {
+        "glbVersion": 2,
+        "generator": "UnityGLTF",
+        "chunkCount": 2,
+        "binaryChunkBytes": 3968,
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "triangleCount": 42,
+        "materialCount": 1,
+        "textureCount": 1,
+        "imageCount": 1,
+        "skinCount": 0,
+        "jointCount": 0,
+        "animationCount": 0,
+        "animations": [],
+        "extensionsUsed": ["KHR_texture_transform"],
+        "extensionsRequired": [],
+        "externalResourceUris": ["Textures/colormap.png"],
+        "localAccessorBounds": {
+          "minimum": [-0.10522209107875824, 0, -0.12149999290704727],
+          "maximum": [
+            0.10522209107875824, 0.5670000314712524, 0.12149999290704727
+          ]
+        }
+      }
+    }
+  ],
+  "excludedFromReview": [
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/bridge-pillar-wide.glb",
+      "sha256": "8e605ee4b59bdb5066a08d32458c0676a2763da483925e9761a28e6a77120b82",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/bridge-pillar.glb",
+      "sha256": "71c8d9dbaa502e63bf803c6873165873df4601f7285e1fe040d0f03acab3f0ec",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/construction-barrier.glb",
+      "sha256": "906f73a6d62d8de58a4c5a19e76ff95b460c42b37e5fa37478b8612f06793f26",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/construction-cone.glb",
+      "sha256": "50ceae45cd1d71f738a8f7c40f8b6b46f360063c2754bf717aae54013d6f2ee4",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/construction-fence.glb",
+      "sha256": "8414c211efbc68358eb747cf6d0ad6b9ba4fbc5094603ddabaadf18e8573abbe",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/construction-light.glb",
+      "sha256": "80dd781d6ad1bcb6e07670cc1ce03027031381768aca62b9c7b6e7df99c33650",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/dumpster.glb",
+      "sha256": "c60ebecc23487c38b5e0750856a3b50744d2ea12b3c83ad03d537e5a4670777a",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-pole-single.glb",
+      "sha256": "28d9b7a7ee300999b4ea59c1a5fd9ad197c599ad5be5ab299d63483049af337d",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-pole-wide.glb",
+      "sha256": "85ec58e9e0e29465eed4f96f380b0f540404f097e90f7b6997ef0a3d212e900c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-pole.glb",
+      "sha256": "08c9b924e297eaa46bbd79ac09795c045848a4e38a72b2ce4f973517f840c2d3",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-side-single.glb",
+      "sha256": "60d5641f288bf7fa30c6ecb181df8664034c307af27f15c65f54d066a7c8e738",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-side-wide.glb",
+      "sha256": "e167d413f65c11701df36af9aca834977ae35e1aa20c8e14dea3dce6149eb098",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-side.glb",
+      "sha256": "ce0c278d4da86e7fde075c64b540d4c9a4572ea7a6563fc60b3a0aed2597ef1a",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-wires-wide.glb",
+      "sha256": "858de38d8583cbf78f6cc7dfb65ece4c0c94628bc3a2e281fd8485a16af395bd",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/electricity-wires.glb",
+      "sha256": "514027014328d1465c9cb60755efc184a2b53a9c1ecd77fd34c5265856bd699f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-curved-cross.glb",
+      "sha256": "df14b20f3b748fba97f9d4c419e7c03dae97cbe71851d74063d358ed1bb77490",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-curved-double.glb",
+      "sha256": "038808ab235b889686ae348994e1605f9ec239fecc47b04ba89131b5fb70969c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-square-cross.glb",
+      "sha256": "0492d4389579336c0385e3e786bff351be43434b8a2805fb09aa380e28e2d108",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/light-square-double.glb",
+      "sha256": "b6d0441f7ef65ddc7baefe83de93d00f7df8343f89c5ee6b7b19e732386e29ad",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bend-barrier.glb",
+      "sha256": "dc0dc4f8e82e25eee81c9dd31b5376d31a699e6541d7bb767d7722e3b93e0d86",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bend-square-barrier.glb",
+      "sha256": "279a8aef4a6fc0603dbe970c1b251461fb3d66afc34280704e04976cd51651cc",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bend-square.glb",
+      "sha256": "5864b49931091625ad5249f34b9f1ac4614170b8a3569494a003d4ec0d47907d",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bend.glb",
+      "sha256": "9752f63448c8e7a3d30ca2e0e1bb6784c5adb72b56a2b05667be8d546c1674bc",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-bridge.glb",
+      "sha256": "5e2bdaabddf39b309a3b5d109d7c6423cd68829a8e63960fcc2d23d62c8425b0",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-crossroad-barrier.glb",
+      "sha256": "7e159556f91d216aa519be29021d950612ed863bd1f5c61cccec726062d068e3",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-crossroad-line.glb",
+      "sha256": "87bde0f75b741d4d66e5992e003bb70ceb42847f32092e38c54893babbc4f7e9",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-crossroad-path.glb",
+      "sha256": "5876a578474fabaac8608819936c499bec3d5c68b8096e27498b2163efe1ca78",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-crossroad.glb",
+      "sha256": "2dc52a28cf89ec88025a047c0f6fff4c643f16b0f50f0e9a1140f16230c28b12",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-curve-barrier.glb",
+      "sha256": "32c812901deaa09dc3a7ae02ffc54d9cba6725c22e5fd0ada4069741dabe67aa",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-curve-intersection-barrier.glb",
+      "sha256": "d0620b573330af2325c5c2d27db0a092f16bd49c7a7601bdeac62cc2de183390",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-curve-intersection.glb",
+      "sha256": "76aa1cd40ab3fb649920c8c06d8a37d25d2dda990425603be370e360d587759c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-curve-pavement.glb",
+      "sha256": "f028db0675286bfa0f48fe174bef9ff8d8c65886c327a85abe05fed9453e9853",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-curve.glb",
+      "sha256": "d076717bfe3493dfd5a4b4207a7825e4aff1876273f0d58f5e16e8e8670906f7",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-driveway-double-barrier.glb",
+      "sha256": "057ef29517e70a02dabda572779ae664f55beb3bfad92523e8f78e6cd9d2b287",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-driveway-double.glb",
+      "sha256": "784549802fc55d63a6a13d3ee2acc18ef1c6893d49787f4949c40a7873f887c0",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-driveway-single-barrier.glb",
+      "sha256": "a5bffceacfc54833b15bd4839e49b83c68c1e729f6df4a72391b036eb6977c66",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-driveway-single.glb",
+      "sha256": "59f22734d5c22b55ae007914939227e7742fdddf4c371ace106e8161bdfb5ad2",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-end-barrier.glb",
+      "sha256": "c7a73cfae01de7441c8dcc89a9dd77d64c34af467fc3f03a3cd644a85f1ca8bc",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-end-round-barrier.glb",
+      "sha256": "4dac7ad32a27354cf5201b6f4cca54547874d461a487e5173ba8b19e3b913569",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-end-round.glb",
+      "sha256": "0ad2c0cd4fde52724a5fe277f0eba71df530a5b6c7570d0efe1686c7b456bc76",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-end.glb",
+      "sha256": "bdf62518cfcc2c1a1425a4c8bc845e8e344f9c8b34dfb364b6b7d442e6171f11",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-intersection-barrier.glb",
+      "sha256": "924922890e2d01eb1c953b6def47b87392717cd7243e44ae4b4117f5eae0c670",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-intersection-line.glb",
+      "sha256": "a9a202594178362e89ae62b1d9cbfbc7c892f9fcb8564d014cdd96a81823a8d9",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-intersection-path.glb",
+      "sha256": "b5e5fcb458249c3059d12fb30880014781dcb5e3c6f958660d255986cebd865f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-intersection.glb",
+      "sha256": "fdf4f213abe41ddfe2a7e798a0ef1c3de5b7a68143e21c44f1893985ec6aae58",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-roundabout-barrier.glb",
+      "sha256": "fc65f8b3f445146bed071c372e06fe3329c94f327f418c801f66c739955e2531",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-roundabout.glb",
+      "sha256": "6bde41e46040fa35c90f86a524fe5ff344ede07f50f077e1732762b82f8e2d66",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side-barrier.glb",
+      "sha256": "35101d5cb8774c51b7203fabefc04c49335a5e54ef30e5ae5b858cbf0a3a2f9d",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side-entry-barrier.glb",
+      "sha256": "a2186fdb216e0a59c2238efd2cb9c5d8cce30f8b8f23243132230966710aac54",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side-entry.glb",
+      "sha256": "94828a34b4987f1dcbc7972df1612a7ee72f7d9fab207ffd234e021a7093027f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side-exit-barrier.glb",
+      "sha256": "4e79f3a1b06250b6423ea8a68692930b032052fdf4d021056eda998e5dbfaf92",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-side-exit.glb",
+      "sha256": "356df3d64123669461b7b176ab90173e1c8a84ab35af00034a62f2658e56c38f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-empty-hanging.glb",
+      "sha256": "41021007cd856fada1f372a1f8ed93c229461cfac85ad888e16549e559455b23",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-empty.glb",
+      "sha256": "7681ee84c5363e2c95a37593fc3bdd0afb81b23fa46ae6be1c0939a112a4306a",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-object-stop.glb",
+      "sha256": "9691bb7ff4a7b911f9713d71cf473e0b8f30ac3964052650fd2395cd19dc36e4",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-object-street.glb",
+      "sha256": "c44690d1d12f1a45dd1a24254fecf95c62c1ba088ef6104d677bf716f2a1cad3",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-object-warning.glb",
+      "sha256": "5c9608d70854ba7ad3bca061b643d5731f2040c650653d4daca564f5a2b487c2",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-stop.glb",
+      "sha256": "0991181f37171daf8d2501e436a688e46ea2bcebb5e27aa451640fcbaab107ef",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-street.glb",
+      "sha256": "570ab030366f549575f0b111fca3965aa8d103043bd3a002f40fad2a3f8175c1",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-sign-warning.glb",
+      "sha256": "db8049a51eb60c77e40253e8b5a9d41359a49d2a9083223dce361cfb0605c3a9",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-barrier.glb",
+      "sha256": "c620119f0a3b23c8e883d4f8089a2449432846a4908b7611ef9a22091d72bd2c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-curve-barrier.glb",
+      "sha256": "ebc41618b5f63bb339f9877520000e63d4c33c4fd350bc81ff6bb21dcc778eac",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-curve.glb",
+      "sha256": "9cf7fed9d5770bdc6043825d99b9e814bf3315de56dd3e77ea38e1f2e54f3d4c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-flat-curve.glb",
+      "sha256": "a8a9a3c7a3ec243129bcf297ea1f9dbe97893ef839f4e9f3741bb25b069ef7ee",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-flat-high.glb",
+      "sha256": "b203a50b1b4b021806b5639030c021ddd8113ae9f0600c0609467a26e48518ca",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-flat.glb",
+      "sha256": "c9aca2db3277d4556c08b9950bf08f6c274023e8f6401fd649e271412f0d125f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-high-barrier.glb",
+      "sha256": "47df00c9a9ee8637d001958b002d0929e31fe3b65df3641c1ad5f85a01f5194b",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant-high.glb",
+      "sha256": "ecd06a3227745a7967a886ca80c6b467ca29430c17119334b6e1a26c4193b692",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-slant.glb",
+      "sha256": "c14bb57253db5cae32c4a10b572b9ddd7e3aa6fedad9f5e49ce92e1ca24f0a41",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-split-barrier.glb",
+      "sha256": "574e9ea5ae31b80ba02442d9c5f801877a75f0596e129a090e2ec540d8421a7b",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-split.glb",
+      "sha256": "4ef637bb724062d2165f3a288254117ae8e2d88f301a84578a2f21ab57de5542",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-square-barrier.glb",
+      "sha256": "fae603409f1375b51993a470e9f273c240c37da9983de87e20b7c61ef9bc86a2",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-square.glb",
+      "sha256": "97ee7a325fd53087388c317fdee2620a61fc8a9f5e467bbe1a0a80f0b52a98c0",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-straight-barrier-end.glb",
+      "sha256": "d8df21f1a931fc618d28440b5cbcbfaaa13c422dd5a240666bdc83cb8988f889",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-straight-barrier-half.glb",
+      "sha256": "6f850dedf540f9aadc618cf70c24af317a69a35e10cefd2da16df2c85311b994",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/road-straight-barrier.glb",
+      "sha256": "eeaf5469bb34b94e3edaf71c5d7c9da152c0a398f86c9ec6c234a82a42833e4e",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/sign-highway-detailed.glb",
+      "sha256": "122d293bc9ee3378ab2492242ac615fee1c791066ec747599829a801f6a5b99d",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/sign-highway-wide.glb",
+      "sha256": "9b133033576388d10fdced59d2ef92bc30409fda3dfb40d6334f35276729d1fd",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/sign-highway.glb",
+      "sha256": "95858108df403b7051f97598a78b93ddc398ac6cac85ad8abc0bf9198a9fe282",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/tile-high.glb",
+      "sha256": "b3628407e66c95605c0290d177128e0a0dccead3e9b079399a7eb56aa8b86525",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/tile-low.glb",
+      "sha256": "23f54fced68c7647f6d851c8080791b56e2a7e7f541eac2e95c647006a5901c4",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/tile-slant.glb",
+      "sha256": "7900e14823d5cf1b0ffd2eb14bd8c6629bd35d972f181fcfb39f707f0dfe1caa",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/tile-slantHigh.glb",
+      "sha256": "f4d24adb093b598fd4f874c653b39ec9dc426e07754109c6e64394fb0674b2c7",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/traffic-light-hanging.glb",
+      "sha256": "a433ad0e253da289f40a859fd4f3fe35dd6b575804c5f8262fec7fad331b9522",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/traffic-light-object-hanging.glb",
+      "sha256": "67aa6068344ae6c17683aa80fcfc59224253b9136759e27e220dbe1ba43ca641",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/traffic-light-object-horizontal.glb",
+      "sha256": "882fbe0b1934445282ee4499b354f63b3d837615ffe1898ec679ecbb95cbb3a1",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_roads_2_1",
+      "sourceMember": "Models/GLB format/traffic-light-object-vertical.glb",
+      "sha256": "0e620c08dd25cd4eee700ff983f35ce2e7ebd20f1027e13b01c020fd961d0730",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/driveway-long.glb",
+      "sha256": "d6fc46e8a5363c87b616eaa65c5dbcffa9026b8af47f979dc6c38cfa91f53459",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/driveway-short.glb",
+      "sha256": "7c7e81602cd6b1024fc98f3f32803db2e21222a3e30cfc838fb7f2282f593823",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-1x2.glb",
+      "sha256": "54dd8d87f4ee0fd4d945b694a10a74eb7b20b1bd7468e09fd21fc32fb2b78397",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-1x3.glb",
+      "sha256": "b4f1b79a844381c29199df417dc4fe17c2eaa1b8aa719aaaa24a7f61687a3ca9",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-1x4.glb",
+      "sha256": "f63d17e1bb8f83416cffefdc0a90615ddd5b2cb69d8ea721cebdd663f9b2c4fc",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-2x2.glb",
+      "sha256": "91862d7ee50b70763b45498fc61401cd3a7f150d337b0815d50b9ce2e2dc3612",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-2x3.glb",
+      "sha256": "1a8270c40f650c9a2e58785945aad457fd58d42cc979b862b347e05a5f0a2f6f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-3x2.glb",
+      "sha256": "a14090e53a25bc55bede6197edd39983519d995aa831ff2f640d4d636d090a2b",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/fence-3x3.glb",
+      "sha256": "8b4f5c808ea8fdea656bb79171cf489bf469a295cdb737c449ed8d387b5242e4",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/path-stones-long.glb",
+      "sha256": "cbd73ca5746f2290f44a2e1fc6f0759076c2c5fcdb3cb3f1e3acd74d5751d114",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/path-stones-messy.glb",
+      "sha256": "5493589dfac443ecbc0ad5563d9bb98edcefdaa972a0dc65fa65575609fbcd92",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_city_kit_suburban_2_0",
+      "sourceMember": "Models/GLB format/path-stones-short.glb",
+      "sha256": "63148e02c35d4ad249ee1dcbb0c5ee921cd719f501b25eb8b66bc0e1b20ce28c",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-beaver.glb",
+      "sha256": "20f91809e69c66625190eb02aebef9ab543f5cf5cb17b8211b1002330584bfac",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-bee.glb",
+      "sha256": "9d3116da6c22eabf0b46efeeec7fceae8fbd01e101fddd4e6746379ff851e192",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-bunny.glb",
+      "sha256": "94b654915d9de70071bcf0bfa13de379a3ba4fdfeb231f0fec49335232cbc821",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-caterpillar.glb",
+      "sha256": "470d2481ba246ff957da0164707326e805c54dde553468a104e83ad9c7281723",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-chick.glb",
+      "sha256": "86dd5f030c9341486313b35b9e827500c430274a83b5d683cab5b1f55bc1024d",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-cow.glb",
+      "sha256": "57213ad1b06c1b6959c334215b4473039a7cd47c8500b65977df923e2e3e7929",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-crab.glb",
+      "sha256": "80fa5fd7c3652938d9e3c3024bb97dc9391a0e174fcc8b9459b63c613ed050f6",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-deer.glb",
+      "sha256": "b37162d91001eefda02bd111c8e836a0c4d805ab0191887459ded0d020624ec2",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-dog.glb",
+      "sha256": "c127d71ac8794f9710313bbb44800ae33a79f1182cf5c523c4233cc10a93851f",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-elephant.glb",
+      "sha256": "0831346fb8ddb8e99e42e3f92fb48858551049dc7ea49e641d90fdfc65e057be",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-fish.glb",
+      "sha256": "b8432e91000ee6ad3f9223198709329ce46a5886c954ad851d11ae215b1fbbb2",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-fox.glb",
+      "sha256": "ac1ae804da301371509cff84206e3c6b78ff9c7d02411ef0cd004731090d6b82",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-giraffe.glb",
+      "sha256": "ab3562e1edb4dc6b14d5c7c9083ba3052a44ca0ccdcac2c15461d84397dc2f31",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-hog.glb",
+      "sha256": "978b137c139f65c5659632bd9c12a521fbd44b5756168653157b069db8f2faf9",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-koala.glb",
+      "sha256": "ba13a1975bd746c59e2dce8309736c26597c8a9839602f736e4ec8570ba84fa0",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-lion.glb",
+      "sha256": "64697c4a76357fe8d9688fe077a5e74e527a6602574fd0941895be84b5883703",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-monkey.glb",
+      "sha256": "4f1ba41bd6380f0daa6205442f8fb797c167d7abceaaa58943eae0e6fc9044a6",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-panda.glb",
+      "sha256": "e001aea4fcd1c2dcb384774019f84183e6d0b638ebd986da65fee32bd93d1359",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-parrot.glb",
+      "sha256": "a028fcccd8559652ea100fabaceb82ef53633e3474025eca593a753b008f52ab",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-penguin.glb",
+      "sha256": "ff3d7ccae941ab06773a348b03446f97650043594ab1121a26514c3e2ea6cb29",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-pig.glb",
+      "sha256": "0e09d3c745a7daa1f53ecd320739b94d57a6ea1dfc498da01dd468f3f4c866a1",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-polar.glb",
+      "sha256": "8e94b6a8f44b38198f698f2262c3ed7aed34bd1cb3a016f7613fb5eea0897564",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    },
+    {
+      "sourceId": "kenney_cube_pets_page_2_0",
+      "sourceMember": "Models/GLB format/animal-tiger.glb",
+      "sha256": "cc70cdfd27ec6550b7a4524a3cc75fd594f94d384cac2bb68504b60d379f47d4",
+      "reason": "OUTSIDE_BOUNDED_M8_REVIEW_SCOPE"
+    }
+  ]
+}

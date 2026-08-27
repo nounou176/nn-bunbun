@@ -45,6 +45,13 @@ Completed focused M8 implementation plans:
   D-038/D-042/D-043; exact assets, implementation, and A/B/C manual
   browser/audio matrix complete
 
+Approved focused M8 world plan:
+
+- plans/2026-08-27-m8-rainy-neighborhood-world.md — Approved under
+  D-025/D-038/D-044; bounded ignored intake and technical qualification are
+  complete, the local 55-candidate review is ready, and exact visual/hash
+  selection plus runtime registration remain unapproved
+
 Historical M7 v3.1 evidence plan:
 
 - plans/2026-08-19-m7-v3-custom-gpt-browser-bridge.md — Superseded as the
@@ -288,9 +295,38 @@ Completed ExecPlans:
 - Added closed debug-only `nonSpeechFailure=ambience|effects|music` routes so
   the user can manually verify optional-file isolation without deleting or
   mutating an approved asset.
+- Completed D-044's bounded ignored intake for four official Kenney archives.
+  Provenance, archive safety, CC0 evidence, GLB structure, referenced textures,
+  and hashes validate for 177 models. The tracked catalog exposes 55 exact
+  local-review candidates and accounts for the other 122 as outside this
+  bounded review; none is selected or present in runtime.
 
 ## Current work
 
+- Parent M8 Milestone 3 is at its second user gate. The loopback Three.js
+  reviewer displays the exact 55 candidates, their animations and hashes,
+  persists review/assignment progress locally, and exports a complete proposed
+  decision packet. Assembly and runtime registration remain blocked until the
+  user returns and explicitly approves that exact packet.
+- The user has returned one structurally and semantically valid 55/55 proposal
+  bound to the current catalog: 18 approved, 37 rejected, Aoi
+  `world_character_n`, Tanaka `world_character_q`, Momo `world_animal_cat`, and
+  storefront `world_building_type_n`. The proposal packet SHA-256 is
+  `e9b6fa88597815d1178a35c4f63651a4504f212eec1b8fe9b340bf3a380b9390`.
+  Its own status remains `PROPOSED_FOR_USER_APPROVAL`, so it is not yet an
+  accepted D-044 Gate 2 decision and authorizes no assembly/runtime work.
+- The user's first review screenshot showed static page chrome but no
+  assignment controls, candidate cards, or model. The reviewer no longer lets
+  GPU initialization block catalog DOM rendering, automatically requests the
+  first model after renderer startup, contains malformed saved local state,
+  and reports module/renderer failures visibly. A second screenshot reproduced
+  the failure and exposed the root cause: `three.module.js` imported the
+  unserved `/vendor/three.core.js`. The complete local module chain now returns
+  HTTP 200 and has a focused regression test; the corrected browser path awaits
+  the user's retest. The user subsequently reported explicit `PASS` after the
+  stale server process was replaced: model display, assignments, and candidate
+  cards are now available. This accepts the review tool path, not an exact
+  asset selection; Gate 2 still requires the exported JSON packet.
 - D-041 records the user's approval of the exact Aoi WAV for
   `財布を探してください。` and their successful cached-gameplay check. The row
   is immutable `READY`; repository inspection confirms its reviewed hash,
@@ -669,9 +705,9 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Prepare the self-contained plan for parent showcase Milestone 3: intake,
-   review, and assemble the rainy-evening neighborhood chunk under D-025 and
-   D-038. Do not add a new world asset or dependency before explicit approval.
+2. Have the user complete D-044's local 3D review and return its exact JSON
+   proposal. Do not assemble or register a runtime world before the second
+   visual/hash approval.
 3. Keep final production dialogue/utterance review and exact M9 manifest
    linkage behind that reviewed world checkpoint.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
@@ -738,6 +774,17 @@ measurable vertical-slice acceptance choices.
   D-015 defers release packaging. The user's qualitative `M8 MIX A/B/C: PASS`
   reports complete the focused manual browser/audio matrix without supplying a
   numeric performance baseline.
+- D-044 M8 world candidate qualification: four exact archives retain stable
+  SHA-256 identities and fit the approved limits at 10,849,076 compressed
+  bytes, 42,954,997 expanded bytes, and 1,017 members. All 177 GLBs and their
+  21 referenced PNG textures validate; 55 enter exact visual review and 122
+  are explicitly outside scope. Three focused test files, schema drift,
+  workspace typecheck, lint, formatting, production build, diff hygiene, and
+  all 96 workspace tests pass; the server tests require the existing permitted
+  loopback boundary. Loopback smoke checks return HTTP 200 for the review HTML,
+  local Three.js loader, one animated character GLB, and its exact texture.
+  Automated browser E2E remains excluded by D-011; user visual acceptance is
+  pending.
 - M7 completion under D-036: no automated test suite, Playwright, browser/
   gameplay acceptance, external 0.2.0 transport rerun, or real repair run was
   executed at the user's explicit direction. Workspace typecheck, lint,

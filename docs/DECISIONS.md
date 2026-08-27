@@ -2144,6 +2144,64 @@ happy-path, optional-file isolation, background/replay/restart, credits, and
 session-reset matrix. No numeric loudness, unlock latency, frame impact,
 memory, device, or source-growth baseline is inferred from those reports.
 
+### D-044 — Authorize bounded zero-cost M8 world candidate intake
+
+- Date: 2026-08-27
+- Status: Accepted by explicit user approval
+- Affects: Milestone 8 world intake, Three.js authoring, Kenney candidates,
+  cost, licensing, local review, production scene selection
+
+Context:
+
+Parent showcase Milestone 2 is complete under D-043. Milestone 3 now needs one
+bounded rainy-evening neighborhood, but D-025 only names initial authoring and
+asset candidates and does not approve an immutable source archive or runtime
+model. The current runtime remains hard-coded to the technical `park_small`
+fixture. D-038 forbids downloading, selecting, or adding even free third-party
+assets before a self-contained cost, license, data, operations, fallback, and
+removal plan is explicitly approved.
+
+Decision:
+
+Approve `plans/2026-08-27-m8-rainy-neighborhood-world.md`. Authorize intake of
+at most the four official individual Kenney asset-page downloads named there:
+City Kit (Roads), City Kit (Suburban), Blocky Characters, and Cube Pets. Intake
+must remain inside ignored local staging, use the plan's archive/member/byte
+safety bounds, retain current official page and included license evidence, and
+produce a loopback-only exact 3D review catalog.
+
+Use only the already installed `three@0.185.1` loaders, exporter, controls, and
+utilities for qualification and proposed assembly. Do not add Blender,
+glTF-Transform, a navmesh/pathfinding package, physics, VFX middleware,
+compression tooling, or another asset source. The official Three.js Editor is
+optional, authoring-only, non-authoritative, and may receive only public Kenney
+assets. It receives no learner or private project data.
+
+Expected and maximum committed financial cost are USD 0. Do not donate, buy
+the advertised All-in-One bundle, create an account, accept a trial/free-tier
+dependency, provide a credential, or add an environment variable. Abort before
+any payment, login, license expansion, or intake-bound increase. No learner
+target, lesson text, evidence, save, speech cache, prompt, identifier, or secret
+may leave the machine. Ordinary gameplay remains same-origin and offline from
+Kenney and threejs.org.
+
+This is the first of two gates. It does not approve a pack wholesale, a source
+member, a derived GLB, a catalog ID, or a runtime registration. After technical
+qualification, the user must approve or reject every bounded candidate by
+exact `assetId + SHA-256`. Assembly and runtime work begin only after that
+second decision is recorded.
+
+Consequences:
+
+Candidate intake and local review may proceed with no new recurring operation
+or runtime dependency. Failed or changed archives remain unapproved and can be
+removed by deleting the bounded staging directory. The technical park, D-043
+audio, LessonManifest 0.1.0, evidence data, and SQLite migrations remain
+unchanged. If the pinned Three.js route, direct obstacle-free navigation,
+license evidence, animation compatibility, or plan budget fails, work stops
+and returns for another explicit decision rather than adding a convenient
+third party.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
