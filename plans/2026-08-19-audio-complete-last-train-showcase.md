@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestones 2 and 3 complete, Milestone 4 next
+Status: Active; Milestones 2 and 3 complete, Milestone 4 Content Gate 1 pending
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -366,6 +366,17 @@ reproducible acceptance checklist.
       background/resume, reload/disposal, and default lesson-library/park
       regression. The complete A/B/C matrix closes parent Milestone 3; parent
       Milestone 4 lesson authoring is next.
+- [x] 2026-08-27 — User approves the focused M8 lesson-package plan. D-046
+      fixes the repository-owned package-first boundary, six targets, four
+      production utterances, nine-step/all-eight-primitive graph, two exact
+      user gates, and USD 0 incremental/recurring cost.
+- [x] 2026-08-27 — Create and validate the Content Gate 1 proposal packet and
+      review sheet. The exact packet has SHA-256
+      `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`;
+      it remains unapproved and authorizes neither speech generation nor
+      runtime activation.
+- [ ] Receive exact Content Gate 1 hash approval before generating production
+      speech or promoting the fixed lesson package.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

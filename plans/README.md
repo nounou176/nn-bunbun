@@ -34,8 +34,10 @@ sequentially.
 
 D-026 also approves the N5 Vietnamese `Three Minutes to the Last Train`
 vertical-slice outcome and complete authored-audio boundary. Its ExecPlan is
-active with parent Milestone 2 complete and Milestone 3 rainy-neighborhood
-planning next. D-037 excludes Amazon Polly, and D-038 requires explicit plan
+active with parent Milestones 2 and 3 complete. D-046 approves the focused
+Milestone 4 fixed-package-first plan; its validated exact Content Gate 1 packet
+awaits user hash approval before speech generation. D-037 excludes Amazon
+Polly, and D-038 requires explicit plan
 approval before any new third-party selection,
 rejects free tiers or credits as the financial foundation, excludes OpenAI API,
 and constrains the first TTS route to zero incremental usage and recurring cost
@@ -76,6 +78,7 @@ before runtime registration.
 
 | Plan                                              | Status                                                     | Outcome                                                                                                                                                                |
 | ------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-27-m8-last-train-lesson-package.md        | Approved — Content Gate 1 exact hash pending               | Author one fixed six-target, four-utterance, nine-step last-train package before production compiler integration; no speech generation or runtime activation yet       |
 | 2026-08-27-m8-rainy-neighborhood-world.md         | Approved — intake qualified; exact visual gate pending     | Four bounded official Kenney packs yield 55 exact local-review candidates; user visual/hash approval remains required before assembling the rainy-evening neighborhood |
 | 2026-08-25-m8-zero-cost-non-speech-audio-mixer.md | Complete — A/B/C manual audio matrix accepted              | 16 exact files and the dependency-free five-bus native Web Audio mixer pass supported checks and the user's qualitative browser/audio matrix                           |
 | 2026-08-25-m8-reviewed-cached-japanese-speech.md  | Complete — reviewed cached-speech foundation accepted      | Exact Aoi WAV is `READY`; A/B/C manual checks and isolated destructive/failure tests pass without a runtime Nemo dependency                                            |

@@ -30,7 +30,13 @@ Most recently completed ExecPlan:
 Active parent ExecPlan:
 
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
-  Milestones 2 and 3 complete; Milestone 4 complete-lesson authoring next
+  Milestones 2 and 3 complete; Milestone 4 Content Gate 1 pending
+
+Active focused M8 lesson plan:
+
+- plans/2026-08-27-m8-last-train-lesson-package.md — Approved under D-046;
+  exact six-target/four-utterance/nine-step Content Gate 1 proposal validates,
+  but user hash approval, speech generation, and runtime activation remain open
 
 Completed focused M8 qualification plan:
 
@@ -597,9 +603,10 @@ Present:
 
 Not present:
 
-- production 3D, approved production non-speech audio, or image assets; the
-  accepted technical Aoi speech WAV is ignored local cache data rather than a
-  production source set;
+- approved world and non-speech assets are present, but the four exact
+  production speech rows and complete production lesson package are not; the
+  accepted technical Aoi speech WAV remains ignored local cache data and is not
+  promoted by the Content Gate 1 proposal;
 - learner identity, cross-device sync, mastery, scheduler, or analytics
   transport;
 - application AI/model calls, runtime TTS calls, or remote/paid provider
@@ -632,10 +639,10 @@ documentation and implementation changes are uncommitted.
    does not invalidate the accepted visible fallback path, but the console-level
    upstream/backend behavior remains a known diagnostic risk for later renderer
    maintenance.
-6. D-026 selects the first learner level, Vietnamese support locale, rainy-
-   evening scene variant, scenario, and initial target set, but exact dialogue,
-   reviewed reference fixture, production asset files, and measured acceptance
-   thresholds are not yet selected or implemented.
+6. D-046 now proposes exact dialogue, Vietnamese support, six targets, and the
+   nine-step graph in Content Gate 1, but the packet hash is not yet approved.
+   Production speech, the validated runtime package, and measured scenario
+   acceptance remain unimplemented.
 7. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. M7 compiler normalization is
    implemented only for the closed three-target Bunbun Core technical profile;
@@ -717,8 +724,9 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Begin parent M8 Milestone 4: author and validate the complete lesson package
-   and exact production utterances against the accepted fixed world registry.
+2. Review and approve or revise Content Gate 1 packet SHA-256
+   `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
+   Do not generate production speech or activate the package before approval.
 3. Keep M9 linkage behind that complete package and speech review checkpoint.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
@@ -733,6 +741,19 @@ measurable vertical-slice acceptance choices.
 
 ## Verification status
 
+- D-046 M8 Content Gate 1 proposal: deterministic validation passes six
+  targets, four exact utterances, nine steps, all eight primitive identities,
+  fixed Aoi/Tanaka voice assignments, bounded assistance, target evidence,
+  carry order, USD 0 cost, and closed provider/runtime authority. Focused tests
+  pass 9/9, covering one valid packet plus authority, provider, primitive,
+  scaffold, voice, attempt, carry, and evidence rejection paths. Lint,
+  relevant and extended-document formatting, schema drift for 56 generated
+  files, workspace typecheck, and `git diff --check` pass. The exact packet
+  SHA-256 is
+  `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
+  This is a proposal, not user content approval: speech generation and runtime
+  activation remain false. Playwright is excluded by D-011 and Docker is not
+  applicable under D-015.
 - D-039 VOICEVOX Nemo qualification: the official 0.24.0 CPU archive matches
   its published hash and passes archive validation. The live API reported nine
   voices and bound only to `127.0.0.1:50121`. All 36 unchanged-baseline WAVs

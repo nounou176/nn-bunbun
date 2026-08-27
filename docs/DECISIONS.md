@@ -2251,6 +2251,56 @@ must stop promotion. A later visual substitution or additional asset requires
 a new explicit decision; it cannot inherit D-045 approval. The existing
 technical park and LessonManifest 0.1.0 behavior remain regression boundaries.
 
+### D-046 — Approve the fixed-package-first M8 lesson authoring plan
+
+- Date: 2026-08-27
+- Status: Accepted by explicit user approval
+- Affects: Milestone 8 lesson content, production speech gates, runtime
+  capability integration, Milestone 5 boundary
+
+Context:
+
+The technical audio boundary and exact rainy-neighborhood world are complete
+and manually accepted, but the runtime capability gate and authored demo still
+target the technical park. The first production lesson needs repository-owned
+N5/Vietnamese content, exact dialogue, deterministic answer truth, reviewed
+speech, and a fixed package before the M7 compiler is allowed to select the
+production profile. D-038 also requires the implementation plan to keep cost,
+license, data, dependency, and operational effects explicit.
+
+Decision:
+
+Accept `plans/2026-08-27-m8-last-train-lesson-package.md` after the user sent
+`DUYỆT PLAN M8 LESSON M4`. Implement one fixed authored
+`Three Minutes to the Last Train` package first, then connect the M7 compiler
+in parent Milestone 5. Keep the requested targets `財布`, `探す`, and
+`～てください`; add only supporting `傘`, `駅`, and `～てはいけない`.
+Use a nine-step graph that executes all eight primitives and repeats LISTEN for
+Aoi's spoken resolution.
+
+Require two exact user gates. Content Gate 1 binds the six targets, Japanese
+and Vietnamese content, four exact Aoi/Tanaka utterances, answer truth,
+scaffolds, evidence, and cue intentions to one byte-level SHA-256. It does not
+authorize speech generation or runtime activation. After Gate 1 approval,
+generate only those exact lines through the already approved local VOICEVOX
+Nemo boundary. Speech Gate 2 separately requires listening approval bound to
+every immutable WAV hash before the package may activate.
+
+No new service, API, account, credential, environment variable, model,
+dependency, visual asset, or non-speech asset is approved. Incremental and
+recurring service cost remain USD 0. Ordinary gameplay makes no TTS, LLM,
+Custom GPT, provider, or external asset request. LessonManifest and
+CatalogSnapshot stay at 0.1.0 unless a separately approved contract change is
+proven necessary.
+
+Consequences:
+
+The exact content proposal may now be created and validated, but no generated
+speech or production runtime activation may be inferred from plan approval.
+The M7 plugin/compiler contract remains unchanged in this milestone. Content
+or speech hash drift reopens the applicable gate rather than silently reusing
+an older technical artifact.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

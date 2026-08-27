@@ -41,6 +41,8 @@
     "audio:m8:runtime-check": "node scripts/validate-m8-runtime-audio.mjs",
     "audio:m8:review": "node scripts/serve-m8-audio-review.mjs",
     "audio:m8:test": "node scripts/generate-m8-authored-audio.test.mjs",
+    "lesson:m8:content-check": "node scripts/validate-m8-last-train-content.mjs",
+    "lesson:m8:content-test": "node scripts/validate-m8-last-train-content.test.mjs",
     "world:m8:intake": "node scripts/intake-m8-world-assets.mjs",
     "world:m8:intake-check": "node scripts/validate-m8-world-intake.mjs",
     "world:m8:approval-check": "node scripts/validate-m8-world-approval.mjs check",
