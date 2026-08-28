@@ -10,6 +10,7 @@ import {
   LessonAuthoringResultSchema,
   LessonAuthoringResultV2Schema,
   LessonManifestSchema,
+  JapaneseTextStudyCatalogSchema,
 } from "../src/schema/index.js";
 import {
   validAuthoringRequest,
@@ -49,6 +50,13 @@ const artifacts = new Map<string, string>([
   [
     resolve(packageDirectory, "schemas/catalog-snapshot-0.1.0.schema.json"),
     serialize(CatalogSnapshotSchema),
+  ],
+  [
+    resolve(
+      packageDirectory,
+      "schemas/japanese-text-study-catalog-0.1.0.schema.json",
+    ),
+    serialize(JapaneseTextStudyCatalogSchema),
   ],
   [
     resolve(packageDirectory, "schemas/evidence-persistence-0.1.0.schema.json"),

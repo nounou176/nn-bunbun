@@ -1,0 +1,186 @@
+{
+  "packetFormat": "bunbun_m8_japanese_reference_qualification",
+  "packetVersion": "1.0.0",
+  "status": "JM_DICT_PROPOSED_FOR_GATE_2",
+  "observedOn": "2026-08-28",
+  "authority": {
+    "decisionId": "D-051",
+    "plan": "plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md",
+    "authoringToolQualificationAuthorized": true,
+    "jmdictCandidateIntakeAuthorized": true,
+    "jmdictPromotionAuthorized": false,
+    "requiredNextAction": "USER_APPROVE_EXACT_JMDICT_PACKET_SHA256"
+  },
+  "costAndData": {
+    "incrementalUsd": 0,
+    "recurringUsd": 0,
+    "accountsRequired": [],
+    "environmentVariablesRequired": [],
+    "runtimeNetworkRequired": false,
+    "learnerDataSentExternally": false
+  },
+  "qualifiedAuthoringTools": [
+    {
+      "package": "kuromoji",
+      "version": "0.1.2",
+      "registryIntegrity": "sha512-V0dUf+C2LpcPEXhoHLMAop/bOht16Dyr+mDiIE39yX3vqau7p80De/koFqpiTcL1zzdZlc3xuHZ8u5gjYRfFaQ==",
+      "installedBytesApprox": 41943040,
+      "runtimeBundlingAllowed": false,
+      "role": "AUTHORING_PROPOSAL_TOOL",
+      "license": {
+        "spdx": "Apache-2.0",
+        "licenseFileSha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "noticeFileSha256": "fab84e2471dada5afa7ea4226b629f3fda414f9b50b62b4f832f8b57fe9addd7",
+        "noticeIncludes": [
+          "mecab-ipadic-2.7.0-20070801",
+          "Nara Institute of Science and Technology copyright",
+          "ICOT redistribution and no-warranty terms"
+        ],
+        "sourceUrl": "https://github.com/takuyaa/kuromoji.js/",
+        "noticeUrl": "https://github.com/takuyaa/kuromoji.js/blob/master/NOTICE.md"
+      }
+    },
+    {
+      "package": "wanakana",
+      "version": "5.3.1",
+      "registryIntegrity": "sha512-OSDqupzTlzl2LGyqTdhcXcl6ezMiFhcUwLBP8YKaBIbMYW1wAwDvupw2T9G9oVaKT9RmaSpyTXjxddFPUcFFIw==",
+      "installedBytesApprox": 573440,
+      "runtimeBundlingAllowed": false,
+      "role": "AUTHORING_PROPOSAL_TOOL",
+      "license": {
+        "spdx": "MIT",
+        "licenseFileSha256": "a2b910e52e70524d13946b7936c1accbb8531461fafaaa21cc1eb5088a8b86df",
+        "copyright": "2013 WaniKani Community Github",
+        "sourceUrl": "https://github.com/WaniKani/WanaKana/"
+      }
+    }
+  ],
+  "jmdictGate2Candidate": {
+    "selectionState": "NOT_APPROVED_NOT_PROMOTED",
+    "edition": "JMdict English without examples",
+    "title": "JMdict [2026-08-27]",
+    "revision": "JMdict.2026-08-27",
+    "stagingPath": ".bunbun-data/reference-intake/jmdict/v1/JMdict_english.zip",
+    "downloadUrl": "https://github.com/yomidevs/jmdict-yomitan/releases/latest/download/JMdict_english.zip",
+    "archive": {
+      "bytes": 15578515,
+      "sha256": "2fdd9e55b2a5b90d063473f7b33b83ea80782e19591d523f0000259ad9274d36",
+      "memberCount": 55,
+      "expandedBytes": 171061353,
+      "extracted": false
+    },
+    "producer": {
+      "name": "yomitan-import",
+      "url": "https://github.com/yomidevs/yomitan-import"
+    },
+    "upstream": {
+      "name": "JMdict",
+      "owner": "Electronic Dictionary Research and Development Group",
+      "license": "CC-BY-SA-4.0",
+      "licenseUrl": "https://www.edrdg.org/edrdg/licence.html",
+      "attributionRequired": true,
+      "updateProcedureRequired": true,
+      "noWarranty": true
+    },
+    "proposedUseAfterApproval": "AUTHORING_TIME_ENGLISH_VOCABULARY_FALLBACK_ONLY",
+    "prohibitedUses": [
+      "Runtime network lookup",
+      "Grammar explanation",
+      "Vietnamese gloss attribution",
+      "Shipping the complete archive",
+      "Promotion before exact user approval"
+    ]
+  },
+  "jmdictGate2ProposedSelections": [
+    {
+      "term": "財布",
+      "reading": "さいふ",
+      "sequence": 1296970,
+      "definitionTags": "n",
+      "sourceMember": "term_bank_8.json",
+      "rowSha256": "86a6096e2990d62a6ff0749bb3c0fa1dbcfd5a4e4ebb6c8ab558853f1b375697",
+      "englishGlosses": [
+        "wallet",
+        "purse",
+        "coin purse",
+        "billfold",
+        "pocketbook"
+      ]
+    },
+    {
+      "term": "探す",
+      "reading": "さがす",
+      "sequence": 1593670,
+      "definitionTags": "1 v5s vt",
+      "sourceMember": "term_bank_16.json",
+      "rowSha256": "412ce1540ef8fe0714965e387e01f999445fde6d7192be19a115ad8492daec55",
+      "englishGlosses": [
+        "to search for",
+        "to look for",
+        "to hunt for",
+        "to seek"
+      ]
+    },
+    {
+      "term": "傘",
+      "reading": "かさ",
+      "sequence": 1301940,
+      "definitionTags": "1 n",
+      "sourceMember": "term_bank_8.json",
+      "rowSha256": "ef1e448f966dee1503c3147dca87df8fb98dbbe5f62145de5c8a2c90b70ea8ce",
+      "englishGlosses": ["umbrella", "parasol"]
+    },
+    {
+      "term": "駅",
+      "reading": "えき",
+      "sequence": 1175140,
+      "definitionTags": "1 n",
+      "sourceMember": "term_bank_5.json",
+      "rowSha256": "b56e0e596838205e83312a73112f6ae1234dec06901ec43bea6d13113db9cc8b",
+      "englishGlosses": ["railway station", "train station"]
+    },
+    {
+      "term": "終電",
+      "reading": "しゅうでん",
+      "sequence": 1332960,
+      "definitionTags": "n abbr",
+      "sourceMember": "term_bank_9.json",
+      "rowSha256": "e051f337f2b304f46a802ea036cc05dbcb29f19a241ddbe87a539c5106b8bb85",
+      "englishGlosses": ["last train (of the day)"]
+    },
+    {
+      "term": "公園",
+      "reading": "こうえん",
+      "sequence": 1273270,
+      "definitionTags": "n",
+      "sourceMember": "term_bank_8.json",
+      "rowSha256": "74dbe509b1128985dded3fbec0949a8c2d386d0d2ebd114ff648314becc212e5",
+      "englishGlosses": ["(public) park"]
+    },
+    {
+      "term": "猫",
+      "reading": "ねこ",
+      "sequence": 1467640,
+      "definitionTags": "1 n",
+      "sourceMember": "term_bank_12.json",
+      "rowSha256": "a94a05f2aec36ada1d904eea76fa6abb9664f245153e99d330f60cefaf62aeef",
+      "englishGlosses": ["cat (especially the domestic cat)", "feline"]
+    },
+    {
+      "term": "店",
+      "reading": "みせ",
+      "sequence": 1582120,
+      "definitionTags": "n",
+      "sourceMember": "term_bank_15.json",
+      "rowSha256": "3512e32b6e22201d709061f8b3af8379c064484af43f4d973dc050b73528f49f",
+      "englishGlosses": ["store", "shop", "establishment", "restaurant"]
+    }
+  ],
+  "currentRuntimeCatalog": {
+    "path": "packages/contracts/fixtures/references/m8-last-train-study-catalog.json",
+    "records": 40,
+    "jmdictDerivedRecords": 0,
+    "contentSource": "BUNBUN_PROJECT_AUTHORED",
+    "authoringProposalTools": ["kuromoji@0.1.2", "wanakana@5.3.1"]
+  }
+}

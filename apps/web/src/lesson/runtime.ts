@@ -22,6 +22,7 @@ import {
   type LessonUpdate,
 } from "./controller.js";
 import { InMemoryEventSink } from "./events.js";
+import type { LessonSupportMode } from "./guidance.js";
 
 export interface LessonRuntime {
   dispose: () => void;
@@ -43,6 +44,31 @@ export interface LessonRuntimePersistence {
   ) => Promise<void>;
 }
 
+export function applyLessonSupportMode(
+  update: LessonUpdate,
+  supportMode: LessonSupportMode,
+  activeTimeMs: number,
+  occurredAt: string,
+): LessonUpdate {
+  if (
+    supportMode !== "GUIDED" ||
+    update.state.helpUsed ||
+    update.state.phase === "COMPLETED" ||
+    update.state.phase === "FEEDBACK"
+  ) {
+    return update;
+  }
+  const supported = reduceLesson(update.state, {
+    type: "HELP_REQUESTED",
+    activeTimeMs,
+    occurredAt,
+  });
+  return {
+    state: supported.state,
+    effects: [...update.effects, ...supported.effects],
+  };
+}
+
 export async function createLessonRuntime(
   shell: AppShell,
   world: GameRuntime,
@@ -51,6 +77,7 @@ export async function createLessonRuntime(
   simulateAudioFailure: boolean,
   firstStimulusMs: number,
   onFatalError: (error: Error) => void,
+  supportMode: LessonSupportMode = "IMMERSIVE",
 ): Promise<LessonRuntime> {
   const { manifest, catalog } = persistence.lessonPackage;
   const lifecycle = new AbortController();
@@ -92,6 +119,14 @@ export async function createLessonRuntime(
     activeTimeMs: clock.read(),
     occurredAt: new Date().toISOString(),
   });
+
+  const applySupportMode = (update: LessonUpdate): LessonUpdate =>
+    applyLessonSupportMode(
+      update,
+      supportMode,
+      clock.read(),
+      new Date().toISOString(),
+    );
 
   const clearFeedbackTimer = () => {
     if (feedbackTimer !== undefined) window.clearTimeout(feedbackTimer);
@@ -335,7 +370,9 @@ export async function createLessonRuntime(
   function safeDispatch(input: LessonInput): void {
     if (disposed) return;
     dispatchQueue = dispatchQueue
-      .then(() => persistUpdate(reduceLesson(state, input), input.type))
+      .then(() =>
+        persistUpdate(applySupportMode(reduceLesson(state, input)), input.type),
+      )
       .catch((error: unknown) => {
         if (disposed) return;
         onFatalError(
@@ -448,6 +485,29 @@ export async function createLessonRuntime(
   };
 
   shell.audioButton.addEventListener("click", playAudio, { signal });
+  shell.studyToolsRoot.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const button = target.closest<HTMLButtonElement>("[data-study-action]");
+      if (button === null || button.disabled) return;
+      if (button.dataset.studyAction === "AUDIO") {
+        const requestedAudioAssetId = button.dataset.studyAudioAssetId;
+        const currentAudioAssetId =
+          currentStep(state).stimulus.utterance?.audioAssetId;
+        if (
+          requestedAudioAssetId !== undefined &&
+          requestedAudioAssetId === currentAudioAssetId
+        ) {
+          playAudio();
+        }
+        return;
+      }
+      safeDispatch(timed("HELP_REQUESTED"));
+    },
+    { signal },
+  );
   shell.continueButton.addEventListener(
     "click",
     () => safeDispatch(timed("CONTINUE")),
@@ -543,7 +603,10 @@ export async function createLessonRuntime(
   document.addEventListener("visibilitychange", onVisibilityChange, { signal });
 
   if (persistence.resumedSession !== undefined) {
-    state = restoreLesson(manifest, persistence.resumedSession.checkpoint);
+    state = applySupportMode({
+      state: restoreLesson(manifest, persistence.resumedSession.checkpoint),
+      effects: [],
+    }).state;
     world.restoreLessonWorld(state.carriedObjectId, state.transferredObjects);
     applyUpdate({ state, effects: [] });
     audioTransitionsEnabled = true;
@@ -555,11 +618,13 @@ export async function createLessonRuntime(
       lastSavedAt,
     });
   } else {
-    const initialUpdate = startLesson(
-      manifest,
-      crypto.randomUUID(),
-      clock.read(),
-      new Date().toISOString(),
+    const initialUpdate = applySupportMode(
+      startLesson(
+        manifest,
+        crypto.randomUUID(),
+        clock.read(),
+        new Date().toISOString(),
+      ),
     );
     state = initialUpdate.state;
     const events = eventsFrom(initialUpdate);

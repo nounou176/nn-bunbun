@@ -64,6 +64,28 @@ test("SQLite repository migrates, commits idempotently, resumes, and resets", as
       () =>
         repository.commitSession("session_repository_001", {
           ...commit,
+          commitId: "commit_repository_changed_event",
+          expectedSequence: 1,
+          events: commit.events.map((event) => ({
+            ...event,
+            activeLatencyMs: event.activeLatencyMs + 100,
+            occurredAt: "2026-08-12T05:00:01.300Z",
+          })),
+          checkpoint: {
+            ...commit.checkpoint,
+            sequence: 2,
+            activeTimeMs: 1_300,
+          },
+        }),
+      (error: unknown) =>
+        error instanceof PersistenceError &&
+        error.code === "PERSISTENCE_EVENT_INVALID",
+    );
+
+    assert.throws(
+      () =>
+        repository.commitSession("session_repository_001", {
+          ...commit,
           commitId: "commit_repository_stale",
         }),
       (error: unknown) =>

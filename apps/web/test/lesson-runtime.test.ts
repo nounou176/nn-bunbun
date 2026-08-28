@@ -483,6 +483,74 @@ test("audio failure creates no heard evidence and continues assisted", () => {
   assert.equal(eventsOfKind(harness, "STEP_COMPLETED")[0]?.assisted, true);
 });
 
+test("successful LISTEN replay records HEARD only on the first playback", () => {
+  const harness = createHarness(loadLastTrainLesson(false).manifest);
+
+  const first = harness.dispatch({
+    type: "AUDIO_STARTED",
+    ...harness.tick(),
+  });
+  assert.equal(recordedEvents(first, "HEARD").length, 3);
+  harness.dispatch({ type: "AUDIO_ENDED", ...harness.tick() });
+
+  const replay = harness.dispatch({
+    type: "AUDIO_STARTED",
+    ...harness.tick(),
+  });
+  assert.equal(harness.state.phase, "PLAYING_AUDIO");
+  assert.equal(recordedEvents(replay, "HEARD").length, 0);
+  assert.equal(eventsOfKind(harness, "HEARD").length, 3);
+});
+
+test("LISTEN retry after failure before start records the first HEARD evidence", () => {
+  const harness = createHarness(loadLastTrainLesson(false).manifest);
+
+  harness.dispatch({ type: "AUDIO_FAILED", ...harness.tick() });
+  assert.equal(harness.state.audioFailed, true);
+  const retry = harness.dispatch({
+    type: "AUDIO_STARTED",
+    ...harness.tick(),
+  });
+
+  assert.equal(recordedEvents(retry, "HEARD").length, 3);
+  assert.equal(harness.state.audioFailed, false);
+});
+
+test("LISTEN recovery after interruption does not duplicate HEARD evidence", () => {
+  const harness = createHarness(loadLastTrainLesson(false).manifest);
+
+  harness.dispatch({ type: "AUDIO_STARTED", ...harness.tick() });
+  harness.dispatch({ type: "AUDIO_FAILED", ...harness.tick() });
+  assert.equal(harness.state.phase, "AWAITING_CONTINUE");
+  assert.equal(harness.state.helpUsed, true);
+  assert.equal(harness.state.audioFailed, false);
+
+  const replay = harness.dispatch({
+    type: "AUDIO_STARTED",
+    ...harness.tick(),
+  });
+  assert.equal(recordedEvents(replay, "HEARD").length, 0);
+  assert.equal(eventsOfKind(harness, "HEARD").length, 3);
+});
+
+test("resumed LISTEN replay does not recreate acknowledged HEARD evidence", () => {
+  const harness = createHarness(loadLastTrainLesson(false).manifest);
+  harness.dispatch({ type: "AUDIO_STARTED", ...harness.tick() });
+  harness.dispatch({ type: "AUDIO_ENDED", ...harness.tick() });
+  const restored = restoreLesson(
+    harness.state.manifest,
+    checkpointFromState(harness.state, 2, harness.now),
+  );
+
+  const replay = reduceLesson(restored, {
+    type: "AUDIO_STARTED",
+    activeTimeMs: harness.now + 100,
+    occurredAt,
+  });
+  assert.equal(replay.state.phase, "PLAYING_AUDIO");
+  assert.equal(recordedEvents(replay, "HEARD").length, 0);
+});
+
 test("seeded CHOOSE and ARRANGE orders are stable", () => {
   const manifest = loadAuthoredLesson(false).manifest;
   const arrange = manifest.steps.find(
@@ -811,6 +879,17 @@ function eventsOfKind(
   kind: SessionEvent["kind"],
 ): readonly SessionEvent[] {
   return harness.events.values().filter((event) => event.kind === kind);
+}
+
+function recordedEvents(
+  update: LessonUpdate,
+  kind: SessionEvent["kind"],
+): readonly SessionEvent[] {
+  return update.effects
+    .flatMap((effect) =>
+      effect.type === "RECORD_EVENTS" ? [...effect.events] : [],
+    )
+    .filter((event) => event.kind === kind);
 }
 
 function sampleEvent(): SessionEvent {

@@ -14,7 +14,9 @@ import { assertM8LastTrainSpeechApproval } from "./production-approvals.js";
 export class LessonContentError extends Error {
   constructor(
     readonly code:
-      "RUNTIME_MANIFEST_INVALID" | "RUNTIME_CAPABILITY_UNSUPPORTED",
+      | "RUNTIME_MANIFEST_INVALID"
+      | "RUNTIME_CAPABILITY_UNSUPPORTED"
+      | "RUNTIME_STUDY_CATALOG_INVALID",
     message: string,
   ) {
     super(message);

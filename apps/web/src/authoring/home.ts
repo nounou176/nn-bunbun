@@ -13,7 +13,7 @@ import { M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED } from "../lesson/production-
 export type LessonSelection =
   | { kind: "AUTHORED_DEMO" }
   | { kind: "CACHED_SPEECH_DEMO" }
-  | { kind: "LAST_TRAIN_DEMO" }
+  | { kind: "LAST_TRAIN_DEMO"; supportMode: "GUIDED" | "IMMERSIVE" }
   | { kind: "PUBLISHED"; lessonPackage: ValidatedLessonPackage };
 
 export function showAuthoringHome(
@@ -51,7 +51,8 @@ export function showAuthoringHome(
           <div class="handoff-actions">
             <button data-audio="prepare" type="button">Prepare 4 lines</button>
             <button class="primary-button" data-audio="run" type="button">Generate with local Nemo</button>
-            <button data-audio="play-production" type="button" disabled>Play last-train lesson</button>
+            <button class="primary-button" data-audio="play-production-guided" type="button" disabled>Chơi có hướng dẫn tiếng Việt</button>
+            <button data-audio="play-production-immersive" type="button" disabled>Thử thách chủ yếu bằng tiếng Nhật</button>
             <button data-audio="play" type="button" disabled>Play technical speech regression</button>
           </div>
           <div data-audio="review"></div>
@@ -79,9 +80,13 @@ export function showAuthoringHome(
   );
   const speechReview = required<HTMLElement>(app, '[data-audio="review"]');
   const playSpeech = required<HTMLButtonElement>(app, '[data-audio="play"]');
-  const playProduction = required<HTMLButtonElement>(
+  const playProductionGuided = required<HTMLButtonElement>(
     app,
-    '[data-audio="play-production"]',
+    '[data-audio="play-production-guided"]',
+  );
+  const playProductionImmersive = required<HTMLButtonElement>(
+    app,
+    '[data-audio="play-production-immersive"]',
   );
   const technicalSpeechManifest = cachedSpeechFixture as LessonManifest;
   const technicalSpeechAsset = technicalSpeechManifest.audioAssets[0]!;
@@ -97,8 +102,11 @@ export function showAuthoringHome(
     playSpeech.addEventListener("click", () =>
       resolve({ kind: "CACHED_SPEECH_DEMO" }),
     );
-    playProduction.addEventListener("click", () =>
-      resolve({ kind: "LAST_TRAIN_DEMO" }),
+    playProductionGuided.addEventListener("click", () =>
+      resolve({ kind: "LAST_TRAIN_DEMO", supportMode: "GUIDED" }),
+    );
+    playProductionImmersive.addEventListener("click", () =>
+      resolve({ kind: "LAST_TRAIN_DEMO", supportMode: "IMMERSIVE" }),
     );
     required<HTMLButtonElement>(app, '[data-audio="prepare"]').addEventListener(
       "click",
@@ -226,10 +234,12 @@ export function showAuthoringHome(
 
     function renderSpeech(assets: readonly SpeechAssetView[]): void {
       speechReview.replaceChildren();
-      playProduction.disabled =
+      const productionDisabled =
         !M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED ||
         assets.length !== speechManifest.audioAssets.length ||
         assets.some((asset) => asset.status !== "READY");
+      playProductionGuided.disabled = productionDisabled;
+      playProductionImmersive.disabled = productionDisabled;
       if (assets.length === 0) {
         const message = document.createElement("p");
         message.textContent =

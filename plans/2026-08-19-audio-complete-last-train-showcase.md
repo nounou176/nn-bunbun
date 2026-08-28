@@ -382,6 +382,12 @@ reproducible acceptance checklist.
 - [x] 2026-08-28 — Pass Milestone 4 static/unit/build gates: contracts 43/43,
       server 9/9, web 52/52, schema/type/lint/format/build, exact speech/content,
       audio/world runtime, and diff checks. Manual lesson A/B/C remains open.
+- [x] 2026-08-28 — User accepts D-050 beginner guidance and D-051 replay plus
+      Japanese text tools. The guided/immersive UI, bilingual actions,
+      deterministic replay repair, 40-record study catalog, and compact local
+      study controls are implemented. Latest supported checks pass contracts
+      46/46, server 9/9, and web 66/66; manual replay/tools and repaired B/C
+      acceptance remain open.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

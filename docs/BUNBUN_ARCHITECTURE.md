@@ -250,6 +250,20 @@ Reference providers supply data such as:
 The source, license, version, and update process for each provider must be
 documented before its data ships.
 
+Under D-051, optional Japanese study presentation uses the independently
+versioned `JapaneseTextStudyCatalog 0.1.0`. Each compact record is keyed by the
+SHA-256 of one exact reviewed Japanese string and may contain reviewed kana,
+romaji, Vietnamese vocabulary notes, Bunbun-authored grammar notes, and an
+optional exact `AudioAsset` binding. Runtime loading is structural and fails
+closed on lesson-revision or audio-text mismatch.
+
+Language analysis remains an authoring concern. `kuromoji@0.1.2` and
+`wanakana@5.3.1` may propose readings and segmentation only in Node scripts;
+their packages and dictionaries must not enter the browser bundle. The
+committed runtime catalog contains reviewed output and Bunbun Core provenance
+only. JMdict remains ignored candidate data until its separate Gate 2 is
+explicitly approved; gameplay performs no dictionary or transliteration call.
+
 ## Client runtime layers
 
 The runtime should keep these responsibilities separate:

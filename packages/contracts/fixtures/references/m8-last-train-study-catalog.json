@@ -1,0 +1,1345 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogId": "m8_last_train_japanese_study",
+  "lessonId": "lesson_m8_last_train",
+  "lessonRevision": 1,
+  "sources": [
+    {
+      "sourceId": "bunbun_core",
+      "version": "1.0.0",
+      "role": "CONTENT"
+    }
+  ],
+  "records": [
+    {
+      "textId": "lesson_title",
+      "textSha256": "9ca7f08265ab89631c50f8a9b8220cdb07c8bebeac82f51a361f19c962d698ba",
+      "textJa": "終電まであと3分",
+      "readingKana": "しゅうでん まで あと さんぷん",
+      "romaji": "shuuden made ato sanpun",
+      "vocabulary": [
+        {
+          "entryId": "vocab_03e3320c99fc",
+          "surfaceJa": "終電",
+          "dictionaryFormJa": "終電",
+          "readingKana": "しゅうでん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "chuyến tàu cuối"
+        },
+        {
+          "entryId": "vocab_b6a993c256ef",
+          "surfaceJa": "分",
+          "dictionaryFormJa": "分",
+          "readingKana": "ふん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "phút"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "lesson_objective",
+      "textSha256": "5836c83de2cf91470a6aa9f7b0284d921a6675805a8f3974c30a5beec2312e29",
+      "textJa": "財布を探して、あおいを助けてください。",
+      "readingKana": "さいふ を さがして、あおい を たすけて ください。",
+      "romaji": "saifu o sagashite,aoi o tasukete kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探し",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        },
+        {
+          "entryId": "vocab_c6b4dc8de3ac",
+          "surfaceJa": "助け",
+          "dictionaryFormJa": "助ける",
+          "readingKana": "たすけ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "giúp đỡ"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "listen_aoi_request_instruction",
+      "textSha256": "4d69f5195299eed2fd05426cb38ce9cfeea60fdc13b81efa5cf2247912abd503",
+      "textJa": "あおいの話を聞いてください。",
+      "readingKana": "あおい の はなし を きいて ください。",
+      "romaji": "aoi no hanashi o kiite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_0602b4f4d85c",
+          "surfaceJa": "話",
+          "dictionaryFormJa": "話",
+          "readingKana": "はなし",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "câu chuyện; lời nói"
+        },
+        {
+          "entryId": "vocab_d9291ccba400",
+          "surfaceJa": "聞い",
+          "dictionaryFormJa": "聞く",
+          "readingKana": "きい",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nghe; hỏi"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "listen_aoi_request_utterance",
+      "textSha256": "19fa497ca7597052362fadab9544d23937e112495442bfb40dc63562d7dd259a",
+      "textJa": "財布がありません。終電まであと三分です。財布を探してください。",
+      "readingKana": "さいふ が ありません。しゅうでん まで あと さんぷん です。さいふ を さがして ください。",
+      "romaji": "saifu ga arimasen.shuuden made ato sanpun desu.saifu o sagashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_03e3320c99fc",
+          "surfaceJa": "終電",
+          "dictionaryFormJa": "終電",
+          "readingKana": "しゅうでん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "chuyến tàu cuối"
+        },
+        {
+          "entryId": "vocab_b6a993c256ef",
+          "surfaceJa": "分",
+          "dictionaryFormJa": "分",
+          "readingKana": "ふん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "phút"
+        },
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探し",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ],
+      "audioAssetId": "audio_aoi_opening"
+    },
+    {
+      "textId": "listen_aoi_request_correct_feedback",
+      "textSha256": "bccd1f20ba25dab7f80b634110654360b869e8fc073cfdd7364df00ee15b98ec",
+      "textJa": "依頼が分かりました。",
+      "readingKana": "いらい が わかりました。",
+      "romaji": "irai ga wakarimashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_0f6dfb6aea3f",
+          "surfaceJa": "依頼",
+          "dictionaryFormJa": "依頼",
+          "readingKana": "いらい",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "lời yêu cầu; lời nhờ"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "listen_aoi_request_incorrect_feedback",
+      "textSha256": "00bf22ef7791ed107b952c92dc269062a9ad8dc77ea6168e6acf835a2a76d7cc",
+      "textJa": "もう一度聞いてください。",
+      "readingKana": "もう いちど きいて ください。",
+      "romaji": "mou ichido kiite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_d9291ccba400",
+          "surfaceJa": "聞い",
+          "dictionaryFormJa": "聞く",
+          "readingKana": "きい",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nghe; hỏi"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        },
+        {
+          "entryId": "grammar_mou_ichido",
+          "patternJa": "もう一度＋動詞",
+          "labelVi": "Làm lại một lần nữa",
+          "explanationVi": "もう一度 có nghĩa là ‘một lần nữa’, đặt trước động từ chỉ hành động cần lặp lại."
+        }
+      ]
+    },
+    {
+      "textId": "listen_aoi_request_assisted_feedback",
+      "textSha256": "7fa91c820ea00bc3820e03f17e9064dfe23128de2d035b7a023774c39a7757bb",
+      "textJa": "文字も見て進みましょう。",
+      "readingKana": "もじ も みて すすみましょう。",
+      "romaji": "moji mo mite susumimashou.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_14b69bd6eeb0",
+          "surfaceJa": "文字",
+          "dictionaryFormJa": "文字",
+          "readingKana": "もじ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "chữ viết; ký tự"
+        },
+        {
+          "entryId": "vocab_c1ee2c0cd4e9",
+          "surfaceJa": "見",
+          "dictionaryFormJa": "見る",
+          "readingKana": "み",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhìn; xem"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "arrange_wallet_request_instruction",
+      "textSha256": "e021fa5c0153a223a5f2c7a2be9ee7fbec4ae58f25b1e9245afd0b2120e72cec",
+      "textJa": "文を正しい順番にしてください。",
+      "readingKana": "ぶん を ただしい じゅんばん に して ください。",
+      "romaji": "bun o tadashii junban ni shite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_3677ef77b157",
+          "surfaceJa": "文",
+          "dictionaryFormJa": "文",
+          "readingKana": "ぶん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "câu văn"
+        },
+        {
+          "entryId": "vocab_bef45cce45b7",
+          "surfaceJa": "順番",
+          "dictionaryFormJa": "順番",
+          "readingKana": "じゅんばん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "thứ tự"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "show_wallet_request_pattern_hint",
+      "textSha256": "d5b154db0e1a5d156f1a99eaaf8a3f4be9786c8ab44109f534b1f977109aa807",
+      "textJa": "［もの］を探してください。",
+      "readingKana": "［もの］を さがして ください。",
+      "romaji": "[mono]o sagashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探し",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "arrange_wallet_request_correct_feedback",
+      "textSha256": "9f02f5dee4367eee37e97d57d646fa38c5a9ee6c0810f7dee9ef3931b0048e18",
+      "textJa": "財布を探してください。",
+      "readingKana": "さいふ を さがして ください。",
+      "romaji": "saifu o sagashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探し",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "arrange_wallet_request_incorrect_feedback",
+      "textSha256": "fd387969cdfc3fbb07fb80810798ccd62d35ffc749d10350cb1366ade417c65f",
+      "textJa": "語順をもう一度見てください。",
+      "readingKana": "ごじゅん を もう いちど みて ください。",
+      "romaji": "gojun o mou ichido mite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_3ab529033b22",
+          "surfaceJa": "語順",
+          "dictionaryFormJa": "語順",
+          "readingKana": "ごじゅん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "trật tự từ"
+        },
+        {
+          "entryId": "vocab_c1ee2c0cd4e9",
+          "surfaceJa": "見",
+          "dictionaryFormJa": "見る",
+          "readingKana": "み",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhìn; xem"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        },
+        {
+          "entryId": "grammar_mou_ichido",
+          "patternJa": "もう一度＋動詞",
+          "labelVi": "Làm lại một lần nữa",
+          "explanationVi": "もう一度 có nghĩa là ‘một lần nữa’, đặt trước động từ chỉ hành động cần lặp lại."
+        }
+      ]
+    },
+    {
+      "textId": "choose_tanaka_meaning_instruction",
+      "textSha256": "29d2dbb7bc6163aa78624b46fd00452a5f7515ad1876e0611a5ffc040e1aa395",
+      "textJa": "田中さんの話に合う文を選んでください。",
+      "readingKana": "たなかさん の はなし に あう ぶん を えらんで ください。",
+      "romaji": "tanakasan no hanashi ni au bun o erande kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_1806496bcb75",
+          "surfaceJa": "田中",
+          "dictionaryFormJa": "田中",
+          "readingKana": "たなか",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "Tanaka (tên người)"
+        },
+        {
+          "entryId": "vocab_0602b4f4d85c",
+          "surfaceJa": "話",
+          "dictionaryFormJa": "話",
+          "readingKana": "はなし",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "câu chuyện; lời nói"
+        },
+        {
+          "entryId": "vocab_4aec6a18e905",
+          "surfaceJa": "合う",
+          "dictionaryFormJa": "合う",
+          "readingKana": "あう",
+          "partOfSpeech": "VERB",
+          "meaningVi": "phù hợp"
+        },
+        {
+          "entryId": "vocab_3677ef77b157",
+          "surfaceJa": "文",
+          "dictionaryFormJa": "文",
+          "readingKana": "ぶん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "câu văn"
+        },
+        {
+          "entryId": "vocab_2c01205b05f1",
+          "surfaceJa": "選ん",
+          "dictionaryFormJa": "選ぶ",
+          "readingKana": "えらん",
+          "partOfSpeech": "VERB",
+          "meaningVi": "chọn"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "choose_tanaka_meaning_utterance",
+      "textSha256": "514588c023802a5079b02ba6009d8627853f9039a267b1477099ed552f740020",
+      "textJa": "この傘はあおいさんの傘ではありません。店の中に入ってはいけません。",
+      "readingKana": "この かさ は あおいさん の かさ では ありません。みせ の なか に はいって は いけません。",
+      "romaji": "kono kasa wa aoisan no kasa deha arimasen.mise no naka ni haitte wa ikemasen.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_bbb6574d7029",
+          "surfaceJa": "傘",
+          "dictionaryFormJa": "傘",
+          "readingKana": "かさ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ô"
+        },
+        {
+          "entryId": "vocab_aaded36a8302",
+          "surfaceJa": "店",
+          "dictionaryFormJa": "店",
+          "readingKana": "みせ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "cửa hàng"
+        },
+        {
+          "entryId": "vocab_a567bdaa1136",
+          "surfaceJa": "中",
+          "dictionaryFormJa": "中",
+          "readingKana": "なか",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "bên trong"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_tewa_ikenai",
+          "patternJa": "動詞のて形＋はいけません",
+          "labelVi": "Không được phép",
+          "explanationVi": "Dùng để nói một hành động bị cấm hoặc không được phép thực hiện."
+        },
+        {
+          "entryId": "grammar_dewa_arimasen",
+          "patternJa": "名詞＋ではありません",
+          "labelVi": "Phủ định lịch sự của danh từ",
+          "explanationVi": "Đặt ではありません sau danh từ để nói ‘không phải là…’ một cách lịch sự."
+        }
+      ],
+      "audioAssetId": "audio_tanaka_rule"
+    },
+    {
+      "textId": "choose_tanaka_meaning_correct_feedback",
+      "textSha256": "e7faa7f654671bcd039e0ad137c664888dc085ea4bd946f597577c2e9365a9d6",
+      "textJa": "その通りです。傘を間違えました。",
+      "readingKana": "その とおり です。かさ を まちがえました。",
+      "romaji": "sono toori desu.kasa o machigaemashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_f580b34856f1",
+          "surfaceJa": "通り",
+          "dictionaryFormJa": "通り",
+          "readingKana": "とおり",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "đúng như; theo như"
+        },
+        {
+          "entryId": "vocab_bbb6574d7029",
+          "surfaceJa": "傘",
+          "dictionaryFormJa": "傘",
+          "readingKana": "かさ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ô"
+        },
+        {
+          "entryId": "vocab_1e79a6e12d75",
+          "surfaceJa": "間違え",
+          "dictionaryFormJa": "間違える",
+          "readingKana": "まちがえ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhầm; làm sai"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "choose_tanaka_meaning_incorrect_feedback",
+      "textSha256": "8e88be6abd38c73aa58a5830444f0b2bd349974ccad97bd31d5d48d8425b4ea0",
+      "textJa": "傘と店のルールを確認してください。",
+      "readingKana": "かさ と みせ の るーる を かくにんして ください。",
+      "romaji": "kasa to mise no ru-ru o kakuninshite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_bbb6574d7029",
+          "surfaceJa": "傘",
+          "dictionaryFormJa": "傘",
+          "readingKana": "かさ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ô"
+        },
+        {
+          "entryId": "vocab_aaded36a8302",
+          "surfaceJa": "店",
+          "dictionaryFormJa": "店",
+          "readingKana": "みせ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "cửa hàng"
+        },
+        {
+          "entryId": "vocab_dce52f3e1119",
+          "surfaceJa": "確認",
+          "dictionaryFormJa": "確認",
+          "readingKana": "かくにん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "xác nhận; kiểm tra"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "choose_tanaka_meaning_assisted_feedback",
+      "textSha256": "ce0eedf944a522d5fe1b404c75c28d0b03ab877af3d26c69df74c22a90e1dd47",
+      "textJa": "この傘はあおいさんのものではありません。",
+      "readingKana": "この かさ は あおいさん の もの では ありません。",
+      "romaji": "kono kasa wa aoisan no mono deha arimasen.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_bbb6574d7029",
+          "surfaceJa": "傘",
+          "dictionaryFormJa": "傘",
+          "readingKana": "かさ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ô"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_dewa_arimasen",
+          "patternJa": "名詞＋ではありません",
+          "labelVi": "Phủ định lịch sự của danh từ",
+          "explanationVi": "Đặt ではありません sau danh từ để nói ‘không phải là…’ một cách lịch sự."
+        }
+      ]
+    },
+    {
+      "textId": "type_wallet_request_instruction",
+      "textSha256": "d95110d27c4e39de08bbfa5608006486e1a9706e97100dfed64760f2a949176c",
+      "textJa": "田中さんに、財布を探すように丁寧に頼んでください。",
+      "readingKana": "たなかさん に、さいふ を さがす ように ていねいに たのんで ください。",
+      "romaji": "tanakasan ni,saifu o sagasu youni teineini tanonde kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_1806496bcb75",
+          "surfaceJa": "田中",
+          "dictionaryFormJa": "田中",
+          "readingKana": "たなか",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "Tanaka (tên người)"
+        },
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探す",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがす",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        },
+        {
+          "entryId": "vocab_f938db447375",
+          "surfaceJa": "丁寧",
+          "dictionaryFormJa": "丁寧",
+          "readingKana": "ていねい",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "lịch sự; cẩn thận"
+        },
+        {
+          "entryId": "vocab_15960fa0ca2c",
+          "surfaceJa": "頼ん",
+          "dictionaryFormJa": "頼む",
+          "readingKana": "たのん",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhờ; yêu cầu"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        },
+        {
+          "entryId": "grammar_you_ni_tanomu",
+          "patternJa": "普通形＋ように頼む",
+          "labelVi": "Nhờ ai làm một việc",
+          "explanationVi": "ように đứng trước 頼む để diễn đạt việc nhờ hoặc yêu cầu người khác thực hiện hành động."
+        }
+      ]
+    },
+    {
+      "textId": "show_type_pattern_hint",
+      "textSha256": "1800cdbb122df2ad078402322bc6f2f33e19018395768677491a59556382b846",
+      "textJa": "財布を［動詞のて形］ください。",
+      "readingKana": "さいふ を［どうし の てけい］ください。",
+      "romaji": "saifu o[doushi no tekei]kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "show_type_reading_hint",
+      "textSha256": "60e5beab526353c06fb1f844d1bc91e463f9f6326846a0ab774551a9b3e08620",
+      "textJa": "財布（さいふ）を探（さが）してください。",
+      "readingKana": "さいふ を さがして ください。",
+      "romaji": "saifu o sagashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "type_wallet_request_incorrect_feedback",
+      "textSha256": "ff1111704174a74fc01a5a0c1898188bcf0c668cd28c8448ec368b6371143050",
+      "textJa": "丁寧な依頼をもう一度書いてください。",
+      "readingKana": "ていねいな いらい を もう いちど かいて ください。",
+      "romaji": "teineina irai o mou ichido kaite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_f938db447375",
+          "surfaceJa": "丁寧",
+          "dictionaryFormJa": "丁寧",
+          "readingKana": "ていねい",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "lịch sự; cẩn thận"
+        },
+        {
+          "entryId": "vocab_0f6dfb6aea3f",
+          "surfaceJa": "依頼",
+          "dictionaryFormJa": "依頼",
+          "readingKana": "いらい",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "lời yêu cầu; lời nhờ"
+        },
+        {
+          "entryId": "vocab_9eee51e1e354",
+          "surfaceJa": "書い",
+          "dictionaryFormJa": "書く",
+          "readingKana": "かい",
+          "partOfSpeech": "VERB",
+          "meaningVi": "viết"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        },
+        {
+          "entryId": "grammar_mou_ichido",
+          "patternJa": "もう一度＋動詞",
+          "labelVi": "Làm lại một lần nữa",
+          "explanationVi": "もう一度 có nghĩa là ‘một lần nữa’, đặt trước động từ chỉ hành động cần lặp lại."
+        }
+      ]
+    },
+    {
+      "textId": "move_to_park_edge_instruction",
+      "textSha256": "d3f40ca1bae229ab1bd18834f832f8adda32532da74f93256397ffc48287e06b",
+      "textJa": "公園の端へ行ってください。",
+      "readingKana": "こうえん の はし へ いって ください。",
+      "romaji": "kouen no hashi e itte kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_d4791fb11477",
+          "surfaceJa": "公園",
+          "dictionaryFormJa": "公園",
+          "readingKana": "こうえん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "công viên"
+        },
+        {
+          "entryId": "vocab_74ec94a65d17",
+          "surfaceJa": "端",
+          "dictionaryFormJa": "端",
+          "readingKana": "はじ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "rìa; mép"
+        },
+        {
+          "entryId": "vocab_d74a571ffab4",
+          "surfaceJa": "行っ",
+          "dictionaryFormJa": "行く",
+          "readingKana": "いっ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "đi"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "move_to_park_edge_utterance",
+      "textSha256": "7ff489a8910cebf4767b61cd5d4a8c07ef485cbcea0418076df8626873fb8c13",
+      "textJa": "猫が公園のほうへ行きました。公園を見てください。",
+      "readingKana": "ねこ が こうえん の ほう へ いきました。こうえん を みて ください。",
+      "romaji": "neko ga kouen no hou e ikimashita.kouen o mite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_a810bf845a30",
+          "surfaceJa": "猫",
+          "dictionaryFormJa": "猫",
+          "readingKana": "ねこ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "mèo"
+        },
+        {
+          "entryId": "vocab_d4791fb11477",
+          "surfaceJa": "公園",
+          "dictionaryFormJa": "公園",
+          "readingKana": "こうえん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "công viên"
+        },
+        {
+          "entryId": "vocab_d74a571ffab4",
+          "surfaceJa": "行き",
+          "dictionaryFormJa": "行く",
+          "readingKana": "いき",
+          "partOfSpeech": "VERB",
+          "meaningVi": "đi"
+        },
+        {
+          "entryId": "vocab_c1ee2c0cd4e9",
+          "surfaceJa": "見",
+          "dictionaryFormJa": "見る",
+          "readingKana": "み",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhìn; xem"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ],
+      "audioAssetId": "audio_tanaka_clue"
+    },
+    {
+      "textId": "move_to_park_edge_correct_feedback",
+      "textSha256": "1dd3cac0b28d18ab97bbf0f0e11fb19c79a07cefd7958b123f1bcb279e618f11",
+      "textJa": "公園の端に着きました。",
+      "readingKana": "こうえん の はし に つきました。",
+      "romaji": "kouen no hashi ni tsukimashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_d4791fb11477",
+          "surfaceJa": "公園",
+          "dictionaryFormJa": "公園",
+          "readingKana": "こうえん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "công viên"
+        },
+        {
+          "entryId": "vocab_74ec94a65d17",
+          "surfaceJa": "端",
+          "dictionaryFormJa": "端",
+          "readingKana": "はじ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "rìa; mép"
+        },
+        {
+          "entryId": "vocab_c0d91aa239d5",
+          "surfaceJa": "着き",
+          "dictionaryFormJa": "着く",
+          "readingKana": "つき",
+          "partOfSpeech": "VERB",
+          "meaningVi": "đến nơi"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "move_to_park_edge_incorrect_feedback",
+      "textSha256": "6d5a100b2afefdb5f0bf6b34f6a44f46a1bb28158d94f764288c3e59933c3107",
+      "textJa": "猫が行った場所を考えてください。",
+      "readingKana": "ねこ が いった ばしょ を かんがえて ください。",
+      "romaji": "neko ga itta basho o kangaete kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_a810bf845a30",
+          "surfaceJa": "猫",
+          "dictionaryFormJa": "猫",
+          "readingKana": "ねこ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "mèo"
+        },
+        {
+          "entryId": "vocab_d74a571ffab4",
+          "surfaceJa": "行っ",
+          "dictionaryFormJa": "行く",
+          "readingKana": "おこなっ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "đi"
+        },
+        {
+          "entryId": "vocab_828d4cec1f3c",
+          "surfaceJa": "場所",
+          "dictionaryFormJa": "場所",
+          "readingKana": "ばしょ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "địa điểm"
+        },
+        {
+          "entryId": "vocab_6ac7913ed4f0",
+          "surfaceJa": "考え",
+          "dictionaryFormJa": "考える",
+          "readingKana": "かんがえ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "suy nghĩ"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "move_to_park_edge_assisted_feedback",
+      "textSha256": "9bf3c727d7606c62dc45c9d3e849b1e2de781e025a954e95689247c1b8d28711",
+      "textJa": "公園の端へ行きましょう。",
+      "readingKana": "こうえん の はし へ いきましょう。",
+      "romaji": "kouen no hashi e ikimashou.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_d4791fb11477",
+          "surfaceJa": "公園",
+          "dictionaryFormJa": "公園",
+          "readingKana": "こうえん",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "công viên"
+        },
+        {
+          "entryId": "vocab_74ec94a65d17",
+          "surfaceJa": "端",
+          "dictionaryFormJa": "端",
+          "readingKana": "はじ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "rìa; mép"
+        },
+        {
+          "entryId": "vocab_d74a571ffab4",
+          "surfaceJa": "行き",
+          "dictionaryFormJa": "行く",
+          "readingKana": "いき",
+          "partOfSpeech": "VERB",
+          "meaningVi": "đi"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "click_momo_instruction",
+      "textSha256": "0f331e7c3070937d602ce2408dd66aba4d87db1fecd60d04a2711ff5dcd2fbc2",
+      "textJa": "モモを選んでください。",
+      "readingKana": "もも を えらんで ください。",
+      "romaji": "momo o erande kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_2c01205b05f1",
+          "surfaceJa": "選ん",
+          "dictionaryFormJa": "選ぶ",
+          "readingKana": "えらん",
+          "partOfSpeech": "VERB",
+          "meaningVi": "chọn"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "click_momo_correct_feedback",
+      "textSha256": "1ce8493cbb6d784a587870b10535aa71163f1c223914c841ff29691e60e54cab",
+      "textJa": "モモが財布のそばにいます。",
+      "readingKana": "もも が さいふ の そば に います。",
+      "romaji": "momo ga saifu no soba ni imasu.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "click_momo_incorrect_feedback",
+      "textSha256": "b5e26222358808a6f1d40bc5e9d24423112423d18384da9d8af886bd6faddd5c",
+      "textJa": "猫のモモを探してください。",
+      "readingKana": "ねこ の もも を さがして ください。",
+      "romaji": "neko no momo o sagashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_a810bf845a30",
+          "surfaceJa": "猫",
+          "dictionaryFormJa": "猫",
+          "readingKana": "ねこ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "mèo"
+        },
+        {
+          "entryId": "vocab_dd06a8e26b97",
+          "surfaceJa": "探し",
+          "dictionaryFormJa": "探す",
+          "readingKana": "さがし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm kiếm"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "click_momo_assisted_feedback",
+      "textSha256": "c6a8ae2fc5df045024f07b7d60d1d5d6f260f5a33d931508cf7ee6cfa3603101",
+      "textJa": "この猫がモモです。",
+      "readingKana": "この ねこ が もも です。",
+      "romaji": "kono neko ga momo desu.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_a810bf845a30",
+          "surfaceJa": "猫",
+          "dictionaryFormJa": "猫",
+          "readingKana": "ねこ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "mèo"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "pick_up_wallet_instruction",
+      "textSha256": "0c90d358f2fcaa130dbfaf03d5e9eef6d3e9a31e8412939ac9101f36a5b99ff2",
+      "textJa": "財布を拾ってください。",
+      "readingKana": "さいふ を ひろって ください。",
+      "romaji": "saifu o hirotte kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_0430e73c157c",
+          "surfaceJa": "拾っ",
+          "dictionaryFormJa": "拾う",
+          "readingKana": "ひろっ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhặt"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "pick_up_wallet_correct_feedback",
+      "textSha256": "a6a2771b2022fa1ca698230025ce00382e420dc133a996d813f066f8e6dd6ff7",
+      "textJa": "財布を見つけました。",
+      "readingKana": "さいふ を みつけました。",
+      "romaji": "saifu o mitsukemashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_94c43d3cf47a",
+          "surfaceJa": "見つけ",
+          "dictionaryFormJa": "見つける",
+          "readingKana": "みつけ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "tìm thấy"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "pick_up_wallet_incorrect_feedback",
+      "textSha256": "f2d884a95797b9b2887eee40bbb739cadc67f10166e53b80c0e362b5a05d523c",
+      "textJa": "モモのそばを見てください。",
+      "readingKana": "もも の そば を みて ください。",
+      "romaji": "momo no soba o mite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_c1ee2c0cd4e9",
+          "surfaceJa": "見",
+          "dictionaryFormJa": "見る",
+          "readingKana": "み",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhìn; xem"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "pick_up_wallet_assisted_feedback",
+      "textSha256": "e9cce64d66c70b8b0b5c6dac757d52e618c62aa6b1732bd8346ca79e309758b4",
+      "textJa": "この財布を拾いましょう。",
+      "readingKana": "この さいふ を ひろいましょう。",
+      "romaji": "kono saifu o hiroimashou.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_0430e73c157c",
+          "surfaceJa": "拾い",
+          "dictionaryFormJa": "拾う",
+          "readingKana": "ひろい",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhặt"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "give_wallet_to_aoi_instruction",
+      "textSha256": "416d8846a8399dd40bdb628836b941c36a95772fea94c4d75d7b66ab6e380394",
+      "textJa": "財布をあおいに渡してください。",
+      "readingKana": "さいふ を あおい に わたして ください。",
+      "romaji": "saifu o aoi ni watashite kudasai.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_2b2da72322ae",
+          "surfaceJa": "渡し",
+          "dictionaryFormJa": "渡す",
+          "readingKana": "わたし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "trao; đưa"
+        }
+      ],
+      "grammar": [
+        {
+          "entryId": "grammar_te_kudasai",
+          "patternJa": "動詞のて形＋ください",
+          "labelVi": "Lời yêu cầu lịch sự",
+          "explanationVi": "Đổi động từ sang thể て rồi thêm ください để nói ‘xin hãy làm…’. Ví dụ: 探す → 探して → 探してください。"
+        }
+      ]
+    },
+    {
+      "textId": "give_wallet_to_aoi_correct_feedback",
+      "textSha256": "1b151d4afcd169754b4b2a7d9acb87adafd5514b5a1dbe2774058e808b1c3bff",
+      "textJa": "財布をあおいに返しました。",
+      "readingKana": "さいふ を あおい に かえしました。",
+      "romaji": "saifu o aoi ni kaeshimashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_b44ca32c4d5d",
+          "surfaceJa": "返し",
+          "dictionaryFormJa": "返す",
+          "readingKana": "かえし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "trả lại"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "give_wallet_to_aoi_assisted_feedback",
+      "textSha256": "2e5074a65317b75fc8e1512b485b3512ceda0e60374fc5d42763cb8b04816f8e",
+      "textJa": "財布をあおいに渡します。",
+      "readingKana": "さいふ を あおい に わたします。",
+      "romaji": "saifu o aoi ni watashimasu.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_2b2da72322ae",
+          "surfaceJa": "渡し",
+          "dictionaryFormJa": "渡す",
+          "readingKana": "わたし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "trao; đưa"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "listen_aoi_resolution_utterance",
+      "textSha256": "debd1e1d321f64160b779645ab33e52da46e56cbb90b4b3fd25b3c2bab15c8fc",
+      "textJa": "ありがとうございます。財布が見つかりました。これで駅へ行けます。",
+      "readingKana": "ありがとうございます。さいふ が みつかりました。これで えき へ いけます。",
+      "romaji": "arigatougozaimasu.saifu ga mitsukarimashita.korede eki e ikemasu.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_53e5e276999d",
+          "surfaceJa": "駅",
+          "dictionaryFormJa": "駅",
+          "readingKana": "えき",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ga"
+        }
+      ],
+      "grammar": [],
+      "audioAssetId": "audio_aoi_resolution"
+    },
+    {
+      "textId": "listen_aoi_resolution_correct_feedback",
+      "textSha256": "6bab56240cbfcff30f7d63582ab8cfbd53e75af8e46310c5f983e82221e06bf3",
+      "textJa": "あおいを助けました。",
+      "readingKana": "あおい を たすけました。",
+      "romaji": "aoi o tasukemashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_c6b4dc8de3ac",
+          "surfaceJa": "助け",
+          "dictionaryFormJa": "助ける",
+          "readingKana": "たすけ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "giúp đỡ"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "listen_aoi_resolution_assisted_feedback",
+      "textSha256": "6280132930815e9444d375f4f9186c926ce17b1ddcc41156c56f8e0e7c81874e",
+      "textJa": "文字も見て終わりましょう。",
+      "readingKana": "もじ も みて おわりましょう。",
+      "romaji": "moji mo mite owarimashou.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_14b69bd6eeb0",
+          "surfaceJa": "文字",
+          "dictionaryFormJa": "文字",
+          "readingKana": "もじ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "chữ viết; ký tự"
+        },
+        {
+          "entryId": "vocab_c1ee2c0cd4e9",
+          "surfaceJa": "見",
+          "dictionaryFormJa": "見る",
+          "readingKana": "み",
+          "partOfSpeech": "VERB",
+          "meaningVi": "nhìn; xem"
+        },
+        {
+          "entryId": "vocab_94099f00ce8e",
+          "surfaceJa": "終わり",
+          "dictionaryFormJa": "終わる",
+          "readingKana": "おわり",
+          "partOfSpeech": "VERB",
+          "meaningVi": "kết thúc"
+        }
+      ],
+      "grammar": []
+    },
+    {
+      "textId": "lesson_completion",
+      "textSha256": "4b418c0928779ad463724f338118630b9c68045f933dbf5aa9a9a4950cea2ff3",
+      "textJa": "財布を返して、あおいを助けました。",
+      "readingKana": "さいふ を かえして、あおい を たすけました。",
+      "romaji": "saifu o kaeshite,aoi o tasukemashita.",
+      "vocabulary": [
+        {
+          "entryId": "vocab_9e1270cf3ca2",
+          "surfaceJa": "財布",
+          "dictionaryFormJa": "財布",
+          "readingKana": "さいふ",
+          "partOfSpeech": "NOUN",
+          "meaningVi": "ví"
+        },
+        {
+          "entryId": "vocab_b44ca32c4d5d",
+          "surfaceJa": "返し",
+          "dictionaryFormJa": "返す",
+          "readingKana": "かえし",
+          "partOfSpeech": "VERB",
+          "meaningVi": "trả lại"
+        },
+        {
+          "entryId": "vocab_c6b4dc8de3ac",
+          "surfaceJa": "助け",
+          "dictionaryFormJa": "助ける",
+          "readingKana": "たすけ",
+          "partOfSpeech": "VERB",
+          "meaningVi": "giúp đỡ"
+        }
+      ],
+      "grammar": []
+    }
+  ]
+}

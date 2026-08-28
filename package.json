@@ -49,6 +49,9 @@
     "lesson:m8:speech-review-check": "node scripts/validate-m8-last-train-speech-review.mjs",
     "lesson:m8:speech-approval-check": "node scripts/validate-m8-last-train-speech-review.mjs approval-check",
     "lesson:m8:speech-approve": "node scripts/approve-m8-last-train-speech.mjs",
+    "lesson:m8:study-build": "node scripts/build-m8-japanese-study-catalog.mjs",
+    "lesson:m8:study-check": "node scripts/validate-m8-japanese-study-catalog.mjs",
+    "lesson:m8:jmdict-candidate-check": "node scripts/inspect-m8-jmdict-candidate.mjs --check",
     "world:m8:intake": "node scripts/intake-m8-world-assets.mjs",
     "world:m8:intake-check": "node scripts/validate-m8-world-intake.mjs",
     "world:m8:approval-check": "node scripts/validate-m8-world-approval.mjs check",
@@ -64,11 +67,13 @@
     "concurrently": "^10.0.4",
     "eslint": "^10.8.1",
     "globals": "^17.9.0",
+    "kuromoji": "0.1.2",
     "prettier": "^3.9.6",
     "tsx": "^4.23.12",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0",
-    "vite": "^8.2.1"
+    "vite": "^8.2.1",
+    "wanakana": "5.3.1"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

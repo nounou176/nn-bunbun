@@ -2436,6 +2436,113 @@ local; repository records contain only stable identities and approved hashes.
 Parent Milestone 5 remains the compiler/polish boundary and is not inferred
 from this speech approval.
 
+### D-050 — Make beginner guidance explicit and evidence-honest
+
+- Date: 2026-08-28
+- Status: Accepted by explicit user approval
+- Affects: M8 Last Train launch, lesson presentation, help semantics, evidence
+
+Context:
+
+Manual M8 Lesson scenario A passed, but scenario B exposed a product failure
+before its intended wrong/assisted matrix could be evaluated. The required
+controls were Japanese-only, Vietnamese support was hidden behind the
+Japanese-only `ヒント` control, and a manual help request did not expose a
+useful authored pattern, reading, or meaning before the learner became stuck.
+The learner repeatedly tried to select a correct answer without understanding
+the expected interaction. This violates the low-friction and no-trap gameplay
+principles; it is an onboarding failure rather than learner failure.
+
+Decision:
+
+Accept the user's `DUYỆT PLAN M8 BEGINNER GUIDANCE` and the focused plan at
+`plans/2026-08-28-m8-beginner-guidance-recovery.md`. Give the fixed M8 Last
+Train package two local presentation choices: recommended `GUIDED` Vietnamese
+support and optional `IMMERSIVE` Japanese-first challenge. Keep Japanese first
+in the visual hierarchy, but make every required control bilingual and show a
+short Vietnamese operational cue derived only from the fixed primitive type.
+
+In guided mode, opt into the existing help state on every step before an
+assessed response. Show only current manifest-owned support, Japanese text,
+and the first relevant authored textual pattern, reading, or meaning hint.
+Classify later success as assisted. Immersive mode keeps support hidden until
+the learner explicitly requests it; that request has the same assisted
+semantics. `afterAttempt` remains the sole authority for automatic candidate
+reduction, highlighting, and deterministic state correction. Manual help must
+not add a premature active scaffold ID to an attempt-zero checkpoint.
+
+Consequences:
+
+The M8 beginner path becomes understandable without changing the approved
+story, Japanese dialogue, answer truth, lesson graph, target bindings, world,
+speech hashes, non-speech catalog, contract schema, or runtime primitive set.
+Unaided and supported evidence remain distinguishable. This adds no provider,
+dependency, model, asset, account, credential, environment variable, data
+transport, recurring operation, or cost. M8 Lesson B/C acceptance remains open
+until the repaired manual matrix is reported by the user.
+
+### D-051 — Repair replay idempotency and approve local Japanese study-tool qualification
+
+- Date: 2026-08-28
+- Status: Accepted by explicit user approval
+- Affects: M8 lesson runtime, evidence, Japanese learning UI, reference-data
+  authoring, dependencies, local data, licenses
+
+Context:
+
+The first D-050 guided retest exposed a cached-speech replay failure rather
+than a voice-engine failure. `AUDIO_STARTED` recreated the stable HEARD event
+identity with a new timestamp and active latency. SQLite correctly rejected
+the changed immutable payload and the lesson entered `RUNTIME_LESSON_FAILED`.
+The same retest also showed that beginners need optional pronunciation,
+vocabulary, and grammar support adjacent to Japanese content. D-038 forbids
+downloading a convenient dictionary or NLP package without a complete cost,
+license, data, and removal plan.
+
+Decision:
+
+Accept the user's `UYỆT PLAN M8 JAPANESE TEXT TOOLS + REPLAY FIX` as the
+unambiguous approval of
+`plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md`; the missing
+initial `D` is a typing omission in a direct response to the requested exact
+phrase.
+
+Keep one stable HEARD event per session, LISTEN step, and assessed target.
+Distinguish first playback, replay, failure-before-start, and interruption-
+after-start in the deterministic controller using existing state. Do not
+weaken the server's full-payload fingerprint rejection and do not migrate the
+evidence contract or SQLite schema.
+
+Add compact play, reading, vocabulary, and grammar controls for the fixed M8
+Japanese content. Opening reading/vocabulary/grammar support makes subsequent
+assessment assisted; replay alone does not. Enable play only where exact text
+already maps to a D-049-approved cached WAV. Missing speech fails visibly and
+never invokes browser SpeechSynthesis, Nemo, or a remote source.
+
+Keep language analysis outside gameplay. Approve exact authoring-only intake
+of `kuromoji@0.1.2` and `wanakana@5.3.1`, with all Apache-2.0, MIT, IPADIC,
+ICOT, copyright, redistribution, and no-warranty notices retained. Approve one
+bounded ignored download of the JMdict English-without-examples candidate for
+hash/license review only. JMdict-derived entries remain prohibited from the
+repository and runtime until a second exact source/version/hash/selection
+packet is approved. Runtime receives only a compact reviewed text-study
+catalog; it does not bundle the tokenizer, transliterator, or full dictionary.
+
+Expected and worst recurring provider cost are USD 0. Add no account,
+credential, environment variable, metered API, remote runtime, model, new
+voice, or paid/free-tier dependency. Grammar remains Bunbun-authored. Yomitan
+application code, Tae Kim content, Bunpro content/extractions, Sudachi, and an
+unlicensed Japanese-Vietnamese dictionary remain excluded.
+
+Consequences:
+
+Replay can be repaired without invalidating existing sessions or evidence.
+The approved intake creates new authoring dependencies and ignored candidate
+data but no runtime service or learner-data flow. O-009 is only partially
+addressed: exact M8 study records may be built from Bunbun-owned data, while
+production JMdict-derived data and broader Japanese reference coverage remain
+behind the second approval gate and documented update obligations.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

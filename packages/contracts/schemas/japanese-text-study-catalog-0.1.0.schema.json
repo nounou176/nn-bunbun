@@ -1,0 +1,214 @@
+{
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "catalogId",
+    "lessonId",
+    "lessonRevision",
+    "sources",
+    "records"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "catalogId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "lessonId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "lessonRevision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sourceId",
+          "version",
+          "role"
+        ],
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "CONTENT",
+              "AUTHORING_PROPOSAL_TOOL"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "textId",
+          "textSha256",
+          "textJa",
+          "readingKana",
+          "romaji",
+          "vocabulary",
+          "grammar"
+        ],
+        "properties": {
+          "textId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          },
+          "textSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "textJa": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 320
+          },
+          "readingKana": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 480
+          },
+          "romaji": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 640
+          },
+          "vocabulary": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "entryId",
+                "surfaceJa",
+                "dictionaryFormJa",
+                "readingKana",
+                "partOfSpeech",
+                "meaningVi"
+              ],
+              "properties": {
+                "entryId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "surfaceJa": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "dictionaryFormJa": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "readingKana": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "partOfSpeech": {
+                  "type": "string",
+                  "enum": [
+                    "NOUN",
+                    "VERB",
+                    "ADJECTIVE",
+                    "ADVERB",
+                    "PARTICLE",
+                    "AUXILIARY",
+                    "EXPRESSION",
+                    "OTHER"
+                  ]
+                },
+                "meaningVi": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "additionalProperties": false
+            },
+            "maxItems": 24
+          },
+          "grammar": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "entryId",
+                "patternJa",
+                "labelVi",
+                "explanationVi"
+              ],
+              "properties": {
+                "entryId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                },
+                "patternJa": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "labelVi": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "explanationVi": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "audioAssetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 128
+    }
+  },
+  "$id": "https://bunbun.local/schemas/japanese-text-study-catalog-0.1.0.json",
+  "additionalProperties": false
+}

@@ -484,6 +484,132 @@ h1 {
   font-weight: 800;
 }
 
+.japanese-study-tools {
+  margin: 0.35rem 0 0.65rem;
+}
+
+.japanese-study-tools[hidden] {
+  display: none;
+}
+
+.japanese-study-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.japanese-study-actions button {
+  min-height: 2rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(77 57 41 / 16%);
+  border-radius: 999px;
+  color: #6d4329;
+  background: #f5ecdd;
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.japanese-study-actions button:hover:not(:disabled),
+.japanese-study-actions button[aria-expanded="true"] {
+  color: #fffaf0;
+  background: #7b4936;
+}
+
+.japanese-study-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.japanese-study-actions button span {
+  margin-left: 0.12rem;
+}
+
+.japanese-study-panel {
+  margin-top: 0.45rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgb(77 57 41 / 12%);
+  border-radius: 0.75rem;
+  color: #554b42;
+  background: rgb(250 246 237 / 92%);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.japanese-study-panel[hidden] {
+  display: none;
+}
+
+.japanese-study-panel p,
+.japanese-study-panel-title {
+  margin: 0.2rem 0;
+}
+
+.japanese-study-panel-title {
+  color: #7b4936;
+  font-weight: 900;
+}
+
+.japanese-study-list {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: 0.25rem 0.65rem;
+  margin: 0;
+}
+
+.japanese-study-list dt {
+  color: #2d2924;
+  font-weight: 850;
+}
+
+.japanese-study-list dd {
+  margin: 0;
+}
+
+.japanese-study-grammar + .japanese-study-grammar {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgb(77 57 41 / 10%);
+}
+
+.japanese-study-grammar p:first-child {
+  color: #7b4936;
+  font-weight: 850;
+}
+
+.japanese-study-unavailable {
+  color: #766a5f;
+  font-style: italic;
+}
+
+.lesson-how-to {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.7rem 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgb(151 68 46 / 16%);
+  border-radius: 0.75rem;
+  background: #f7ecda;
+}
+
+.lesson-how-to[hidden] {
+  display: none;
+}
+
+.lesson-how-to p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.lesson-how-to [lang="ja"] {
+  color: #44382e;
+  font-weight: 800;
+}
+
+.lesson-how-to [data-role="lesson-how-to-support"] {
+  color: #665b50;
+  font-size: 0.82rem;
+}
+
 .lesson-reading,
 .lesson-pattern,
 .lesson-meaning,
@@ -697,6 +823,26 @@ h1 {
 
 .lesson-actions button {
   min-height: 2.65rem;
+}
+
+.bilingual-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  line-height: 1.15;
+}
+
+.bilingual-button[hidden] {
+  display: none;
+}
+
+.bilingual-button small {
+  color: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.82;
 }
 
 .lesson-actions button:disabled {

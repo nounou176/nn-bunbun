@@ -636,6 +636,27 @@ secret configuration. M7 compiled packages use `AI_ASSISTED`, compiler version
 `0.1.0`, all three approved prompt-module identities at `0.1.0`, and the
 project-authored `bunbun_core@0.1.0` reference identity.
 
+## JapaneseTextStudyCatalog sidecar
+
+`JapaneseTextStudyCatalog 0.1.0` is a separately versioned presentation
+sidecar, not part of `LessonManifest 0.1.0` answer truth or lesson traversal.
+It binds to one exact `lessonId + lessonRevision` and contains closed records
+with:
+
+- one stable `textId`, exact Japanese string, and lowercase SHA-256;
+- reviewed kana and romaji;
+- zero or more reviewed Vietnamese vocabulary entries;
+- zero or more Bunbun-authored Vietnamese grammar notes; and
+- an optional `audioAssetId` whose manifest text must equal the record text.
+
+The authoring validator covers every fixed M8 title, objective, instruction,
+utterance, authored Japanese hint, feedback line, and completion line. Missing
+sections use an explicit unavailable state rather than guessed content.
+Study-tool use never changes accepted answers, target bindings, transitions,
+attempt policy, or world state. Reading/vocabulary/grammar use enters the
+existing assisted path; exact audio replay keeps the manifest's normal replay
+semantics.
+
 ## Semantic validation
 
 The compiler MUST reject a manifest when any of these checks fails:

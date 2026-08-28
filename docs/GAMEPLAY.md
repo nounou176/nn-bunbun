@@ -318,6 +318,30 @@ is:
 Scaffolding must be observable in the evidence event. Assisted success is not
 equivalent to unaided success.
 
+Required controls must be understandable to the selected support locale. A
+Japanese-first label may include a concise support-language action label; this
+is interface guidance rather than an additional lesson primitive. A guided
+presentation may opt into the current step's existing support before the first
+attempt, but later success must then be assisted. Explicit help may reveal only
+the step's authored support and textual pattern, reading, or meaning. It must
+not invent content or prematurely activate attempt-gated candidate reduction,
+highlighting, or deterministic state correction.
+
+D-051 adds compact study controls beside reviewed Japanese learning content:
+play approved audio, show kana/romaji, explain reviewed vocabulary, and explain
+reviewed grammar. Opening reading, vocabulary, or grammar support sets the
+existing `helpUsed` state, so a later assessed success is assisted. Playing or
+replaying an exact approved utterance alone does not make the result assisted.
+Play is enabled only when the exact visible Japanese string maps to an approved
+manifest `AudioAsset`; otherwise the UI states that no approved audio exists
+and performs no SpeechSynthesis, provider, or remote lookup.
+
+HEARD evidence is written once for the first qualifying LISTEN playback. A
+normal replay, an interruption after audio started, and a replay after resume
+must not recreate that stable event. A failure before audio starts may still
+record the first HEARD event when a later retry actually begins. The server
+continues rejecting a reused event identity with changed immutable content.
+
 ## Feedback and failure
 
 Feedback should be immediate, short, and connected to Japanese or the world.

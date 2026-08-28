@@ -134,6 +134,12 @@ During normal exploration, the interface stays minimal. Short DOM overlays
 appear for dialogue, choices, word arrangement, typing, help, and language
 information, then disappear promptly so the learner returns to the world.
 
+The first N5/Vietnamese vertical slice offers a recommended guided presentation
+and an explicit immersive alternative. Japanese stays visually primary, while
+guided presentation explains required controls and actions in concise
+Vietnamese. Receiving that language support is recorded as assisted rather
+than being misreported as unaided evidence.
+
 ## Success indicators
 
 Early product validation should consider:

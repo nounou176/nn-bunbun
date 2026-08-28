@@ -220,6 +220,15 @@ test("resume prompt is visibly actionable while runtime startup waits", async ()
   );
 });
 
+test("hidden bilingual lesson actions stay out of inactive phases", async () => {
+  const styles = await readFile(
+    resolve(packageDirectory, "src/style.css"),
+    "utf8",
+  );
+
+  assert.match(styles, /\.bilingual-button\[hidden\]\s*\{\s*display: none;/);
+});
+
 test("renderer retry replaces a canvas that may own a failed GPU context", async () => {
   const initialCanvas = { id: "initial" } as unknown as HTMLCanvasElement;
   const replacementCanvas = {

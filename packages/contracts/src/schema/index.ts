@@ -4,5 +4,6 @@ export * from "./authoring-v2.js";
 export * from "./common.js";
 export * from "./evidence-persistence.js";
 export * from "./interactions.js";
+export * from "./japanese-text-study.js";
 export * from "./lesson-manifest.js";
 export * from "./manifest-core.js";

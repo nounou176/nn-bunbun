@@ -15,6 +15,7 @@ import {
   LessonAuthoringResultSchema,
   LessonAuthoringResultV2Schema,
   LocalPreferencesSchema,
+  JapaneseTextStudyCatalogSchema,
   LessonManifestSchema,
   ProgressSummaryResultSchema,
   ResetLocalDataRequestSchema,
@@ -35,6 +36,7 @@ import {
   type LessonAuthoringResult,
   type LessonAuthoringResultV2,
   type LocalPreferences,
+  type JapaneseTextStudyCatalog,
   type LessonManifest,
   type ProgressSummaryResult,
   type ResetLocalDataRequest,
@@ -73,6 +75,9 @@ addFormats(ajv);
 
 const catalogValidator = ajv.compile<CatalogSnapshot>(
   CatalogSnapshotSchema as AnySchema,
+);
+const japaneseTextStudyCatalogValidator = ajv.compile<JapaneseTextStudyCatalog>(
+  JapaneseTextStudyCatalogSchema as AnySchema,
 );
 const manifestValidator = ajv.compile<LessonManifest>(
   LessonManifestSchema as AnySchema,
@@ -136,6 +141,16 @@ export function validateCatalogStructure(
   input: unknown,
 ): ValidationResult<CatalogSnapshot> {
   return runStructuralValidation(input, catalogValidator, "CATALOG");
+}
+
+export function validateJapaneseTextStudyCatalogStructure(
+  input: unknown,
+): ValidationResult<JapaneseTextStudyCatalog> {
+  return runStructuralValidation(
+    input,
+    japaneseTextStudyCatalogValidator,
+    "CATALOG",
+  );
 }
 
 export function validateManifestStructure(

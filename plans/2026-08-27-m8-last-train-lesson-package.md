@@ -1,6 +1,6 @@
 # Author the complete last-train lesson package
 
-Status: Active; Content and Speech Gates approved, manual A/B/C pending
+Status: Active; Gates/manual A approved, D-050 repair awaits B/C retest
 Owner: Codex and user
 Created: 2026-08-27
 Last updated: 2026-08-28 Asia/Ho_Chi_Minh
@@ -369,6 +369,23 @@ candidate.
       aggregate tests (contracts 43/43, server 9/9, web 52/52), production
       build, and diff hygiene. Docker remains not applicable under D-015;
       Playwright remains excluded under D-011.
+- [x] 2026-08-28 — User reports `M8 LESSON A: PASS`; the complete nine-step
+      happy path, accepted neighborhood package, reviewed cached speech, and
+      deterministic production audio path are manually accepted.
+- [ ] 2026-08-28 — Manual scenario B is not accepted. The user reports that a
+      beginner cannot identify the Japanese-only controls, receives no useful
+      guidance before becoming stuck, and keeps trying to choose a correct
+      answer without understanding the expected action. Treat this as an
+      onboarding/scaffold UX failure, not learner failure.
+- [x] 2026-08-28 — D-050 beginner guidance repair is implemented: recommended
+      guided and optional immersive launch, Japanese-first bilingual controls,
+      eight primitive-specific operational cues, bounded authored text help,
+      and assisted evidence semantics. Supported automated/static gates pass;
+      manual B/C retest remains open.
+- [x] 2026-08-28 — D-051 repairs the replay persistence regression and adds
+      the fixed local Japanese study catalog/tools. Supported checks pass
+      (contracts 46/46, server 9/9, web 66/66); JMdict is not promoted. Manual
+      replay/tools and repaired B/C acceptance remain open.
 - [ ] Complete user-reported manual A/B/C acceptance.
 
 ## Plan decision

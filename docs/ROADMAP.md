@@ -524,13 +524,25 @@ Decision resolved:
   rendering, forced WebGL2, interaction, animation, ambience, asset-failure
   retry, lifecycle, and technical-park regression. Parent Milestone 3 is
   complete.
-- D-046 through D-049 accept the fixed-package-first lesson plan, exact Content
-  Gate 1 packet, deterministic unique-truth assisted recovery semantics, and
-  exact Speech Gate 2 packet. The repository now owns a strict six-target,
+- D-046 through D-051 accept the fixed-package-first lesson plan, exact Content
+  Gate 1 packet, deterministic unique-truth assisted recovery semantics, exact
+  Speech Gate 2 packet, and evidence-honest beginner guidance. The repository
+  now owns a strict six-target,
   four-utterance, nine-step last-train package for `neighborhood_small`; all
   four production WAV rows are immutable `READY` and runtime playback checks
-  their approved SHA-256 ETags. Parent Milestone 4 implementation is ready for
-  the user's manual A/B/C matrix; compiler integration remains Milestone 5.
+  their approved SHA-256 ETags. Guided/immersive launch, bilingual controls,
+  primitive-specific operational cues, and bounded authored help are
+  implemented. Parent Milestone 4 awaits the repaired manual B/C matrix;
+  compiler integration remains Milestone 5.
+- D-051 repairs LISTEN replay idempotency without weakening immutable-event
+  validation and adds `JapaneseTextStudyCatalog 0.1.0`. The fixed M8 catalog
+  covers 40/40 reviewed Japanese text units with kana/romaji, bounded
+  Bunbun-authored Vietnamese vocabulary/grammar notes, and only four exact
+  D-049 audio bindings. Kuromoji/WanaKana remain authoring-only and are absent
+  from the browser bundle. JMdict candidate SHA-256
+  `2fdd9e55b2a5b90d063473f7b33b83ea80782e19591d523f0000259ad9274d36`
+  remains unpromoted behind its separate Gate 2. Manual replay/study-tool and
+  remaining beginner B/C acceptance are open.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -550,10 +562,11 @@ Implemented and accepted D-040 speech foundation:
 - the focused D-040 reviewed cached-speech foundation is complete. Full M7
   gameplay regression retains its D-036 waiver.
 
-Decision required:
+Acceptance required:
 
-- accept the complete fixed lesson through the Milestone 4 manual A/B/C matrix
-  before M9 linkage or Milestone 5 compiler integration.
+- accept the repaired guided/immersive fixed lesson through the remaining
+  Milestone 4 manual B/C matrix before M9 linkage or Milestone 5 compiler
+  integration.
 
 Implemented speech-foundation scope:
 

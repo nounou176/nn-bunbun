@@ -16,6 +16,7 @@ import {
   loadLessonPackage,
 } from "./lesson/content.js";
 import { createLessonRuntime } from "./lesson/runtime.js";
+import { loadM8JapaneseStudyIndex } from "./lesson/japanese-study.js";
 import { packageFingerprint } from "./persistence/fingerprint.js";
 import { createHttpEvidenceStore } from "./persistence/http.js";
 import { createAppShell } from "./ui/shell.js";
@@ -85,6 +86,20 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         selectedPackage,
         baseConfig.simulateManifestFailure && attempt === 0,
       );
+      try {
+        shell.setJapaneseStudyIndex(
+          lessonPackage.manifest.lessonId === "lesson_m8_last_train"
+            ? loadM8JapaneseStudyIndex(lessonPackage.manifest)
+            : undefined,
+        );
+      } catch (error) {
+        throw new LessonContentError(
+          "RUNTIME_STUDY_CATALOG_INVALID",
+          error instanceof Error
+            ? error.message
+            : "The Japanese study catalog is invalid.",
+        );
+      }
       const fingerprint = await packageFingerprint({
         manifest: lessonPackage.manifest,
         catalog: lessonPackage.catalog,
@@ -176,6 +191,9 @@ async function startApp(app: HTMLDivElement): Promise<void> {
                 cause: error,
               }),
             ),
+          selection.kind === "LAST_TRAIN_DEMO"
+            ? selection.supportMode
+            : "IMMERSIVE",
         );
       } catch (error) {
         worldRuntime.dispose();

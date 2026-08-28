@@ -1,6 +1,16 @@
 import type { RendererBackend } from "../game/renderer.js";
 import { currentStep, type LessonState } from "../lesson/controller.js";
+import {
+  authoredTextualHints,
+  operationalGuidance,
+} from "../lesson/guidance.js";
+import type { JapaneseStudyIndex } from "../lesson/japanese-study.js";
 import type { AudioGainName, AudioMixerSnapshot } from "../audio/mixer.js";
+import {
+  bindJapaneseStudyTools,
+  japaneseStudyToolsMarkup,
+  renderJapaneseStudyTools,
+} from "./japanese-study.js";
 
 export interface DiagnosticsSnapshot {
   renderer: RendererBackend;
@@ -48,6 +58,8 @@ export interface AppShell {
   arrangeResetButton: HTMLButtonElement;
   typeForm: HTMLFormElement;
   typeInput: HTMLInputElement;
+  studyToolsRoot: HTMLElement;
+  setJapaneseStudyIndex: (index?: JapaneseStudyIndex) => void;
   setLoading: () => void;
   setResumePrompt: (
     lessonTitle: string,
@@ -182,10 +194,18 @@ export function createAppShell(
           </div>
           <p class="lesson-speaker" data-role="lesson-speaker"></p>
           <h2 class="lesson-instruction" data-role="lesson-instruction"></h2>
+          ${japaneseStudyToolsMarkup("instruction")}
+          <section class="lesson-how-to" data-role="lesson-how-to">
+            <p class="control-label">いま何をする？ / Cách chơi</p>
+            <p lang="ja" data-role="lesson-how-to-ja"></p>
+            <p data-role="lesson-how-to-support"></p>
+          </section>
           <p class="lesson-utterance" data-role="lesson-utterance"></p>
+          ${japaneseStudyToolsMarkup("utterance")}
           <p class="lesson-reading" data-role="lesson-reading" hidden></p>
           <p class="lesson-pattern" data-role="lesson-pattern" hidden></p>
           <p class="lesson-meaning" data-role="lesson-meaning" hidden></p>
+          ${japaneseStudyToolsMarkup("hint")}
           <p class="lesson-support" data-role="lesson-support" hidden></p>
           <p class="lesson-world-action" data-role="lesson-world-action" hidden>
             <span data-role="lesson-world-action-ja"></span>
@@ -195,34 +215,35 @@ export function createAppShell(
           <p class="lesson-audio-error" data-role="lesson-audio-error" hidden></p>
           <p class="lesson-audio-credit" data-role="lesson-audio-credit" hidden>Voice: VOICEVOX Nemo</p>
           <section class="arrange-control" data-role="arrange-control" aria-label="Sentence arrangement" hidden>
-            <p class="control-label">ことば</p>
+            <p class="control-label">ことば / Mảnh từ</p>
             <div class="token-list token-bank" data-role="arrange-bank"></div>
-            <p class="control-label">文</p>
+            <p class="control-label">文 / Câu đã xếp</p>
             <div class="token-list token-answer" data-role="arrange-answer"></div>
             <div class="arrange-actions">
-              <button class="primary-button" data-role="arrange-submit" type="button">答える</button>
-              <button data-role="arrange-reset" type="button">リセット</button>
+              <button class="primary-button bilingual-button" data-role="arrange-submit" type="button"><span lang="ja">答える</span><small>Kiểm tra</small></button>
+              <button class="bilingual-button" data-role="arrange-reset" type="button"><span lang="ja">リセット</span><small>Làm lại</small></button>
             </div>
           </section>
           <form class="type-control" data-role="type-form" hidden>
-            <label for="lesson-type-input">日本語で入力</label>
+            <label for="lesson-type-input">日本語で入力 / Nhập tiếng Nhật</label>
             <div class="type-input-row">
               <input id="lesson-type-input" data-role="type-input" type="text" inputmode="text" lang="ja" autocomplete="off" autocapitalize="off" spellcheck="false">
-              <button class="primary-button" type="submit">答える</button>
+              <button class="primary-button bilingual-button" type="submit"><span lang="ja">答える</span><small>Kiểm tra</small></button>
             </div>
             <small data-role="type-limit"></small>
           </form>
           <div class="choice-list" data-role="choice-list"></div>
           <output class="lesson-feedback" data-role="lesson-feedback"></output>
+          ${japaneseStudyToolsMarkup("feedback")}
           <div class="lesson-actions">
-            <button class="primary-button" data-role="lesson-audio" type="button" hidden>
-              音声を聞く
+            <button class="primary-button bilingual-button" data-role="lesson-audio" type="button" hidden>
+              <span lang="ja">音声を聞く</span><small>Nghe câu thoại</small>
             </button>
-            <button class="primary-button" data-role="lesson-continue" type="button" hidden>
-              次へ
+            <button class="primary-button bilingual-button" data-role="lesson-continue" type="button" hidden>
+              <span lang="ja">次へ</span><small>Tiếp tục</small>
             </button>
-            <button data-role="lesson-help" type="button">ヒント</button>
-            <button data-role="lesson-restart" type="button" hidden>もう一度</button>
+            <button class="bilingual-button" data-role="lesson-help" type="button"><span lang="ja">ヒント</span><small>Xem gợi ý</small></button>
+            <button class="bilingual-button" data-role="lesson-restart" type="button" hidden><span lang="ja">もう一度</span><small>Chơi lại từ đầu</small></button>
           </div>
         </section>
 
@@ -507,6 +528,15 @@ export function createAppShell(
     app,
     '[data-role="lesson-instruction"]',
   );
+  const lessonHowTo = required<HTMLElement>(app, '[data-role="lesson-how-to"]');
+  const lessonHowToJa = required<HTMLElement>(
+    app,
+    '[data-role="lesson-how-to-ja"]',
+  );
+  const lessonHowToSupport = required<HTMLElement>(
+    app,
+    '[data-role="lesson-how-to-support"]',
+  );
   const lessonUtterance = required<HTMLElement>(
     app,
     '[data-role="lesson-utterance"]',
@@ -592,6 +622,8 @@ export function createAppShell(
     app,
     '[data-role="lesson-restart"]',
   );
+  bindJapaneseStudyTools(lessonPanel);
+  let japaneseStudyIndex: JapaneseStudyIndex | undefined;
   let audioErrorMessage: string | undefined;
 
   const diagnostic = (name: string) =>
@@ -643,6 +675,10 @@ export function createAppShell(
     arrangeResetButton,
     typeForm,
     typeInput,
+    studyToolsRoot: lessonPanel,
+    setJapaneseStudyIndex: (index) => {
+      japaneseStudyIndex = index;
+    },
     setLoading: () => {
       setSoundPanelOpen(false);
       statePanel.hidden = false;
@@ -786,12 +822,71 @@ export function createAppShell(
         lessonUtterance.hidden = lessonUtterance.textContent.length === 0;
       }
 
-      lessonReading.textContent = state.readingHint ?? "";
-      lessonReading.hidden = state.readingHint === undefined;
-      lessonPattern.textContent = state.patternHint ?? "";
-      lessonPattern.hidden = state.patternHint === undefined;
-      lessonMeaning.textContent = state.meaningHint ?? "";
-      lessonMeaning.hidden = state.meaningHint === undefined;
+      const instructionStudyText =
+        state.phase === "COMPLETED"
+          ? (state.manifest.completion.closingMessage?.ja ?? "レッスン完了")
+          : (step.stimulus.instructionJa ??
+            step.stimulus.utterance?.textJa ??
+            "");
+      renderJapaneseStudyTools(
+        lessonPanel,
+        "instruction",
+        japaneseStudyIndex?.find(instructionStudyText),
+        instructionStudyText.length > 0 && japaneseStudyIndex !== undefined,
+      );
+      const utteranceStudyText =
+        state.phase === "COMPLETED" ? "" : lessonUtterance.textContent;
+      renderJapaneseStudyTools(
+        lessonPanel,
+        "utterance",
+        japaneseStudyIndex?.find(utteranceStudyText),
+        utteranceStudyText.length > 0 && japaneseStudyIndex !== undefined,
+      );
+
+      const howTo = operationalGuidance(step);
+      lessonHowTo.hidden = state.phase === "COMPLETED";
+      lessonHowToJa.textContent = howTo.ja;
+      lessonHowToSupport.textContent = howTo.support;
+
+      const manualHints = state.helpUsed ? authoredTextualHints(step) : [];
+      const manualReadingHint = manualHints.find(
+        (hint) => hint.kind === "READING",
+      );
+      const manualPatternHint = manualHints.find(
+        (hint) => hint.kind === "PATTERN",
+      );
+      const manualMeaningHint = manualHints.find(
+        (hint) => hint.kind === "MEANING",
+      );
+      const manualReading =
+        manualReadingHint === undefined
+          ? undefined
+          : formatAuthoredHint(manualReadingHint);
+      const manualPattern =
+        manualPatternHint === undefined
+          ? undefined
+          : formatAuthoredHint(manualPatternHint);
+      const manualMeaning =
+        manualMeaningHint === undefined
+          ? undefined
+          : formatAuthoredHint(manualMeaningHint);
+      const readingHint = state.readingHint ?? manualReading;
+      const patternHint = state.patternHint ?? manualPattern;
+      const meaningHint = state.meaningHint ?? manualMeaning;
+      lessonReading.textContent = readingHint ?? "";
+      lessonReading.hidden = readingHint === undefined;
+      lessonPattern.textContent = patternHint ?? "";
+      lessonPattern.hidden = patternHint === undefined;
+      lessonMeaning.textContent = meaningHint ?? "";
+      lessonMeaning.hidden = meaningHint === undefined;
+      const hintStudyText =
+        manualPatternHint?.text ?? manualReadingHint?.text ?? "";
+      renderJapaneseStudyTools(
+        lessonPanel,
+        "hint",
+        japaneseStudyIndex?.find(hintStudyText),
+        hintStudyText.length > 0 && japaneseStudyIndex !== undefined,
+      );
       const showSupport =
         state.phase === "COMPLETED" ||
         step.stimulus.supportVisibility === "ALWAYS" ||
@@ -824,6 +919,13 @@ export function createAppShell(
       lessonFeedback.textContent =
         state.feedback?.textJa ?? state.feedback?.supportText ?? "";
       lessonFeedback.hidden = state.feedback === undefined;
+      const feedbackStudyText = state.feedback?.textJa ?? "";
+      renderJapaneseStudyTools(
+        lessonPanel,
+        "feedback",
+        japaneseStudyIndex?.find(feedbackStudyText),
+        feedbackStudyText.length > 0 && japaneseStudyIndex !== undefined,
+      );
 
       arrangeBank.replaceChildren();
       arrangeAnswer.replaceChildren();
@@ -889,12 +991,26 @@ export function createAppShell(
         state.phase === "FEEDBACK" ||
         state.phase === "COMPLETED";
       audioButton.disabled = state.phase === "PLAYING_AUDIO";
-      audioButton.textContent =
-        state.phase === "AWAITING_AUDIO" ? "音声を聞く" : "もう一度聞く";
+      setBilingualButtonLabel(
+        audioButton,
+        state.phase === "AWAITING_AUDIO" ? "音声を聞く" : "もう一度聞く",
+        state.phase === "AWAITING_AUDIO" ? "Nghe câu thoại" : "Nghe lại",
+      );
       continueButton.hidden = state.phase !== "AWAITING_CONTINUE";
+      setBilingualButtonLabel(continueButton, "次へ", "Tiếp tục");
       helpButton.hidden = state.phase === "COMPLETED";
       helpButton.disabled = state.phase === "FEEDBACK" || state.helpUsed;
+      setBilingualButtonLabel(
+        helpButton,
+        state.helpUsed ? "ヒント表示中" : "ヒント",
+        state.helpUsed ? "Đang hiện gợi ý" : "Xem gợi ý",
+      );
       restartLessonButton.hidden = state.phase !== "COMPLETED";
+      setBilingualButtonLabel(
+        restartLessonButton,
+        "もう一度",
+        "Chơi lại từ đầu",
+      );
     },
     setDiagnosticsOpen,
     setSoundPanelOpen,
@@ -1047,6 +1163,28 @@ function appendTokenButtons(
   });
 }
 
+function formatAuthoredHint(hint: {
+  labelJa: string;
+  labelSupport: string;
+  text: string;
+}): string {
+  return `${hint.labelJa} / ${hint.labelSupport}: ${hint.text}`;
+}
+
+function setBilingualButtonLabel(
+  button: HTMLButtonElement,
+  japanese: string,
+  support: string,
+): void {
+  const japaneseLabel = document.createElement("span");
+  japaneseLabel.lang = "ja";
+  japaneseLabel.textContent = japanese;
+  const supportLabel = document.createElement("small");
+  supportLabel.textContent = support;
+  button.replaceChildren(japaneseLabel, supportLabel);
+  button.setAttribute("aria-label", `${support} — ${japanese}`);
+}
+
 function worldActionCopy(
   phase: LessonState["phase"],
   sceneId: string,
@@ -1066,7 +1204,7 @@ function worldActionCopy(
     case "AWAITING_LOCATION":
       return {
         ja: "場所のマーカーをクリック",
-        support: "Chọn một địa điểm được đánh dấu trong công viên",
+        support: "Bấm vào một địa điểm được đánh dấu trong cảnh 3D",
       };
     case "MOVING_TO_LOCATION":
       return { ja: "移動中…", support: "Bunbun đang đi đến địa điểm đã chọn" };
@@ -1074,7 +1212,7 @@ function worldActionCopy(
       return isNeighborhood
         ? {
             ja: "拾うものをクリック",
-            support: "Chọn đúng đồ vật để nhặt lên",
+            support: "Bấm vào đồ vật bạn muốn nhặt lên",
           }
         : {
             ja: "連れていく動物をクリック",
@@ -1083,7 +1221,7 @@ function worldActionCopy(
     case "AWAITING_RECIPIENT":
       return {
         ja: "渡す相手をクリック",
-        support: "Chọn người sẽ nhận con vật đang đi cùng",
+        support: "Bấm vào người sẽ nhận đồ vật bạn đang mang",
       };
     default:
       return undefined;

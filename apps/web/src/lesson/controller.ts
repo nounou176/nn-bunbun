@@ -167,7 +167,7 @@ export function reduceLesson(
       if (state.phase === "FEEDBACK") return unchanged(state);
       return { state: { ...state, helpUsed: true }, effects: [] };
 
-    case "AUDIO_STARTED":
+    case "AUDIO_STARTED": {
       if (step.stimulus.utterance?.audioAssetId === undefined) {
         return unchanged(state);
       }
@@ -183,10 +183,15 @@ export function reduceLesson(
       ) {
         return unchanged(state);
       }
+      const shouldRecordHeard =
+        state.phase === "AWAITING_AUDIO" || state.audioFailed;
       return {
         state: { ...state, phase: "PLAYING_AUDIO", audioFailed: false },
-        effects: [record(heardEvents(eventContext(state, input), step))],
+        effects: shouldRecordHeard
+          ? [record(heardEvents(eventContext(state, input), step))]
+          : [],
       };
+    }
 
     case "AUDIO_ENDED":
       if (
@@ -203,7 +208,7 @@ export function reduceLesson(
         effects: [],
       };
 
-    case "AUDIO_FAILED":
+    case "AUDIO_FAILED": {
       if (step.stimulus.utterance?.audioAssetId === undefined) {
         return unchanged(state);
       }
@@ -216,15 +221,17 @@ export function reduceLesson(
       if (state.phase !== "AWAITING_AUDIO" && state.phase !== "PLAYING_AUDIO") {
         return unchanged(state);
       }
+      const failedBeforeStart = state.phase === "AWAITING_AUDIO";
       return {
         state: {
           ...state,
           phase: "AWAITING_CONTINUE",
           helpUsed: true,
-          audioFailed: true,
+          audioFailed: failedBeforeStart,
         },
         effects: [],
       };
+    }
 
     case "CONTINUE":
       if (

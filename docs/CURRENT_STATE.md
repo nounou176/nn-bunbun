@@ -35,8 +35,14 @@ Active parent ExecPlan:
 Active focused M8 lesson plan:
 
 - plans/2026-08-27-m8-last-train-lesson-package.md — Active under D-046 through
-  D-049; exact content and speech gates are approved, the fixed package is
-  locally playable, and manual A/B/C acceptance remains open
+  D-050; exact content and speech gates are approved, the fixed package is
+  locally playable, manual A passed, and the repaired B/C matrix remains open
+- plans/2026-08-28-m8-beginner-guidance-recovery.md — Implemented under D-050;
+  guided/immersive launch, bilingual controls, operational cues, authored help,
+  and evidence-honest assistance await the user's manual retest
+- plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md — Approved
+  under D-051; implementation and supported automated checks are complete;
+  replay/study-tool and remaining beginner B/C manual acceptance are open
 
 Completed focused M8 qualification plan:
 
@@ -93,6 +99,20 @@ Completed ExecPlans:
 - The lesson library can select `終電まであと3分`, resolve its world from the
   manifest rather than a preview query, and preserve the existing park and
   technical speech demos as regression paths.
+- D-050 adds a recommended Vietnamese-guided Last Train entry and an explicit
+  immersive entry. All eight primitive types expose concise operational cues;
+  required lesson controls are Japanese-first bilingual; guided/helped results
+  remain assisted; and attempt-zero help never forges an active scaffold ID.
+- D-051 makes LISTEN replay idempotent across normal replay,
+  failure-before-start retry, interruption recovery, and resume. The server
+  still rejects a changed payload for a reused immutable event identity.
+- `JapaneseTextStudyCatalog 0.1.0` covers all 40 fixed M8 Japanese content
+  units with reviewed kana/romaji and bounded project-authored Vietnamese
+  vocabulary/grammar notes. The UI exposes compact play/reading/vocabulary/
+  grammar controls; only the four D-049 exact utterances enable play.
+- `kuromoji@0.1.2` and `wanakana@5.3.1` are qualified authoring-only
+  dependencies with retained notices and no runtime code. The ignored JMdict
+  candidate is hash-qualified but has zero promoted records pending Gate 2.
 - Established the durable product vision, architecture, gameplay primitives,
   LessonManifest 0.1.0 specification, performance direction, decisions,
   roadmap, current-state record, and ExecPlan standard.
@@ -324,6 +344,17 @@ Completed ExecPlans:
 
 ## Current work
 
+- D-050 beginner guidance is implemented after the user's first manual B run
+  failed on onboarding. The Last Train card now offers `Chơi có hướng dẫn tiếng
+Việt` and `Thử thách chủ yếu bằng tiếng Nhật`. Guided mode opts into existing
+  support on every step, while immersive mode waits for the bilingual Help
+  action. Runtime-owned `Cách chơi` copy explains each primitive without
+  selecting an answer, and Help exposes only existing authored textual hints.
+  The user's first guided TYPE-step screenshot requested pronunciation and
+  exposed inactive Continue/Restart buttons. The UI now shows both the authored
+  pattern and `財布（さいふ）を探（さが）してください。` reading, while an
+  explicit hidden-button rule removes inactive bilingual controls.
+  Automated/static gates pass; the repaired manual browser retest is next.
 - Parent M8 Milestone 3 has passed its second user gate. The user approved the
   complete 55/55 proposal: 18 approved, 37 rejected, Aoi
   `world_character_n`, Tanaka `world_character_q`, Momo `world_animal_cat`, and
@@ -654,44 +685,51 @@ documentation and implementation changes are uncommitted.
    does not invalidate the accepted visible fallback path, but the console-level
    upstream/backend behavior remains a known diagnostic risk for later renderer
    maintenance.
-6. D-047/D-049 approve exact dialogue, Vietnamese support, six targets, the
+6. D-047/D-050 approve exact dialogue, Vietnamese support, six targets, the
    nine-step graph, and four production WAV hashes. The validated fixed runtime
-   package is implemented; full manual scenario A/B/C acceptance and numeric
-   runtime measurements remain open.
-7. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
+   package is implemented, and the user reports `M8 LESSON A: PASS` for the
+   pre-recovery happy path. D-050 repairs the reported beginner-onboarding
+   failure with guided/immersive launch, bilingual controls, operational cues,
+   and authored help. The repaired manual B/C matrix and numeric runtime
+   measurements remain open.
+7. The cached-speech replay regression reported on 2026-08-28 is repaired in
+   code and covered by controller/server regression tests. Browser confirmation
+   of repeated replay, resume replay, interruption recovery, and the new study
+   controls remains pending; do not upgrade this to manual PASS yet.
+8. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. M7 compiler normalization is
    implemented only for the closed three-target Bunbun Core technical profile;
    arbitrary Japanese coverage remains unsupported.
-8. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
+9. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
    contributors must run nvm use to activate Node.js 24.18.0.
-9. Deployment topology remains intentionally deferred until local
-   release-candidate acceptance.
-10. The current WebGPU-capable web build is 1,377.73 kB minified and triggers
-    Vite's default uncompressed chunk warning; measured gzip size is 380.46 kB.
+10. Deployment topology remains intentionally deferred until local
+    release-candidate acceptance.
+11. The current WebGPU-capable web build is 1,423.46 kB minified and triggers
+    Vite's default uncompressed chunk warning; measured gzip size is 391.69 kB.
     Reported browser measurements must guide any future splitting.
-11. Browser SpeechSynthesis voice quality and availability vary by installed
+12. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. D-040 confines it to legacy `voice_guide_01` technical
     fixtures; Aoi and Tanaka never fall back to it.
-12. Milestone 6 has only qualitative overall manual approval. There are no
+13. Milestone 6 has only qualitative overall manual approval. There are no
     scenario-level observations, measured save/reload latency, named device or
     browser details, or numeric renderer metrics; the approval must not be
     represented as evidence for those finer-grained claims.
-13. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
+14. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
     Milestone 5 rather than guessing behavior.
-14. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
+15. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
-15. Milestone 5 browser behavior is manually accepted, but the user supplied no
+16. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
-16. Six Custom GPT configurations and their local Knowledge assets are
+17. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
     0.1.0 is approved. The three selected modules are compile-time inputs via
     manual file handoff and remain absent from gameplay. GPT-editor model,
     capability/action, and version-history metadata was not supplied and is not
     inherited; config hashes identify the reviewed local source snapshots.
     Supplied images and the APKG remain style/output examples only.
-17. M7 v3 cannot assume that the original GPTs satisfy the approved typed
+18. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
     strong structural compliance but fails strict world-fact discipline; Run
@@ -699,17 +737,17 @@ documentation and implementation changes are uncommitted.
     viability an implementation dependency by selecting the repository-owned
     prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
     a quality risk and must not be upgraded to a full pass.
-18. D-032 closes the transport-proof output-budget gap by putting explicit
+19. D-032 closes the transport-proof output-budget gap by putting explicit
     title, objective, premise, setting-context, and synopsis limits in the
     request packet. These authored fixture values are proof inputs, not yet
     accepted production-profile defaults.
-19. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
+20. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
     claim IDs, per-beat claim allowlists, and returned claim bindings. This
     makes unknown or out-of-beat claims deterministically rejectable, but code
     still cannot prove that every nuance of free-form natural-language copy is
     semantically entailed. Application publication therefore remains gated by
     later catalog/runtime validation and review.
-20. Product-surface availability, install behavior, and strict composed output
+21. Product-surface availability, install behavior, and strict composed output
     validation now pass for `bunbun-authoring@0.1.0`. Installation exposed two
     local setup constraints now recorded in the runbook: a repository
     marketplace manifest belongs at `.agents/plugins/marketplace.json`, and the
@@ -719,13 +757,13 @@ documentation and implementation changes are uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
-21. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
+22. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
     compiler-owned practice text, exact accepted Japanese answer truth,
     read-only runtime-plan context, and bounded repair diagnostics. The
     installed plugin is 0.2.0, but D-035 waives rather than passes external
     requalification. No transport result may be inferred from source validation
     or the waiver.
-22. D-036 closes M7 implementation without focused compiler/repository/API/web
+23. D-036 closes M7 implementation without focused compiler/repository/API/web
     tests or manual end-to-end gameplay. Static checks and build pass, but
     create/import/repair/restart/publish/play behavior, idempotency, reset, and
     authored-demo regressions remain `UNVERIFIED_USER_WAIVED`. A fresh job after
@@ -738,8 +776,10 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Manually run the M8 last-train A/B/C matrix now that Content Gate 1 and
-   Speech Gate 2 are accepted under D-047/D-049.
+2. Manually retest D-051 repeated replay/resume/interruption and the new local
+   study controls together with the D-050 guided beginner path, then rerun the
+   last-train B/C matrix. Content Gate 1, Speech Gate 2, and the pre-recovery
+   lesson happy-path scenario A remain accepted.
 3. Keep M9 linkage behind completion of that manual package acceptance.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
@@ -754,6 +794,31 @@ measurable vertical-slice acceptance choices.
 
 ## Verification status
 
+- D-051 replay and Japanese study tools: the compact catalog validator passes
+  40/40 exact Japanese units at 49,116 bytes with SHA-256
+  `fc7fa9b9f700c5b570446274e311a97d11a2ece95dc221251905357ff9949ccd`
+  and zero JMdict-derived records. Full supported checks pass contracts 46/46,
+  server 9/9, web 66/66, schema drift for 57 artifacts, typecheck, lint,
+  production build, and bundle dependency scan. The restricted aggregate run
+  reproduced the known Node native abort after six server tests; the required
+  unrestricted server rerun passes 9/9. The build reports 1,423.46 kB
+  JavaScript (391.69 kB gzip), 18.43 kB CSS (4.51 kB gzip), and the known
+  large-chunk warning. Manual browser acceptance is pending.
+  The separate JMdict Gate 2 review packet SHA-256 is
+  `4717468383091e73bcaacf09e8a94713bc68311a68ada87ce2db5b23531c17a9`;
+  all eight exact proposed rows match the ignored archive and zero are
+  promoted.
+- D-050 beginner guidance: focused support-mode/guidance and hidden-control
+  regression tests pass. Full
+  workspace checks pass under Node.js 24.18.0: contracts 43/43, server 9/9,
+  web 58/58, typecheck, lint, formatting, schema drift for 56 artifacts,
+  content/speech approval checks, audio/world runtime checks, production build,
+  and diff hygiene. The restricted test run reproduced the known Node native
+  abort after server loopback tests began; the required unrestricted rerun
+  passes all 9 server tests. The build reports 1,382.03 kB JavaScript (381.79
+  kB gzip), 17.02 kB CSS (4.20 kB gzip), and the known large-chunk warning.
+  Playwright remains excluded by D-011 and Docker remains not applicable under
+  D-015.
 - D-049 Speech Gate 2: the review validator re-hashes all four ignored local
   WAV and query artifacts, checks byte lengths and manifest identities, and
   passes with packet SHA-256
