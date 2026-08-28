@@ -524,7 +524,7 @@ Decision resolved:
   rendering, forced WebGL2, interaction, animation, ambience, asset-failure
   retry, lifecycle, and technical-park regression. Parent Milestone 3 is
   complete.
-- D-046 through D-051 accept the fixed-package-first lesson plan, exact Content
+- D-046 through D-052 accept the fixed-package-first lesson plan, exact Content
   Gate 1 packet, deterministic unique-truth assisted recovery semantics, exact
   Speech Gate 2 packet, and evidence-honest beginner guidance. The repository
   now owns a strict six-target,
@@ -543,6 +543,16 @@ Decision resolved:
   `2fdd9e55b2a5b90d063473f7b33b83ea80782e19591d523f0000259ad9274d36`
   remains unpromoted behind its separate Gate 2. Manual replay/study-tool and
   remaining beginner B/C acceptance are open.
+- D-052 supersedes only automatic TYPE assisted completion: wrong text now
+  remains on the step, bounded authored attempts escalate to an exact model
+  sentence, and only a later normalized accepted submission completes as
+  assisted. The same decision revises the project-authored neighborhood layout
+  to `1.0.1`, moving two decorative trees behind the Momo/player sight lines
+  without changing approved source assets or runtime identities. Contracts
+  46/46, server 10/10, web 68/68, world assembly/runtime checks, and the
+  production build pass. The user reports `M8 D-052 TYPE: PASS` and
+  `M8 D-052 VISIBILITY: PASS`; the separate replay/study and broader B/C
+  acceptance remain open.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -564,9 +574,10 @@ Implemented and accepted D-040 speech foundation:
 
 Acceptance required:
 
-- accept the repaired guided/immersive fixed lesson through the remaining
-  Milestone 4 manual B/C matrix before M9 linkage or Milestone 5 compiler
-  integration.
+- accept the repaired guided/immersive fixed lesson and D-051 replay/study
+  behavior through the remaining Milestone 4 manual B/C matrix before M9
+  linkage or Milestone 5 compiler integration. D-052 TYPE correction and world
+  visibility are already manually accepted.
 
 Implemented speech-foundation scope:
 

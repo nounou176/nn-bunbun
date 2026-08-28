@@ -1,7 +1,7 @@
 {
   "packetFormat": "bunbun_m8_world_runtime_bundle",
   "packetVersion": "1.0.0",
-  "bundleVersion": "1.0.0",
+  "bundleVersion": "1.0.1",
   "status": "REGISTERED_FOR_LOCAL_PREVIEW",
   "sceneId": "neighborhood_small",
   "variantId": "rainy_evening_last_train_v1",
@@ -13,8 +13,8 @@
   },
   "layout": {
     "path": "docs/world-sources/M8_WORLD_LAYOUT_V1.json",
-    "sha256": "9ecb1c93fe0ab30fe33c000bcfbe623f8c6b572fbc68258adefd8360bf47f12f",
-    "layoutVersion": "1.0.0"
+    "sha256": "56a7469e250b73230073d64f1d276d1359ccadc0d35d6f62dacb6dff8a6a9b9c",
+    "layoutVersion": "1.0.1"
   },
   "assembler": {
     "id": "bunbun_m8_deterministic_glb_assembler",
@@ -26,7 +26,7 @@
     {
       "filename": "neighborhood-rainy-evening-static.glb",
       "bytes": 455284,
-      "sha256": "a1260595e5f87f5242a2a7c7dca99d0d13e2dedd0d4b907c103e78749c2e028d",
+      "sha256": "e3e0ce67ef368d6d974ad7dacc7eb2b46b5a6a4e3c4dae080b288eb04be01f98",
       "facts": {
         "glbVersion": 2,
         "generator": "Bunbun M8 deterministic assembler 1.0.0",

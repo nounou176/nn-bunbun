@@ -204,6 +204,12 @@ Milestone 4 remains open until the user reports the repaired matrix results.
       is implemented. Automated replay regression and the 40-record local
       Japanese study catalog pass; the combined guided manual retest remains
       open.
+- [x] 2026-08-28 — D-052 is approved after the learner observed that the
+      second wrong TYPE answer still advanced. TYPE now remains in an explicit
+      model-answer correction state until normalized input is accepted; the
+      result is assisted. Automated controller/persistence/UI checks pass; the
+      user reports `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`. The
+      remaining combined replay/study and broader B/C retest stays open.
 
 ## Surprises and discoveries
 

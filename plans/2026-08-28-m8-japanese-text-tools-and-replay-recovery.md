@@ -308,6 +308,10 @@ approved and record only manual results the user reports.
       dependency scan. Kuromoji, WanaKana, IPADIC, and JMdict are absent from
       the web bundle. Playwright and Docker remain not applicable.
 - [ ] Receive manual browser/gameplay acceptance.
+- [x] 2026-08-28 — D-052 builds on these study tools: final TYPE correction
+      exposes the approved exact answer and existing reading support without a
+      runtime dictionary or new audio. Replay/study acceptance remains part of
+      the combined manual retest.
 
 ## Surprises and discoveries
 

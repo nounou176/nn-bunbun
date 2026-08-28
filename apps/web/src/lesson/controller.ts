@@ -356,6 +356,19 @@ export function reduceLesson(
       const correct = step.interaction.acceptedAnswers.some(
         (answer) => normalizeTypeAnswer(answer, normalization) === submitted,
       );
+      if (isTypeGuidedCorrection(state)) {
+        if (correct) {
+          return finishStep({ ...state, helpUsed: true }, input, "ASSISTED");
+        }
+        return feedbackUpdate(
+          { ...state, helpUsed: true },
+          step.feedback.incorrect,
+          "INCORRECT",
+          { kind: "RETRY" },
+          [],
+          step.presentation.onFailureCueIds,
+        );
+      }
       const evaluatedState =
         correct || step.attemptPolicy.preserveSubmittedState
           ? state
@@ -611,6 +624,16 @@ function evaluateAnswer(
       step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED"
         ? "ASSISTED"
         : "FAILURE";
+    if (outcome === "ASSISTED" && step.interaction.type === "TYPE") {
+      return feedbackUpdate(
+        { ...supportedState, helpUsed: true },
+        step.feedback.incorrect,
+        "INCORRECT",
+        { kind: "RETRY" },
+        reaction,
+        step.presentation.onFailureCueIds,
+      );
+    }
     if (outcome === "ASSISTED" && step.interaction.type === "MOVE_TO") {
       const locationId = step.interaction.acceptedLocationIds[0];
       if (
@@ -704,6 +727,16 @@ function evaluateAnswer(
     { kind: "RETRY" },
     reaction,
     step.presentation.onFailureCueIds,
+  );
+}
+
+export function isTypeGuidedCorrection(state: LessonState): boolean {
+  const step = currentStep(state);
+  return (
+    step.interaction.type === "TYPE" &&
+    step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED" &&
+    state.attempt >= step.attemptPolicy.maximumAttempts &&
+    !state.completedStepIds.includes(step.stepId)
   );
 }
 

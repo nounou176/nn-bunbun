@@ -8,6 +8,7 @@ import { validateRuntimeCapabilities } from "../src/lesson/capabilities.js";
 import {
   checkpointFromState,
   currentStep,
+  isTypeGuidedCorrection,
   reduceLesson,
   restoreLesson,
   startLesson,
@@ -270,6 +271,90 @@ test("TYPE draft is truncated by Unicode code points", () => {
     ...harness.tick(),
   });
   assert.equal([...harness.state.typeDraft].length, 12);
+});
+
+test("M8 TYPE keeps wrong corrections on the step until a normalized answer passes", () => {
+  const manifest = loadLastTrainLesson(false).manifest;
+  const harness = createHarness(
+    { ...manifest, entryStepId: "type_wallet_request" },
+    "session_type_guided_retry",
+  );
+
+  harness.dispatch({
+    type: "TYPE_DRAFT_CHANGED",
+    value: "財布を見てください",
+    ...harness.tick(),
+  });
+  harness.dispatch({ type: "TYPE_SUBMITTED", ...harness.tick() });
+  assert.equal(harness.state.phase, "FEEDBACK");
+  assert.equal(harness.state.typeDraft, "財布を見てください");
+  assert.equal(isTypeGuidedCorrection(harness.state), false);
+  assert.equal(
+    harness.state.completedStepIds.includes("type_wallet_request"),
+    false,
+  );
+  finishFeedback(harness);
+
+  harness.dispatch({ type: "TYPE_SUBMITTED", ...harness.tick() });
+  assert.equal(harness.state.phase, "FEEDBACK");
+  assert.equal(isTypeGuidedCorrection(harness.state), true);
+  assert.equal(
+    harness.state.readingHint,
+    "財布（さいふ）を探（さが）してください。",
+  );
+  assert.equal(
+    harness.state.completedStepIds.includes("type_wallet_request"),
+    false,
+  );
+  const reactionsAtMaximum = eventsOfKind(harness, "REACTION").length;
+  finishFeedback(harness);
+
+  harness.dispatch({
+    type: "TYPE_DRAFT_CHANGED",
+    value: "まだ違います",
+    ...harness.tick(),
+  });
+  const extraWrong = harness.dispatch({
+    type: "TYPE_SUBMITTED",
+    ...harness.tick(),
+  });
+  assert.equal(extraWrong.state.phase, "FEEDBACK");
+  assert.equal(isTypeGuidedCorrection(extraWrong.state), true);
+  assert.equal(eventsOfKind(harness, "REACTION").length, reactionsAtMaximum);
+  assert.equal(
+    extraWrong.state.completedStepIds.includes("type_wallet_request"),
+    false,
+  );
+  finishFeedback(harness);
+
+  const restored = restoreLesson(
+    harness.state.manifest,
+    checkpointFromState(harness.state, 7, harness.now),
+  );
+  assert.equal(isTypeGuidedCorrection(restored), true);
+  assert.equal(restored.typeDraft, "");
+
+  harness.state = restored;
+  harness.dispatch({
+    type: "TYPE_DRAFT_CHANGED",
+    value: "　財布を探してください　",
+    ...harness.tick(),
+  });
+  const corrected = harness.dispatch({
+    type: "TYPE_SUBMITTED",
+    ...harness.tick(),
+  });
+  assert.equal(corrected.state.phase, "FEEDBACK");
+  assert.equal(corrected.state.feedbackKind, "ASSISTED");
+  assert.equal(
+    corrected.state.completedStepIds.includes("type_wallet_request"),
+    true,
+  );
+  assert.equal(eventsOfKind(harness, "REACTION").length, reactionsAtMaximum);
+  const completion = recordedEvents(corrected, "STEP_COMPLETED")[0];
+  assert.equal(completion?.assisted, true);
+  assert.equal(completion?.correct, false);
+  assert.equal(completion?.attempt, 2);
 });
 
 test("MOVE_TO waits for matching arrival and runtime failure consumes no attempt", () => {

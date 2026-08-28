@@ -12,6 +12,7 @@ import {
   type LessonManifest,
   type SessionCommitRequest,
   type SessionCreateRequest,
+  type SessionEvent,
 } from "@bunbun/contracts";
 
 import { createBunbunServer } from "../src/http.js";
@@ -30,6 +31,14 @@ const manifestPath = resolve(
 const catalogPath = resolve(
   repositoryRoot,
   "packages/contracts/fixtures/catalogs/basic-catalog.json",
+);
+const lastTrainManifestPath = resolve(
+  repositoryRoot,
+  "packages/contracts/fixtures/manifests/m8-last-train.json",
+);
+const lastTrainCatalogPath = resolve(
+  repositoryRoot,
+  "packages/contracts/fixtures/catalogs/m8-last-train-catalog.json",
 );
 
 test("SQLite repository migrates, commits idempotently, resumes, and resets", async () => {
@@ -258,6 +267,167 @@ test("HTTP API validates requests and exposes local persistence lifecycle", asyn
         error === undefined ? resolve() : reject(error),
       ),
     );
+    database.close();
+  }
+});
+
+test("TYPE guided correction persists bounded wrong evidence and assisted completion without raw text", async () => {
+  const database = openDatabase(":memory:", () => "2026-08-28T18:30:00.000Z");
+  const repository = new EvidenceRepository(
+    database,
+    () => "2026-08-28T18:30:00.000Z",
+  );
+  const sessionId = "session_type_guided_001";
+
+  try {
+    const [manifest, catalog] = await Promise.all([
+      readFile(lastTrainManifestPath, "utf8").then(
+        (value) => JSON.parse(value) as LessonManifest,
+      ),
+      readFile(lastTrainCatalogPath, "utf8").then(
+        (value) => JSON.parse(value) as CatalogSnapshot,
+      ),
+    ]);
+    const step = manifest.steps.find(
+      (candidate) => candidate.stepId === "type_wallet_request",
+    );
+    assert.ok(step);
+    assert.equal(step.interaction.type, "TYPE");
+    const baseCheckpoint: SessionCreateRequest["checkpoint"] = {
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      sessionId,
+      lessonId: manifest.lessonId,
+      revision: manifest.revision,
+      sequence: 0,
+      status: "ACTIVE",
+      currentStepId: step.stepId,
+      phase: "AWAITING_TYPE",
+      attempt: 0,
+      helpUsed: true,
+      audioFailed: false,
+      activeScaffoldIds: [],
+      arrangedTokenIds: [],
+      completedStepIds: manifest.steps
+        .slice(0, manifest.steps.indexOf(step))
+        .map((candidate) => candidate.stepId),
+      transferredObjects: [],
+      activeTimeMs: 20_000,
+      stepStartedAtActiveMs: 20_000,
+    };
+    repository.createSession({
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      commitId: "create_type_guided_001",
+      packageFingerprint: fingerprint({ manifest, catalog }),
+      manifest,
+      catalog,
+      events: [],
+      checkpoint: baseCheckpoint,
+    });
+
+    const reactionEvents = (attempt: number): SessionEvent[] =>
+      step.targetBindings
+        .filter((binding) => binding.relation === "ASSESSES")
+        .map((binding) => ({
+          schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+          eventId: `${sessionId}:${step.stepId}:reaction:${attempt}:${binding.targetId}`,
+          kind: "REACTION",
+          sessionId,
+          lessonId: manifest.lessonId,
+          revision: manifest.revision,
+          stepId: step.stepId,
+          contextId: step.contextId,
+          primitive: "TYPE",
+          targetId: binding.targetId,
+          evidence: binding.successEvidence,
+          correct: false,
+          assisted: true,
+          attempt,
+          activeLatencyMs: 1_000 * attempt,
+          occurredAt: `2026-08-28T18:30:0${attempt}.000Z`,
+        }));
+
+    repository.commitSession(sessionId, {
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      commitId: "type_guided_wrong_001",
+      expectedSequence: 0,
+      events: reactionEvents(1),
+      checkpoint: {
+        ...baseCheckpoint,
+        sequence: 1,
+        phase: "FEEDBACK",
+        attempt: 1,
+        activeScaffoldIds: ["show_type_pattern"],
+        feedbackKind: "INCORRECT",
+        pendingAction: { kind: "RETRY" },
+        activeTimeMs: 21_000,
+      },
+    });
+    repository.commitSession(sessionId, {
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      commitId: "type_guided_wrong_002",
+      expectedSequence: 1,
+      events: reactionEvents(2),
+      checkpoint: {
+        ...baseCheckpoint,
+        sequence: 2,
+        phase: "FEEDBACK",
+        attempt: 2,
+        activeScaffoldIds: ["show_type_pattern", "show_type_reading"],
+        feedbackKind: "INCORRECT",
+        pendingAction: { kind: "RETRY" },
+        activeTimeMs: 22_000,
+      },
+    });
+    repository.commitSession(sessionId, {
+      schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+      commitId: "type_guided_correction_001",
+      expectedSequence: 2,
+      events: [
+        {
+          schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
+          eventId: `${sessionId}:${step.stepId}:completed:ASSISTED`,
+          kind: "STEP_COMPLETED",
+          sessionId,
+          lessonId: manifest.lessonId,
+          revision: manifest.revision,
+          stepId: step.stepId,
+          contextId: step.contextId,
+          primitive: "TYPE",
+          correct: false,
+          assisted: true,
+          attempt: 2,
+          activeLatencyMs: 3_000,
+          occurredAt: "2026-08-28T18:30:03.000Z",
+        },
+      ],
+      checkpoint: {
+        ...baseCheckpoint,
+        sequence: 3,
+        phase: "FEEDBACK",
+        attempt: 2,
+        activeScaffoldIds: ["show_type_pattern", "show_type_reading"],
+        completedStepIds: [...baseCheckpoint.completedStepIds, step.stepId],
+        feedbackKind: "ASSISTED",
+        pendingAction: {
+          kind: "TRANSITION",
+          target: step.transitions.onAssisted,
+        },
+        activeTimeMs: 23_000,
+      },
+    });
+
+    const rows = database
+      .prepare(
+        "SELECT kind, response_ids_json FROM session_events WHERE session_id = ? ORDER BY event_id",
+      )
+      .all(sessionId) as Array<{
+      kind: string;
+      response_ids_json: string | null;
+    }>;
+    assert.equal(rows.filter((row) => row.kind === "REACTION").length, 6);
+    assert.equal(rows.filter((row) => row.kind === "STEP_COMPLETED").length, 1);
+    assert.ok(rows.every((row) => row.response_ids_json === null));
+  } finally {
     database.close();
   }
 });

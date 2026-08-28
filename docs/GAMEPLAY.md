@@ -141,6 +141,14 @@ normalization rules are authored. Normalization may handle explicitly allowed
 differences such as Unicode normalization, surrounding whitespace, or selected
 Japanese punctuation; it must not silently accept unrelated answers.
 
+Under D-052, an incorrect TYPE submission never advances the lesson. Assessed
+reactions remain bounded by the authored maximum; reaching that maximum opens
+guided correction with the final authored scaffold and an explicit exact model
+sentence. The learner may fill the model into the editable field but must still
+submit an accepted normalized answer. Later wrong edits remain local so they do
+not reuse immutable event identities. A correct post-limit correction completes
+as assisted and never claims unaided production.
+
 Open-ended semantic evaluation is a later selective AI capability and is not
 part of the deterministic MVP TYPE primitive.
 

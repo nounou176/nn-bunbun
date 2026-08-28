@@ -2543,6 +2543,57 @@ addressed: exact M8 study records may be built from Bunbun-owned data, while
 production JMdict-derived data and broader Japanese reference coverage remain
 behind the second approval gate and documented update obligations.
 
+### D-052 — Require explicit guided correction for TYPE and preserve actor visibility
+
+- Date: 2026-08-28
+- Status: Accepted by explicit user approval
+- Affects: TYPE assisted semantics, lesson UI, evidence persistence, M8 world
+  layout, Milestone 4 manual acceptance
+
+Context:
+
+Manual beginner testing showed that the M8 TYPE step advanced after the second
+wrong sentence. This was the D-048 `CONTINUE_ASSISTED` behavior, not a
+normalization defect, but it taught neither correction nor production. The
+same test screenshot showed the accepted park tree composition obscuring Momo
+and Bunbun at the fixed isometric camera.
+
+Decision:
+
+Accept the user's `DUYỆT PLAN M8 TYPE GUIDED RETRY` and the attached visibility
+repair request through
+`plans/2026-08-28-m8-type-guided-retry-and-visibility.md`.
+
+Supersede only D-048's automatic assisted completion for TYPE. A wrong TYPE
+submission never transitions. Authored reactions remain bounded by
+`maximumAttempts`; the final wrong attempt exposes the final scaffold and
+enters an explicit guided-correction state. Later corrections may continue
+locally without reusing reaction event identities. The learner sees the exact
+model sentence and may fill it into the input, but must still submit a
+normalized accepted answer. A correct post-limit correction completes the
+step as `ASSISTED` without claiming another unaided production reaction. Raw
+TYPE text remains unpersisted, and the existing attempt/checkpoint schema is
+unchanged. All non-TYPE deterministic D-048 recovery behavior remains intact.
+
+Revise only the two project-authored decorative tree transforms that cross the
+Momo/player sight lines. Keep the exact D-045-approved source assets, actor,
+object, location, camera, navigation, and catalog identities unchanged. Record
+the deterministic result as layout/runtime bundle `1.0.1` with a new static
+GLB and runtime hash.
+
+Consequences:
+
+Wrong text can no longer masquerade as progress. Assisted completion remains
+evidence-honest and resumable without a contract migration; post-limit wrong
+edits are deliberately presentation-only rather than additional evidence.
+The world remains within the accepted source/license/performance envelope.
+No provider, dependency, service, account, credential, environment variable,
+data transfer, or cost is added. On 2026-08-28, the user reports
+`M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`, manually accepting the
+guided correction and revised sight lines under D-011. These results do not
+close the separate D-051 replay/study matrix or the broader Milestone 4 B/C
+acceptance.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

@@ -1,7 +1,7 @@
 {
   "packetFormat": "bunbun_m8_world_layout",
   "packetVersion": "1.0.0",
-  "layoutVersion": "1.0.0",
+  "layoutVersion": "1.0.1",
   "sceneId": "neighborhood_small",
   "variantId": "rainy_evening_last_train_v1",
   "approval": {
@@ -184,14 +184,14 @@
     {
       "localId": "tree_large_north",
       "assetId": "world_tree_large",
-      "position": { "x": -2.55, "y": 0, "z": 3.55 },
+      "position": { "x": -5.05, "y": 0, "z": 0.75 },
       "rotationY": 1.1,
       "scale": 3
     },
     {
       "localId": "tree_small_path",
       "assetId": "world_tree_small",
-      "position": { "x": -1.35, "y": 0, "z": 3.35 },
+      "position": { "x": -2.8, "y": 0, "z": -1.45 },
       "rotationY": 0.7,
       "scale": 2.8
     },

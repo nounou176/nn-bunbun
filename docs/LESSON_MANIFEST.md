@@ -393,9 +393,15 @@ metadata, but the mastery aggregator MUST distinguish it from unaided success.
 | afterMaximum           | enum    | yes      | CONTINUE_ASSISTED or FOLLOW_FAILURE_TRANSITION |
 | preserveSubmittedState | boolean | yes      | Relevant to ARRANGE and TYPE                   |
 
-No step may retry indefinitely. CONTINUE_ASSISTED requires either a
-RECOGNITION_FALLBACK scaffold or a deterministic accepted action exposed at
-the final support level.
+No step may create assessed attempts indefinitely. CONTINUE_ASSISTED requires
+either a RECOGNITION_FALLBACK scaffold or a deterministic accepted action
+exposed at the final support level. Under D-052, TYPE is the narrow
+presentation exception: after the bounded authored attempts are exhausted, a
+wrong answer remains on the step with the exact model sentence exposed.
+Additional edits do not increment or persist another attempt. Only a later
+accepted normalized submission completes the step, and that completion is
+assisted. Other primitives retain their existing bounded transition or
+deterministic state-correction behavior.
 
 ### Scaffolds
 

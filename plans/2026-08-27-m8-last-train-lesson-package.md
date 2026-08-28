@@ -386,6 +386,14 @@ candidate.
       the fixed local Japanese study catalog/tools. Supported checks pass
       (contracts 46/46, server 9/9, web 66/66); JMdict is not promoted. Manual
       replay/tools and repaired B/C acceptance remain open.
+- [x] 2026-08-28 — D-052 replaces automatic wrong-TYPE assisted completion
+      with explicit guided correction and revises the world layout/runtime to
+      `1.0.1` so decorative trees no longer occupy the reported Momo/player
+      sight lines. Contracts 46/46, server 10/10, web 68/68, world tests, all
+      relevant gates, and build pass.
+- [x] 2026-08-28 — User reports `M8 D-052 TYPE: PASS` and
+      `M8 D-052 VISIBILITY: PASS`. The focused D-052 manual gates are closed;
+      replay/study and the broader repaired B/C acceptance remain open.
 - [ ] Complete user-reported manual A/B/C acceptance.
 
 ## Plan decision

@@ -573,7 +573,7 @@ export async function assembleM8Neighborhood(
   if (
     layout.packetFormat !== "bunbun_m8_world_layout" ||
     layout.packetVersion !== "1.0.0" ||
-    layout.layoutVersion !== "1.0.0" ||
+    layout.layoutVersion !== "1.0.1" ||
     layout.sceneId !== "neighborhood_small" ||
     layout.variantId !== "rainy_evening_last_train_v1"
   ) {
@@ -730,7 +730,7 @@ export async function assembleM8Neighborhood(
   const runtimeManifest = {
     packetFormat: "bunbun_m8_world_runtime_bundle",
     packetVersion: "1.0.0",
-    bundleVersion: "1.0.0",
+    bundleVersion: "1.0.1",
     status: "REGISTERED_FOR_LOCAL_PREVIEW",
     sceneId: layout.sceneId,
     variantId: layout.variantId,

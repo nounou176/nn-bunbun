@@ -90,7 +90,7 @@ export async function validateM8RuntimeWorld(
   if (
     manifest.packetFormat !== "bunbun_m8_world_runtime_bundle" ||
     manifest.packetVersion !== "1.0.0" ||
-    manifest.bundleVersion !== "1.0.0" ||
+    manifest.bundleVersion !== "1.0.1" ||
     !["ASSEMBLED_UNREGISTERED", "REGISTERED_FOR_LOCAL_PREVIEW"].includes(
       manifest.status,
     ) ||

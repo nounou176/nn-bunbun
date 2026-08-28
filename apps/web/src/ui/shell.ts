@@ -1,5 +1,9 @@
 import type { RendererBackend } from "../game/renderer.js";
-import { currentStep, type LessonState } from "../lesson/controller.js";
+import {
+  currentStep,
+  isTypeGuidedCorrection,
+  type LessonState,
+} from "../lesson/controller.js";
 import {
   authoredTextualHints,
   operationalGuidance,
@@ -58,6 +62,7 @@ export interface AppShell {
   arrangeResetButton: HTMLButtonElement;
   typeForm: HTMLFormElement;
   typeInput: HTMLInputElement;
+  typeModelAnswerButton: HTMLButtonElement;
   studyToolsRoot: HTMLElement;
   setJapaneseStudyIndex: (index?: JapaneseStudyIndex) => void;
   setLoading: () => void;
@@ -231,6 +236,14 @@ export function createAppShell(
               <button class="primary-button bilingual-button" type="submit"><span lang="ja">答える</span><small>Kiểm tra</small></button>
             </div>
             <small data-role="type-limit"></small>
+            <section class="type-recovery" data-role="type-recovery" hidden>
+              <p><strong>まだ正解ではありません。 / Bạn chưa qua màn.</strong></p>
+              <p>例文を入力して、もう一度「Kiểm tra」を押してください。 / Hãy nhập đúng câu mẫu rồi bấm Kiểm tra lại.</p>
+              <p class="type-model-answer" data-role="type-model-answer" lang="ja"></p>
+              <button class="bilingual-button" data-role="type-model-answer-fill" type="button">
+                <span lang="ja">例文を入力</span><small>Điền câu mẫu</small>
+              </button>
+            </section>
           </form>
           <div class="choice-list" data-role="choice-list"></div>
           <output class="lesson-feedback" data-role="lesson-feedback"></output>
@@ -606,6 +619,18 @@ export function createAppShell(
   const typeForm = required<HTMLFormElement>(app, '[data-role="type-form"]');
   const typeInput = required<HTMLInputElement>(app, '[data-role="type-input"]');
   const typeLimit = required<HTMLElement>(app, '[data-role="type-limit"]');
+  const typeRecovery = required<HTMLElement>(
+    app,
+    '[data-role="type-recovery"]',
+  );
+  const typeModelAnswer = required<HTMLElement>(
+    app,
+    '[data-role="type-model-answer"]',
+  );
+  const typeModelAnswerButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="type-model-answer-fill"]',
+  );
   const audioButton = required<HTMLButtonElement>(
     app,
     '[data-role="lesson-audio"]',
@@ -675,6 +700,7 @@ export function createAppShell(
     arrangeResetButton,
     typeForm,
     typeInput,
+    typeModelAnswerButton,
     studyToolsRoot: lessonPanel,
     setJapaneseStudyIndex: (index) => {
       japaneseStudyIndex = index;
@@ -969,9 +995,17 @@ export function createAppShell(
         )!.disabled =
           state.phase !== "AWAITING_TYPE" || state.typeDraft.length === 0;
         typeLimit.textContent = `${[...state.typeDraft].length} / ${step.interaction.maximumLength}`;
+        const guidedCorrection = isTypeGuidedCorrection(state);
+        typeRecovery.hidden = !guidedCorrection;
+        typeModelAnswer.textContent = guidedCorrection
+          ? (step.interaction.acceptedAnswers[0] ?? "")
+          : "";
+        typeModelAnswerButton.disabled = state.phase !== "AWAITING_TYPE";
       } else {
         typeInput.value = "";
         typeLimit.textContent = "";
+        typeRecovery.hidden = true;
+        typeModelAnswer.textContent = "";
       }
 
       choiceList.replaceChildren();

@@ -229,6 +229,20 @@ test("hidden bilingual lesson actions stay out of inactive phases", async () => 
   assert.match(styles, /\.bilingual-button\[hidden\]\s*\{\s*display: none;/);
 });
 
+test("TYPE guided recovery is explicit and remains hidden before the final scaffold", async () => {
+  const [shellSource, runtimeSource, styles] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/lesson/runtime.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/style.css"), "utf8"),
+  ]);
+
+  assert.match(shellSource, /data-role="type-recovery" hidden/);
+  assert.match(shellSource, /Bạn chưa qua màn/);
+  assert.match(shellSource, /data-role="type-model-answer-fill"/);
+  assert.match(runtimeSource, /TYPE_DRAFT_CHANGED[\s\S]*value: modelAnswer/);
+  assert.match(styles, /\.type-recovery\[hidden\]\s*\{\s*display: none;/);
+});
+
 test("renderer retry replaces a canvas that may own a failed GPU context", async () => {
   const initialCanvas = { id: "initial" } as unknown as HTMLCanvasElement;
   const replacementCanvas = {

@@ -43,6 +43,10 @@ Active focused M8 lesson plan:
 - plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md — Approved
   under D-051; implementation and supported automated checks are complete;
   replay/study-tool and remaining beginner B/C manual acceptance are open
+- plans/2026-08-28-m8-type-guided-retry-and-visibility.md — Complete under
+  D-052; TYPE guided correction and world layout/runtime `1.0.1` are
+  implemented, fully checked, and manually accepted through the user's
+  `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS` reports
 
 Completed focused M8 qualification plan:
 
@@ -106,6 +110,14 @@ Completed ExecPlans:
 - D-051 makes LISTEN replay idempotent across normal replay,
   failure-before-start retry, interruption recovery, and resume. The server
   still rejects a changed payload for a reused immutable event identity.
+- D-052 prevents every wrong TYPE submission from transitioning. Bounded
+  authored attempts escalate into an explicit model-answer correction state;
+  later accepted normalized input completes as assisted while raw text and
+  post-limit wrong edits remain unpersisted.
+- The rainy-neighborhood layout/runtime bundle is revised to `1.0.1`. Two
+  project-authored decorative tree transforms move behind Momo and the initial
+  Bunbun sight line; all D-045 source assets, actors, clues, locations, camera,
+  navigation, identities, byte budget, and performance facts remain intact.
 - `JapaneseTextStudyCatalog 0.1.0` covers all 40 fixed M8 Japanese content
   units with reviewed kana/romaji and bounded project-authored Vietnamese
   vocabulary/grammar notes. The UI exposes compact play/reading/vocabulary/
@@ -344,6 +356,14 @@ Completed ExecPlans:
 
 ## Current work
 
+- D-052 TYPE guided correction and the neighborhood visibility revision are
+  implemented. The second wrong M8 TYPE answer now exposes the exact reading
+  and a bilingual `Điền câu mẫu` action without advancing. The learner still
+  submits the normalized sentence; correct post-limit input completes as
+  assisted. Layout/runtime `1.0.1` moves `tree_large_north` and
+  `tree_small_path` behind the reported Momo/player camera sight lines. Full
+  supported checks pass, and the user reports both focused TYPE and visibility
+  gates as PASS. The separate replay/study and broader B/C retest is next.
 - D-050 beginner guidance is implemented after the user's first manual B run
   failed on onboarding. The Last Train card now offers `Chơi có hướng dẫn tiếng
 Việt` and `Thử thách chủ yếu bằng tiếng Nhật`. Guided mode opts into existing
@@ -365,8 +385,10 @@ Việt` and `Thử thách chủ yếu bằng tiếng Nhật`. Guided mode opts i
   `?world=neighborhood` route. The neighborhood has Aoi, Tanaka, Momo, clue and
   location anchors, a bounded direct-movement area, idle animation, code-owned
   rain presentation, and D-043 ambience. The default park path remains intact.
-  Runtime manifest SHA-256 is
-  `8ebd2fe6263b58ac5ac4eeaafecd97de2053a2be5bd0a37489f18e67e250ec59`.
+  The D-052 layout/runtime `1.0.1` manifest SHA-256 is
+  `7e78b86ea5df42d86246e83e9cc8a394f5865678d104b5226c6d28e598b259ae`;
+  its revised static GLB SHA-256 is
+  `e3e0ce67ef368d6d974ad7dacc7eb2b46b5a6a4e3c4dae080b288eb04be01f98`.
   The user reports `M8 WORLD A: PASS` for the automatic-renderer visual,
   movement, picking, animation, ambience, and diagnostics checklist. No numeric
   diagnostics were supplied. The user also reports `M8 WORLD B: PASS` for the
@@ -696,40 +718,45 @@ documentation and implementation changes are uncommitted.
    code and covered by controller/server regression tests. Browser confirmation
    of repeated replay, resume replay, interruption recovery, and the new study
    controls remains pending; do not upgrade this to manual PASS yet.
-8. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
+8. D-052 repairs automatic wrong-TYPE advancement and the reported tree
+   occlusion in code/assets. Automated controller, persistence, assembly,
+   runtime, and build checks pass, and the user reports both
+   `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`. No numeric visibility
+   measurement or wider device/browser claim is inferred from those reports.
+9. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. M7 compiler normalization is
    implemented only for the closed three-target Bunbun Core technical profile;
    arbitrary Japanese coverage remains unsupported.
-9. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
-   contributors must run nvm use to activate Node.js 24.18.0.
-10. Deployment topology remains intentionally deferred until local
+10. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
+    contributors must run nvm use to activate Node.js 24.18.0.
+11. Deployment topology remains intentionally deferred until local
     release-candidate acceptance.
-11. The current WebGPU-capable web build is 1,423.46 kB minified and triggers
-    Vite's default uncompressed chunk warning; measured gzip size is 391.69 kB.
+12. The current WebGPU-capable web build is 1,425.15 kB minified and triggers
+    Vite's default uncompressed chunk warning; measured gzip size is 392.12 kB.
     Reported browser measurements must guide any future splitting.
-12. Browser SpeechSynthesis voice quality and availability vary by installed
+13. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. D-040 confines it to legacy `voice_guide_01` technical
     fixtures; Aoi and Tanaka never fall back to it.
-13. Milestone 6 has only qualitative overall manual approval. There are no
+14. Milestone 6 has only qualitative overall manual approval. There are no
     scenario-level observations, measured save/reload latency, named device or
     browser details, or numeric renderer metrics; the approval must not be
     represented as evidence for those finer-grained claims.
-14. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
+15. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
     Milestone 5 rather than guessing behavior.
-15. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
+16. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
-16. Milestone 5 browser behavior is manually accepted, but the user supplied no
+17. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
-17. Six Custom GPT configurations and their local Knowledge assets are
+18. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
     0.1.0 is approved. The three selected modules are compile-time inputs via
     manual file handoff and remain absent from gameplay. GPT-editor model,
     capability/action, and version-history metadata was not supplied and is not
     inherited; config hashes identify the reviewed local source snapshots.
     Supplied images and the APKG remain style/output examples only.
-18. M7 v3 cannot assume that the original GPTs satisfy the approved typed
+19. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
     strong structural compliance but fails strict world-fact discipline; Run
@@ -737,17 +764,17 @@ documentation and implementation changes are uncommitted.
     viability an implementation dependency by selecting the repository-owned
     prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
     a quality risk and must not be upgraded to a full pass.
-19. D-032 closes the transport-proof output-budget gap by putting explicit
+20. D-032 closes the transport-proof output-budget gap by putting explicit
     title, objective, premise, setting-context, and synopsis limits in the
     request packet. These authored fixture values are proof inputs, not yet
     accepted production-profile defaults.
-20. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
+21. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
     claim IDs, per-beat claim allowlists, and returned claim bindings. This
     makes unknown or out-of-beat claims deterministically rejectable, but code
     still cannot prove that every nuance of free-form natural-language copy is
     semantically entailed. Application publication therefore remains gated by
     later catalog/runtime validation and review.
-21. Product-surface availability, install behavior, and strict composed output
+22. Product-surface availability, install behavior, and strict composed output
     validation now pass for `bunbun-authoring@0.1.0`. Installation exposed two
     local setup constraints now recorded in the runbook: a repository
     marketplace manifest belongs at `.agents/plugins/marketplace.json`, and the
@@ -757,13 +784,13 @@ documentation and implementation changes are uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
-22. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
+23. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
     compiler-owned practice text, exact accepted Japanese answer truth,
     read-only runtime-plan context, and bounded repair diagnostics. The
     installed plugin is 0.2.0, but D-035 waives rather than passes external
     requalification. No transport result may be inferred from source validation
     or the waiver.
-23. D-036 closes M7 implementation without focused compiler/repository/API/web
+24. D-036 closes M7 implementation without focused compiler/repository/API/web
     tests or manual end-to-end gameplay. Static checks and build pass, but
     create/import/repair/restart/publish/play behavior, idempotency, reset, and
     authored-demo regressions remain `UNVERIFIED_USER_WAIVED`. A fresh job after
@@ -776,10 +803,10 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Manually retest D-051 repeated replay/resume/interruption and the new local
-   study controls together with the D-050 guided beginner path, then rerun the
-   last-train B/C matrix. Content Gate 1, Speech Gate 2, and the pre-recovery
-   lesson happy-path scenario A remain accepted.
+2. Manually retest D-051 replay/study controls together with the D-050 guided
+   beginner path, then rerun the last-train B/C matrix. D-052 TYPE/visibility,
+   Content Gate 1, Speech Gate 2, and the pre-recovery lesson happy-path
+   scenario A remain accepted.
 3. Keep M9 linkage behind completion of that manual package acceptance.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
@@ -794,6 +821,18 @@ measurable vertical-slice acceptance choices.
 
 ## Verification status
 
+- D-052 TYPE guided correction and visibility: contracts 46/46, server 10/10,
+  web 68/68, deterministic world tests, typecheck, lint, formatting, 57 schema
+  artifacts, content/speech/study/audio/world gates, production build, and diff
+  hygiene pass. World runtime manifest SHA-256 is
+  `7e78b86ea5df42d86246e83e9cc8a394f5865678d104b5226c6d28e598b259ae`;
+  static GLB SHA-256 is
+  `e3e0ce67ef368d6d974ad7dacc7eb2b46b5a6a4e3c4dae080b288eb04be01f98`.
+  Build output is 1,425.15 kB JavaScript (392.12 kB gzip) and 18.96 kB CSS
+  (4.61 kB gzip), with the known large-chunk warning. Playwright remains
+  excluded under D-011 and Docker is not applicable under D-015. The user
+  reports `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`; both focused
+  manual gates are accepted.
 - D-051 replay and Japanese study tools: the compact catalog validator passes
   40/40 exact Japanese units at 49,116 bytes with SHA-256
   `fc7fa9b9f700c5b570446274e311a97d11a2ece95dc221251905357ff9949ccd`

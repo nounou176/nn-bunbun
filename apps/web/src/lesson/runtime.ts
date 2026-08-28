@@ -13,6 +13,7 @@ import { createLessonAudioPort } from "./audio.js";
 import {
   checkpointFromState,
   currentStep,
+  isTypeGuidedCorrection,
   reduceLesson,
   restoreLesson,
   startLesson,
@@ -597,6 +598,22 @@ export async function createLessonRuntime(
     (event) => {
       event.preventDefault();
       if (!composingTypeInput) safeDispatch(timed("TYPE_SUBMITTED"));
+    },
+    { signal },
+  );
+  shell.typeModelAnswerButton.addEventListener(
+    "click",
+    () => {
+      const step = currentStep(state);
+      if (step.interaction.type !== "TYPE" || !isTypeGuidedCorrection(state)) {
+        return;
+      }
+      const modelAnswer = step.interaction.acceptedAnswers[0];
+      if (modelAnswer === undefined) return;
+      safeDispatch({
+        ...timed("TYPE_DRAFT_CHANGED"),
+        value: modelAnswer,
+      });
     },
     { signal },
   );

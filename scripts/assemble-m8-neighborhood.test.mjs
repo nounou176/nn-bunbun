@@ -46,3 +46,41 @@ test("M8 neighborhood assembly is deterministic and runtime-valid", async () => 
       validated.manifest.budgets.ceilings.encodedBytes,
   );
 });
+
+test("M8 layout keeps decorative trees behind Momo and the initial player sight line", async () => {
+  const layout = JSON.parse(
+    await readFile(
+      path.resolve("docs/world-sources/M8_WORLD_LAYOUT_V1.json"),
+      "utf8",
+    ),
+  );
+  assert.equal(layout.layoutVersion, "1.0.1");
+
+  const placements = new Map(
+    layout.staticPlacements.map((placement) => [placement.localId, placement]),
+  );
+  assert.deepEqual(placements.get("tree_large_north")?.position, {
+    x: -5.05,
+    y: 0,
+    z: 0.75,
+  });
+  assert.deepEqual(placements.get("tree_small_path")?.position, {
+    x: -2.8,
+    y: 0,
+    z: -1.45,
+  });
+
+  const momo = layout.actors.find((actor) => actor.localId === "momo");
+  assert.deepEqual(momo.position, { x: -3.25, y: 0, z: 2.55 });
+  assert.deepEqual(layout.playerSpawn, { x: 0, y: 0.38, z: 2.85 });
+  assert.ok(
+    placements.get("tree_large_north").position.x +
+      placements.get("tree_large_north").position.z <
+      momo.position.x + momo.position.z,
+  );
+  assert.ok(
+    placements.get("tree_small_path").position.x +
+      placements.get("tree_small_path").position.z <
+      layout.playerSpawn.x + layout.playerSpawn.z,
+  );
+});

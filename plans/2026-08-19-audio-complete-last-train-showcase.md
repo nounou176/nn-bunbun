@@ -388,6 +388,14 @@ reproducible acceptance checklist.
       study controls are implemented. Latest supported checks pass contracts
       46/46, server 9/9, and web 66/66; manual replay/tools and repaired B/C
       acceptance remain open.
+- [x] 2026-08-28 — User accepts D-052 TYPE guided retry and reports decorative
+      tree occlusion through a screenshot. Wrong TYPE answers no longer
+      transition; exact model assistance remains explicit and assisted. World
+      layout/runtime `1.0.1` moves two trees behind Momo/player sight lines.
+      Latest checks pass contracts 46/46, server 10/10, web 68/68, deterministic
+      world assembly/runtime validation, and production build. The user reports
+      `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`; repaired replay/
+      study and broader B/C acceptance remain open.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

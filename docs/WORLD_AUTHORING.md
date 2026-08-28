@@ -11,6 +11,14 @@ and the user's `M8 WORLD A/B/C: PASS` matrix accepts automatic rendering,
 forced WebGL2, interaction, animation, ambience, failure retry, lifecycle, and
 technical-park regression.
 
+D-052 adds a project-authored visibility correction as layout/runtime bundle
+`1.0.1`: two decorative trees move behind the Momo/player sight lines at the
+fixed isometric camera. The D-045-approved source models, source hashes,
+actors, clues, locations, navigation, camera, and runtime identities remain
+unchanged. The regenerated static GLB is deterministic and remains inside
+every accepted budget. The user reports `M8 D-052 VISIBILITY: PASS`, manually
+accepting the revised sight lines.
+
 ## Outcome
 
 Bunbun builds a visually coherent world from small reusable Three.js scene

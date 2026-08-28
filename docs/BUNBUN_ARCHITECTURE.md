@@ -525,6 +525,14 @@ atomically binds the active candidate IDs and selection handler, reports stable
 IDs, and applies known presentation cues; it does not decide correctness or
 advance lesson state.
 
+D-052 keeps TYPE correction inside that reducer without changing
+LessonManifest or EvidencePersistence versions. The authored attempt budget
+still bounds persisted reactions. A final wrong TYPE answer activates the
+exact deterministic scaffold and returns to input rather than transitioning;
+post-limit edits are presentation-only until an accepted normalized submission
+records assisted step completion. Checkpoint attempt/scaffold fields are
+sufficient to reconstruct this state while raw typed text remains absent.
+
 The legacy SpeechSynthesis adapter starts only after a learner gesture and
 records `heard` only after the browser reports playback start. Failure reveals
 an assisted text route and never claims heard evidence. D-040 later confines
