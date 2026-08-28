@@ -20,6 +20,7 @@ import {
   LessonContentError,
   loadAuthoredLesson,
   loadCachedSpeechLesson,
+  loadLastTrainLesson,
 } from "../src/lesson/content.js";
 import { InMemoryEventSink, type SessionEvent } from "../src/lesson/events.js";
 import {
@@ -58,6 +59,33 @@ test("M8 cached speech fixture passes the shared runtime capability gate", () =>
     "voice_aoi_01",
   );
   assert.deepEqual(validateRuntimeCapabilities(lessonPackage), []);
+});
+
+test("M8 last-train package passes neighborhood runtime capabilities", () => {
+  const lessonPackage = loadLastTrainLesson(false);
+
+  assert.equal(lessonPackage.manifest.scene.sceneId, "neighborhood_small");
+  assert.equal(lessonPackage.manifest.steps.length, 9);
+  assert.deepEqual(validateRuntimeCapabilities(lessonPackage), []);
+});
+
+test("non-LISTEN authored speech plays without blocking interaction", () => {
+  const manifest = loadLastTrainLesson(false).manifest;
+  const harness = createHarness({
+    ...manifest,
+    entryStepId: "choose_tanaka_meaning",
+  });
+
+  assert.equal(harness.state.phase, "AWAITING_CHOICE");
+  harness.dispatch({ type: "AUDIO_STARTED", ...harness.tick() });
+  assert.equal(harness.state.phase, "AWAITING_CHOICE");
+
+  harness.dispatch({ type: "AUDIO_ENDED", ...harness.tick() });
+  assert.equal(harness.state.phase, "AWAITING_CHOICE");
+  harness.dispatch({ type: "AUDIO_FAILED", ...harness.tick() });
+  assert.equal(harness.state.phase, "AWAITING_CHOICE");
+  assert.equal(harness.state.audioFailed, true);
+  assert.equal(harness.state.helpUsed, true);
 });
 
 test("simulated invalid manifest fails before runtime activation", () => {
@@ -311,6 +339,73 @@ test("PICK_UP assisted maximum deterministically acquires the single dog", () =>
   assert.equal(eventsOfKind(harness, "STEP_COMPLETED").at(-1)?.assisted, true);
 });
 
+test("MOVE_TO assisted maximum reaches the unique accepted location before completion", () => {
+  const manifest = withAssistedRecovery("MOVE_TO");
+  const move = manifest.steps.find(
+    (step) => step.interaction.type === "MOVE_TO",
+  );
+  assert.ok(move);
+  const harness = createHarness(manifest);
+  advanceToMove(harness);
+
+  selectAndReachLocation(harness, "bench_area");
+  finishFeedback(harness);
+  const recovery = selectAndReachLocation(harness, "bench_area");
+
+  assert.equal(harness.state.phase, "MOVING_TO_LOCATION");
+  assert.equal(harness.state.pendingLocation?.locationId, "animal_area");
+  assert.equal(harness.state.pendingLocation?.assistedRecovery, true);
+  assert.ok(
+    recovery.effects.some(
+      (effect) =>
+        effect.type === "REQUEST_LOCATION_MOVEMENT" &&
+        effect.locationId === "animal_area",
+    ),
+  );
+
+  harness.dispatch({
+    type: "LOCATION_REACHED",
+    locationId: "animal_area",
+    ...harness.tick(),
+  });
+  assert.equal(harness.state.phase, "FEEDBACK");
+  assert.equal(eventsOfKind(harness, "STEP_COMPLETED").at(-1)?.assisted, true);
+});
+
+test("GIVE assisted maximum transfers the unique pair instead of leaving stale carry", () => {
+  const manifest = withAssistedRecovery("GIVE");
+  const give = manifest.steps.find((step) => step.interaction.type === "GIVE");
+  assert.ok(give);
+  const harness = createHarness(manifest);
+  advanceToGive(harness);
+
+  harness.dispatch({
+    type: "RECIPIENT_SELECTED",
+    entityId: "visitor",
+    ...harness.tick(),
+  });
+  finishFeedback(harness);
+  const recovery = harness.dispatch({
+    type: "RECIPIENT_SELECTED",
+    entityId: "visitor",
+    ...harness.tick(),
+  });
+
+  assert.equal(harness.state.carriedObjectId, undefined);
+  assert.deepEqual(harness.state.transferredObjects, [
+    { objectId: "dog", recipientEntityId: "guide" },
+  ]);
+  assert.ok(
+    recovery.effects.some(
+      (effect) =>
+        effect.type === "TRANSFER_CARRIED_OBJECT" &&
+        effect.objectId === "dog" &&
+        effect.recipientEntityId === "guide",
+    ),
+  );
+  assert.equal(eventsOfKind(harness, "STEP_COMPLETED").at(-1)?.assisted, true);
+});
+
 test("wrong GIVE recipient preserves carry and correct recipient transfers it", () => {
   const harness = createHarness();
   advanceToGive(harness);
@@ -526,6 +621,26 @@ interface Harness {
   dispatch: (input: LessonInput) => LessonUpdate;
 }
 
+function withAssistedRecovery(
+  interactionType: LessonManifest["steps"][number]["interaction"]["type"],
+): LessonManifest {
+  const manifest = loadAuthoredLesson(false).manifest;
+  return {
+    ...manifest,
+    steps: manifest.steps.map((step) =>
+      step.interaction.type === interactionType
+        ? {
+            ...step,
+            attemptPolicy: {
+              ...step.attemptPolicy,
+              afterMaximum: "CONTINUE_ASSISTED" as const,
+            },
+          }
+        : step,
+    ),
+  };
+}
+
 function createHarness(
   manifest: LessonManifest = loadAuthoredLesson(false).manifest,
   sessionId = "session_test",
@@ -619,6 +734,22 @@ function completeMove(harness: Harness, locationId: string): void {
     ...harness.tick(),
   });
   finishFeedback(harness);
+}
+
+function selectAndReachLocation(
+  harness: Harness,
+  locationId: string,
+): LessonUpdate {
+  harness.dispatch({
+    type: "LOCATION_SELECTED",
+    locationId,
+    ...harness.tick(),
+  });
+  return harness.dispatch({
+    type: "LOCATION_REACHED",
+    locationId,
+    ...harness.tick(),
+  });
 }
 
 function advanceToPickUp(harness: Harness): void {

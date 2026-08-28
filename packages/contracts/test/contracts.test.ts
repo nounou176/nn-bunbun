@@ -107,6 +107,44 @@ test("valid complete primitive loop passes contract validation", async () => {
   }
 });
 
+test("unique answer truth permits bounded CONTINUE_ASSISTED recovery", async () => {
+  const [manifest, catalog] = await Promise.all([
+    readJson(validCompleteLoopManifestPath).then(asObject),
+    readJson(catalogPath),
+  ]);
+  asArray(manifest.steps).forEach((stepInput) => {
+    const step = asObject(stepInput);
+    asObject(step.attemptPolicy).afterMaximum = "CONTINUE_ASSISTED";
+  });
+
+  const result = validateLessonPackage(manifest, catalog);
+
+  assert.equal(result.ok, true);
+});
+
+test("ambiguous answer truth remains invalid for CONTINUE_ASSISTED", async () => {
+  const [manifest, catalog] = await Promise.all([
+    readJson(validCompleteLoopManifestPath).then(asObject),
+    readJson(catalogPath),
+  ]);
+  const typeStep = asObject(
+    asArray(manifest.steps).find(
+      (step) => asObject(asObject(step).interaction).type === "TYPE",
+    ),
+  );
+  asObject(typeStep.attemptPolicy).afterMaximum = "CONTINUE_ASSISTED";
+  asObject(typeStep.interaction).acceptedAnswers = ["犬", "猫"];
+
+  const result = validateLessonPackage(manifest, catalog);
+
+  assert.equal(result.ok, false);
+  assert.ok(
+    result.errors.some(
+      (error) => error.code === "ASSISTED_COMPLETION_NOT_DETERMINISTIC",
+    ),
+  );
+});
+
 test("TYPE normalization is ordered, exact, and shared", () => {
   assert.equal(
     normalizeTypeAnswer("　イヌ。　", [

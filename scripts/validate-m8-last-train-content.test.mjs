@@ -4,6 +4,7 @@ import test from "node:test";
 
 import {
   CONTENT_PACKET_PATH,
+  loadAndValidateM8LastTrainContentApproval,
   loadAndValidateM8LastTrainContentPacket,
   validateM8LastTrainContentPacket,
 } from "./validate-m8-last-train-content.mjs";
@@ -21,6 +22,14 @@ test("accepts the exact proposed M8 last-train content packet", async () => {
   assert.match(result.packetSha256, /^[a-f0-9]{64}$/u);
   assert.equal(result.packet.authority.speechGenerationAuthorized, false);
   assert.equal(result.packet.authority.runtimeActivationAuthorized, false);
+});
+
+test("accepts D-047 only for the exact Gate 1 packet", async () => {
+  const result = await loadAndValidateM8LastTrainContentApproval();
+  assert.equal(result.approval.status, "APPROVED_BY_USER");
+  assert.equal(result.approval.authority.speechGenerationAuthorized, true);
+  assert.equal(result.approval.authority.runtimeActivationAuthorized, false);
+  assert.equal(result.proposalSha256, result.approval.proposal.packetSha256);
 });
 
 test("rejects authority that bypasses either approval gate", async () => {

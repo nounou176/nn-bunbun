@@ -524,6 +524,13 @@ Decision resolved:
   rendering, forced WebGL2, interaction, animation, ambience, asset-failure
   retry, lifecycle, and technical-park regression. Parent Milestone 3 is
   complete.
+- D-046 through D-049 accept the fixed-package-first lesson plan, exact Content
+  Gate 1 packet, deterministic unique-truth assisted recovery semantics, and
+  exact Speech Gate 2 packet. The repository now owns a strict six-target,
+  four-utterance, nine-step last-train package for `neighborhood_small`; all
+  four production WAV rows are immutable `READY` and runtime playback checks
+  their approved SHA-256 ETags. Parent Milestone 4 implementation is ready for
+  the user's manual A/B/C matrix; compiler integration remains Milestone 5.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -543,11 +550,10 @@ Implemented and accepted D-040 speech foundation:
 - the focused D-040 reviewed cached-speech foundation is complete. Full M7
   gameplay regression retains its D-036 waiver.
 
-Decisions required:
+Decision required:
 
-- final production utterance review and any pronunciation overrides; and
-- complete lesson package authoring and exact production utterance review
-  before M9 linkage.
+- accept the complete fixed lesson through the Milestone 4 manual A/B/C matrix
+  before M9 linkage or Milestone 5 compiler integration.
 
 Implemented speech-foundation scope:
 
@@ -572,7 +578,7 @@ Implemented complete-audio foundation:
 
 Remaining complete-audio scope:
 
-- final vertical-slice dialogue generation, review, exact manifest linkage,
+- manual fixed-package A/B/C acceptance with exact manifest linkage,
   and contextual mix acceptance in the M9 world; and
 - numeric audio/performance measurements if they become release criteria.
 

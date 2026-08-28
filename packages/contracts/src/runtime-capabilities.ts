@@ -1,9 +1,6 @@
 import type { LessonManifest } from "./schema/index.js";
 import type { ValidatedLessonPackage } from "./validation/semantic.js";
 
-const SUPPORTED_SCENE_ID = "park_small";
-const SUPPORTED_CAMERA_ID = "park_isometric_default";
-const SUPPORTED_ASSET_IDS = new Set(["park_core", "animals_basic"]);
 const SUPPORTED_PRIMITIVES = new Set([
   "LISTEN",
   "CLICK_OBJECT",
@@ -25,13 +22,69 @@ const SUPPORTED_SCAFFOLDS = new Set([
   "SHOW_MEANING",
   "SHOW_PATTERN",
 ]);
-const SUPPORTED_CUES = new Set(["guide_gesture", "dog_happy", "dog_highlight"]);
-const SUPPORTED_WORLD_IDS = new Set(["guide", "visitor", "dog", "cat"]);
-const SUPPORTED_LOCATION_IDS = new Set(["animal_area", "bench_area"]);
 const SUPPORTED_VOICE_PROFILES = new Set([
   "voice_guide_01",
   "voice_aoi_01",
   "voice_tanaka_01",
+]);
+
+interface SceneCapabilities {
+  cameraId: string;
+  assetIds: ReadonlySet<string>;
+  cueIds: ReadonlySet<string>;
+  worldIds: ReadonlySet<string>;
+  locationIds: ReadonlySet<string>;
+}
+
+const SCENE_CAPABILITIES = new Map<string, SceneCapabilities>([
+  [
+    "park_small",
+    {
+      cameraId: "park_isometric_default",
+      assetIds: new Set(["park_core", "animals_basic"]),
+      cueIds: new Set(["guide_gesture", "dog_happy", "dog_highlight"]),
+      worldIds: new Set(["guide", "visitor", "dog", "cat"]),
+      locationIds: new Set(["animal_area", "bench_area"]),
+    },
+  ],
+  [
+    "neighborhood_small",
+    {
+      cameraId: "neighborhood_isometric_default",
+      assetIds: new Set([
+        "neighborhood_rainy_core_v1",
+        "last_train_characters_v1",
+        "neighborhood_animals_v1",
+      ]),
+      cueIds: new Set([
+        "aoi_request",
+        "tension_start",
+        "tanaka_rule",
+        "umbrella_correction",
+        "momo_clue",
+        "momo_reaction",
+        "wallet_reveal",
+        "wallet_pickup",
+        "wallet_return",
+        "feedback_correct",
+        "feedback_incorrect",
+        "lesson_resolution",
+      ]),
+      worldIds: new Set([
+        "aoi",
+        "tanaka",
+        "momo",
+        "wallet_clue",
+        "mistaken_umbrella",
+      ]),
+      locationIds: new Set([
+        "store_front",
+        "park_edge",
+        "umbrella_stand_area",
+        "staff_only_door",
+      ]),
+    },
+  ],
 ]);
 
 export interface RuntimeCapabilityError {
@@ -40,40 +93,42 @@ export interface RuntimeCapabilityError {
   message: string;
 }
 
-export function validateParkRuntimeCapabilities(
+export function validateRuntimeCapabilities(
   lessonPackage: ValidatedLessonPackage,
 ): RuntimeCapabilityError[] {
   const { manifest } = lessonPackage;
   const errors: RuntimeCapabilityError[] = [];
+  const scene = SCENE_CAPABILITIES.get(manifest.scene.sceneId);
 
-  if (manifest.scene.sceneId !== SUPPORTED_SCENE_ID) {
+  if (scene === undefined) {
     addError(
       errors,
       "UNSUPPORTED_RUNTIME_SCENE",
       "/scene/sceneId",
       `Scene '${manifest.scene.sceneId}' has no local runtime definition.`,
     );
-  }
-  if (manifest.scene.cameraPresetId !== SUPPORTED_CAMERA_ID) {
-    addError(
-      errors,
-      "UNSUPPORTED_RUNTIME_CAMERA",
-      "/scene/cameraPresetId",
-      `Camera '${manifest.scene.cameraPresetId}' has no local runtime definition.`,
-    );
-  }
-  manifest.scene.assetBundleIds.forEach((assetId, index) => {
-    if (!SUPPORTED_ASSET_IDS.has(assetId)) {
+  } else {
+    if (manifest.scene.cameraPresetId !== scene.cameraId) {
       addError(
         errors,
-        "UNSUPPORTED_RUNTIME_ASSET",
-        `/scene/assetBundleIds/${index}`,
-        `Asset bundle '${assetId}' has no local resolver.`,
+        "UNSUPPORTED_RUNTIME_CAMERA",
+        "/scene/cameraPresetId",
+        `Camera '${manifest.scene.cameraPresetId}' has no local runtime definition.`,
       );
     }
-  });
+    manifest.scene.assetBundleIds.forEach((assetId, index) => {
+      if (!scene.assetIds.has(assetId)) {
+        addError(
+          errors,
+          "UNSUPPORTED_RUNTIME_ASSET",
+          `/scene/assetBundleIds/${index}`,
+          `Asset bundle '${assetId}' has no local resolver.`,
+        );
+      }
+    });
+    validateWorldIds(manifest, scene, errors);
+  }
 
-  validateWorldIds(manifest, errors);
   manifest.audioAssets.forEach((audio, index) => {
     if (!SUPPORTED_VOICE_PROFILES.has(audio.voiceProfileId)) {
       addError(
@@ -104,23 +159,25 @@ export function validateParkRuntimeCapabilities(
         );
       }
     });
-    [
-      ...step.presentation.onEnterCueIds,
-      ...step.presentation.onSuccessCueIds,
-      ...step.presentation.onFailureCueIds,
-      ...step.feedback.correct.cueIds,
-      ...step.feedback.incorrect.cueIds,
-      ...step.feedback.assisted.cueIds,
-    ].forEach((cueId) => {
-      if (!SUPPORTED_CUES.has(cueId)) {
-        addError(
-          errors,
-          "UNSUPPORTED_RUNTIME_CUE",
-          `/steps/${stepIndex}`,
-          `Cue '${cueId}' has no local runtime handler.`,
-        );
-      }
-    });
+    if (scene !== undefined) {
+      [
+        ...step.presentation.onEnterCueIds,
+        ...step.presentation.onSuccessCueIds,
+        ...step.presentation.onFailureCueIds,
+        ...step.feedback.correct.cueIds,
+        ...step.feedback.incorrect.cueIds,
+        ...step.feedback.assisted.cueIds,
+      ].forEach((cueId) => {
+        if (!scene.cueIds.has(cueId)) {
+          addError(
+            errors,
+            "UNSUPPORTED_RUNTIME_CUE",
+            `/steps/${stepIndex}`,
+            `Cue '${cueId}' has no local runtime handler.`,
+          );
+        }
+      });
+    }
   });
   validateCarrySequence(manifest, errors);
 
@@ -131,6 +188,9 @@ export function validateParkRuntimeCapabilities(
   );
 }
 
+/** @deprecated Use validateRuntimeCapabilities for all closed local scenes. */
+export const validateParkRuntimeCapabilities = validateRuntimeCapabilities;
+
 function validateCarrySequence(
   manifest: LessonManifest,
   errors: RuntimeCapabilityError[],
@@ -139,24 +199,11 @@ function validateCarrySequence(
   manifest.steps.forEach((step, stepIndex) => {
     if (
       step.interaction.type === "PICK_UP" &&
-      step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED"
+      step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED" &&
+      step.interaction.acceptedObjectIds.length === 1
     ) {
-      const deterministicObject = step.scaffolds.find(
-        (scaffold) =>
-          scaffold.kind === "REDUCE_OBJECT_CANDIDATES" &&
-          scaffold.afterAttempt === step.attemptPolicy.maximumAttempts &&
-          scaffold.objectIds.length === 1 &&
-          step.interaction.type === "PICK_UP" &&
-          step.interaction.acceptedObjectIds.includes(
-            scaffold.objectIds[0] ?? "",
-          ),
-      );
-      if (
-        deterministicObject?.kind === "REDUCE_OBJECT_CANDIDATES" &&
-        deterministicObject.objectIds[0] !== undefined
-      ) {
-        guaranteedCarriedObjects.add(deterministicObject.objectIds[0]);
-      }
+      const objectId = step.interaction.acceptedObjectIds[0];
+      if (objectId !== undefined) guaranteedCarriedObjects.add(objectId);
     }
     if (step.interaction.type !== "GIVE") return;
     step.interaction.acceptedPairs.forEach((pair, pairIndex) => {
@@ -174,10 +221,11 @@ function validateCarrySequence(
 
 function validateWorldIds(
   manifest: LessonManifest,
+  scene: SceneCapabilities,
   errors: RuntimeCapabilityError[],
 ): void {
   manifest.entities.forEach((entity, index) => {
-    if (!SUPPORTED_WORLD_IDS.has(entity.entityId)) {
+    if (!scene.worldIds.has(entity.entityId)) {
       addError(
         errors,
         "UNSUPPORTED_RUNTIME_ENTITY",
@@ -187,7 +235,7 @@ function validateWorldIds(
     }
   });
   manifest.objects.forEach((object, index) => {
-    if (!SUPPORTED_WORLD_IDS.has(object.objectId)) {
+    if (!scene.worldIds.has(object.objectId)) {
       addError(
         errors,
         "UNSUPPORTED_RUNTIME_OBJECT",
@@ -197,7 +245,7 @@ function validateWorldIds(
     }
   });
   manifest.locations.forEach((location, index) => {
-    if (!SUPPORTED_LOCATION_IDS.has(location.locationId)) {
+    if (!scene.locationIds.has(location.locationId)) {
       addError(
         errors,
         "UNSUPPORTED_RUNTIME_LOCATION",

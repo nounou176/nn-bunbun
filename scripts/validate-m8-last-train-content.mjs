@@ -12,6 +12,10 @@ export const CONTENT_PACKET_PATH = path.join(
   REPOSITORY_ROOT,
   "docs/lesson-content/M8_LAST_TRAIN_CONTENT_REVIEW_2026-08-27.json",
 );
+export const CONTENT_APPROVAL_PATH = path.join(
+  REPOSITORY_ROOT,
+  "docs/lesson-content/M8_LAST_TRAIN_CONTENT_APPROVAL_2026-08-27.json",
+);
 export const CONTENT_APPROVAL_PREFIX =
   "DUYỆT M8 LESSON CONTENT GATE 1 — PACKET ";
 
@@ -581,7 +585,62 @@ export async function loadAndValidateM8LastTrainContentPacket(
   };
 }
 
+export async function loadAndValidateM8LastTrainContentApproval(
+  approvalPath = CONTENT_APPROVAL_PATH,
+) {
+  const proposal = await loadAndValidateM8LastTrainContentPacket();
+  const bytes = await readFile(approvalPath);
+  const approval = JSON.parse(bytes.toString("utf8"));
+  assert.deepEqual(approval, {
+    packetFormat: "bunbun_m8_last_train_content_approval",
+    packetVersion: "1.0.0",
+    status: "APPROVED_BY_USER",
+    approvedOn: "2026-08-27",
+    authority: {
+      decisionId: "D-047",
+      priorDecisionId: "D-046",
+      approvalPhrase: `${CONTENT_APPROVAL_PREFIX}${proposal.packetSha256}`,
+      speechGenerationAuthorized: true,
+      runtimeActivationAuthorized: false,
+      compilerIntegrationAuthorized: false,
+    },
+    proposal: {
+      packetSha256: proposal.packetSha256,
+    },
+    authorizedUtteranceIds: EXPECTED_UTTERANCE_IDS,
+  });
+  return {
+    approval,
+    approvalPath,
+    approvalSha256: sha256(bytes),
+    proposalSha256: proposal.packetSha256,
+  };
+}
+
 async function main() {
+  if (process.argv[2] === "approval-check") {
+    const result = await loadAndValidateM8LastTrainContentApproval(
+      process.argv[3] ? path.resolve(process.argv[3]) : CONTENT_APPROVAL_PATH,
+    );
+    process.stdout.write(
+      `${JSON.stringify(
+        {
+          status: result.approval.status,
+          approvalPath: result.approvalPath,
+          approvalSha256: result.approvalSha256,
+          proposalSha256: result.proposalSha256,
+          authorizedUtterances: result.approval.authorizedUtteranceIds.length,
+          speechGenerationAuthorized:
+            result.approval.authority.speechGenerationAuthorized,
+          runtimeActivationAuthorized:
+            result.approval.authority.runtimeActivationAuthorized,
+        },
+        null,
+        2,
+      )}\n`,
+    );
+    return;
+  }
   const result = await loadAndValidateM8LastTrainContentPacket(
     process.argv[2] ? path.resolve(process.argv[2]) : CONTENT_PACKET_PATH,
   );

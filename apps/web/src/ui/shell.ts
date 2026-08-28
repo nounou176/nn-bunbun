@@ -802,7 +802,10 @@ export function createAppShell(
           ? (step.stimulus.supportText ?? "")
           : "";
       lessonSupport.hidden = lessonSupport.textContent.length === 0;
-      const worldAction = worldActionCopy(state.phase);
+      const worldAction = worldActionCopy(
+        state.phase,
+        state.manifest.scene.sceneId,
+      );
       lessonWorldActionJa.textContent = worldAction?.ja ?? "";
       lessonWorldActionSupport.textContent = worldAction?.support ?? "";
       lessonWorldAction.hidden = worldAction === undefined;
@@ -881,9 +884,10 @@ export function createAppShell(
         });
       }
 
-      const isListen = step.interaction.type === "LISTEN";
       audioButton.hidden =
-        !isListen || state.phase === "FEEDBACK" || state.phase === "COMPLETED";
+        currentAudioAssetId === undefined ||
+        state.phase === "FEEDBACK" ||
+        state.phase === "COMPLETED";
       audioButton.disabled = state.phase === "PLAYING_AUDIO";
       audioButton.textContent =
         state.phase === "AWAITING_AUDIO" ? "音声を聞く" : "もう一度聞く";
@@ -1045,13 +1049,20 @@ function appendTokenButtons(
 
 function worldActionCopy(
   phase: LessonState["phase"],
+  sceneId: string,
 ): { ja: string; support: string } | undefined {
+  const isNeighborhood = sceneId === "neighborhood_small";
   switch (phase) {
     case "AWAITING_OBJECT":
-      return {
-        ja: "公園の動物をクリック",
-        support: "Chọn một con vật trực tiếp trong công viên",
-      };
+      return isNeighborhood
+        ? {
+            ja: "手がかりをクリック",
+            support: "Chọn đúng manh mối trực tiếp trong khu phố",
+          }
+        : {
+            ja: "公園の動物をクリック",
+            support: "Chọn một con vật trực tiếp trong công viên",
+          };
     case "AWAITING_LOCATION":
       return {
         ja: "場所のマーカーをクリック",
@@ -1060,10 +1071,15 @@ function worldActionCopy(
     case "MOVING_TO_LOCATION":
       return { ja: "移動中…", support: "Bunbun đang đi đến địa điểm đã chọn" };
     case "AWAITING_PICK_UP":
-      return {
-        ja: "連れていく動物をクリック",
-        support: "Chọn con vật sẽ đi cùng Bunbun",
-      };
+      return isNeighborhood
+        ? {
+            ja: "拾うものをクリック",
+            support: "Chọn đúng đồ vật để nhặt lên",
+          }
+        : {
+            ja: "連れていく動物をクリック",
+            support: "Chọn con vật sẽ đi cùng Bunbun",
+          };
     case "AWAITING_RECIPIENT":
       return {
         ja: "渡す相手をクリック",

@@ -12,6 +12,7 @@ import {
   LessonContentError,
   loadAuthoredLesson,
   loadCachedSpeechLesson,
+  loadLastTrainLesson,
   loadLessonPackage,
 } from "./lesson/content.js";
 import { createLessonRuntime } from "./lesson/runtime.js";
@@ -44,8 +45,24 @@ async function startApp(app: HTMLDivElement): Promise<void> {
       ? selection.lessonPackage
       : selection.kind === "CACHED_SPEECH_DEMO"
         ? loadCachedSpeechLesson(false)
-        : undefined;
-  const shell = createAppShell(app);
+        : selection.kind === "LAST_TRAIN_DEMO"
+          ? loadLastTrainLesson(false)
+          : undefined;
+  const selectedSceneId = selectedPackage?.manifest.scene.sceneId;
+  const shell = createAppShell(
+    app,
+    selectedSceneId === "neighborhood_small"
+      ? {
+          worldTitle: "Bunbun Neighborhood",
+          worldSceneId: selectedSceneId,
+          worldAriaLabel:
+            "Bunbun rainy evening neighborhood lesson. Use the lesson prompts to move, inspect clues, and help Aoi.",
+          instructionJa: "日本語を使って、あおいを終電に間に合わせよう。",
+          instructionSupport:
+            "Complete the authored Japanese actions in the rainy neighborhood.",
+        }
+      : undefined,
+  );
   const audioMixer = createConfiguredAudioMixer(baseConfig);
   const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);
   const evidenceStore = createHttpEvidenceStore(
@@ -114,6 +131,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
         },
         audioMixer,
         handleFatalError,
+        resolveWorldScene(lessonPackage.manifest.scene.sceneId),
       );
       let lessonRuntime;
       try {

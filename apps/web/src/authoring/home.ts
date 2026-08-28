@@ -1,5 +1,6 @@
 import type { LessonManifest, ValidatedLessonPackage } from "@bunbun/contracts";
 import cachedSpeechFixture from "@bunbun/contracts/fixtures/valid-m8-cached-speech" with { type: "json" };
+import lastTrainManifestFixture from "@bunbun/contracts/fixtures/m8-last-train" with { type: "json" };
 
 import {
   authoringClient,
@@ -7,10 +8,12 @@ import {
   type PublishedLessonSummary,
   type SpeechAssetView,
 } from "./client.js";
+import { M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED } from "../lesson/production-approvals.js";
 
 export type LessonSelection =
   | { kind: "AUTHORED_DEMO" }
   | { kind: "CACHED_SPEECH_DEMO" }
+  | { kind: "LAST_TRAIN_DEMO" }
   | { kind: "PUBLISHED"; lessonPackage: ValidatedLessonPackage };
 
 export function showAuthoringHome(
@@ -42,13 +45,14 @@ export function showAuthoringHome(
           <button class="primary-button" data-authoring="play-demo" type="button">Play authored demo</button>
         </article>
         <article class="authoring-card speech-card">
-          <p class="eyebrow">M8 · Reviewed local speech</p>
-          <h2>あおい · 財布を探してください。</h2>
-          <p>Generate locally, listen, then approve before gameplay. Credit: <b>VOICEVOX Nemo</b>.</p>
+          <p class="eyebrow">M8 · Last-train speech gate</p>
+          <h2>終電まであと3分</h2>
+          <p>Generate four exact lines locally, listen to each WAV, then approve before gameplay. Credit: <b>VOICEVOX Nemo</b>.</p>
           <div class="handoff-actions">
-            <button data-audio="prepare" type="button">Prepare speech</button>
+            <button data-audio="prepare" type="button">Prepare 4 lines</button>
             <button class="primary-button" data-audio="run" type="button">Generate with local Nemo</button>
-            <button data-audio="play" type="button" disabled>Play cached speech demo</button>
+            <button data-audio="play-production" type="button" disabled>Play last-train lesson</button>
+            <button data-audio="play" type="button" disabled>Play technical speech regression</button>
           </div>
           <div data-audio="review"></div>
           <div class="delete-data-actions">
@@ -75,8 +79,13 @@ export function showAuthoringHome(
   );
   const speechReview = required<HTMLElement>(app, '[data-audio="review"]');
   const playSpeech = required<HTMLButtonElement>(app, '[data-audio="play"]');
-  const speechManifest = cachedSpeechFixture as LessonManifest;
-  const speechAsset = speechManifest.audioAssets[0]!;
+  const playProduction = required<HTMLButtonElement>(
+    app,
+    '[data-audio="play-production"]',
+  );
+  const technicalSpeechManifest = cachedSpeechFixture as LessonManifest;
+  const technicalSpeechAsset = technicalSpeechManifest.audioAssets[0]!;
+  const speechManifest = lastTrainManifestFixture as LessonManifest;
 
   return new Promise((resolve) => {
     required<HTMLButtonElement>(
@@ -87,6 +96,9 @@ export function showAuthoringHome(
     });
     playSpeech.addEventListener("click", () =>
       resolve({ kind: "CACHED_SPEECH_DEMO" }),
+    );
+    playProduction.addEventListener("click", () =>
+      resolve({ kind: "LAST_TRAIN_DEMO" }),
     );
     required<HTMLButtonElement>(app, '[data-audio="prepare"]').addEventListener(
       "click",
@@ -99,10 +111,8 @@ export function showAuthoringHome(
             speechManifest.audioAssets,
           )
           .then((assets) => {
-            renderSpeech(
-              assets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
-            );
-            status.textContent = "Speech input đã vào local queue.";
+            renderSpeech(productionAssets(assets));
+            status.textContent = "Bốn exact speech input đã vào local queue.";
           })
           .catch(showError);
       },
@@ -114,9 +124,7 @@ export function showAuthoringHome(
         void authoringClient
           .runSpeech()
           .then((assets) => {
-            renderSpeech(
-              assets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
-            );
+            renderSpeech(productionAssets(assets));
             status.textContent = "Local speech generation đã kết thúc.";
           })
           .catch(showError);
@@ -148,7 +156,7 @@ export function showAuthoringHome(
           purge.disabled = false;
           purgeConfirm.hidden = true;
           purgeCancel.hidden = true;
-          renderSpeech(undefined);
+          renderSpeech([]);
           status.textContent =
             "Generated speech cache đã được xóa; lesson data được giữ nguyên.";
         })
@@ -187,9 +195,11 @@ export function showAuthoringHome(
           authoringClient.listSpeech(),
         ]);
         renderLibrary(lessons);
-        renderSpeech(
-          speechAssets.find((asset) => asset.cacheKey === speechAsset.cacheKey),
-        );
+        renderSpeech(productionAssets(speechAssets));
+        playSpeech.disabled =
+          speechAssets.find(
+            (asset) => asset.cacheKey === technicalSpeechAsset.cacheKey,
+          )?.status !== "READY";
         const current =
           compilations.find(
             (compilation) => compilation.status !== "PUBLISHED",
@@ -203,16 +213,44 @@ export function showAuthoringHome(
       }
     }
 
-    function renderSpeech(asset: SpeechAssetView | undefined): void {
+    function productionAssets(
+      assets: readonly SpeechAssetView[],
+    ): SpeechAssetView[] {
+      return speechManifest.audioAssets.flatMap((manifestAsset) => {
+        const match = assets.find(
+          (asset) => asset.cacheKey === manifestAsset.cacheKey,
+        );
+        return match === undefined ? [] : [match];
+      });
+    }
+
+    function renderSpeech(assets: readonly SpeechAssetView[]): void {
       speechReview.replaceChildren();
-      playSpeech.disabled = asset?.status !== "READY";
-      if (asset === undefined) {
+      playProduction.disabled =
+        !M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED ||
+        assets.length !== speechManifest.audioAssets.length ||
+        assets.some((asset) => asset.status !== "READY");
+      if (assets.length === 0) {
         const message = document.createElement("p");
         message.textContent =
-          "Not prepared. Start by registering the exact fixture input.";
+          "Not prepared. Register the four exact approved utterances first.";
         speechReview.append(message);
         return;
       }
+      assets.forEach(renderSpeechAsset);
+    }
+
+    function renderSpeechAsset(asset: SpeechAssetView): void {
+      const item = document.createElement("article");
+      item.className = "speech-review-item";
+      const reference = asset.references.find(
+        (item) => item.lessonId === speechManifest.lessonId,
+      );
+      const utterance = document.createElement("p");
+      utterance.lang = "ja";
+      utterance.textContent = asset.textJa;
+      const identity = document.createElement("small");
+      identity.textContent = `${reference?.audioAssetId ?? "unbound asset"} · ${asset.cacheKey}`;
       const summary = document.createElement("p");
       summary.className = "review-summary";
       summary.textContent = `${asset.status} · ${asset.voiceProfileId} · ${asset.durationMs ?? "—"} ms · attempt ${asset.attemptCount}`;
@@ -220,14 +258,14 @@ export function showAuthoringHome(
       detail.textContent = asset.failureCode
         ? `Failure: ${asset.failureCode}`
         : `Query SHA-256: ${asset.querySha256 ?? "pending"} · WAV SHA-256: ${asset.wavSha256 ?? "pending"} · ${asset.byteLength ?? "—"} bytes · Credit: ${asset.credit}`;
-      speechReview.append(summary, detail);
+      item.append(utterance, identity, summary, detail);
 
       if (asset.status === "REVIEW_REQUIRED" || asset.status === "READY") {
         const audio = document.createElement("audio");
         audio.controls = true;
         audio.preload = "metadata";
         audio.src = `/api/v1/audio/speech/jobs/${encodeURIComponent(asset.cacheKey)}/preview`;
-        speechReview.append(audio);
+        item.append(audio);
       }
       if (asset.status === "REVIEW_REQUIRED") {
         const actions = document.createElement("div");
@@ -239,7 +277,7 @@ export function showAuthoringHome(
           () =>
             void authoringClient
               .reviewSpeech(asset.cacheKey, "APPROVE")
-              .then(renderSpeech)
+              .then(() => refresh())
               .catch(showError),
         );
         const reject = button("Reject WAV");
@@ -248,11 +286,11 @@ export function showAuthoringHome(
           () =>
             void authoringClient
               .reviewSpeech(asset.cacheKey, "REJECT")
-              .then(renderSpeech)
+              .then(() => refresh())
               .catch(showError),
         );
         actions.append(approve, reject);
-        speechReview.append(actions);
+        item.append(actions);
       }
       if (asset.status === "FAILED") {
         const retry = button("Retry failed generation");
@@ -261,11 +299,12 @@ export function showAuthoringHome(
           () =>
             void authoringClient
               .retrySpeech(asset.cacheKey)
-              .then(renderSpeech)
+              .then(() => refresh())
               .catch(showError),
         );
-        speechReview.append(retry);
+        item.append(retry);
       }
+      speechReview.append(item);
     }
 
     function renderCompilation(compilation: CompilationView): void {

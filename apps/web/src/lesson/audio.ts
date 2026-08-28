@@ -4,6 +4,7 @@ import {
   createBunbunAudioMixer,
   type BunbunAudioMixer,
 } from "../audio/mixer.js";
+import { APPROVED_SPEECH_WAV_SHA256 } from "./production-approvals.js";
 
 export interface AudioPlaybackCallbacks {
   onStart: () => void;
@@ -64,6 +65,13 @@ export function createLessonAudioPort(
       }
       if (response.headers.get("x-bunbun-audio-credit") !== "VOICEVOX Nemo") {
         throw new Error("Cached speech credit identity is missing.");
+      }
+      const approvedSha256 = APPROVED_SPEECH_WAV_SHA256.get(audio.cacheKey);
+      if (
+        approvedSha256 !== undefined &&
+        response.headers.get("etag") !== `"sha256-${approvedSha256}"`
+      ) {
+        throw new Error("Cached speech does not match the approved WAV hash.");
       }
       const bytes = await response.arrayBuffer();
       if (bytes.byteLength === 0 || bytes.byteLength > 5 * 1024 * 1024) {

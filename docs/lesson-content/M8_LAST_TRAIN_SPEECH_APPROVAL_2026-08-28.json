@@ -1,0 +1,38 @@
+{
+  "packetFormat": "bunbun_m8_last_train_speech_approval",
+  "packetVersion": "1.0.0",
+  "status": "APPROVED_BY_USER",
+  "approvedAt": "2026-08-28T00:00:00Z",
+  "approvalPhrase": "DUYỆT M8 SPEECH GATE 2 — PACKET f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50",
+  "reviewPacketSha256": "f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50",
+  "contentProposalSha256": "5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6",
+  "lessonId": "lesson_m8_last_train",
+  "revision": 1,
+  "approvedAssets": [
+    {
+      "audioAssetId": "audio_aoi_opening",
+      "cacheKey": "bunbun_tts_v1_604748d17f4dbe0caf708a2d6876ef6c8f5d6c535472ecff84c078ddafb2ba57",
+      "wavSha256": "03b159f6f83c54f7db54d14c047aad2a0eee7132bde3027c26c15aac170d2745"
+    },
+    {
+      "audioAssetId": "audio_tanaka_rule",
+      "cacheKey": "bunbun_tts_v1_3f128a2c0df87140fa79809662ccab7186b32e7b721b0e43ef67a9b2d9270347",
+      "wavSha256": "855c4bc15f6c7bb12fbbfb2506b95f011c7aa3979d51fd250f328e775002cdc8"
+    },
+    {
+      "audioAssetId": "audio_tanaka_clue",
+      "cacheKey": "bunbun_tts_v1_7ec483945124a9bb23c8045c8ac1c54f9cc1ba59ef53ad0a785d6d6183fead7e",
+      "wavSha256": "8ee0688f009626e6d0cbb3db0f8907cd1a85108bae40381d570e4dd8313e8c49"
+    },
+    {
+      "audioAssetId": "audio_aoi_resolution",
+      "cacheKey": "bunbun_tts_v1_48390b80d3c62f6c5f77505c15998c61fbf014d605cb1ecf248f09c3d8202599",
+      "wavSha256": "13c76f66672174596ffdf45ea5bf84fdec07c5a68dd2f2e76e52ac14e345cf57"
+    }
+  ],
+  "approvalAuthority": {
+    "speechReady": true,
+    "runtimeActivation": true,
+    "compilerIntegration": false
+  }
+}

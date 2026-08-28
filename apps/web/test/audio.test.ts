@@ -13,6 +13,14 @@ const cachedAsset: AudioAsset = {
     "bunbun_tts_v1_34a6a1c8a7acc64b6a77f0f7aa84f21142f0b6a5715afc016db11e6f2cd0dbfe",
 };
 
+const approvedProductionAsset: AudioAsset = {
+  audioAssetId: "audio_aoi_opening",
+  textJa: "財布がありません。終電まであと三分です。財布を探してください。",
+  voiceProfileId: "voice_aoi_01",
+  cacheKey:
+    "bunbun_tts_v1_604748d17f4dbe0caf708a2d6876ef6c8f5d6c535472ecff84c078ddafb2ba57",
+};
+
 test("cached speech preloads once, starts after unlock, and ends once", async () => {
   const previousWindow = globalThis.window;
   const audio = fakeAudioContext();
@@ -85,6 +93,39 @@ test("cached speech interruption reports one recoverable failure", async () => {
     port.interrupt("duplicate interruption");
     assert.deepEqual(errors, ["background interruption"]);
     assert.equal(audio.stopped, true);
+    port.dispose();
+  } finally {
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: previousWindow,
+    });
+  }
+});
+
+test("approved production speech rejects a mismatched immutable WAV ETag", async () => {
+  const previousWindow = globalThis.window;
+  const audio = fakeAudioContext();
+  Object.defineProperty(globalThis, "window", {
+    configurable: true,
+    value: { speechSynthesis: { cancel: () => undefined } },
+  });
+  try {
+    const port = createLessonAudioPort([approvedProductionAsset], false, {
+      fetchImplementation: async () =>
+        new Response(new Uint8Array([1]), {
+          status: 200,
+          headers: {
+            etag: '"sha256-unapproved"',
+            "x-bunbun-audio-credit": "VOICEVOX Nemo",
+          },
+        }),
+      createAudioContext: () => audio.context,
+    });
+
+    await assert.rejects(
+      port.preload(approvedProductionAsset.audioAssetId),
+      /approved WAV hash/,
+    );
     port.dispose();
   } finally {
     Object.defineProperty(globalThis, "window", {

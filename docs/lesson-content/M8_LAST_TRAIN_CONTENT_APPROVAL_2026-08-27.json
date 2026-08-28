@@ -1,0 +1,23 @@
+{
+  "packetFormat": "bunbun_m8_last_train_content_approval",
+  "packetVersion": "1.0.0",
+  "status": "APPROVED_BY_USER",
+  "approvedOn": "2026-08-27",
+  "authority": {
+    "decisionId": "D-047",
+    "priorDecisionId": "D-046",
+    "approvalPhrase": "DUYỆT M8 LESSON CONTENT GATE 1 — PACKET 5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6",
+    "speechGenerationAuthorized": true,
+    "runtimeActivationAuthorized": false,
+    "compilerIntegrationAuthorized": false
+  },
+  "proposal": {
+    "packetSha256": "5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6"
+  },
+  "authorizedUtteranceIds": [
+    "utterance_aoi_opening",
+    "utterance_tanaka_rule",
+    "utterance_tanaka_clue",
+    "utterance_aoi_resolution"
+  ]
+}

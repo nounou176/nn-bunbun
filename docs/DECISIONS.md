@@ -2301,6 +2301,141 @@ The M7 plugin/compiler contract remains unchanged in this milestone. Content
 or speech hash drift reopens the applicable gate rather than silently reusing
 an older technical artifact.
 
+### D-047 — Approve the exact M8 last-train Content Gate 1 packet
+
+- Date: 2026-08-27
+- Status: Accepted by explicit user approval
+- Affects: M8 production language content, fixed package authoring, exact local
+  speech-generation input, Speech Gate 2
+
+Context:
+
+D-046 authorizes creation of a hash-bound Content Gate 1 proposal but leaves
+speech generation and runtime activation false. The deterministic validator
+accepts the proposal with six targets, four exact utterances, nine steps, and
+all eight primitive identities. Its byte-level SHA-256 is
+`5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
+
+Decision:
+
+Accept that exact packet after the user sent `DUYỆT M8 LESSON CONTENT GATE 1
+— PACKET 5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
+The authoritative approval artifact is
+`docs/lesson-content/M8_LAST_TRAIN_CONTENT_APPROVAL_2026-08-27.json`.
+
+Authorize construction and validation of the fixed production
+CatalogSnapshot/LessonManifest and local generation of only the packet's four
+exact utterances with their fixed Aoi/Tanaka profiles. Preserve the packet as
+immutable revision-1 input. A wording, target, answer, scaffold, cue intent,
+speaker, or voice-profile change requires a new content packet and explicit
+hash approval.
+
+Do not activate the production package yet. Every generated WAV remains
+`REVIEW_REQUIRED` until the user listens and separately approves its exact
+hash at Speech Gate 2. Compiler integration remains parent Milestone 5 and is
+not authorized by this decision.
+
+Consequences:
+
+Speech generation may now use only the four exact Japanese strings over the
+already approved loopback Nemo boundary. No new provider, service, dependency,
+asset, account, credential, environment variable, or cost is introduced.
+Runtime gameplay continues to make no provider or synthesis call.
+
+### D-048 — Add bounded deterministic assisted state correction
+
+- Date: 2026-08-27
+- Status: Accepted by explicit user approval
+- Affects: LessonManifest 0.1.0 semantic validation, lesson controller,
+  MOVE_TO/GIVE world state, M8 wrong-path acceptance
+
+Context:
+
+Mapping the D-047 packet into LessonManifest exposed a real compatibility gap.
+The packet requires `CONTINUE_ASSISTED` for every bounded step, while the
+existing semantic validator recognizes deterministic assistance only through
+`RECOGNITION_FALLBACK` or a reducer exposing one accepted object/choice. The
+approved ARRANGE, TYPE, MOVE_TO, and GIVE steps each have one exact answer but
+cannot use those recognition reducers. Silently changing them to failure
+transitions would allow the story to advance while the learner remains at the
+wrong location or still carries the wallet.
+
+Decision:
+
+Accept the user's `DUYỆT M8 ASSISTED RECOVERY SEMANTICS`. Preserve the exact
+D-047 packet and LessonManifest/CatalogSnapshot schema version 0.1.0. Extend
+semantic validation and runtime execution only for a closed deterministic
+case: `CONTINUE_ASSISTED` may resolve from answer truth when the interaction
+has exactly one accepted sequence, normalized text answer, location, object,
+choice, or GIVE pair and its configured scaffold budget has been reached.
+
+ARRANGE, TYPE, CLICK_OBJECT, CHOOSE, and other stateless selections may finish
+with assisted feedback after exposing their single accepted truth. PICK_UP
+must set the uniquely accepted carried object. MOVE_TO must request and await
+movement to the uniquely accepted location before completing the step. GIVE
+must transfer the uniquely accepted carried object to the uniquely accepted
+recipient before completing the step. These state corrections emit assisted,
+not correct, evidence and retain the learner's wrong reaction record.
+
+Keep the acceptance closed: multiple accepted truths without an existing
+deterministic reducer remain invalid; an incompatible carried object, failed
+assisted movement, unknown target, or missing unique pair remains a visible
+error rather than guessed state. Add focused contract and controller tests and
+preserve the current technical-park behavior as regression evidence.
+
+Consequences:
+
+The fixed last-train package can retain its approved bounded recovery policy
+without changing content hashes or inventing a second lesson graph. This adds
+no mechanic, provider, dependency, asset, schema field, environment variable,
+or cost. It does broaden accepted 0.1.0 semantic behavior for explicitly
+deterministic packages, so tests and runtime capability gating must prevent
+unbounded or ambiguous auto-correction.
+
+### D-049 — Approve the exact M8 last-train Speech Gate 2 packet
+
+- Date: 2026-08-28
+- Status: Accepted by explicit user approval
+- Affects: M8 production speech cache, fixed last-train package activation,
+  runtime speech integrity
+
+Context:
+
+D-047 authorized local generation of four exact Aoi/Tanaka utterances but kept
+every resulting WAV at `REVIEW_REQUIRED`. The local review packet binds the
+displayed Japanese text, fixed voice profile/style, cache key, query SHA-256,
+WAV SHA-256, duration, byte length, credit, zero-cost loopback boundary, and
+false runtime authority for all four rows. Its byte-level SHA-256 is
+`f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50`.
+
+Decision:
+
+Accept that exact packet after the user sent `DUYỆT M8 SPEECH GATE 2 — PACKET
+f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50`.
+The authoritative approval artifact is
+`docs/lesson-content/M8_LAST_TRAIN_SPEECH_APPROVAL_2026-08-28.json`, SHA-256
+`68164151a7d562f18acc9629db273a98e9791b0f1d9c6423af56ec7e4d8422da`.
+
+Promote only the four exact reviewed rows to immutable `READY`. Authorize the
+fixed revision-1 `lesson_m8_last_train` package to activate locally when all
+four approved cache rows are available. Bind cached playback to the approved
+WAV hashes using the server's immutable SHA-256 ETag; a cache-key, hash,
+profile, text, or duration change reopens Speech Gate 2. Preserve captions and
+the assisted path for playback interruption after a valid package starts.
+
+Do not authorize M7 compiler integration, runtime synthesis, a different
+voice, provider, service, dependency, model, account, credential, environment
+variable, or cost. VOICEVOX Nemo remains an authoring-only loopback tool and
+is not required during gameplay.
+
+Consequences:
+
+The fixed lesson may now appear in the local library and proceed to M8
+Milestone 4 manual A/B/C acceptance. The four ignored WAV artifacts remain
+local; repository records contain only stable identities and approved hashes.
+Parent Milestone 5 remains the compiler/polish boundary and is not inferred
+from this speech approval.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:
@@ -2309,7 +2444,7 @@ These are acknowledged but not yet ready to decide:
 | ----- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
 | O-008 | Browser/device support and WebGPU fallback policy                                                | Rendering foundation              |
 | O-009 | Production kanji and Japanese reference datasets and licenses beyond the D-034 technical fixture | Production reference integration  |
-| O-010 | Final production utterance approval and contextual M9 audio linkage                              | Complete audio integration        |
+| O-010 | Contextual M9 audio linkage beyond the D-049 approved M8 utterances                              | M9 world/lesson linkage           |
 | O-012 | Deployment model and Docker topology                                                             | Post-acceptance release discovery |
 
 Deferred decisions must be discussed when they become material. They should

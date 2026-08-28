@@ -691,7 +691,39 @@ function hasDeterministicAssistedCompletion(step: LessonStep): boolean {
     }
   }
 
-  return false;
+  if (step.scaffolds.length === 0) return false;
+
+  switch (step.interaction.type) {
+    case "LISTEN":
+      return true;
+    case "ARRANGE":
+      return step.interaction.acceptedSequences.length === 1;
+    case "TYPE": {
+      const normalization = step.interaction.normalization;
+      return (
+        new Set(
+          step.interaction.acceptedAnswers.map((answer) =>
+            normalizeTypeAnswer(answer, normalization),
+          ),
+        ).size === 1
+      );
+    }
+    case "MOVE_TO":
+      return step.interaction.acceptedLocationIds.length === 1;
+    case "CLICK_OBJECT":
+    case "PICK_UP":
+      return step.interaction.acceptedObjectIds.length === 1;
+    case "CHOOSE":
+      return step.interaction.acceptedOptionIds.length === 1;
+    case "GIVE":
+      return (
+        new Set(
+          step.interaction.acceptedPairs.map(
+            (pair) => `${pair.objectId}\u0000${pair.recipientEntityId}`,
+          ),
+        ).size === 1
+      );
+  }
 }
 
 function validateQualityCounts(

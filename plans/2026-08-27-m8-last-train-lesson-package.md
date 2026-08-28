@@ -1,9 +1,9 @@
 # Author the complete last-train lesson package
 
-Status: Active; approved, Content Gate 1 awaiting exact packet approval
+Status: Active; Content and Speech Gates approved, manual A/B/C pending
 Owner: Codex and user
 Created: 2026-08-27
-Last updated: 2026-08-27 Asia/Ho_Chi_Minh
+Last updated: 2026-08-28 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -33,6 +33,12 @@ Milestone 5.
   eight gameplay primitives already execute in the technical park.
 - Runtime capability validation is still hard-coded to the park catalog and
   presentation cues. The authored demo loader still imports park fixtures.
+- The fixed production manifest/catalog, two-scene runtime capability gate,
+  deterministic assisted recovery, approved cue mapping, manifest-selected
+  neighborhood runtime, and local library entry are implemented.
+- Four exact production WAVs were generated through local VOICEVOX Nemo and
+  approved under D-049. The runtime checks their immutable approved SHA-256
+  identity through the server ETag; Nemo is not running during gameplay.
 - The M7 compiler still targets its accepted park/Bunbun Core profile. It must
   remain unchanged in this milestone except for regressions required to keep
   the existing profile valid.
@@ -351,10 +357,19 @@ candidate.
       and extended-document formatting, schema drift for 56 generated files,
       workspace typecheck, and diff hygiene pass. No speech, runtime asset,
       provider call, browser automation, or Docker work occurs.
-- [ ] Obtain Gate 1 exact content approval.
-- [ ] Implement the fixed package and two-scene closed capability gate.
-- [ ] Generate and obtain Gate 2 exact speech approval.
-- [ ] Complete automated checks and user-reported manual A/B/C acceptance.
+- [x] 2026-08-27 — Obtain Gate 1 exact content approval under D-047.
+- [x] 2026-08-27 — Implement the fixed package, two-scene closed capability
+      gate, deterministic assisted state correction, neighborhood selection,
+      production cue map, and non-blocking speech playback.
+- [x] 2026-08-28 — Generate four exact production WAVs, verify their local
+      query/WAV hashes and sizes, receive exact Gate 2 packet approval under
+      D-049, and promote only those four rows to immutable `READY`.
+- [x] 2026-08-28 — Pass content/speech approval checks, manifest inspection,
+      audio/world runtime checks, schema drift, typecheck, lint, formatting,
+      aggregate tests (contracts 43/43, server 9/9, web 52/52), production
+      build, and diff hygiene. Docker remains not applicable under D-015;
+      Playwright remains excluded under D-011.
+- [ ] Complete user-reported manual A/B/C acceptance.
 
 ## Plan decision
 

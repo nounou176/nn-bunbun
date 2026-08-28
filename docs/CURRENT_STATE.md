@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-27
+Last updated: 2026-08-28
 
 ## Current milestone
 
@@ -30,13 +30,13 @@ Most recently completed ExecPlan:
 Active parent ExecPlan:
 
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
-  Milestones 2 and 3 complete; Milestone 4 Content Gate 1 pending
+  Milestones 2 and 3 complete; Milestone 4 manual A/B/C pending
 
 Active focused M8 lesson plan:
 
-- plans/2026-08-27-m8-last-train-lesson-package.md — Approved under D-046;
-  exact six-target/four-utterance/nine-step Content Gate 1 proposal validates,
-  but user hash approval, speech generation, and runtime activation remain open
+- plans/2026-08-27-m8-last-train-lesson-package.md — Active under D-046 through
+  D-049; exact content and speech gates are approved, the fixed package is
+  locally playable, and manual A/B/C acceptance remains open
 
 Completed focused M8 qualification plan:
 
@@ -78,6 +78,21 @@ Completed ExecPlans:
 
 ## Completed work
 
+- D-047 accepts the exact M8 last-train Content Gate 1 packet SHA-256
+  `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
+  The repository now owns one strict six-target, four-utterance, nine-step
+  CatalogSnapshot/LessonManifest package for `neighborhood_small`.
+- D-048 extends only deterministic `CONTINUE_ASSISTED` cases. MOVE_TO reaches
+  the unique accepted location, PICK_UP sets the unique carried object, and
+  GIVE performs the unique transfer before assisted completion; ambiguous
+  answer truth remains invalid.
+- D-049 accepts Speech Gate 2 packet SHA-256
+  `f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50`.
+  Four exact Aoi/Tanaka WAVs are local immutable `READY`; runtime playback is
+  bound to their approved SHA-256 ETags and does not require Nemo.
+- The lesson library can select `終電まであと3分`, resolve its world from the
+  manifest rather than a preview query, and preserve the existing park and
+  technical speech demos as regression paths.
 - Established the durable product vision, architecture, gameplay primitives,
   LessonManifest 0.1.0 specification, performance direction, decisions,
   roadmap, current-state record, and ExecPlan standard.
@@ -639,10 +654,10 @@ documentation and implementation changes are uncommitted.
    does not invalidate the accepted visible fallback path, but the console-level
    upstream/backend behavior remains a known diagnostic risk for later renderer
    maintenance.
-6. D-046 now proposes exact dialogue, Vietnamese support, six targets, and the
-   nine-step graph in Content Gate 1, but the packet hash is not yet approved.
-   Production speech, the validated runtime package, and measured scenario
-   acceptance remain unimplemented.
+6. D-047/D-049 approve exact dialogue, Vietnamese support, six targets, the
+   nine-step graph, and four production WAV hashes. The validated fixed runtime
+   package is implemented; full manual scenario A/B/C acceptance and numeric
+   runtime measurements remain open.
 7. Cross-lesson mastery aggregation, weak-target scheduling, remote analytics,
    and progress synchronization remain deferred. M7 compiler normalization is
    implemented only for the closed three-target Bunbun Core technical profile;
@@ -651,10 +666,9 @@ documentation and implementation changes are uncommitted.
    contributors must run nvm use to activate Node.js 24.18.0.
 9. Deployment topology remains intentionally deferred until local
    release-candidate acceptance.
-10. The Milestone 6 WebGPU-capable web build is 1,273.78 kB minified and
-    triggers Vite's default uncompressed chunk warning, although its measured
-    gzip size is 351.53 kB. Reported browser measurements must guide any future
-    splitting.
+10. The current WebGPU-capable web build is 1,377.73 kB minified and triggers
+    Vite's default uncompressed chunk warning; measured gzip size is 380.46 kB.
+    Reported browser measurements must guide any future splitting.
 11. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. D-040 confines it to legacy `voice_guide_01` technical
     fixtures; Aoi and Tanaka never fall back to it.
@@ -724,10 +738,9 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Review and approve or revise Content Gate 1 packet SHA-256
-   `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
-   Do not generate production speech or activate the package before approval.
-3. Keep M9 linkage behind that complete package and speech review checkpoint.
+2. Manually run the M8 last-train A/B/C matrix now that Content Gate 1 and
+   Speech Gate 2 are accepted under D-047/D-049.
+3. Keep M9 linkage behind completion of that manual package acceptance.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
@@ -741,6 +754,22 @@ measurable vertical-slice acceptance choices.
 
 ## Verification status
 
+- D-049 Speech Gate 2: the review validator re-hashes all four ignored local
+  WAV and query artifacts, checks byte lengths and manifest identities, and
+  passes with packet SHA-256
+  `f14d677762915f9c8bc868c7a624f17ac018d9ddb57fec315df9819461ff8d50`.
+  The approval promotion reports all four exact rows as `READY`; compiler
+  integration remains false.
+- D-048/fixed-package checks: strict manifest inspection passes 6 targets, 9
+  steps, 8 primitive identities, 3 interactive objects, and the closed
+  `neighborhood_small` capability gate. Focused contract and web controller
+  tests pass deterministic unique-truth assistance and existing park
+  regressions. Full workspace checks pass: contracts 43/43, server 9/9, web
+  52/52, typecheck, lint, schema drift, formatting, production build, content
+  and speech approval validation, audio/world runtime validation, and diff
+  hygiene. Server HTTP tests require execution outside the network sandbox to
+  bind loopback. Playwright is excluded by D-011 and Docker is not applicable
+  before local release-candidate acceptance under D-015.
 - D-046 M8 Content Gate 1 proposal: deterministic validation passes six
   targets, four exact utterances, nine steps, all eight primitive identities,
   fixed Aoi/Tanaka voice assignments, bounded assistance, target evidence,
@@ -751,8 +780,9 @@ measurable vertical-slice acceptance choices.
   files, workspace typecheck, and `git diff --check` pass. The exact packet
   SHA-256 is
   `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
-  This is a proposal, not user content approval: speech generation and runtime
-  activation remain false. Playwright is excluded by D-011 and Docker is not
+  This proposal was subsequently approved under D-047; D-049 separately
+  approves the four resulting WAV hashes and local runtime activation.
+  Playwright is excluded by D-011 and Docker is not
   applicable under D-015.
 - D-039 VOICEVOX Nemo qualification: the official 0.24.0 CPU archive matches
   its published hash and passes archive validation. The live API reported nine

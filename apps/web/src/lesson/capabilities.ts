@@ -1,4 +1,4 @@
 export {
-  validateParkRuntimeCapabilities as validateRuntimeCapabilities,
+  validateRuntimeCapabilities,
   type RuntimeCapabilityError,
 } from "@bunbun/contracts";

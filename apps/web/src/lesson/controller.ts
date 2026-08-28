@@ -45,6 +45,7 @@ export interface PendingLocation {
   locationId: string;
   activeTimeMs: number;
   occurredAt: string;
+  assistedRecovery: boolean;
 }
 
 export interface LessonState {
@@ -167,10 +168,18 @@ export function reduceLesson(
       return { state: { ...state, helpUsed: true }, effects: [] };
 
     case "AUDIO_STARTED":
+      if (step.stimulus.utterance?.audioAssetId === undefined) {
+        return unchanged(state);
+      }
+      if (step.interaction.type !== "LISTEN") {
+        return {
+          state: { ...state, audioFailed: false },
+          effects: [record(heardEvents(eventContext(state, input), step))],
+        };
+      }
       if (
-        step.interaction.type !== "LISTEN" ||
-        (state.phase !== "AWAITING_AUDIO" &&
-          state.phase !== "AWAITING_CONTINUE")
+        state.phase !== "AWAITING_AUDIO" &&
+        state.phase !== "AWAITING_CONTINUE"
       ) {
         return unchanged(state);
       }
@@ -195,10 +204,16 @@ export function reduceLesson(
       };
 
     case "AUDIO_FAILED":
-      if (
-        step.interaction.type !== "LISTEN" ||
-        (state.phase !== "AWAITING_AUDIO" && state.phase !== "PLAYING_AUDIO")
-      ) {
+      if (step.stimulus.utterance?.audioAssetId === undefined) {
+        return unchanged(state);
+      }
+      if (step.interaction.type !== "LISTEN") {
+        return {
+          state: { ...state, helpUsed: true, audioFailed: true },
+          effects: [],
+        };
+      }
+      if (state.phase !== "AWAITING_AUDIO" && state.phase !== "PLAYING_AUDIO") {
         return unchanged(state);
       }
       return {
@@ -392,6 +407,7 @@ export function reduceLesson(
             locationId: input.locationId,
             activeTimeMs: input.activeTimeMs,
             occurredAt: input.occurredAt,
+            assistedRecovery: false,
           },
         },
         effects: [
@@ -412,6 +428,13 @@ export function reduceLesson(
         return unchanged(state);
       }
       const selectionInput = state.pendingLocation;
+      if (selectionInput.assistedRecovery) {
+        return finishStep(
+          { ...state, pendingLocation: undefined },
+          input,
+          "ASSISTED",
+        );
+      }
       const correct = step.interaction.acceptedLocationIds.includes(
         input.locationId,
       );
@@ -581,13 +604,52 @@ function evaluateAnswer(
       step.attemptPolicy.afterMaximum === "CONTINUE_ASSISTED"
         ? "ASSISTED"
         : "FAILURE";
+    if (outcome === "ASSISTED" && step.interaction.type === "MOVE_TO") {
+      const locationId = step.interaction.acceptedLocationIds[0];
+      if (
+        step.interaction.acceptedLocationIds.length !== 1 ||
+        locationId === undefined
+      ) {
+        throw new Error(
+          `MOVE_TO step '${step.stepId}' cannot resolve assisted location state.`,
+        );
+      }
+      const effects: LessonEffect[] = [record(reaction)];
+      if (step.presentation.onFailureCueIds.length > 0) {
+        effects.push({
+          type: "APPLY_CUES",
+          cueIds: step.presentation.onFailureCueIds,
+        });
+      }
+      effects.push({
+        type: "REQUEST_LOCATION_MOVEMENT",
+        locationId,
+        arrivalRadius: step.interaction.arrivalRadius,
+      });
+      return {
+        state: {
+          ...supportedState,
+          phase: "MOVING_TO_LOCATION",
+          helpUsed: true,
+          movementError: undefined,
+          pendingLocation: {
+            locationId,
+            activeTimeMs: input.activeTimeMs,
+            occurredAt: input.occurredAt,
+            assistedRecovery: true,
+          },
+        },
+        effects,
+      };
+    }
+
     let statefulEffect: LessonEffect | undefined;
     if (outcome === "ASSISTED" && step.interaction.type === "PICK_UP") {
-      const objectId = supportedState.visibleObjectIds[0];
+      const objectId = step.interaction.acceptedObjectIds[0];
       if (
-        supportedState.visibleObjectIds.length !== 1 ||
+        step.interaction.acceptedObjectIds.length !== 1 ||
         objectId === undefined ||
-        !step.interaction.acceptedObjectIds.includes(objectId)
+        !supportedState.visibleObjectIds.includes(objectId)
       ) {
         throw new Error(
           `PICK_UP step '${step.stepId}' cannot resolve assisted carry state.`,
@@ -595,6 +657,32 @@ function evaluateAnswer(
       }
       supportedState = { ...supportedState, carriedObjectId: objectId };
       statefulEffect = { type: "SET_CARRIED_OBJECT", objectId };
+    }
+    if (outcome === "ASSISTED" && step.interaction.type === "GIVE") {
+      const pair = step.interaction.acceptedPairs[0];
+      if (
+        step.interaction.acceptedPairs.length !== 1 ||
+        pair === undefined ||
+        supportedState.carriedObjectId !== pair.objectId
+      ) {
+        throw new Error(
+          `GIVE step '${step.stepId}' cannot resolve assisted transfer state.`,
+        );
+      }
+      supportedState = {
+        ...supportedState,
+        carriedObjectId: undefined,
+        transferredObjects: supportedState.transferredObjects.some(
+          (item) => item.objectId === pair.objectId,
+        )
+          ? supportedState.transferredObjects
+          : [...supportedState.transferredObjects, pair],
+      };
+      statefulEffect = {
+        type: "TRANSFER_CARRIED_OBJECT",
+        objectId: pair.objectId,
+        recipientEntityId: pair.recipientEntityId,
+      };
     }
     const update = finishStep(supportedState, input, outcome, reaction);
     return statefulEffect === undefined

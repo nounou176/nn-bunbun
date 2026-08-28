@@ -1,0 +1,74 @@
+{
+  "packetFormat": "bunbun_m8_last_train_speech_review",
+  "packetVersion": "1.0.0",
+  "createdAt": "2026-08-27T00:00:00Z",
+  "lessonId": "lesson_m8_last_train",
+  "revision": 1,
+  "contentProposalSha256": "5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6",
+  "generator": {
+    "engine": "VOICEVOX Nemo",
+    "engineVersion": "0.24.0",
+    "transport": "loopback-only",
+    "runtimeSynthesis": false,
+    "incrementalCostUsd": 0
+  },
+  "assets": [
+    {
+      "audioAssetId": "audio_aoi_opening",
+      "textJa": "財布がありません。終電まであと三分です。財布を探してください。",
+      "voiceProfileId": "voice_aoi_01",
+      "styleId": 10006,
+      "cacheKey": "bunbun_tts_v1_604748d17f4dbe0caf708a2d6876ef6c8f5d6c535472ecff84c078ddafb2ba57",
+      "querySha256": "acda543dfe057e26458b0860fdc6e90e9ebd15d0426342fdaac6db57bc91286a",
+      "wavSha256": "03b159f6f83c54f7db54d14c047aad2a0eee7132bde3027c26c15aac170d2745",
+      "durationMs": 5291,
+      "byteLength": 253996,
+      "credit": "VOICEVOX Nemo",
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "audioAssetId": "audio_tanaka_rule",
+      "textJa": "この傘はあおいさんの傘ではありません。店の中に入ってはいけません。",
+      "voiceProfileId": "voice_tanaka_01",
+      "styleId": 10000,
+      "cacheKey": "bunbun_tts_v1_3f128a2c0df87140fa79809662ccab7186b32e7b721b0e43ef67a9b2d9270347",
+      "querySha256": "f016589bbcc8d4dbef7e9e8af112442aa0b597df5fc374c2fdb3767d3bdaa3c0",
+      "wavSha256": "855c4bc15f6c7bb12fbbfb2506b95f011c7aa3979d51fd250f328e775002cdc8",
+      "durationMs": 4981,
+      "byteLength": 239148,
+      "credit": "VOICEVOX Nemo",
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "audioAssetId": "audio_tanaka_clue",
+      "textJa": "猫が公園のほうへ行きました。公園を見てください。",
+      "voiceProfileId": "voice_tanaka_01",
+      "styleId": 10000,
+      "cacheKey": "bunbun_tts_v1_7ec483945124a9bb23c8045c8ac1c54f9cc1ba59ef53ad0a785d6d6183fead7e",
+      "querySha256": "ac572c79266074c45c9d0d477aa17508079d44437b05d63c00d07050ae4e1afd",
+      "wavSha256": "8ee0688f009626e6d0cbb3db0f8907cd1a85108bae40381d570e4dd8313e8c49",
+      "durationMs": 3776,
+      "byteLength": 181292,
+      "credit": "VOICEVOX Nemo",
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "audioAssetId": "audio_aoi_resolution",
+      "textJa": "ありがとうございます。財布が見つかりました。これで駅へ行けます。",
+      "voiceProfileId": "voice_aoi_01",
+      "styleId": 10006,
+      "cacheKey": "bunbun_tts_v1_48390b80d3c62f6c5f77505c15998c61fbf014d605cb1ecf248f09c3d8202599",
+      "querySha256": "39848296c638cf8ff6d2d6006991b6dc49074bb8ec85e4367a8e5024e4d54f86",
+      "wavSha256": "13c76f66672174596ffdf45ea5bf84fdec07c5a68dd2f2e76e52ac14e345cf57",
+      "durationMs": 4693,
+      "byteLength": 225324,
+      "credit": "VOICEVOX Nemo",
+      "reviewStatus": "REVIEW_REQUIRED"
+    }
+  ],
+  "approvalAuthority": {
+    "speechReady": false,
+    "runtimeActivation": false,
+    "compilerIntegration": false
+  }
+}

@@ -15,6 +15,54 @@ const PRESENTATION_CUES = new Map<string, PresentationCue>([
     "dog_highlight",
     { visualTargetIds: ["dog"], audioAssetIds: ["sfx_clue_wood_001"] },
   ],
+  [
+    "aoi_request",
+    { visualTargetIds: ["aoi"], audioAssetIds: ["sfx_neutral_001"] },
+  ],
+  [
+    "tension_start",
+    { visualTargetIds: [], audioAssetIds: ["music_tension_pulse_01"] },
+  ],
+  [
+    "tanaka_rule",
+    { visualTargetIds: ["tanaka"], audioAssetIds: ["sfx_neutral_001"] },
+  ],
+  [
+    "umbrella_correction",
+    {
+      visualTargetIds: ["mistaken_umbrella"],
+      audioAssetIds: ["sfx_incorrect_004"],
+    },
+  ],
+  [
+    "momo_clue",
+    { visualTargetIds: ["momo"], audioAssetIds: ["sfx_cat_mew_01"] },
+  ],
+  [
+    "momo_reaction",
+    { visualTargetIds: ["momo"], audioAssetIds: ["sfx_cat_mew_01"] },
+  ],
+  [
+    "wallet_reveal",
+    {
+      visualTargetIds: ["wallet_clue"],
+      audioAssetIds: ["sfx_clue_wood_001"],
+    },
+  ],
+  [
+    "wallet_pickup",
+    {
+      visualTargetIds: ["wallet_clue"],
+      audioAssetIds: ["sfx_pickup_generic_000"],
+    },
+  ],
+  [
+    "wallet_return",
+    { visualTargetIds: ["aoi"], audioAssetIds: ["sfx_give_soft_001"] },
+  ],
+  ["feedback_correct", { visualTargetIds: [], audioAssetIds: [] }],
+  ["feedback_incorrect", { visualTargetIds: [], audioAssetIds: [] }],
+  ["lesson_resolution", { visualTargetIds: ["aoi"], audioAssetIds: [] }],
 ]);
 
 export function visualTargetsForCues(cueIds: readonly string[]): string[] {

@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestones 2 and 3 complete, Milestone 4 Content Gate 1 pending
+Status: Active; Milestones 2 and 3 complete, Milestone 4 manual A/B/C pending
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -375,8 +375,13 @@ reproducible acceptance checklist.
       `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`;
       it remains unapproved and authorizes neither speech generation nor
       runtime activation.
-- [ ] Receive exact Content Gate 1 hash approval before generating production
-      speech or promoting the fixed lesson package.
+- [x] 2026-08-27 — Receive exact Content Gate 1 hash approval under D-047.
+- [x] 2026-08-28 — Receive exact Speech Gate 2 hash approval under D-049;
+      promote only the four approved Aoi/Tanaka WAVs to `READY` and authorize
+      the fixed package for local manual acceptance.
+- [x] 2026-08-28 — Pass Milestone 4 static/unit/build gates: contracts 43/43,
+      server 9/9, web 52/52, schema/type/lint/format/build, exact speech/content,
+      audio/world runtime, and diff checks. Manual lesson A/B/C remains open.
 - [ ] Implement milestones 3 through 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.

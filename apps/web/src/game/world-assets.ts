@@ -33,6 +33,9 @@ export function resolveWorldAssetUrl(assetId: WorldAssetId): string {
   return WORLD_ASSET_URLS[assetId];
 }
 
-export function resolveWorldScene(sceneId: WorldSceneId): WorldSceneDefinition {
-  return WORLD_SCENES[sceneId];
+export function resolveWorldScene(sceneId: string): WorldSceneDefinition {
+  if (!(sceneId in WORLD_SCENES)) {
+    throw new Error(`World scene '${sceneId}' has no local definition.`);
+  }
+  return WORLD_SCENES[sceneId as WorldSceneId];
 }

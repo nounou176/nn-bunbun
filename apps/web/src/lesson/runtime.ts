@@ -82,6 +82,7 @@ export async function createLessonRuntime(
   let feedbackStartedAt = 0;
   let feedbackRemainingMs = 0;
   let focusedStateKey: string | undefined;
+  let renderedStepId: string | undefined;
   let lastAppliedPhase: LessonState["phase"] | undefined;
   let audioTransitionsEnabled = persistence.resumedSession === undefined;
   let disposed = false;
@@ -173,8 +174,8 @@ export async function createLessonRuntime(
   };
 
   const render = () => {
-    const step = currentStep(state);
-    if (step.interaction.type !== "LISTEN") {
+    if (renderedStepId !== state.currentStepId) {
+      renderedStepId = state.currentStepId;
       shell.setAudioError(undefined);
     }
     world.configureLessonInput(worldInputConfiguration());
@@ -396,7 +397,6 @@ export async function createLessonRuntime(
     const step = currentStep(state);
     const audioAssetId = step.stimulus.utterance?.audioAssetId;
     if (
-      step.interaction.type !== "LISTEN" ||
       audioAssetId === undefined ||
       state.phase === "PLAYING_AUDIO" ||
       state.phase === "FEEDBACK" ||

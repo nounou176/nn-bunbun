@@ -1,0 +1,1042 @@
+{
+  "schemaVersion": "0.1.0",
+  "manifestId": "manifest_m8_last_train",
+  "lessonId": "lesson_m8_last_train",
+  "revision": 1,
+  "createdAt": "2026-08-27T00:00:00Z",
+  "randomSeed": 160481183,
+  "locales": {
+    "target": "ja",
+    "support": "vi"
+  },
+  "title": {
+    "ja": "終電まであと3分",
+    "support": "Ba phút trước chuyến tàu cuối"
+  },
+  "learningTargets": [
+    {
+      "targetId": "target_wallet",
+      "kind": "VOCABULARY",
+      "role": "REQUESTED",
+      "priority": 5,
+      "content": {
+        "kind": "VOCABULARY",
+        "writtenForms": ["財布"],
+        "readings": ["さいふ"],
+        "supportGlosses": ["ví"],
+        "partOfSpeech": "NOUN"
+      },
+      "referenceIds": ["bunbun_vocab_wallet"],
+      "goal": {
+        "minimumEncounters": 6,
+        "minimumContexts": 5,
+        "desiredEvidence": [
+          "heard",
+          "arranged_correctly",
+          "selected_correctly",
+          "actively_produced"
+        ]
+      }
+    },
+    {
+      "targetId": "target_search",
+      "kind": "VOCABULARY",
+      "role": "REQUESTED",
+      "priority": 5,
+      "content": {
+        "kind": "VOCABULARY",
+        "writtenForms": ["探す"],
+        "readings": ["さがす"],
+        "supportGlosses": ["tìm kiếm"],
+        "partOfSpeech": "VERB"
+      },
+      "referenceIds": ["bunbun_vocab_search"],
+      "goal": {
+        "minimumEncounters": 3,
+        "minimumContexts": 3,
+        "desiredEvidence": ["heard", "arranged_correctly", "actively_produced"]
+      }
+    },
+    {
+      "targetId": "target_te_kudasai",
+      "kind": "GRAMMAR",
+      "role": "REQUESTED",
+      "priority": 5,
+      "content": {
+        "kind": "GRAMMAR",
+        "pattern": "～てください",
+        "labelJa": "丁寧な依頼",
+        "supportExplanation": "Dùng để đưa ra một yêu cầu lịch sự: xin hãy làm…"
+      },
+      "referenceIds": ["bunbun_grammar_te_kudasai"],
+      "goal": {
+        "minimumEncounters": 7,
+        "minimumContexts": 4,
+        "desiredEvidence": ["heard", "arranged_correctly", "actively_produced"]
+      }
+    },
+    {
+      "targetId": "target_umbrella",
+      "kind": "VOCABULARY",
+      "role": "SUPPORTING",
+      "priority": 2,
+      "content": {
+        "kind": "VOCABULARY",
+        "writtenForms": ["傘"],
+        "readings": ["かさ"],
+        "supportGlosses": ["ô"],
+        "partOfSpeech": "NOUN"
+      },
+      "referenceIds": ["bunbun_vocab_umbrella"],
+      "goal": {
+        "minimumEncounters": 1,
+        "minimumContexts": 1,
+        "desiredEvidence": ["heard", "recognized"]
+      }
+    },
+    {
+      "targetId": "target_station",
+      "kind": "VOCABULARY",
+      "role": "SUPPORTING",
+      "priority": 2,
+      "content": {
+        "kind": "VOCABULARY",
+        "writtenForms": ["駅"],
+        "readings": ["えき"],
+        "supportGlosses": ["ga"],
+        "partOfSpeech": "NOUN"
+      },
+      "referenceIds": ["bunbun_vocab_station"],
+      "goal": {
+        "minimumEncounters": 1,
+        "minimumContexts": 1,
+        "desiredEvidence": ["heard"]
+      }
+    },
+    {
+      "targetId": "target_tewa_ikenai",
+      "kind": "GRAMMAR",
+      "role": "SUPPORTING",
+      "priority": 2,
+      "content": {
+        "kind": "GRAMMAR",
+        "pattern": "～てはいけない",
+        "labelJa": "禁止",
+        "supportExplanation": "Dùng để nói rằng không được phép làm một việc."
+      },
+      "referenceIds": ["bunbun_grammar_tewa_ikenai"],
+      "goal": {
+        "minimumEncounters": 1,
+        "minimumContexts": 1,
+        "desiredEvidence": ["heard", "recognized"]
+      }
+    }
+  ],
+  "scene": {
+    "sceneId": "neighborhood_small",
+    "variantId": "rainy_evening_last_train_v1",
+    "playerSpawnPointId": "neighborhood_entry",
+    "cameraPresetId": "neighborhood_isometric_default",
+    "assetBundleIds": [
+      "neighborhood_rainy_core_v1",
+      "last_train_characters_v1",
+      "neighborhood_animals_v1"
+    ]
+  },
+  "scenario": {
+    "template": "SOLVE_SMALL_PROBLEM",
+    "objective": {
+      "ja": "財布を探して、あおいを助けてください。",
+      "support": "Hãy tìm chiếc ví và giúp Aoi."
+    },
+    "focusTargetIds": ["target_wallet", "target_search", "target_te_kudasai"],
+    "synopsis": "Aoi needs her dropped wallet before the last train. The learner respects Tanaka's rule, rejects a mistaken umbrella, follows Momo to the park edge, and returns the wallet."
+  },
+  "locations": [
+    {
+      "locationId": "store_front",
+      "catalogLocationId": "neighborhood_store_front"
+    },
+    {
+      "locationId": "park_edge",
+      "catalogLocationId": "neighborhood_park_edge"
+    },
+    {
+      "locationId": "umbrella_stand_area",
+      "catalogLocationId": "neighborhood_umbrella_stand"
+    },
+    {
+      "locationId": "staff_only_door",
+      "catalogLocationId": "neighborhood_staff_door"
+    }
+  ],
+  "entities": [
+    {
+      "entityId": "aoi",
+      "catalogEntityId": "npc_aoi_student",
+      "role": "NPC",
+      "spawnPointId": "aoi_spot",
+      "displayNameJa": "あおい",
+      "initialStateId": "anxious"
+    },
+    {
+      "entityId": "tanaka",
+      "catalogEntityId": "npc_tanaka_clerk",
+      "role": "NPC",
+      "spawnPointId": "tanaka_spot",
+      "displayNameJa": "田中",
+      "initialStateId": "formal"
+    }
+  ],
+  "objects": [
+    {
+      "objectId": "momo",
+      "catalogObjectId": "animal_momo_cat",
+      "spawnPointId": "momo_spot",
+      "initialStateId": "idle",
+      "interactive": true
+    },
+    {
+      "objectId": "wallet_clue",
+      "catalogObjectId": "object_wallet_clue",
+      "spawnPointId": "wallet_clue_spot",
+      "initialStateId": "hidden",
+      "interactive": true
+    },
+    {
+      "objectId": "mistaken_umbrella",
+      "catalogObjectId": "object_mistaken_umbrella",
+      "spawnPointId": "mistaken_umbrella_spot",
+      "initialStateId": "idle",
+      "interactive": true
+    }
+  ],
+  "audioAssets": [
+    {
+      "audioAssetId": "audio_aoi_opening",
+      "textJa": "財布がありません。終電まであと三分です。財布を探してください。",
+      "voiceProfileId": "voice_aoi_01",
+      "cacheKey": "bunbun_tts_v1_604748d17f4dbe0caf708a2d6876ef6c8f5d6c535472ecff84c078ddafb2ba57",
+      "durationMs": 5291
+    },
+    {
+      "audioAssetId": "audio_tanaka_rule",
+      "textJa": "この傘はあおいさんの傘ではありません。店の中に入ってはいけません。",
+      "voiceProfileId": "voice_tanaka_01",
+      "cacheKey": "bunbun_tts_v1_3f128a2c0df87140fa79809662ccab7186b32e7b721b0e43ef67a9b2d9270347",
+      "durationMs": 4981
+    },
+    {
+      "audioAssetId": "audio_tanaka_clue",
+      "textJa": "猫が公園のほうへ行きました。公園を見てください。",
+      "voiceProfileId": "voice_tanaka_01",
+      "cacheKey": "bunbun_tts_v1_7ec483945124a9bb23c8045c8ac1c54f9cc1ba59ef53ad0a785d6d6183fead7e",
+      "durationMs": 3776
+    },
+    {
+      "audioAssetId": "audio_aoi_resolution",
+      "textJa": "ありがとうございます。財布が見つかりました。これで駅へ行けます。",
+      "voiceProfileId": "voice_aoi_01",
+      "cacheKey": "bunbun_tts_v1_48390b80d3c62f6c5f77505c15998c61fbf014d605cb1ecf248f09c3d8202599",
+      "durationMs": 4693
+    }
+  ],
+  "steps": [
+    {
+      "stepId": "listen_aoi_request",
+      "contextId": "last_train_aoi_request",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "あおいの話を聞いてください。",
+        "utterance": {
+          "speakerEntityId": "aoi",
+          "textJa": "財布がありません。終電まであと三分です。財布を探してください。",
+          "audioAssetId": "audio_aoi_opening",
+          "textVisibility": "ON_HELP",
+          "replayAllowed": true
+        },
+        "supportText": "Hãy nghe lời nhờ của Aoi.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "LISTEN",
+        "completion": "LEARNER_CONTINUES",
+        "minimumPlaybackRatio": 0.5
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        },
+        { "targetId": "target_search", "relation": "EXPOSES" },
+        {
+          "targetId": "target_search",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        },
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 1,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "replay_aoi_request",
+          "afterAttempt": 1,
+          "kind": "REPLAY_AUDIO"
+        },
+        {
+          "scaffoldId": "show_aoi_request",
+          "afterAttempt": 1,
+          "kind": "SHOW_JAPANESE_TEXT"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "依頼が分かりました。",
+          "supportText": "Bạn đã nghe được lời nhờ.",
+          "displayMs": 500,
+          "cueIds": []
+        },
+        "incorrect": {
+          "textJa": "もう一度聞いてください。",
+          "supportText": "Hãy nghe lại một lần nữa.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "文字も見て進みましょう。",
+          "supportText": "Hãy xem cả phần chữ rồi tiếp tục.",
+          "displayMs": 650,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["aoi_request"],
+        "onSuccessCueIds": ["tension_start"],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "arrange_wallet_request" },
+        "onFailure": { "kind": "STEP", "stepId": "arrange_wallet_request" },
+        "onAssisted": { "kind": "STEP", "stepId": "arrange_wallet_request" }
+      }
+    },
+    {
+      "stepId": "arrange_wallet_request",
+      "contextId": "last_train_arrange_request",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "文を正しい順番にしてください。",
+        "supportText": "Hãy sắp xếp thành lời nhờ tìm chiếc ví.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "ARRANGE",
+        "tokens": [
+          { "tokenId": "token_wallet", "textJa": "財布を" },
+          { "tokenId": "token_search", "textJa": "探して" },
+          { "tokenId": "token_request", "textJa": "ください。" }
+        ],
+        "acceptedSequences": [
+          ["token_wallet", "token_search", "token_request"]
+        ],
+        "shuffle": true
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "arranged_correctly"
+        },
+        { "targetId": "target_search", "relation": "EXPOSES" },
+        {
+          "targetId": "target_search",
+          "relation": "ASSESSES",
+          "successEvidence": "arranged_correctly"
+        },
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "arranged_correctly"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": true
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "show_wallet_request_pattern",
+          "afterAttempt": 1,
+          "kind": "SHOW_PATTERN",
+          "textJa": "［もの］を探してください。"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "財布を探してください。",
+          "supportText": "Đúng: Xin hãy tìm chiếc ví.",
+          "displayMs": 550,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "語順をもう一度見てください。",
+          "supportText": "Hãy xem lại thứ tự từ.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "財布を探してください。",
+          "supportText": "Đáp án là: Xin hãy tìm chiếc ví.",
+          "displayMs": 750,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": [],
+        "onSuccessCueIds": [],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "choose_tanaka_meaning" },
+        "onFailure": { "kind": "STEP", "stepId": "choose_tanaka_meaning" },
+        "onAssisted": { "kind": "STEP", "stepId": "choose_tanaka_meaning" }
+      }
+    },
+    {
+      "stepId": "choose_tanaka_meaning",
+      "contextId": "last_train_tanaka_rule",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "田中さんの話に合う文を選んでください。",
+        "utterance": {
+          "speakerEntityId": "tanaka",
+          "textJa": "この傘はあおいさんの傘ではありません。店の中に入ってはいけません。",
+          "audioAssetId": "audio_tanaka_rule",
+          "textVisibility": "ON_HELP",
+          "replayAllowed": true
+        },
+        "supportText": "Chọn câu phù hợp với lời Tanaka nói.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "CHOOSE",
+        "options": [
+          {
+            "optionId": "option_rule_correct",
+            "textJa": "傘はあおいさんのものではありません。店に入ってはいけません。"
+          },
+          {
+            "optionId": "option_umbrella_wrong",
+            "textJa": "傘はあおいさんのものです。店に入ってもいいです。"
+          },
+          {
+            "optionId": "option_store_wrong",
+            "textJa": "傘は田中さんのものです。店の中で探します。"
+          }
+        ],
+        "acceptedOptionIds": ["option_rule_correct"],
+        "shuffle": true
+      },
+      "targetBindings": [
+        { "targetId": "target_umbrella", "relation": "EXPOSES" },
+        {
+          "targetId": "target_umbrella",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        },
+        { "targetId": "target_tewa_ikenai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_tewa_ikenai",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "reduce_tanaka_choices",
+          "afterAttempt": 1,
+          "kind": "REDUCE_CHOICE_CANDIDATES",
+          "optionIds": ["option_rule_correct", "option_umbrella_wrong"]
+        },
+        {
+          "scaffoldId": "show_tanaka_meaning",
+          "afterAttempt": 2,
+          "kind": "SHOW_MEANING",
+          "supportText": "Chiếc ô bị nhầm và khu vực trong cửa hàng không được phép vào."
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "その通りです。傘を間違えました。",
+          "supportText": "Đúng rồi. Chiếc ô đã bị nhầm.",
+          "displayMs": 600,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "傘と店のルールを確認してください。",
+          "supportText": "Hãy kiểm tra lại chiếc ô và quy định của cửa hàng.",
+          "displayMs": 700,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "この傘はあおいさんのものではありません。",
+          "supportText": "Chiếc ô này không phải của Aoi.",
+          "displayMs": 750,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["tanaka_rule", "umbrella_correction"],
+        "onSuccessCueIds": [],
+        "onFailureCueIds": ["feedback_incorrect"]
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "type_wallet_request" },
+        "onFailure": { "kind": "STEP", "stepId": "type_wallet_request" },
+        "onAssisted": { "kind": "STEP", "stepId": "type_wallet_request" }
+      }
+    },
+    {
+      "stepId": "type_wallet_request",
+      "contextId": "last_train_request_tanaka",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "田中さんに、財布を探すように丁寧に頼んでください。",
+        "supportText": "Hãy lịch sự nhờ Tanaka tìm chiếc ví.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "TYPE",
+        "acceptedAnswers": ["財布を探してください。"],
+        "normalization": [
+          "UNICODE_NFKC",
+          "TRIM",
+          "COLLAPSE_WHITESPACE",
+          "IGNORE_JAPANESE_PUNCTUATION"
+        ],
+        "inputMode": "JAPANESE_TEXT",
+        "maximumLength": 40
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "actively_produced"
+        },
+        { "targetId": "target_search", "relation": "EXPOSES" },
+        {
+          "targetId": "target_search",
+          "relation": "ASSESSES",
+          "successEvidence": "actively_produced"
+        },
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "actively_produced"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": true
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "show_type_pattern",
+          "afterAttempt": 1,
+          "kind": "SHOW_PATTERN",
+          "textJa": "財布を［動詞のて形］ください。"
+        },
+        {
+          "scaffoldId": "show_type_reading",
+          "afterAttempt": 2,
+          "kind": "SHOW_READING",
+          "textJa": "財布（さいふ）を探（さが）してください。"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "財布を探してください。",
+          "supportText": "Bạn đã đưa ra lời nhờ lịch sự.",
+          "displayMs": 600,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "丁寧な依頼をもう一度書いてください。",
+          "supportText": "Hãy viết lại lời nhờ lịch sự.",
+          "displayMs": 700,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "財布を探してください。",
+          "supportText": "Đáp án: Xin hãy tìm chiếc ví.",
+          "displayMs": 800,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["tanaka_rule"],
+        "onSuccessCueIds": [],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "move_to_park_edge" },
+        "onFailure": { "kind": "STEP", "stepId": "move_to_park_edge" },
+        "onAssisted": { "kind": "STEP", "stepId": "move_to_park_edge" }
+      }
+    },
+    {
+      "stepId": "move_to_park_edge",
+      "contextId": "last_train_follow_momo_clue",
+      "mode": "EXPLORE",
+      "stimulus": {
+        "instructionJa": "公園の端へ行ってください。",
+        "utterance": {
+          "speakerEntityId": "tanaka",
+          "textJa": "猫が公園のほうへ行きました。公園を見てください。",
+          "audioAssetId": "audio_tanaka_clue",
+          "textVisibility": "ON_HELP",
+          "replayAllowed": true
+        },
+        "supportText": "Hãy đi đến rìa công viên theo manh mối của Momo.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "MOVE_TO",
+        "candidateLocationIds": [
+          "park_edge",
+          "umbrella_stand_area",
+          "store_front"
+        ],
+        "acceptedLocationIds": ["park_edge"],
+        "arrivalRadius": 0.8
+      },
+      "targetBindings": [
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "show_momo_clue_meaning",
+          "afterAttempt": 1,
+          "kind": "SHOW_MEANING",
+          "supportText": "Tanaka nói con mèo đã đi về phía công viên."
+        },
+        {
+          "scaffoldId": "show_momo_clue_text",
+          "afterAttempt": 2,
+          "kind": "SHOW_JAPANESE_TEXT"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "公園の端に着きました。",
+          "supportText": "Bạn đã đến rìa công viên.",
+          "displayMs": 500,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "猫が行った場所を考えてください。",
+          "supportText": "Hãy nghĩ lại nơi con mèo đã đi tới.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "公園の端へ行きましょう。",
+          "supportText": "Chúng ta sẽ đi đến rìa công viên.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["momo_clue"],
+        "onSuccessCueIds": ["wallet_reveal"],
+        "onFailureCueIds": ["feedback_incorrect"]
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "click_momo" },
+        "onFailure": { "kind": "STEP", "stepId": "click_momo" },
+        "onAssisted": { "kind": "STEP", "stepId": "click_momo" }
+      }
+    },
+    {
+      "stepId": "click_momo",
+      "contextId": "last_train_select_momo",
+      "mode": "EXPLORE",
+      "stimulus": {
+        "instructionJa": "モモを選んでください。",
+        "supportText": "Hãy chọn Momo để kiểm tra manh mối.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "CLICK_OBJECT",
+        "candidateObjectIds": ["momo", "wallet_clue", "mistaken_umbrella"],
+        "acceptedObjectIds": ["momo"]
+      },
+      "targetBindings": [
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "reduce_momo_candidates",
+          "afterAttempt": 1,
+          "kind": "REDUCE_OBJECT_CANDIDATES",
+          "objectIds": ["momo", "wallet_clue"]
+        },
+        {
+          "scaffoldId": "highlight_momo",
+          "afterAttempt": 2,
+          "kind": "HIGHLIGHT_OBJECTS",
+          "objectIds": ["momo"]
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "モモが財布のそばにいます。",
+          "supportText": "Momo đang ở bên cạnh chiếc ví.",
+          "displayMs": 550,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "猫のモモを探してください。",
+          "supportText": "Hãy tìm mèo Momo.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "この猫がモモです。",
+          "supportText": "Con mèo này là Momo.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["momo_clue"],
+        "onSuccessCueIds": ["momo_reaction", "wallet_reveal"],
+        "onFailureCueIds": ["feedback_incorrect"]
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "pick_up_wallet" },
+        "onFailure": { "kind": "STEP", "stepId": "pick_up_wallet" },
+        "onAssisted": { "kind": "STEP", "stepId": "pick_up_wallet" }
+      }
+    },
+    {
+      "stepId": "pick_up_wallet",
+      "contextId": "last_train_recover_wallet",
+      "mode": "EXPLORE",
+      "stimulus": {
+        "instructionJa": "財布を拾ってください。",
+        "supportText": "Hãy nhặt chiếc ví cạnh Momo.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "PICK_UP",
+        "candidateObjectIds": ["wallet_clue", "mistaken_umbrella"],
+        "acceptedObjectIds": ["wallet_clue"]
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "selected_correctly"
+        },
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "reduce_wallet_candidates",
+          "afterAttempt": 1,
+          "kind": "REDUCE_OBJECT_CANDIDATES",
+          "objectIds": ["wallet_clue"]
+        },
+        {
+          "scaffoldId": "highlight_wallet",
+          "afterAttempt": 2,
+          "kind": "HIGHLIGHT_OBJECTS",
+          "objectIds": ["wallet_clue"]
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "財布を見つけました。",
+          "supportText": "Bạn đã tìm thấy chiếc ví.",
+          "displayMs": 500,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "モモのそばを見てください。",
+          "supportText": "Hãy nhìn cạnh Momo.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "この財布を拾いましょう。",
+          "supportText": "Hãy nhặt chiếc ví này.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["wallet_reveal"],
+        "onSuccessCueIds": ["wallet_pickup"],
+        "onFailureCueIds": ["feedback_incorrect"]
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "give_wallet_to_aoi" },
+        "onFailure": { "kind": "STEP", "stepId": "give_wallet_to_aoi" },
+        "onAssisted": { "kind": "STEP", "stepId": "give_wallet_to_aoi" }
+      }
+    },
+    {
+      "stepId": "give_wallet_to_aoi",
+      "contextId": "last_train_return_wallet",
+      "mode": "EXPLORE",
+      "stimulus": {
+        "instructionJa": "財布をあおいに渡してください。",
+        "supportText": "Hãy trả chiếc ví cho Aoi.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "GIVE",
+        "candidateObjectIds": ["wallet_clue", "mistaken_umbrella"],
+        "candidateRecipientEntityIds": ["aoi", "tanaka"],
+        "acceptedPairs": [
+          { "objectId": "wallet_clue", "recipientEntityId": "aoi" }
+        ]
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "selected_correctly"
+        },
+        { "targetId": "target_te_kudasai", "relation": "EXPOSES" },
+        {
+          "targetId": "target_te_kudasai",
+          "relation": "ASSESSES",
+          "successEvidence": "recognized"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 2,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "highlight_aoi",
+          "afterAttempt": 1,
+          "kind": "HIGHLIGHT_ENTITIES",
+          "entityIds": ["aoi"]
+        },
+        {
+          "scaffoldId": "reduce_give_object",
+          "afterAttempt": 2,
+          "kind": "REDUCE_OBJECT_CANDIDATES",
+          "objectIds": ["wallet_clue"]
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "財布をあおいに返しました。",
+          "supportText": "Bạn đã trả chiếc ví cho Aoi.",
+          "displayMs": 550,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "財布をあおいに渡してください。",
+          "supportText": "Hãy trao chiếc ví cho Aoi.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "財布をあおいに渡します。",
+          "supportText": "Chiếc ví sẽ được trao cho Aoi.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["aoi_request"],
+        "onSuccessCueIds": ["wallet_return"],
+        "onFailureCueIds": ["feedback_incorrect"]
+      },
+      "transitions": {
+        "onSuccess": { "kind": "STEP", "stepId": "listen_aoi_resolution" },
+        "onFailure": { "kind": "STEP", "stepId": "listen_aoi_resolution" },
+        "onAssisted": { "kind": "STEP", "stepId": "listen_aoi_resolution" }
+      }
+    },
+    {
+      "stepId": "listen_aoi_resolution",
+      "contextId": "last_train_aoi_resolution",
+      "mode": "INTERACTION",
+      "stimulus": {
+        "instructionJa": "あおいの話を聞いてください。",
+        "utterance": {
+          "speakerEntityId": "aoi",
+          "textJa": "ありがとうございます。財布が見つかりました。これで駅へ行けます。",
+          "audioAssetId": "audio_aoi_resolution",
+          "textVisibility": "ON_HELP",
+          "replayAllowed": true
+        },
+        "supportText": "Hãy nghe lời cảm ơn của Aoi.",
+        "supportVisibility": "ON_HELP"
+      },
+      "interaction": {
+        "type": "LISTEN",
+        "completion": "LEARNER_CONTINUES",
+        "minimumPlaybackRatio": 0.5
+      },
+      "targetBindings": [
+        { "targetId": "target_wallet", "relation": "EXPOSES" },
+        {
+          "targetId": "target_wallet",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        },
+        { "targetId": "target_station", "relation": "EXPOSES" },
+        {
+          "targetId": "target_station",
+          "relation": "ASSESSES",
+          "successEvidence": "heard"
+        }
+      ],
+      "attemptPolicy": {
+        "maximumAttempts": 1,
+        "afterMaximum": "CONTINUE_ASSISTED",
+        "preserveSubmittedState": false
+      },
+      "scaffolds": [
+        {
+          "scaffoldId": "replay_aoi_resolution",
+          "afterAttempt": 1,
+          "kind": "REPLAY_AUDIO"
+        },
+        {
+          "scaffoldId": "show_aoi_resolution",
+          "afterAttempt": 1,
+          "kind": "SHOW_JAPANESE_TEXT"
+        }
+      ],
+      "feedback": {
+        "correct": {
+          "textJa": "あおいを助けました。",
+          "supportText": "Bạn đã giúp được Aoi.",
+          "displayMs": 600,
+          "cueIds": ["feedback_correct"]
+        },
+        "incorrect": {
+          "textJa": "もう一度聞いてください。",
+          "supportText": "Hãy nghe lại một lần nữa.",
+          "displayMs": 650,
+          "cueIds": ["feedback_incorrect"]
+        },
+        "assisted": {
+          "textJa": "文字も見て終わりましょう。",
+          "supportText": "Hãy xem phần chữ để hoàn thành.",
+          "displayMs": 700,
+          "cueIds": []
+        }
+      },
+      "presentation": {
+        "onEnterCueIds": ["wallet_return"],
+        "onSuccessCueIds": ["lesson_resolution"],
+        "onFailureCueIds": []
+      },
+      "transitions": {
+        "onSuccess": { "kind": "COMPLETE" },
+        "onFailure": { "kind": "COMPLETE" },
+        "onAssisted": { "kind": "COMPLETE" }
+      }
+    }
+  ],
+  "entryStepId": "listen_aoi_request",
+  "completion": {
+    "requiredStepIds": [
+      "listen_aoi_request",
+      "arrange_wallet_request",
+      "choose_tanaka_meaning",
+      "type_wallet_request",
+      "move_to_park_edge",
+      "click_momo",
+      "pick_up_wallet",
+      "give_wallet_to_aoi",
+      "listen_aoi_resolution"
+    ],
+    "closingMessage": {
+      "ja": "財布を返して、あおいを助けました。",
+      "support": "Bạn đã trả lại chiếc ví và giúp được Aoi."
+    }
+  },
+  "quality": {
+    "intendedReactionCount": 12,
+    "preferredReactionIntervalMinSeconds": 5,
+    "preferredReactionIntervalMaxSeconds": 12,
+    "estimatedActiveMinutes": 4.5,
+    "maximumNpcCount": 2,
+    "maximumInteractiveObjectCount": 3,
+    "preferredMaximumDrawCalls": 100
+  },
+  "provenance": {
+    "compilerVersion": "0.1.0",
+    "contractVersion": "0.1.0",
+    "source": "AUTHORED",
+    "inputHash": "5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6",
+    "promptModuleVersions": [],
+    "referenceDataVersions": [{ "id": "bunbun_core", "version": "1.0.0" }]
+  }
+}

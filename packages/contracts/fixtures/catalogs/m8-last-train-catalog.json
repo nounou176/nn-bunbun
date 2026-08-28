@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "0.1.0",
+  "catalogId": "bunbun_m8_last_train_catalog",
+  "revision": 1,
+  "scenes": [
+    {
+      "sceneId": "neighborhood_small",
+      "variantIds": ["rainy_evening_last_train_v1"],
+      "cameraPresetIds": ["neighborhood_isometric_default"],
+      "assetBundleIds": [
+        "neighborhood_rainy_core_v1",
+        "last_train_characters_v1",
+        "neighborhood_animals_v1"
+      ],
+      "spawnPoints": [
+        {
+          "spawnPointId": "neighborhood_entry",
+          "kind": "PLAYER",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "aoi_spot",
+          "kind": "ENTITY",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "tanaka_spot",
+          "kind": "ENTITY",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "momo_spot",
+          "kind": "OBJECT",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "wallet_clue_spot",
+          "kind": "OBJECT",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        },
+        {
+          "spawnPointId": "mistaken_umbrella_spot",
+          "kind": "OBJECT",
+          "reachableFromPlayer": true,
+          "exclusiveOccupancy": true
+        }
+      ]
+    }
+  ],
+  "assetBundles": [
+    {
+      "assetBundleId": "neighborhood_rainy_core_v1",
+      "sceneIds": ["neighborhood_small"]
+    },
+    {
+      "assetBundleId": "last_train_characters_v1",
+      "sceneIds": ["neighborhood_small"]
+    },
+    {
+      "assetBundleId": "neighborhood_animals_v1",
+      "sceneIds": ["neighborhood_small"]
+    }
+  ],
+  "locations": [
+    {
+      "catalogLocationId": "neighborhood_store_front",
+      "sceneId": "neighborhood_small",
+      "stateIds": []
+    },
+    {
+      "catalogLocationId": "neighborhood_park_edge",
+      "sceneId": "neighborhood_small",
+      "stateIds": []
+    },
+    {
+      "catalogLocationId": "neighborhood_umbrella_stand",
+      "sceneId": "neighborhood_small",
+      "stateIds": []
+    },
+    {
+      "catalogLocationId": "neighborhood_staff_door",
+      "sceneId": "neighborhood_small",
+      "stateIds": []
+    }
+  ],
+  "entities": [
+    {
+      "catalogEntityId": "npc_aoi_student",
+      "roles": ["NPC"],
+      "sceneIds": ["neighborhood_small"],
+      "stateIds": ["idle", "anxious", "relieved"]
+    },
+    {
+      "catalogEntityId": "npc_tanaka_clerk",
+      "roles": ["NPC"],
+      "sceneIds": ["neighborhood_small"],
+      "stateIds": ["idle", "formal"]
+    }
+  ],
+  "objects": [
+    {
+      "catalogObjectId": "animal_momo_cat",
+      "sceneIds": ["neighborhood_small"],
+      "stateIds": ["idle", "clue"],
+      "affordances": ["INTERACTIVE"]
+    },
+    {
+      "catalogObjectId": "object_wallet_clue",
+      "sceneIds": ["neighborhood_small"],
+      "stateIds": ["hidden", "revealed", "carried", "returned"],
+      "affordances": ["INTERACTIVE", "PICK_UP", "GIVE"]
+    },
+    {
+      "catalogObjectId": "object_mistaken_umbrella",
+      "sceneIds": ["neighborhood_small"],
+      "stateIds": ["idle", "rejected"],
+      "affordances": ["INTERACTIVE", "PICK_UP", "GIVE"]
+    }
+  ],
+  "presentationCues": [
+    { "cueId": "aoi_request", "sceneId": "neighborhood_small" },
+    { "cueId": "tension_start", "sceneId": "neighborhood_small" },
+    { "cueId": "tanaka_rule", "sceneId": "neighborhood_small" },
+    {
+      "cueId": "umbrella_correction",
+      "sceneId": "neighborhood_small"
+    },
+    { "cueId": "momo_clue", "sceneId": "neighborhood_small" },
+    { "cueId": "momo_reaction", "sceneId": "neighborhood_small" },
+    { "cueId": "wallet_reveal", "sceneId": "neighborhood_small" },
+    { "cueId": "wallet_pickup", "sceneId": "neighborhood_small" },
+    { "cueId": "wallet_return", "sceneId": "neighborhood_small" },
+    { "cueId": "feedback_correct", "sceneId": "neighborhood_small" },
+    { "cueId": "feedback_incorrect", "sceneId": "neighborhood_small" },
+    {
+      "cueId": "lesson_resolution",
+      "sceneId": "neighborhood_small"
+    }
+  ],
+  "voiceProfiles": [
+    { "voiceProfileId": "voice_aoi_01" },
+    { "voiceProfileId": "voice_tanaka_01" }
+  ],
+  "referenceRecords": [
+    {
+      "referenceId": "bunbun_vocab_wallet",
+      "targetKinds": ["VOCABULARY"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    },
+    {
+      "referenceId": "bunbun_vocab_search",
+      "targetKinds": ["VOCABULARY"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    },
+    {
+      "referenceId": "bunbun_grammar_te_kudasai",
+      "targetKinds": ["GRAMMAR"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    },
+    {
+      "referenceId": "bunbun_vocab_umbrella",
+      "targetKinds": ["VOCABULARY"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    },
+    {
+      "referenceId": "bunbun_vocab_station",
+      "targetKinds": ["VOCABULARY"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    },
+    {
+      "referenceId": "bunbun_grammar_tewa_ikenai",
+      "targetKinds": ["GRAMMAR"],
+      "providerId": "bunbun_core",
+      "providerVersion": "1.0.0"
+    }
+  ]
+}
