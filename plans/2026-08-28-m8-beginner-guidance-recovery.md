@@ -1,6 +1,6 @@
 # Make the M8 lesson understandable for a first-time learner
 
-Status: Implemented; manual acceptance pending
+Status: Complete; repaired beginner scenario B manually accepted
 Owner: Codex and user
 Created: 2026-08-28
 Last updated: 2026-08-28 16:30 Asia/Ho_Chi_Minh
@@ -159,7 +159,8 @@ checkpoints contain no active scaffold IDs.
 
 Run supported static, unit/integration, content, and build checks. Hand the
 user a short manual beginner checklist, then rerun M8 Lesson A/B/C. Parent M8
-Milestone 4 remains open until the user reports the repaired matrix results.
+Milestone 4 remained open until the user reported the repaired matrix results;
+D-053 now records that closure.
 
 ## Progress
 
@@ -192,7 +193,9 @@ Milestone 4 remains open until the user reports the repaired matrix results.
       The same screenshot exposes hidden Continue/Restart buttons; add a CSS
       regression guard so bilingual buttons still obey `hidden`. Web tests pass
       58/58 after both fixes.
-- [ ] Obtain the user's guided beginner retest and remaining manual B/C result.
+- [x] 2026-08-28 — User reports `M8 LESSON B RETEST: PASS`, accepting the
+      repaired guided beginner path. Parent scenario C remained separate at
+      this checkpoint.
 - [x] 2026-08-28 13:17 — The next manual attempt exposed a replay persistence
       regression before the repaired beginner matrix could close: replaying
       `listen_aoi_request` resubmits a stable HEARD event with changed timing
@@ -209,7 +212,10 @@ Milestone 4 remains open until the user reports the repaired matrix results.
       model-answer correction state until normalized input is accepted; the
       result is assisted. Automated controller/persistence/UI checks pass; the
       user reports `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`. The
-      remaining combined replay/study and broader B/C retest stays open.
+      remaining lifecycle/failure scenario C retest was still open at this
+      checkpoint.
+- [x] 2026-08-28 — User reports `M8 LESSON C: PASS`; the parent lifecycle/
+      failure matrix is accepted and D-053 closes Milestone 4.
 
 ## Surprises and discoveries
 
@@ -300,12 +306,13 @@ candidate.
 
 ### Manual results
 
-| Scenario              | Tester  | Date       | Result  | Evidence or notes                                       |
-| --------------------- | ------- | ---------- | ------- | ------------------------------------------------------- |
-| Existing M8 Lesson A  | User    | 2026-08-28 | PASS    | Pre-recovery unaided happy path                         |
-| Existing M8 Lesson B  | User    | 2026-08-28 | FAIL    | Beginner cannot understand controls or expected action  |
-| Guided recovery A/B/C | Pending | Pending    | Not run | Awaiting user manual retest                             |
-| Cached speech replay  | Pending | Pending    | Not run | D-051 fix passes automated checks; awaiting user retest |
+| Scenario               | Tester | Date       | Result | Evidence or notes                                      |
+| ---------------------- | ------ | ---------- | ------ | ------------------------------------------------------ |
+| Existing M8 Lesson A   | User   | 2026-08-28 | PASS   | Pre-recovery unaided happy path                        |
+| Existing M8 Lesson B   | User   | 2026-08-28 | FAIL   | Beginner cannot understand controls or expected action |
+| Repaired M8 Lesson B   | User   | 2026-08-28 | PASS   | Guided path and compact study controls accepted        |
+| Ordinary speech replay | User   | 2026-08-28 | PASS   | Repeated replay in scenario B accepted                 |
+| Lifecycle scenario C   | User   | 2026-08-28 | PASS   | Reload, interruption, replay, and audio failure pass   |
 
 ## Recovery and compatibility
 
@@ -329,4 +336,5 @@ current runtime without data conversion.
 Implementation is complete with no content, speech, world, schema, dependency,
 provider, or cost change. Automated/static gates pass. The user's first guided
 screenshot led to an authored-reading improvement and hidden-control regression
-fix; their retest and remaining M8 Lesson B/C acceptance are pending.
+fix; `M8 LESSON B RETEST: PASS` accepts the repaired beginner path. Parent
+scenario C subsequently passed and is accepted under D-053.

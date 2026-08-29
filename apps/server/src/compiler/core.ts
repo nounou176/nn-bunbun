@@ -523,7 +523,7 @@ function normalizeTargets(
       );
     }
     const target = CORE_TARGETS.find((candidate) =>
-      candidate.aliases.includes(normalized),
+      candidate.aliases.some((alias) => alias.normalize("NFKC") === normalized),
     );
     if (target === undefined) {
       throw normalizationError(

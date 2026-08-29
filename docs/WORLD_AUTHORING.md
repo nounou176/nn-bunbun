@@ -19,6 +19,12 @@ unchanged. The regenerated static GLB is deterministic and remains inside
 every accepted budget. The user reports `M8 D-052 VISIBILITY: PASS`, manually
 accepting the revised sight lines.
 
+D-054 compiler integration reuses this exact `1.0.1` neighborhood bundle. The
+approved profile may select and publish the accepted lesson package but cannot
+change GLB bytes, transforms, camera, navigation, actors, clues, animations,
+catalog identities, or world budgets. Any such change requires a separate
+world revision and acceptance gate.
+
 ## Outcome
 
 Bunbun builds a visually coherent world from small reusable Three.js scene

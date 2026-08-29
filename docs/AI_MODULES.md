@@ -194,6 +194,14 @@ Tutor module in this composition.
 | Explain an open learner question during gameplay                                                               | Not approved for MVP runtime                                     | No call until a separate decision exists                                                        |
 | Generate mnemonic, Anki, or JLPT content                                                                       | Deferred workflows                                               | Corresponding module only after its roadmap decision                                            |
 
+D-054's `m8_last_train_approved_v1` route stops before the three authoring
+modules. Exact target matching selects a byte-identical reviewed package,
+creates a local review candidate, and retains explicit publication. Its trace
+must not be exported as an authoring request, and its manifest must remain
+`AUTHORED` with no prompt-module claim. This proves deterministic profile
+selection, not reuse or execution of the hosted Custom GPTs. A newly generated
+Last Train variation remains a separate future approval problem.
+
 The composed prompt must record every participating `moduleId` and version in
 manifest provenance. A module that is missing, unapproved, incompatible with
 the target, or outside its roadmap owner is omitted. The compiler must fail

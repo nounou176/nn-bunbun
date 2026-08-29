@@ -532,8 +532,9 @@ Decision resolved:
   four production WAV rows are immutable `READY` and runtime playback checks
   their approved SHA-256 ETags. Guided/immersive launch, bilingual controls,
   primitive-specific operational cues, and bounded authored help are
-  implemented. Parent Milestone 4 awaits the repaired manual B/C matrix;
-  compiler integration remains Milestone 5.
+  implemented. The user reports `M8 LESSON B RETEST: PASS` and
+  `M8 LESSON C: PASS`; D-053 closes the complete fixed-package manual A/B/C
+  matrix and parent Milestone 4. Compiler integration remains Milestone 5.
 - D-051 repairs LISTEN replay idempotency without weakening immutable-event
   validation and adds `JapaneseTextStudyCatalog 0.1.0`. The fixed M8 catalog
   covers 40/40 reviewed Japanese text units with kana/romaji, bounded
@@ -541,8 +542,9 @@ Decision resolved:
   D-049 audio bindings. Kuromoji/WanaKana remain authoring-only and are absent
   from the browser bundle. JMdict candidate SHA-256
   `2fdd9e55b2a5b90d063473f7b33b83ea80782e19591d523f0000259ad9274d36`
-  remains unpromoted behind its separate Gate 2. Manual replay/study-tool and
-  remaining beginner B/C acceptance are open.
+  remains unpromoted behind its separate Gate 2. Ordinary replay/study tools
+  pass through `M8 LESSON B RETEST: PASS`; reload/resume, interruption, replay
+  recovery, and audio-failure completion pass through `M8 LESSON C: PASS`.
 - D-052 supersedes only automatic TYPE assisted completion: wrong text now
   remains on the step, bounded authored attempts escalate to an exact model
   sentence, and only a later normalized accepted submission completes as
@@ -551,8 +553,8 @@ Decision resolved:
   without changing approved source assets or runtime identities. Contracts
   46/46, server 10/10, web 68/68, world assembly/runtime checks, and the
   production build pass. The user reports `M8 D-052 TYPE: PASS` and
-  `M8 D-052 VISIBILITY: PASS`; the separate replay/study and broader B/C
-  acceptance remain open.
+  `M8 D-052 VISIBILITY: PASS`. D-053 subsequently accepts the remaining
+  lifecycle/failure scenario C and closes parent Milestone 4.
 
 Implemented and accepted D-040 speech foundation:
 
@@ -572,12 +574,24 @@ Implemented and accepted D-040 speech foundation:
 - the focused D-040 reviewed cached-speech foundation is complete. Full M7
   gameplay regression retains its D-036 waiver.
 
-Acceptance required:
+Acceptance status:
 
-- accept the repaired guided/immersive fixed lesson and D-051 replay/study
-  behavior through the remaining Milestone 4 manual B/C matrix before M9
-  linkage or Milestone 5 compiler integration. D-052 TYPE correction and world
-  visibility are already manually accepted.
+- D-053 accepts the exact fixed-package manual A/B/C matrix, including the
+  repaired guided scenario B, D-052 TYPE/visibility, and scenario C lifecycle/
+  failure recovery. Parent Milestone 4 is complete. Prepare and approve the
+  Milestone 5 compiler-integration and polish plan before implementation.
+- The proposed focused Milestone 5 plan is
+  `plans/2026-08-29-m8-approved-profile-compiler-integration.md`. It recommends
+  deterministic approved-profile selection of the byte-identical D-053 Last
+  Train package from `財布 + 探す + ～てください`, followed by explicit local
+  review, publication, and guided or immersive play. It does not claim Custom
+  GPT generation.
+- D-054 now approves that exact route. Migration 4, the hash-locked profile,
+  zero-attempt local review candidate, explicit publication linkage,
+  mode-aware authoring UI, speech-readiness gate, and guided/immersive
+  published launch are implemented. Supported checks pass: contracts 46/46,
+  server 18/18, web 71/71, all M8 approval/runtime validators, and production
+  build. Milestone 5 remains open only for the focused manual A/B/C matrix.
 
 Implemented speech-foundation scope:
 
@@ -602,8 +616,8 @@ Implemented complete-audio foundation:
 
 Remaining complete-audio scope:
 
-- manual fixed-package A/B/C acceptance with exact manifest linkage,
-  and contextual mix acceptance in the M9 world; and
+- Milestone 5 compiler integration/polish and contextual mix acceptance in the
+  resulting production-linked slice; and
 - numeric audio/performance measurements if they become release criteria.
 
 Exit criteria:

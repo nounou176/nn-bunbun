@@ -191,7 +191,7 @@ async function startApp(app: HTMLDivElement): Promise<void> {
                 cause: error,
               }),
             ),
-          selection.kind === "LAST_TRAIN_DEMO"
+          selection.kind === "LAST_TRAIN_DEMO" || selection.kind === "PUBLISHED"
             ? selection.supportMode
             : "IMMERSIVE",
         );

@@ -13,10 +13,26 @@ export type CompilationStatus =
 
 export interface CompilationView {
   compilationId: string;
+  mode: "AUTHORING_HANDOFF" | "APPROVED_PROFILE_SELECTION";
+  profileId: string;
   status: CompilationStatus;
   attempt: 1 | 2;
   targetKeys: string[];
-  request: LessonAuthoringRequestV2;
+  request?: LessonAuthoringRequestV2;
+  selection?: {
+    packetFormat: "bunbun_approved_profile_selection_trace";
+    packetVersion: "1.0.0";
+    profileId: string;
+    normalizedTargetKeys: string[];
+    requestedTargetIds: string[];
+    supportingTargetIds: string[];
+    lessonId: string;
+    revision: number;
+    packageFingerprint: string;
+    contentApprovalSha256: string;
+    speechApprovalSha256: string;
+    studyCatalogId: string;
+  };
   diagnostics: Array<{
     source: string;
     code: string;
@@ -27,6 +43,8 @@ export interface CompilationView {
     title: { ja: string; support?: string };
     objective: { ja: string; support?: string };
     targetLabels: string[];
+    requestedTargetLabels: string[];
+    supportingTargetLabels: string[];
     stepCount: number;
     promptModules: Array<{ id: string; version: string }>;
   };

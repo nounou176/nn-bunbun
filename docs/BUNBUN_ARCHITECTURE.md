@@ -18,6 +18,9 @@ A/B/C cached-playback matrix. D-042 accepts the zero-cost non-speech/mixer plan
 and bounded intake. D-043 accepts the exact 16-file hash-bound runtime set and
 implements one native five-bus mixer; the user's qualitative A/B/C browser/
 audio matrix is complete.
+D-054 adds one deterministic approved-profile selection route for the
+byte-identical D-053 Last Train package. It records compiler lineage without
+changing the package's `AUTHORED` provenance or invoking an AI module.
 No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
@@ -177,7 +180,12 @@ Implemented compiler responsibilities:
 - expose compilation, request, import, publication, lesson-list, and lesson-load
   resources through the existing local node:http server; and
 - hash exact imported text while retaining only validated structured content or
-  stable failure metadata.
+  stable failure metadata;
+- record compilation mode and profile identity through checksummed migration 4;
+- select the exact approved Last Train package from the complete normalized
+  `財布 + 探す + ～てください` set without an authoring handoff; and
+- list only immutable lesson revisions linked from an explicitly published
+  compilation, independent of `AUTHORED` or `AI_ASSISTED` provenance.
 
 Implemented Milestone 8 speech-authoring responsibilities:
 
@@ -298,6 +306,15 @@ The compiler is a pipeline, not a runtime game programmer:
 7. Enrich accepted Japanese lines with cacheable audio references.
 8. Persist a revisioned manifest.
 9. Return the playable manifest to the client.
+
+D-054 adds a closed deterministic branch after normalization. When the input
+matches `m8_last_train_approved_v1`, the compiler validates the locked package,
+content approval, study binding, runtime capability, and four exact `READY`
+speech hashes, then creates a `READY_FOR_REVIEW` candidate with zero authoring
+attempts. Request export and result import are invalid for this mode. Review,
+explicit publication, immutable revision conflict checks, and browser
+revalidation remain mandatory. All other supported input continues through the
+M7 `AUTHORING_HANDOFF` route.
 
 Schema-valid data can still be pedagogically or logically invalid. The
 compiler therefore needs semantic validators in addition to JSON validation.

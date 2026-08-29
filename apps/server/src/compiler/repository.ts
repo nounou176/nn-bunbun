@@ -8,7 +8,7 @@ import {
   type ValidatedLessonPackage,
   validateLessonAuthoringResultV2Structure,
   validateLessonPackage,
-  validateParkRuntimeCapabilities,
+  validateRuntimeCapabilities,
 } from "@bunbun/contracts";
 
 import { canonicalJson, fingerprint } from "../persistence/canonical-json.js";
@@ -16,9 +16,15 @@ import {
   CompilerError,
   type CompilerDiagnostic,
   compileAuthoringResult,
-  createCompilationDraft,
   createRepairRequest,
 } from "./core.js";
+import {
+  type ApprovedProfileTrace,
+  type CompilationMode,
+  M8_LAST_TRAIN_APPROVED_SPEECH,
+  approvedLastTrainPackage,
+  createCompilerRouteDraft,
+} from "./profiles.js";
 
 export type CompilationStatus =
   | "AWAITING_AUTHORING"
@@ -29,15 +35,20 @@ export type CompilationStatus =
 
 export interface CompilationView {
   compilationId: string;
+  mode: CompilationMode;
+  profileId: string;
   status: CompilationStatus;
   attempt: 1 | 2;
   targetKeys: string[];
-  request: LessonAuthoringRequestV2;
+  request?: LessonAuthoringRequestV2;
+  selection?: ApprovedProfileTrace;
   diagnostics: CompilerDiagnostic[];
   review?: {
     title: { ja: string; support?: string };
     objective: { ja: string; support?: string };
     targetLabels: string[];
+    requestedTargetLabels: string[];
+    supportingTargetLabels: string[];
     stepCount: number;
     promptModules: Array<{ id: string; version: string }>;
   };
@@ -48,6 +59,8 @@ export interface CompilationView {
 
 interface CompilationRow {
   compilation_id: string;
+  mode: CompilationMode;
+  profile_id: string;
   status: CompilationStatus;
   current_attempt: 1 | 2;
   normalized_target_keys_json: string;
@@ -67,7 +80,10 @@ export class CompilationRepository {
   ) {}
 
   create(targetTexts: readonly string[]): CompilationView {
-    const draft = createCompilationDraft(targetTexts);
+    const draft = createCompilerRouteDraft(targetTexts);
+    if (draft.mode === "APPROVED_PROFILE_SELECTION") {
+      this.assertApprovedSpeechReady();
+    }
     const existing = this.database
       .prepare(
         `SELECT compilation_id FROM compilation_requests
@@ -91,16 +107,25 @@ export class CompilationRepository {
     this.database
       .prepare(
         `INSERT INTO compilation_requests (
-           compilation_id, cache_key, status, current_attempt,
-           normalized_target_keys_json, authoring_request_json,
-           diagnostics_json, created_at, updated_at
-         ) VALUES (?, ?, 'AWAITING_AUTHORING', 1, ?, ?, '[]', ?, ?)`,
+           compilation_id, cache_key, mode, profile_id, status,
+           current_attempt, normalized_target_keys_json,
+           authoring_request_json, diagnostics_json, pending_package_json,
+           created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, 1, ?, ?, '[]', ?, ?, ?)`,
       )
       .run(
         compilationId,
         draft.cacheKey,
+        draft.mode,
+        draft.profileId,
+        draft.mode === "APPROVED_PROFILE_SELECTION"
+          ? "READY_FOR_REVIEW"
+          : "AWAITING_AUTHORING",
         canonicalJson(draft.normalizedTargetKeys),
-        canonicalJson(draft.request),
+        canonicalJson(draft.payload),
+        draft.mode === "APPROVED_PROFILE_SELECTION"
+          ? canonicalJson(draft.pendingPackage)
+          : null,
         createdAt,
         createdAt,
       );
@@ -121,12 +146,28 @@ export class CompilationRepository {
   }
 
   request(compilationId: string): LessonAuthoringRequestV2 {
-    return parseJson<LessonAuthoringRequestV2>(
-      this.row(compilationId).authoring_request_json,
-    );
+    const row = this.row(compilationId);
+    if (row.mode !== "AUTHORING_HANDOFF") {
+      throw new CompilerError(
+        "COMPILATION_AUTHORING_NOT_APPLICABLE",
+        "Approved-profile selections do not export authoring requests.",
+        [],
+        409,
+      );
+    }
+    return parseJson<LessonAuthoringRequestV2>(row.authoring_request_json);
   }
 
   importResult(compilationId: string, rawText: string): CompilationView {
+    const row = this.row(compilationId);
+    if (row.mode !== "AUTHORING_HANDOFF") {
+      throw new CompilerError(
+        "COMPILATION_AUTHORING_NOT_APPLICABLE",
+        "Approved-profile selections do not import authoring results.",
+        [],
+        409,
+      );
+    }
     if (Buffer.byteLength(rawText, "utf8") > 256 * 1024) {
       throw new CompilerError(
         "AUTHORING_FILE_TOO_LARGE",
@@ -142,7 +183,6 @@ export class CompilationRepository {
         413,
       );
     }
-    const row = this.row(compilationId);
     if (
       row.status !== "AWAITING_AUTHORING" &&
       row.status !== "REPAIR_REQUIRED"
@@ -264,6 +304,18 @@ export class CompilationRepository {
     const lessonPackage = parseJson<ValidatedLessonPackage>(
       row.pending_package_json,
     );
+    if (row.mode === "APPROVED_PROFILE_SELECTION") {
+      this.assertApprovedSpeechReady();
+      const approved = approvedLastTrainPackage();
+      if (fingerprint(lessonPackage) !== fingerprint(approved)) {
+        throw new CompilerError(
+          "APPROVED_PROFILE_PACKAGE_DRIFT",
+          "The review candidate no longer matches the approved Last Train package.",
+          [],
+          409,
+        );
+      }
+    }
     const validated = validateLessonPackage(
       lessonPackage.manifest,
       lessonPackage.catalog,
@@ -280,11 +332,11 @@ export class CompilationRepository {
         })),
       );
     }
-    const runtimeErrors = validateParkRuntimeCapabilities(validated.value);
+    const runtimeErrors = validateRuntimeCapabilities(validated.value);
     if (runtimeErrors.length > 0) {
       throw new CompilerError(
         "PUBLICATION_RUNTIME_UNSUPPORTED",
-        "The pending package is not supported by the park runtime.",
+        "The pending package is not supported by this runtime.",
         runtimeErrors.map((error) => ({
           source: "RUNTIME_CAPABILITY",
           ...error,
@@ -358,7 +410,14 @@ export class CompilationRepository {
   }> {
     const rows = this.database
       .prepare(
-        "SELECT lesson_id, revision, manifest_json, created_at FROM lesson_revisions ORDER BY created_at DESC, lesson_id",
+        `SELECT DISTINCT revisions.lesson_id, revisions.revision,
+                revisions.manifest_json, revisions.created_at
+         FROM lesson_revisions AS revisions
+         INNER JOIN compilation_requests AS compilations
+           ON compilations.lesson_id = revisions.lesson_id
+          AND compilations.revision = revisions.revision
+          AND compilations.status = 'PUBLISHED'
+         ORDER BY revisions.created_at DESC, revisions.lesson_id`,
       )
       .all() as Array<{
       lesson_id: string;
@@ -366,21 +425,16 @@ export class CompilationRepository {
       manifest_json: string;
       created_at: string;
     }>;
-    return rows.flatMap((row) => {
+    return rows.map((row) => {
       const manifest = parseJson<{
         title: { ja: string; support?: string };
-        provenance?: { source?: string };
       }>(row.manifest_json);
-      return manifest.provenance?.source === "AI_ASSISTED"
-        ? [
-            {
-              lessonId: row.lesson_id,
-              revision: row.revision,
-              title: manifest.title,
-              createdAt: row.created_at,
-            },
-          ]
-        : [];
+      return {
+        lessonId: row.lesson_id,
+        revision: row.revision,
+        title: manifest.title,
+        createdAt: row.created_at,
+      };
     });
   }
 
@@ -414,7 +468,7 @@ export class CompilationRepository {
         })),
         500,
       );
-    const runtimeErrors = validateParkRuntimeCapabilities(validated.value);
+    const runtimeErrors = validateRuntimeCapabilities(validated.value);
     if (runtimeErrors.length > 0)
       throw new CompilerError(
         "PUBLISHED_RUNTIME_UNSUPPORTED",
@@ -425,6 +479,21 @@ export class CompilationRepository {
         })),
         500,
       );
+    const approved = approvedLastTrainPackage();
+    if (
+      lessonId === approved.manifest.lessonId &&
+      revision === approved.manifest.revision
+    ) {
+      this.assertApprovedSpeechReady();
+      if (fingerprint(validated.value) !== fingerprint(approved)) {
+        throw new CompilerError(
+          "PUBLISHED_APPROVED_PROFILE_DRIFT",
+          "Stored Last Train bytes do not match the approved profile.",
+          [],
+          500,
+        );
+      }
+    }
     return validated.value;
   }
 
@@ -516,10 +585,22 @@ export class CompilationRepository {
         : parseJson<ValidatedLessonPackage>(row.pending_package_json);
     return {
       compilationId: row.compilation_id,
+      mode: row.mode,
+      profileId: row.profile_id,
       status: row.status,
       attempt: row.current_attempt,
       targetKeys: parseJson<string[]>(row.normalized_target_keys_json),
-      request: parseJson<LessonAuthoringRequestV2>(row.authoring_request_json),
+      ...(row.mode === "AUTHORING_HANDOFF"
+        ? {
+            request: parseJson<LessonAuthoringRequestV2>(
+              row.authoring_request_json,
+            ),
+          }
+        : {
+            selection: parseJson<ApprovedProfileTrace>(
+              row.authoring_request_json,
+            ),
+          }),
       diagnostics: parseJson<CompilerDiagnostic[]>(row.diagnostics_json),
       ...(lessonPackage === undefined
         ? {}
@@ -546,6 +627,32 @@ export class CompilationRepository {
     return row;
   }
 
+  private assertApprovedSpeechReady(): void {
+    const missing = M8_LAST_TRAIN_APPROVED_SPEECH.filter((identity) => {
+      const row = this.database
+        .prepare(
+          "SELECT status, wav_sha256 FROM audio_speech_assets WHERE cache_key = ?",
+        )
+        .get(identity.cacheKey) as
+        { status: string; wav_sha256: string | null } | undefined;
+      return row?.status !== "READY" || row.wav_sha256 !== identity.wavSha256;
+    });
+    if (missing.length > 0) {
+      throw new CompilerError(
+        "APPROVED_PROFILE_SPEECH_NOT_READY",
+        "Last Train needs all four exact approved speech files before review or play.",
+        missing.map((identity) => ({
+          source: "SEMANTIC",
+          code: "APPROVED_SPEECH_NOT_READY",
+          path: `/audio/${identity.cacheKey}`,
+          message:
+            "Expected one READY speech row with the approved WAV SHA-256.",
+        })),
+        409,
+      );
+    }
+  }
+
   private transaction(action: () => void): void {
     this.database.exec("BEGIN IMMEDIATE");
     try {
@@ -563,16 +670,24 @@ export class CompilationRepository {
 }
 
 function reviewSummary(lessonPackage: ValidatedLessonPackage) {
+  const label = (
+    target: ValidatedLessonPackage["manifest"]["learningTargets"][number],
+  ) =>
+    target.kind === "VOCABULARY"
+      ? (target.content.writtenForms[0] ?? target.targetId)
+      : target.kind === "GRAMMAR"
+        ? target.content.pattern
+        : target.content.character;
   return {
     title: lessonPackage.manifest.title,
     objective: lessonPackage.manifest.scenario.objective,
-    targetLabels: lessonPackage.manifest.learningTargets.map((target) =>
-      target.kind === "VOCABULARY"
-        ? (target.content.writtenForms[0] ?? target.targetId)
-        : target.kind === "GRAMMAR"
-          ? target.content.pattern
-          : target.content.character,
-    ),
+    targetLabels: lessonPackage.manifest.learningTargets.map(label),
+    requestedTargetLabels: lessonPackage.manifest.learningTargets
+      .filter((target) => target.role === "REQUESTED")
+      .map(label),
+    supportingTargetLabels: lessonPackage.manifest.learningTargets
+      .filter((target) => target.role === "SUPPORTING")
+      .map(label),
     stepCount: lessonPackage.manifest.steps.length,
     promptModules: lessonPackage.manifest.provenance.promptModuleVersions,
   };

@@ -24,6 +24,7 @@
     "./fixtures/m8-last-train": "./fixtures/manifests/m8-last-train.json",
     "./fixtures/m8-last-train-catalog": "./fixtures/catalogs/m8-last-train-catalog.json",
     "./fixtures/m8-last-train-study-catalog": "./fixtures/references/m8-last-train-study-catalog.json",
+    "./fixtures/m8-last-train-approved-profile": "./fixtures/references/m8-last-train-approved-profile.json",
     "./fixtures/bunbun-core-reference": "./fixtures/references/bunbun-core-0.1.0.json"
   },
   "types": "./src/index.ts",

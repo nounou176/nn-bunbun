@@ -1,6 +1,6 @@
 # Recover speech replay and add local Japanese text study tools
 
-Status: Approved
+Status: Complete; replay/study and lifecycle/failure checks accepted
 Owner: Codex and user
 Created: 2026-08-28
 Last updated: 2026-08-28 17:18 Asia/Ho_Chi_Minh
@@ -307,11 +307,17 @@ approved and record only manual results the user reports.
       contracts 46/46, server 9/9, web 66/66, production build, and runtime
       dependency scan. Kuromoji, WanaKana, IPADIC, and JMdict are absent from
       the web bundle. Playwright and Docker remain not applicable.
-- [ ] Receive manual browser/gameplay acceptance.
+- [x] 2026-08-28 — User reports `M8 LESSON B RETEST: PASS` after ordinary
+      repeated replay and the play/reading/vocabulary/grammar controls. Keep
+      reload/resume, interruption recovery, and simulated audio failure open
+      for scenario C; do not infer those results from B.
+- [x] 2026-08-28 — User reports `M8 LESSON C: PASS`, accepting reload/resume,
+      background interruption, replay recovery, simulated Japanese-audio
+      failure, assisted continuation, and full completion.
 - [x] 2026-08-28 — D-052 builds on these study tools: final TYPE correction
       exposes the approved exact answer and existing reading support without a
-      runtime dictionary or new audio. Replay/study acceptance remains part of
-      the combined manual retest.
+      runtime dictionary or new audio. D-053 subsequently accepts the complete
+      combined manual retest.
 
 ## Surprises and discoveries
 
@@ -449,7 +455,11 @@ visible and its update procedure must be run before release qualification.
 
 ## Outcomes
 
-Implementation is complete and awaits manual browser acceptance. Replay no
-longer resubmits acknowledged LISTEN HEARD events. The fixed M8 runtime has a
-compact reviewed local study catalog and no runtime NLP/dictionary dependency.
+Implementation and the focused manual matrix are complete.
+`M8 LESSON B RETEST: PASS` accepts ordinary replay and the compact Japanese
+study controls; `M8 LESSON C: PASS` accepts reload/resume, background
+interruption, replay recovery, simulated audio failure, assisted continuation,
+and full completion. Replay no longer resubmits acknowledged LISTEN HEARD
+events. The fixed M8 runtime has a compact reviewed local study catalog and no
+runtime NLP/dictionary dependency.
 JMdict remains unpromoted behind its exact Gate 2 packet.

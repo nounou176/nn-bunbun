@@ -2478,8 +2478,11 @@ story, Japanese dialogue, answer truth, lesson graph, target bindings, world,
 speech hashes, non-speech catalog, contract schema, or runtime primitive set.
 Unaided and supported evidence remain distinguishable. This adds no provider,
 dependency, model, asset, account, credential, environment variable, data
-transport, recurring operation, or cost. M8 Lesson B/C acceptance remains open
-until the repaired manual matrix is reported by the user.
+transport, recurring operation, or cost. On 2026-08-28, the user reports
+`M8 LESSON B RETEST: PASS`, accepting the repaired guided beginner path and
+ordinary replay/study controls. The later `M8 LESSON C: PASS` report accepts
+the remaining lifecycle/failure matrix and closes parent Milestone 4 under
+D-053.
 
 ### D-051 — Repair replay idempotency and approve local Japanese study-tool qualification
 
@@ -2542,6 +2545,11 @@ data but no runtime service or learner-data flow. O-009 is only partially
 addressed: exact M8 study records may be built from Bunbun-owned data, while
 production JMdict-derived data and broader Japanese reference coverage remain
 behind the second approval gate and documented update obligations.
+On 2026-08-28, the user reports `M8 LESSON B RETEST: PASS` after exercising
+ordinary repeated replay plus the play, reading, vocabulary, and grammar
+controls. Reload/resume, background interruption, and simulated audio-failure
+coverage were assigned to scenario C rather than inferred from B. The user's
+later `M8 LESSON C: PASS` report accepts those remaining paths under D-053.
 
 ### D-052 — Require explicit guided correction for TYPE and preserve actor visibility
 
@@ -2591,8 +2599,87 @@ No provider, dependency, service, account, credential, environment variable,
 data transfer, or cost is added. On 2026-08-28, the user reports
 `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`, manually accepting the
 guided correction and revised sight lines under D-011. These results do not
-close the separate D-051 replay/study matrix or the broader Milestone 4 B/C
-acceptance.
+close the separate D-051 lifecycle/failure scenario C matrix. Ordinary replay/
+study behavior and the repaired guided scenario B were accepted later through
+`M8 LESSON B RETEST: PASS`; scenario C was subsequently accepted under D-053.
+
+### D-053 — Accept the complete M8 fixed-lesson manual matrix and close Milestone 4
+
+- Date: 2026-08-28
+- Status: Accepted by explicit user-reported manual results
+- Affects: M8 fixed Last Train lesson, D-050/D-051 recovery, parent Milestone 4
+
+Context:
+
+The original fixed Last Train happy path passed as `M8 LESSON A: PASS`.
+Beginner scenario B initially failed and led to D-050 through D-052. After the
+approved repairs, the user reported `M8 LESSON B RETEST: PASS`. The remaining
+scenario C checklist explicitly covered reload/resume, background interruption,
+replay recovery, simulated Japanese-audio failure, assisted text continuation,
+and full lesson completion.
+
+Decision:
+
+Accept the user's `M8 LESSON C: PASS`. Together with the previously recorded A,
+repaired B, D-052 TYPE, and D-052 visibility results, this completes the exact
+manual A/B/C matrix for the repository-owned M8 revision-1 Last Train package.
+Close parent M8 Milestone 4 and advance planning to Milestone 5 compiler
+integration and polish.
+
+Consequences:
+
+The fixed package is manually accepted for its named local checklist. Scenario
+C confirms that the learner can resume, recover from background interruption,
+replay without a runtime identity failure, and complete through visible
+assisted text when Japanese speech is unavailable. No numeric performance,
+additional browser/device, production release, compiler-generated lesson,
+deployment, provider, or broader language-coverage claim is inferred. M8 itself
+remains in progress until Milestones 5 and 6 are planned, implemented, and
+accepted.
+
+### D-054 — Select the accepted Last Train package through an approved compiler profile
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user approval
+- Affects: M8 Milestone 5, compiler lifecycle, published lesson library, Last Train launch
+
+Context:
+
+The D-053 Last Train revision is a byte-identical, manually accepted,
+project-authored package. The M7 compiler supports only the park target set and
+its manual authoring handoff. Passing Last Train through that prompt route
+would generate different reviewed language, reopen content/study/speech gates,
+and falsely imply that the accepted package was produced by a GPT. The user
+approved `PLAN M8 MILESTONE 5 — APPROVED PROFILE SELECTION` after reviewing the
+zero-cost integration plan.
+
+Decision:
+
+Add one deterministic `m8_last_train_approved_v1` compiler profile. The exact
+requested set `財布 + 探す + ～てください`, including its reviewed readings and
+wave-dash aliases, selects the immutable `lesson_m8_last_train` revision 1
+package. Selection creates a local review candidate, retains explicit publish,
+and links the published compilation to the existing immutable lesson revision.
+The manifest keeps truthful `AUTHORED` provenance and an empty prompt-module
+list; compiler-selection lineage is stored on the compilation record.
+
+The profile requires all three requested targets, rejects partial, duplicate,
+unknown, and mixed-profile input, and never exports an authoring request or
+imports a GPT result. Published Last Train offers recommended guided and
+optional immersive launch only when its four exact approved speech rows are
+ready. Existing M7 park authoring and the direct fixed-package regression route
+remain available.
+
+Consequences:
+
+Milestone 5 demonstrates target-to-approved-package selection, review,
+publication, and local play. It does not demonstrate freeform AI generation or
+requalify the waived M7 transport. No accepted content, study data, speech,
+world, camera, animation, or mix identity changes. No service, API, model,
+dependency, asset, download, account, credential, environment variable,
+learner-data transfer, incremental charge, or recurring cost is added. Any
+future GPT-authored Last Train variation requires a separate plan and new
+content/study/speech approval gates.
 
 ## Deferred decisions
 

@@ -9,12 +9,20 @@ import {
   type SpeechAssetView,
 } from "./client.js";
 import { M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED } from "../lesson/production-approvals.js";
+import {
+  isM8LastTrainSpeechReady,
+  publishedLaunchOptions,
+} from "./published-launch.js";
 
 export type LessonSelection =
   | { kind: "AUTHORED_DEMO" }
   | { kind: "CACHED_SPEECH_DEMO" }
   | { kind: "LAST_TRAIN_DEMO"; supportMode: "GUIDED" | "IMMERSIVE" }
-  | { kind: "PUBLISHED"; lessonPackage: ValidatedLessonPackage };
+  | {
+      kind: "PUBLISHED";
+      lessonPackage: ValidatedLessonPackage;
+      supportMode: "GUIDED" | "IMMERSIVE";
+    };
 
 export function showAuthoringHome(
   app: HTMLDivElement,
@@ -28,8 +36,9 @@ export function showAuthoringHome(
       <section class="authoring-grid">
         <article class="authoring-card create-card">
           <p class="eyebrow">Create lesson</p>
-          <h2>Nhập 1–3 mục tiếng Nhật</h2>
-          <p>M7 demo chỉ hỗ trợ <b>犬</b>, <b>猫</b> và <b>〜てください</b>.</p>
+          <h2>Nhập mục tiêu tiếng Nhật</h2>
+          <p>Park hỗ trợ <b>犬</b>, <b>猫</b>, <b>〜てください</b>. Last Train dùng đủ <b>財布</b>, <b>探す</b>, <b>～てください</b>.</p>
+          <button data-authoring="last-train-preset" type="button">Điền bộ Last Train đã duyệt</button>
           <form data-authoring="create-form">
             <label>Target 1<input name="target" lang="ja" required placeholder="犬"></label>
             <label>Target 2<input name="target" lang="ja" placeholder="〜てください"></label>
@@ -91,6 +100,7 @@ export function showAuthoringHome(
   const technicalSpeechManifest = cachedSpeechFixture as LessonManifest;
   const technicalSpeechAsset = technicalSpeechManifest.audioAssets[0]!;
   const speechManifest = lastTrainManifestFixture as LessonManifest;
+  let productionSpeechReady = false;
 
   return new Promise((resolve) => {
     required<HTMLButtonElement>(
@@ -174,6 +184,22 @@ export function showAuthoringHome(
       app,
       '[data-authoring="refresh"]',
     ).addEventListener("click", () => void refresh());
+    required<HTMLButtonElement>(
+      app,
+      '[data-authoring="last-train-preset"]',
+    ).addEventListener("click", () => {
+      const inputs = [
+        ...createForm.querySelectorAll<HTMLInputElement>(
+          'input[name="target"]',
+        ),
+      ];
+      ["財布", "探す", "～てください"].forEach((value, index) => {
+        const input = inputs[index];
+        if (input !== undefined) input.value = value;
+      });
+      status.textContent =
+        "Đã điền bộ Last Train. Create sẽ chọn package đã duyệt và không gọi GPT.";
+    });
     createForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const targets = [
@@ -202,8 +228,8 @@ export function showAuthoringHome(
           authoringClient.listLessons(),
           authoringClient.listSpeech(),
         ]);
-        renderLibrary(lessons);
         renderSpeech(productionAssets(speechAssets));
+        renderLibrary(lessons);
         playSpeech.disabled =
           speechAssets.find(
             (asset) => asset.cacheKey === technicalSpeechAsset.cacheKey,
@@ -236,8 +262,8 @@ export function showAuthoringHome(
       speechReview.replaceChildren();
       const productionDisabled =
         !M8_LAST_TRAIN_RUNTIME_ACTIVATION_APPROVED ||
-        assets.length !== speechManifest.audioAssets.length ||
-        assets.some((asset) => asset.status !== "READY");
+        !isM8LastTrainSpeechReady(speechManifest, assets);
+      productionSpeechReady = !productionDisabled;
       playProductionGuided.disabled = productionDisabled;
       playProductionImmersive.disabled = productionDisabled;
       if (assets.length === 0) {
@@ -325,17 +351,29 @@ export function showAuthoringHome(
       const title = document.createElement("div");
       const eyebrow = document.createElement("p");
       eyebrow.className = "eyebrow";
-      eyebrow.textContent = `Attempt ${compilation.attempt} · ${compilation.status}`;
+      eyebrow.textContent = `${compilation.mode} · ${compilation.profileId} · ${compilation.status}`;
       const name = document.createElement("h2");
       name.textContent = compilation.compilationId;
       title.append(eyebrow, name);
       heading.append(title);
       handoff.append(heading);
 
-      const disclosure = document.createElement("p");
-      disclosure.className = "data-disclosure";
-      disclosure.textContent = compilation.request.dataPolicy.disclosure;
-      handoff.append(disclosure);
+      if (compilation.request !== undefined) {
+        const disclosure = document.createElement("p");
+        disclosure.className = "data-disclosure";
+        disclosure.textContent = compilation.request.dataPolicy.disclosure;
+        handoff.append(disclosure);
+      }
+
+      if (compilation.selection !== undefined) {
+        const disclosure = document.createElement("p");
+        disclosure.className = "data-disclosure";
+        disclosure.textContent =
+          "Đã chọn deterministic package D-053 được duyệt. Không gửi target ra ngoài, không gọi GPT và không cần import file.";
+        const identity = document.createElement("small");
+        identity.textContent = `${compilation.selection.lessonId} · revision ${compilation.selection.revision} · ${compilation.selection.packageFingerprint}`;
+        handoff.append(disclosure, identity);
+      }
 
       if (
         compilation.status === "AWAITING_AUTHORING" ||
@@ -392,9 +430,16 @@ export function showAuthoringHome(
           compilation.review.title.support ??
           compilation.review.objective.support ??
           "Ready for local review";
+        const requested = document.createElement("p");
+        requested.textContent = `Requested: ${compilation.review.requestedTargetLabels.join(" · ")}`;
+        const supporting = document.createElement("p");
+        supporting.textContent = `Supporting: ${compilation.review.supportingTargetLabels.join(" · ") || "none"}`;
         const meta = document.createElement("p");
-        meta.textContent = `${compilation.review.targetLabels.join(" · ")} · ${compilation.review.stepCount} steps · ${compilation.review.promptModules.map((module) => `${module.id}@${module.version}`).join(" · ")}`;
-        review.append(reviewTitle, support, meta);
+        const modules = compilation.review.promptModules
+          .map((module) => `${module.id}@${module.version}`)
+          .join(" · ");
+        meta.textContent = `${compilation.review.stepCount} steps · ${modules.length === 0 ? "No prompt module" : modules}`;
+        review.append(reviewTitle, support, requested, supporting, meta);
         handoff.append(review);
       }
 
@@ -417,13 +462,7 @@ export function showAuthoringHome(
         compilation.status === "PUBLISHED" &&
         compilation.lesson !== undefined
       ) {
-        const play = button("Play published lesson");
-        play.classList.add("primary-button");
-        play.addEventListener(
-          "click",
-          () => void playPublished(compilation.lesson!),
-        );
-        handoff.append(play);
+        appendPublishedActions(handoff, compilation.lesson);
       }
     }
 
@@ -446,11 +485,42 @@ export function showAuthoringHome(
           lesson.title.support ??
           `${lesson.lessonId} · revision ${lesson.revision}`;
         text.append(title, support);
-        const play = button("Play");
-        play.addEventListener("click", () => void playPublished(lesson));
-        card.append(text, play);
+        const actions = document.createElement("div");
+        actions.className = "handoff-actions";
+        appendPublishedActions(actions, lesson);
+        card.append(text, actions);
         library.append(card);
       });
+    }
+
+    function appendPublishedActions(
+      container: HTMLElement,
+      lesson: { lessonId: string; revision: number },
+    ): void {
+      const options = publishedLaunchOptions(
+        lesson.lessonId,
+        speechManifest.lessonId,
+        productionSpeechReady,
+      );
+      for (const option of options) {
+        const play = button(option.label);
+        if (option.recommended) play.classList.add("primary-button");
+        play.disabled = option.disabled;
+        play.addEventListener(
+          "click",
+          () => void playPublished(lesson, option.supportMode),
+        );
+        container.append(play);
+      }
+      if (
+        lesson.lessonId === speechManifest.lessonId &&
+        !productionSpeechReady
+      ) {
+        const readiness = document.createElement("small");
+        readiness.textContent =
+          "Cần đủ 4 WAV đã duyệt. Hãy dùng M8 Last-train speech gate ở trên rồi Refresh.";
+        container.append(readiness);
+      }
     }
 
     async function downloadRequest(
@@ -506,18 +576,28 @@ export function showAuthoringHome(
       input.value = "";
     }
 
-    async function playPublished(lesson: {
-      lessonId: string;
-      revision: number;
-    }): Promise<void> {
+    async function playPublished(
+      lesson: { lessonId: string; revision: number },
+      supportMode: "GUIDED" | "IMMERSIVE",
+    ): Promise<void> {
       setBusy("Đang tải và kiểm tra published package…");
       try {
+        if (lesson.lessonId === speechManifest.lessonId) {
+          const assets = productionAssets(await authoringClient.listSpeech());
+          const ready = isM8LastTrainSpeechReady(speechManifest, assets);
+          if (!ready) {
+            throw new Error(
+              "Last Train cần đủ 4 exact WAV đã duyệt. Hãy chuẩn bị speech cache rồi Refresh.",
+            );
+          }
+        }
         resolve({
           kind: "PUBLISHED",
           lessonPackage: await authoringClient.loadLesson(
             lesson.lessonId,
             lesson.revision,
           ),
+          supportMode,
         });
       } catch (error) {
         showError(error);

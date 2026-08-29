@@ -642,6 +642,15 @@ secret configuration. M7 compiled packages use `AI_ASSISTED`, compiler version
 `0.1.0`, all three approved prompt-module identities at `0.1.0`, and the
 project-authored `bunbun_core@0.1.0` reference identity.
 
+D-054 approved-profile selection does not rewrite manifest provenance. The
+selected Last Train revision remains `AUTHORED`, retains its exact Content Gate
+input hash, and has an empty `promptModuleVersions` list. The compilation row,
+not the manifest, records `APPROVED_PROFILE_SELECTION` and
+`m8_last_train_approved_v1`. A published-library query therefore follows the
+explicit published-compilation linkage rather than treating `AI_ASSISTED` as a
+publication marker. Different bytes under the same lesson revision remain an
+immutable conflict.
+
 ## JapaneseTextStudyCatalog sidecar
 
 `JapaneseTextStudyCatalog 0.1.0` is a separately versioned presentation

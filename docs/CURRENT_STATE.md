@@ -1,6 +1,6 @@
 # Bunbun Current State
 
-Last updated: 2026-08-28
+Last updated: 2026-08-29
 
 ## Current milestone
 
@@ -30,19 +30,28 @@ Most recently completed ExecPlan:
 Active parent ExecPlan:
 
 - plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
-  Milestones 2 and 3 complete; Milestone 4 manual A/B/C pending
+  Milestones 2 through 4 complete; Milestone 5 implementation checks pass and
+  its manual acceptance is pending
 
-Active focused M8 lesson plan:
+Active focused M8 compiler-integration plan:
 
-- plans/2026-08-27-m8-last-train-lesson-package.md — Active under D-046 through
-  D-050; exact content and speech gates are approved, the fixed package is
-  locally playable, manual A passed, and the repaired B/C matrix remains open
-- plans/2026-08-28-m8-beginner-guidance-recovery.md — Implemented under D-050;
+- plans/2026-08-29-m8-approved-profile-compiler-integration.md — Approved
+  under D-054 and implemented through the automated/build gates; manual
+  browser A/B/C acceptance remains open
+
+Completed focused M8 lesson plans:
+
+- plans/2026-08-27-m8-last-train-lesson-package.md — Complete under D-046
+  through D-053; exact content and speech gates, the locally playable fixed
+  package, and the complete manual A/B/C matrix are accepted
+- plans/2026-08-28-m8-beginner-guidance-recovery.md — Complete under D-050;
   guided/immersive launch, bilingual controls, operational cues, authored help,
-  and evidence-honest assistance await the user's manual retest
-- plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md — Approved
-  under D-051; implementation and supported automated checks are complete;
-  replay/study-tool and remaining beginner B/C manual acceptance are open
+  and evidence-honest assistance are accepted through
+  `M8 LESSON B RETEST: PASS`
+- plans/2026-08-28-m8-japanese-text-tools-and-replay-recovery.md — Complete
+  under D-051/D-053; implementation and supported automated checks pass, and
+  scenarios B/C accept ordinary replay/study tools plus lifecycle/failure
+  recovery
 - plans/2026-08-28-m8-type-guided-retry-and-visibility.md — Complete under
   D-052; TYPE guided correction and world layout/runtime `1.0.1` are
   implemented, fully checked, and manually accepted through the user's
@@ -88,6 +97,21 @@ Completed ExecPlans:
 
 ## Completed work
 
+- D-054 accepts deterministic approved-profile selection. SQLite migration 4
+  records `mode` and `profile_id`; exact aliases and target permutations map to
+  one `m8_last_train_approved_v1` identity; the compiler validates the locked
+  D-053 package, study binding, runtime capabilities, and four exact `READY`
+  speech hashes before review or play.
+- The selection route creates `READY_FOR_REVIEW` with zero authoring-attempt
+  rows, forbids request export/result import, retains explicit publication,
+  reuses an exact immutable lesson revision, and keeps truthful `AUTHORED`
+  provenance. The published library now follows publication linkage rather
+  than an `AI_ASSISTED` filter.
+- The authoring home includes a Last Train preset and a mode-aware local review
+  with requested/supporting targets and no GPT handoff controls. Published Last
+  Train recommends guided play and offers immersive play; missing or changed
+  speech identities disable both with a recovery message. Published park
+  lessons remain immersive.
 - D-047 accepts the exact M8 last-train Content Gate 1 packet SHA-256
   `5e3cb41ab76b0f02958236c1c2241bc0d6c7e70b35a58996fa9f0072f7c403a6`.
   The repository now owns one strict six-target, four-utterance, nine-step
@@ -118,6 +142,9 @@ Completed ExecPlans:
   project-authored decorative tree transforms move behind Momo and the initial
   Bunbun sight line; all D-045 source assets, actors, clues, locations, camera,
   navigation, identities, byte budget, and performance facts remain intact.
+- D-053 accepts `M8 LESSON C: PASS`. Together with the accepted A, repaired B,
+  TYPE, and visibility reports, the exact fixed-package manual A/B/C matrix is
+  complete and parent M8 Milestone 4 is closed.
 - `JapaneseTextStudyCatalog 0.1.0` covers all 40 fixed M8 Japanese content
   units with reviewed kana/romaji and bounded project-authored Vietnamese
   vocabulary/grammar notes. The UI exposes compact play/reading/vocabulary/
@@ -356,6 +383,12 @@ Completed ExecPlans:
 
 ## Current work
 
+- M8 Milestone 5 implementation passes supported static, unit, integration,
+  approval-hash, asset, and production-build gates. Contracts pass 46/46,
+  server passes 18/18, and web passes 71/71. Content, speech, study, audio, and
+  world identities remain unchanged. The focused manual A/B/C browser matrix
+  is the remaining acceptance gate; no PASS is inferred before the user runs
+  it.
 - D-052 TYPE guided correction and the neighborhood visibility revision are
   implemented. The second wrong M8 TYPE answer now exposes the exact reading
   and a bilingual `Điền câu mẫu` action without advancing. The learner still
@@ -363,7 +396,9 @@ Completed ExecPlans:
   assisted. Layout/runtime `1.0.1` moves `tree_large_north` and
   `tree_small_path` behind the reported Momo/player camera sight lines. Full
   supported checks pass, and the user reports both focused TYPE and visibility
-  gates as PASS. The separate replay/study and broader B/C retest is next.
+  gates as PASS. D-053 records the later `M8 LESSON C: PASS` and closes parent
+  Milestone 4. D-054 subsequently approves and implements Milestone 5's
+  approved-profile selection; its manual A/B/C matrix remains open.
 - D-050 beginner guidance is implemented after the user's first manual B run
   failed on onboarding. The Last Train card now offers `Chơi có hướng dẫn tiếng
 Việt` and `Thử thách chủ yếu bằng tiếng Nhật`. Guided mode opts into existing
@@ -374,7 +409,8 @@ Việt` and `Thử thách chủ yếu bằng tiếng Nhật`. Guided mode opts i
   exposed inactive Continue/Restart buttons. The UI now shows both the authored
   pattern and `財布（さいふ）を探（さが）してください。` reading, while an
   explicit hidden-button rule removes inactive bilingual controls.
-  Automated/static gates pass; the repaired manual browser retest is next.
+  Automated/static gates pass, and the user reports
+  `M8 LESSON B RETEST: PASS` after the repaired guided browser run.
 - Parent M8 Milestone 3 has passed its second user gate. The user approved the
   complete 55/55 proposal: 18 approved, 37 rejected, Aoi
   `world_character_n`, Tanaka `world_character_q`, Momo `world_animal_cat`, and
@@ -712,12 +748,15 @@ documentation and implementation changes are uncommitted.
    package is implemented, and the user reports `M8 LESSON A: PASS` for the
    pre-recovery happy path. D-050 repairs the reported beginner-onboarding
    failure with guided/immersive launch, bilingual controls, operational cues,
-   and authored help. The repaired manual B/C matrix and numeric runtime
-   measurements remain open.
+   and authored help. The user reports `M8 LESSON B RETEST: PASS` and
+   `M8 LESSON C: PASS`; the exact manual A/B/C matrix is complete. Numeric
+   runtime measurements remain open for later acceptance criteria.
 7. The cached-speech replay regression reported on 2026-08-28 is repaired in
-   code and covered by controller/server regression tests. Browser confirmation
-   of repeated replay, resume replay, interruption recovery, and the new study
-   controls remains pending; do not upgrade this to manual PASS yet.
+   code and covered by controller/server regression tests. Ordinary replay and
+   the new study controls are accepted through `M8 LESSON B RETEST: PASS`.
+   Reload/resume, interruption recovery, replay recovery, and audio-failure
+   completion are accepted through `M8 LESSON C: PASS`. No broader browser or
+   device claim is inferred.
 8. D-052 repairs automatic wrong-TYPE advancement and the reported tree
    occlusion in code/assets. Automated controller, persistence, assembly,
    runtime, and build checks pass, and the user reports both
@@ -803,11 +842,11 @@ Continue Milestone 8 without expanding M7's provider scope:
 
 1. Treat parent showcase Milestone 2, the complete technical audio boundary,
    as complete under D-043.
-2. Manually retest D-051 replay/study controls together with the D-050 guided
-   beginner path, then rerun the last-train B/C matrix. D-052 TYPE/visibility,
-   Content Gate 1, Speech Gate 2, and the pre-recovery lesson happy-path
-   scenario A remain accepted.
-3. Keep M9 linkage behind completion of that manual package acceptance.
+2. Run the focused M8 Milestone 5 manual A/B/C matrix: exact preset → review →
+   publish → guided completion; aliases/errors/idempotency/immersive/audio
+   fallback; and M7/direct-M8/persistence/renderer regressions. Record only
+   results the user explicitly reports.
+3. Keep M9 linkage behind Milestone 5 integration and Milestone 6 handoff.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
@@ -842,7 +881,10 @@ measurable vertical-slice acceptance choices.
   reproduced the known Node native abort after six server tests; the required
   unrestricted server rerun passes 9/9. The build reports 1,423.46 kB
   JavaScript (391.69 kB gzip), 18.43 kB CSS (4.51 kB gzip), and the known
-  large-chunk warning. Manual browser acceptance is pending.
+  large-chunk warning. The user reports `M8 LESSON B RETEST: PASS` for ordinary
+  repeated replay and the compact audio/reading/vocabulary/grammar controls.
+  `M8 LESSON C: PASS` accepts reload/resume, background interruption, replay
+  recovery, simulated audio failure, assisted continuation, and completion.
   The separate JMdict Gate 2 review packet SHA-256 is
   `4717468383091e73bcaacf09e8a94713bc68311a68ada87ce2db5b23531c17a9`;
   all eight exact proposed rows match the ignored archive and zero are

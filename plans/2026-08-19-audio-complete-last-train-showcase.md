@@ -1,6 +1,6 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestones 2 and 3 complete, Milestone 4 manual A/B/C pending
+Status: Active; Milestones 2 through 4 complete, Milestone 5 manual acceptance pending
 Owner: Codex and user
 Created: 2026-08-19
 Last updated: 2026-08-27 Asia/Ho_Chi_Minh
@@ -394,9 +394,31 @@ reproducible acceptance checklist.
       layout/runtime `1.0.1` moves two trees behind Momo/player sight lines.
       Latest checks pass contracts 46/46, server 10/10, web 68/68, deterministic
       world assembly/runtime validation, and production build. The user reports
-      `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`; repaired replay/
-      study and broader B/C acceptance remain open.
-- [ ] Implement milestones 3 through 6 in dependency order.
+      `M8 D-052 TYPE: PASS` and `M8 D-052 VISIBILITY: PASS`.
+- [x] 2026-08-28 — User reports `M8 LESSON B RETEST: PASS`, accepting the
+      repaired guided beginner path, ordinary repeated replay, and compact
+      Japanese study controls. At this checkpoint, Milestone 4 awaited only
+      scenario C lifecycle/failure acceptance.
+- [x] 2026-08-28 — User reports `M8 LESSON C: PASS`, accepting reload/resume,
+      background interruption, replay recovery, simulated Japanese-audio
+      failure, assisted continuation, and full completion. D-053 closes parent
+      Milestone 4.
+- [x] 2026-08-29 — Prepare the self-contained proposed Milestone 5 plan at
+      `plans/2026-08-29-m8-approved-profile-compiler-integration.md`. It
+      recommends exact approved-profile selection rather than falsely
+      attributing the accepted D-053 package to GPT generation. No code,
+      dependency, service, asset, key, or paid-capable provider is authorized
+      by this planning checkpoint.
+- [x] 2026-08-29 — User approves the focused Milestone 5 plan and D-054 records
+      deterministic approved-profile selection with no provider/dependency/
+      asset/cost expansion.
+- [x] 2026-08-29 — Implement migration 4, exact profile validation,
+      zero-attempt review selection, explicit immutable publication linkage,
+      mode-aware review/library UI, speech readiness, and guided/immersive
+      published launch. Supported checks pass; manual A/B/C remains open.
+- [x] Implement milestones 3 and 4 in dependency order.
+- [ ] Accept Milestone 5 manually, then prepare, approve, and implement
+      Milestone 6 in dependency order.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.
 

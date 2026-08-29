@@ -223,6 +223,21 @@ const migrations: readonly Migration[] = [
         ON audio_speech_attempts (completed_at, cache_key);
     `,
   },
+  {
+    id: 4,
+    name: "m8_approved_compiler_profiles",
+    sql: `
+      ALTER TABLE compilation_requests
+        ADD COLUMN mode TEXT NOT NULL DEFAULT 'AUTHORING_HANDOFF'
+        CHECK (mode IN ('AUTHORING_HANDOFF', 'APPROVED_PROFILE_SELECTION'));
+
+      ALTER TABLE compilation_requests
+        ADD COLUMN profile_id TEXT NOT NULL DEFAULT 'park_authoring_v1';
+
+      CREATE INDEX compilation_requests_profile_idx
+        ON compilation_requests (profile_id, mode, updated_at DESC);
+    `,
+  },
 ];
 
 export const DATABASE_SCHEMA_VERSION = migrations.length;

@@ -1,6 +1,6 @@
 # Author the complete last-train lesson package
 
-Status: Active; Gates/manual A approved, D-050 repair awaits B/C retest
+Status: Complete; gates and manual A/B/C accepted under D-053
 Owner: Codex and user
 Created: 2026-08-27
 Last updated: 2026-08-28 Asia/Ho_Chi_Minh
@@ -381,11 +381,12 @@ candidate.
       guided and optional immersive launch, Japanese-first bilingual controls,
       eight primitive-specific operational cues, bounded authored text help,
       and assisted evidence semantics. Supported automated/static gates pass;
-      manual B/C retest remains open.
+      manual B/C retest was still open at this checkpoint.
 - [x] 2026-08-28 — D-051 repairs the replay persistence regression and adds
       the fixed local Japanese study catalog/tools. Supported checks pass
       (contracts 46/46, server 9/9, web 66/66); JMdict is not promoted. Manual
-      replay/tools and repaired B/C acceptance remain open.
+      replay/tools and repaired B/C acceptance were still open at this
+      checkpoint.
 - [x] 2026-08-28 — D-052 replaces automatic wrong-TYPE assisted completion
       with explicit guided correction and revises the world layout/runtime to
       `1.0.1` so decorative trees no longer occupy the reported Momo/player
@@ -393,8 +394,15 @@ candidate.
       relevant gates, and build pass.
 - [x] 2026-08-28 — User reports `M8 D-052 TYPE: PASS` and
       `M8 D-052 VISIBILITY: PASS`. The focused D-052 manual gates are closed;
-      replay/study and the broader repaired B/C acceptance remain open.
-- [ ] Complete user-reported manual A/B/C acceptance.
+      replay/study and the broader repaired B/C acceptance were still open at
+      this checkpoint.
+- [x] 2026-08-28 — User reports `M8 LESSON B RETEST: PASS` after the repaired
+      guided path, ordinary repeated replay, and compact Japanese study-tool
+      checks. Scenario C lifecycle/failure acceptance was the final open gate.
+- [x] 2026-08-28 — User reports `M8 LESSON C: PASS`, accepting reload/resume,
+      background interruption, replay recovery, simulated audio failure,
+      assisted text continuation, and full completion.
+- [x] Complete user-reported manual A/B/C acceptance.
 
 ## Plan decision
 

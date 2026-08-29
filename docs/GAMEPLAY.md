@@ -256,6 +256,15 @@ realtime failure timer, HP loss, punitive replay, or an inaccessible ending.
 Wrong language choices change immediate NPC reactions and scaffolding while
 keeping the situation recoverable.
 
+Under D-054, entering the complete requested set `財布 + 探す + ～てください`
+selects the already accepted revision-1 package through the local compiler.
+The learner reviews and explicitly publishes it before play. This route does
+not ask a GPT to rewrite the scenario and does not relabel its supporting
+targets as requested. Its published library entry recommends Vietnamese-guided
+play and also exposes an explicit Japanese-first immersive launch. Both launch
+options fail closed until the four exact approved speech rows are `READY`.
+Existing published park lessons retain their immersive launch behavior.
+
 ## Audio presentation
 
 The D-026 vertical slice is audio-complete at acceptance:
