@@ -579,6 +579,11 @@ The user subsequently waived that fresh browser run under D-058. Its status is
 immersive cadence value, and the original 15.0/minute observation remains
 invalid rather than becoming a baseline.
 
+Under D-060, the user reports the final immersive-Help smoke as PASS and waives
+the audio-fallback, responsive-mission, and development-surface smoke checks.
+Those three results are `WAIVED_BY_USER`, not performance evidence. Focused M9
+therefore closes without a fresh numeric cadence, rendering, or latency claim.
+
 The production build after D-057 reports 1,435.45 kB JavaScript (395.18 kB
 gzip) and 21.57 kB CSS (5.13 kB gzip). The existing Vite large-chunk warning
 remains unchanged in character.

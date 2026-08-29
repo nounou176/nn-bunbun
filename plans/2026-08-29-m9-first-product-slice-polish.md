@@ -1,6 +1,6 @@
 # Turn the accepted Last Train build into the first learner-facing product slice
 
-Status: Implementation complete; awaiting manual M9 acceptance
+Status: Complete under D-060; cadence and smoke S2–S4 waived by the user
 Owner: Codex and user
 Created: 2026-08-29
 Last updated: 2026-08-29 Asia/Ho_Chi_Minh
@@ -253,6 +253,13 @@ can decide whether to enter M10 or the local release-candidate gate.
 - [x] 2026-08-29 — User directs `bỏ qua kiểm tra phần này`; D-058 records the
       corrected guided and immersive cadence retest as `WAIVED_BY_USER`, not
       PASS, and does not reuse the invalid first screenshot.
+- [x] 2026-08-29 — User approves `DUYỆT PLAN M9 FINAL SMOKE`; D-059 compresses
+      the remaining B/C acceptance into immersive Help, speech-failure text
+      recovery, narrow mission-card ownership, and `debug=1` development-mode
+      checks without reopening cadence.
+- [x] 2026-08-29 — User reports `M9 FINAL S1: PASS` and directs `bỏ qua phần
+      test`; D-060 records S1 PASS, S2–S4 as `WAIVED_BY_USER`, and closes
+      focused M9 without inferring omitted results.
 
 ## Surprises and discoveries
 
@@ -363,8 +370,20 @@ applicable under D-015 until the user accepts a local release candidate.
 | Scenario                                               | Tester  | Date       | Result                   | Evidence or notes                                                                                            |
 | ------------------------------------------------------ | ------- | ---------- | ------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | A — learner-first guided product flow                  | User    | 2026-08-29 | Observed; metric invalid | Completed 9/9; 6/6 targets, 19 evidence rows, 1:16 active, 15.0/min, median/p95 0.0/13.5 s; no PASS inferred |
-| B — immersive/help/audio-failure/responsive edge cases | Pending | Pending    | Not run                  | Awaiting user run                                                                                            |
-| C — development and accepted-runtime regressions       | Pending | Pending    | Not run                  | Awaiting user run                                                                                            |
+| B — immersive/help/audio-failure/responsive edge cases | User    | 2026-08-29 | Superseded by D-059/D-060 | S1 PASS; S2–S3 waived                                                                                        |
+| C — development and accepted-runtime regressions       | User    | 2026-08-29 | Superseded by D-059/D-060 | S4 waived; broad matrix not run                                                                              |
+
+D-059 replaces the broad pending B/C execution with four named smoke results:
+`S1_IMMERSIVE_HELP`, `S2_AUDIO_FALLBACK`, `S3_RESPONSIVE_MISSION`, and
+`S4_DEBUG_SURFACE`. The older B/C rows remain historical scope labels and are
+not independently inferred as PASS.
+
+| D-059 smoke result       | Tester | Date       | Result           | Evidence or notes                         |
+| ------------------------ | ------ | ---------- | ---------------- | ----------------------------------------- |
+| S1_IMMERSIVE_HELP        | User   | 2026-08-29 | PASS             | Explicit user report                      |
+| S2_AUDIO_FALLBACK        | User   | 2026-08-29 | WAIVED_BY_USER   | Not run; waived under D-060               |
+| S3_RESPONSIVE_MISSION    | User   | 2026-08-29 | WAIVED_BY_USER   | Not run; waived under D-060               |
+| S4_DEBUG_SURFACE         | User   | 2026-08-29 | WAIVED_BY_USER   | Not run; waived under D-060               |
 
 ## Recovery and compatibility
 
@@ -391,7 +410,7 @@ or authoring data.
 
 ## Outcomes
 
-Implementation is ready for manual M9 acceptance. The ordinary root is now a
+Focused M9 is complete under D-060. The ordinary root is now a
 learner surface, while `debug=1` preserves local authoring, speech, regression,
 diagnostic, and data controls. Completion presents only current-visit evidence
 facts and cadence with an explicit non-mastery disclaimer, plus replay and
@@ -400,4 +419,6 @@ reaction per learner attempt for recap and cadence while preserving raw rows.
 Supported non-browser checks pass. The corrected cadence browser retest is
 `WAIVED_BY_USER` under D-058; no named cadence value is inferred from the
 invalid first M9 run or from M8 evidence. Other manual learner observations
-remain separate from this waiver.
+remain uncollected. Final smoke S1 is user-reported PASS; S2–S4 are
+`WAIVED_BY_USER`, not PASS. These limitations carry into any later local
+release-candidate review.

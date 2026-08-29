@@ -5,17 +5,18 @@ Last updated: 2026-08-29
 ## Current milestone
 
 Milestone 8 — Japanese voice and complete audio runtime is complete under
-D-055. Milestone 9 — First product vertical slice is implemented under D-056
-and awaits the user's focused learner-browser acceptance.
+D-055. Milestone 9 — First product vertical slice is complete under D-060,
+with corrected cadence and final smoke S2–S4 explicitly waived rather than
+passed. Milestone 10 planning is next.
 
-Active focused M9 ExecPlan:
+Completed focused M9 ExecPlan:
 
 - plans/2026-08-29-m9-first-product-slice-polish.md — Approved under D-056;
   reuse the
   accepted M8 world/lesson/audio/compiler and add only a learner-first product
   shell, truthful completion recap, local reaction-cadence measurement, and
   bounded product polish. Implementation and supported non-browser checks are
-  complete; manual guided/immersive acceptance is pending.
+  complete; D-058 and D-060 preserve the explicit manual evidence waivers.
 
 Milestone 7's
 provider-independent implementation is closed under D-036: authoring 0.2.0,
@@ -408,7 +409,9 @@ Completed ExecPlans:
   counting one meaningful reaction per `sessionId + stepId + attempt`, while
   retaining every target-level evidence row. Web typecheck, lint, and all 86
   web tests pass; the updated production build passes. The corrected manual
-  cadence retest remains pending.
+  cadence retest is waived under D-058. Under D-060, the user reports final
+  smoke S1 PASS, waives S2–S4, and closes focused M9 without relabeling those
+  omitted checks as PASS. M10 planning is next.
 
 - M8 Milestone 5 implementation passes supported static, unit, integration,
   approval-hash, asset, and production-build gates. Contracts pass 46/46,
@@ -926,17 +929,11 @@ documentation and implementation changes are uncommitted.
 
 ## Next recommended work
 
-Complete the focused M9 learner-browser acceptance without expanding M7's
-provider scope:
-
-1. Run the remaining non-cadence M9 learner-browser checks only if the user
-   chooses to retain them; D-058 waives the corrected cadence retest.
-2. Confirm `debug=1` retains development tools if that remaining regression is
-   kept in scope.
-3. Carry M8 C2–C6 as `WAIVED_BY_USER`; do not infer their results or weaken the
-   later local release-candidate acceptance gate.
-4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
-   is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
+Prepare a self-contained M10 adaptive-exposure plan. Do not implement mastery,
+spaced repetition, or learner-model changes before the user reviews their
+pedagogical meaning, local data effects, and zero-cost boundary. Carry D-058's
+cadence waiver, D-060's S2–S4 waiver, M8 C2–C6's waiver, and M7's
+`UNVERIFIED_USER_WAIVED` label forward without converting any to PASS.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and
@@ -955,7 +952,9 @@ measurable vertical-slice acceptance choices.
   the existing Vite large-chunk warning. Playwright remains excluded under
   D-011 and Docker is not applicable under D-015. The first cadence screenshot
   is invalid; corrected manual guided and immersive cadence results are
-  `WAIVED_BY_USER` under D-058 and are not PASS.
+  `WAIVED_BY_USER` under D-058 and are not PASS. Final smoke S1 is user-reported
+  PASS; S2–S4 are `WAIVED_BY_USER` under D-060. Focused M9 is closed with those
+  explicit evidence limits.
 - Full-root `npm test` is not PASS: contracts pass 46/46, web passes 86/86,
   and separately rerun server compiler/persistence tests pass 11/11, but the
   unchanged server audio test process aborts after its six passing assertions

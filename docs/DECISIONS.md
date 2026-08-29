@@ -2829,6 +2829,69 @@ but M9 has no accepted named manual cadence measurement. This waiver adds no
 code, dependency, service, provider, model, asset, external data flow, or cost,
 and does not weaken a later local release-candidate acceptance gate.
 
+### D-059 — Approve the compressed final M9 smoke gate
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user approval
+- Affects: M9 final manual acceptance, immersive support, failure recovery,
+  responsive UI, development surface
+
+Context:
+
+M9 implementation and supported non-browser verification are complete. D-058
+waives the corrected cadence browser retest, while the broader B and C manual
+matrices remain unverified. Repeating every M8 regression would add substantial
+manual effort without changing the accepted package.
+
+Decision:
+
+Accept `DUYỆT PLAN M9 FINAL SMOKE`. Replace the remaining broad M9 B/C browser
+matrix with four focused checks: immersive Help remains explicitly assisted;
+simulated Japanese-speech failure retains a visible completable text path; a
+narrow viewport can collapse and reopen the mission card without covering the
+active interaction; and `debug=1` still exposes the development-only authoring,
+diagnostic, and local-data surfaces. Do not measure cadence and do not relabel
+D-058 as PASS.
+
+Consequences:
+
+All four checks must be reported by the user before the final smoke gate can
+PASS. A failed item reopens only that bounded defect. This approval adds no
+code, dependency, service, provider, model, asset, external data flow, or cost.
+Passing this smoke gate may close focused M9, but it does not replace the later
+local release-candidate gate or resolve the known Node audio-test teardown.
+
+### D-060 — Close M9 with final smoke S2–S4 waived
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user direction
+- Affects: D-059 smoke results, M9 closure, M10 handoff
+
+Context:
+
+After D-059 approval, the user reported `M9 FINAL S1: PASS` for immersive Help
+and simultaneously directed `bỏ qua phần test`. The remaining S2 audio
+fallback, S3 responsive mission card, and S4 development surface checks were
+therefore not run.
+
+Decision:
+
+Record `S1_IMMERSIVE_HELP` as PASS exactly as reported by the user. Record
+`S2_AUDIO_FALLBACK`, `S3_RESPONSIVE_MISSION`, and `S4_DEBUG_SURFACE` as
+`WAIVED_BY_USER`, never as PASS. Close focused M9 under this explicit waiver
+and advance planning to M10. Preserve D-058's cadence waiver and the invalid
+status of the first cadence screenshot.
+
+Consequences:
+
+M9 product implementation is complete, but it has no accepted corrected
+cadence measurement and no fresh M9 browser evidence for S2–S4. Earlier M8
+audio-fallback and mission-card observations remain historical evidence only;
+they are not relabeled as M9 smoke results. This closure does not accept a
+local release candidate, waive later release verification, or resolve the
+known Node audio-test teardown. It adds no code, dependency, provider, asset,
+service, external data flow, or cost.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

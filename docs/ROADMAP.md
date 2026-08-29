@@ -641,7 +641,7 @@ Exit criteria:
 
 ## Milestone 9 — First product vertical slice
 
-Status: In progress under D-056
+Status: Complete under D-060; cadence and final smoke S2–S4 explicitly waived
 
 Purpose:
 
@@ -696,10 +696,14 @@ Implemented M9 scope:
 - replay and return-to-library completion actions; and
 - bounded responsive and action-hierarchy polish.
 
-Remaining acceptance scope:
+Acceptance closure:
 
-- manual browser/device validation outside the D-058-waived cadence retest;
-- documented learner observations.
+- `S1_IMMERSIVE_HELP` is user-reported PASS;
+- corrected cadence is `WAIVED_BY_USER` under D-058; and
+- final smoke S2–S4 are `WAIVED_BY_USER` under D-060, not PASS.
+
+Focused M9 is complete with these evidence limits. The later local
+release-candidate gate remains separate and unaccepted.
 
 Exit criteria:
 
