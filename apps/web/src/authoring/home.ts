@@ -24,58 +24,91 @@ export type LessonSelection =
       supportMode: "GUIDED" | "IMMERSIVE";
     };
 
+export interface AuthoringHomeOptions {
+  developmentMode?: boolean;
+}
+
 export function showAuthoringHome(
   app: HTMLDivElement,
+  options: AuthoringHomeOptions = {},
 ): Promise<LessonSelection> {
+  const developmentHidden = options.developmentMode === true ? "" : "hidden";
   app.innerHTML = `
     <main class="authoring-home">
       <header class="authoring-hero">
-        <div><p class="eyebrow">M7 · Local lesson compiler</p><h1>Bunbun Lesson Library</h1></div>
-        <span class="transport-warning">Transport 0.2.0 · UNVERIFIED</span>
+        <div>
+          <p class="eyebrow">BUNBUN · 日本語アドベンチャー</p>
+          <h1>Phiêu lưu bằng tiếng Nhật</h1>
+          <p class="authoring-lead">Chọn mục tiêu muốn học, bước vào một tình huống ngắn và phản ứng với nhân vật trong thế giới 3D.</p>
+        </div>
+        <a class="development-link" href="${options.developmentMode === true ? "/" : "/?debug=1"}">
+          ${options.developmentMode === true ? "Về giao diện người học" : "Công cụ phát triển"}
+        </a>
       </header>
       <section class="authoring-grid">
         <article class="authoring-card create-card">
-          <p class="eyebrow">Create lesson</p>
-          <h2>Nhập mục tiêu tiếng Nhật</h2>
-          <p>Park hỗ trợ <b>犬</b>, <b>猫</b>, <b>〜てください</b>. Last Train dùng đủ <b>財布</b>, <b>探す</b>, <b>～てください</b>.</p>
-          <button data-authoring="last-train-preset" type="button">Điền bộ Last Train đã duyệt</button>
+          <p class="eyebrow">Tạo chuyến phiêu lưu</p>
+          <h2>Bạn muốn luyện gì?</h2>
+          <p>Nhập tối đa ba từ hoặc mẫu ngữ pháp. Bunbun sẽ chọn một bài học local phù hợp khi đã có nội dung được duyệt.</p>
+          <button class="preset-button" data-authoring="last-train-preset" type="button">
+            <span>Gợi ý: 財布 · 探す · ～てください</span>
+            <small>Dùng tình huống “Ba phút trước chuyến tàu cuối”</small>
+          </button>
           <form data-authoring="create-form">
-            <label>Target 1<input name="target" lang="ja" required placeholder="犬"></label>
-            <label>Target 2<input name="target" lang="ja" placeholder="〜てください"></label>
-            <label>Target 3<input name="target" lang="ja" placeholder="猫"></label>
-            <button class="primary-button" type="submit">Create compiler request</button>
+            <label>Mục tiêu 1<input name="target" lang="ja" required placeholder="財布"></label>
+            <label>Mục tiêu 2<input name="target" lang="ja" placeholder="探す"></label>
+            <label>Mục tiêu 3<input name="target" lang="ja" placeholder="～てください"></label>
+            <button class="primary-button" type="submit">Tạo tình huống học</button>
           </form>
           <output class="authoring-status" data-authoring="status" aria-live="polite"></output>
         </article>
-        <article class="authoring-card demo-card">
-          <p class="eyebrow">Offline regression</p>
-          <h2>ゆきを助けよう</h2>
-          <p>Lesson tám primitive authored sẵn, luôn chơi được không cần plugin.</p>
-          <button class="primary-button" data-authoring="play-demo" type="button">Play authored demo</button>
+        <article class="authoring-card featured-card">
+          <p class="eyebrow">Tình huống nổi bật</p>
+          <h2 lang="ja">終電まであと3分</h2>
+          <p><strong>Ba phút trước chuyến tàu cuối.</strong> Aoi làm mất ví giữa trời mưa. Hãy dùng tiếng Nhật để tìm và trả lại trước khi tàu rời ga.</p>
+          <ul>
+            <li>9 tương tác ngắn trong khu phố 3D</li>
+            <li>Có hướng dẫn tiếng Việt hoặc chế độ thử thách</li>
+            <li>Âm thanh và tiến trình chạy local</li>
+          </ul>
         </article>
-        <article class="authoring-card speech-card">
-          <p class="eyebrow">M8 · Last-train speech gate</p>
-          <h2>終電まであと3分</h2>
-          <p>Generate four exact lines locally, listen to each WAV, then approve before gameplay. Credit: <b>VOICEVOX Nemo</b>.</p>
-          <div class="handoff-actions">
-            <button data-audio="prepare" type="button">Prepare 4 lines</button>
-            <button class="primary-button" data-audio="run" type="button">Generate with local Nemo</button>
-            <button class="primary-button" data-audio="play-production-guided" type="button" disabled>Chơi có hướng dẫn tiếng Việt</button>
-            <button data-audio="play-production-immersive" type="button" disabled>Thử thách chủ yếu bằng tiếng Nhật</button>
-            <button data-audio="play" type="button" disabled>Play technical speech regression</button>
-          </div>
-          <div data-audio="review"></div>
-          <div class="delete-data-actions">
-            <button data-audio="purge" type="button">Delete generated speech cache</button>
-            <button class="danger-button" data-audio="purge-confirm" type="button" hidden>Confirm speech deletion</button>
-            <button data-audio="purge-cancel" type="button" hidden>Cancel</button>
-          </div>
-        </article>
+      </section>
+      <section class="authoring-card developer-surface" ${developmentHidden}>
+        <div class="library-heading">
+          <div><p class="eyebrow">Development surface</p><h2>Công cụ kiểm duyệt local</h2></div>
+          <span class="transport-warning">Transport 0.2.0 · UNVERIFIED</span>
+        </div>
+        <div class="developer-grid">
+          <article class="developer-tool demo-card">
+            <p class="eyebrow">Offline regression</p>
+            <h3>ゆきを助けよう</h3>
+            <p>Lesson tám primitive authored sẵn, luôn chơi được không cần plugin.</p>
+            <button class="primary-button" data-authoring="play-demo" type="button">Play authored demo</button>
+          </article>
+          <article class="developer-tool speech-card">
+            <p class="eyebrow">M8 · Last-train speech gate</p>
+            <h3>終電まであと3分</h3>
+            <p>Generate four exact lines locally, listen to each WAV, then approve before gameplay. Credit: <b>VOICEVOX Nemo</b>.</p>
+            <div class="handoff-actions">
+              <button data-audio="prepare" type="button">Prepare 4 lines</button>
+              <button class="primary-button" data-audio="run" type="button">Generate with local Nemo</button>
+              <button class="primary-button" data-audio="play-production-guided" type="button" disabled>Chơi có hướng dẫn tiếng Việt</button>
+              <button data-audio="play-production-immersive" type="button" disabled>Thử thách chủ yếu bằng tiếng Nhật</button>
+              <button data-audio="play" type="button" disabled>Play technical speech regression</button>
+            </div>
+            <div data-audio="review"></div>
+            <div class="delete-data-actions">
+              <button data-audio="purge" type="button">Delete generated speech cache</button>
+              <button class="danger-button" data-audio="purge-confirm" type="button" hidden>Confirm speech deletion</button>
+              <button data-audio="purge-cancel" type="button" hidden>Cancel</button>
+            </div>
+          </article>
+        </div>
       </section>
       <section class="authoring-card handoff-card" data-authoring="handoff" hidden></section>
       <section class="authoring-card library-card">
-        <div class="library-heading"><div><p class="eyebrow">Published locally</p><h2>Lesson library</h2></div><button data-authoring="refresh" type="button">Refresh</button></div>
-        <div class="lesson-library" data-authoring="library"><p>Loading local lessons…</p></div>
+        <div class="library-heading"><div><p class="eyebrow">Thư viện local</p><h2>Bài học đã lưu</h2></div><button data-authoring="refresh" type="button">Làm mới</button></div>
+        <div class="lesson-library" data-authoring="library"><p>Đang tải bài học local…</p></div>
       </section>
     </main>
   `;
@@ -212,9 +245,18 @@ export function showAuthoringHome(
       setBusy("Đang tạo deterministic request…");
       void authoringClient
         .create(targets)
-        .then((compilation) => {
-          status.textContent = "Request đã được tạo và lưu local.";
-          renderCompilation(compilation);
+        .then(async (compilation) => {
+          if (options.developmentMode === true) {
+            status.textContent = "Request đã được tạo và lưu local.";
+            renderCompilation(compilation);
+            return;
+          }
+          handoff.hidden = true;
+          renderLibrary(await authoringClient.listLessons());
+          status.textContent =
+            compilation.status === "PUBLISHED"
+              ? "Đã tìm thấy bài học local phù hợp. Hãy chọn chế độ chơi trong thư viện bên dưới."
+              : "Mục tiêu này chưa có bài local được duyệt. Hãy mở Công cụ phát triển nếu bạn muốn biên soạn nội dung mới.";
         })
         .catch(showError);
     });
@@ -238,11 +280,13 @@ export function showAuthoringHome(
           compilations.find(
             (compilation) => compilation.status !== "PUBLISHED",
           ) ?? compilations[0];
-        if (current !== undefined) renderCompilation(current);
-        status.textContent = "Local server ready.";
+        if (current !== undefined && options.developmentMode === true) {
+          renderCompilation(current);
+        }
+        status.textContent = "Bunbun local đã sẵn sàng.";
       } catch (error) {
         library.innerHTML =
-          "<p>Server local chưa sẵn sàng. Authored demo vẫn có thể chơi.</p>";
+          "<p>Server local chưa sẵn sàng. Hãy chạy lại Bunbun rồi làm mới trang.</p>";
         showError(error);
       }
     }
@@ -470,7 +514,7 @@ export function showAuthoringHome(
       library.replaceChildren();
       if (lessons.length === 0) {
         const empty = document.createElement("p");
-        empty.textContent = "Chưa có compiled lesson nào được publish.";
+        empty.textContent = "Chưa có bài học local nào được duyệt.";
         library.append(empty);
         return;
       }
@@ -497,12 +541,12 @@ export function showAuthoringHome(
       container: HTMLElement,
       lesson: { lessonId: string; revision: number },
     ): void {
-      const options = publishedLaunchOptions(
+      const launchOptions = publishedLaunchOptions(
         lesson.lessonId,
         speechManifest.lessonId,
         productionSpeechReady,
       );
-      for (const option of options) {
+      for (const option of launchOptions) {
         const play = button(option.label);
         if (option.recommended) play.classList.add("primary-button");
         play.disabled = option.disabled;
@@ -518,7 +562,9 @@ export function showAuthoringHome(
       ) {
         const readiness = document.createElement("small");
         readiness.textContent =
-          "Cần đủ 4 WAV đã duyệt. Hãy dùng M8 Last-train speech gate ở trên rồi Refresh.";
+          options.developmentMode === true
+            ? "Cần đủ 4 WAV đã duyệt. Hãy dùng M8 Last-train speech gate ở trên rồi Refresh."
+            : "Bài học đang chờ đủ âm thanh local đã duyệt. Mở Công cụ phát triển để kiểm tra.";
         container.append(readiness);
       }
     }

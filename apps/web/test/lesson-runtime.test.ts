@@ -70,6 +70,26 @@ test("M8 last-train package passes neighborhood runtime capabilities", () => {
   assert.deepEqual(validateRuntimeCapabilities(lessonPackage), []);
 });
 
+test("M8 last-train ARRANGE accepts the authored wallet request order", () => {
+  const harness = createHarness(loadLastTrainLesson(false).manifest);
+  advanceLastTrainToArrange(harness);
+
+  ["token_wallet", "token_search", "token_request"].forEach((tokenId) =>
+    harness.dispatch({
+      type: "ARRANGE_TOKEN_ADDED",
+      tokenId,
+      ...harness.tick(),
+    }),
+  );
+  harness.dispatch({ type: "ARRANGE_SUBMITTED", ...harness.tick() });
+
+  assert.equal(harness.state.phase, "FEEDBACK");
+  assert.equal(harness.state.feedbackKind, "CORRECT");
+  assert.equal(eventsOfKind(harness, "REACTION").at(-1)?.correct, true);
+  finishFeedback(harness);
+  assert.equal(currentStep(harness.state).stepId, "choose_tanaka_meaning");
+});
+
 test("non-LISTEN authored speech plays without blocking interaction", () => {
   const manifest = loadLastTrainLesson(false).manifest;
   const harness = createHarness({
@@ -825,6 +845,14 @@ function advanceToArrange(harness: Harness): void {
   harness.dispatch({ type: "CONTINUE", ...harness.tick() });
   finishFeedback(harness);
   assert.equal(currentStep(harness.state).stepId, "arrange_request");
+}
+
+function advanceLastTrainToArrange(harness: Harness): void {
+  harness.dispatch({ type: "AUDIO_STARTED", ...harness.tick() });
+  harness.dispatch({ type: "AUDIO_ENDED", ...harness.tick() });
+  harness.dispatch({ type: "CONTINUE", ...harness.tick() });
+  finishFeedback(harness);
+  assert.equal(currentStep(harness.state).stepId, "arrange_wallet_request");
 }
 
 function completeArrange(harness: Harness): void {

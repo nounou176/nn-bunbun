@@ -1,9 +1,9 @@
 # Deliver an audio-complete last-train vertical slice
 
-Status: Active; Milestones 2 through 4 complete, Milestone 5 manual acceptance pending
+Status: Complete under D-055; Milestones 2–6 handed off, with M5 C2–C6 waived
 Owner: Codex and user
 Created: 2026-08-19
-Last updated: 2026-08-27 Asia/Ho_Chi_Minh
+Last updated: 2026-08-29 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -416,9 +416,14 @@ reproducible acceptance checklist.
       zero-attempt review selection, explicit immutable publication linkage,
       mode-aware review/library UI, speech readiness, and guided/immersive
       published launch. Supported checks pass; manual A/B/C remains open.
+- [x] 2026-08-29 — Accept Milestone 5 manual A and B plus C1. The user then
+      explicitly waives C2–C6 with `không cần test, làm tiếp`; D-055 records
+      the omitted checks as `WAIVED_BY_USER`, not PASS.
 - [x] Implement milestones 3 and 4 in dependency order.
-- [ ] Accept Milestone 5 manually, then prepare, approve, and implement
-      Milestone 6 in dependency order.
+- [x] Close Milestone 5 and complete Milestone 6's durable verification
+      handoff under D-055. Existing supported checks, provenance, measurements,
+      manual results, known warnings, and the explicit waiver are recorded; no
+      additional test or implementation is inferred.
 - [x] Hand off the focused speech matrix and record only results the user
       reports. Full M7 regression remains waived under D-036.
 

@@ -2681,6 +2681,154 @@ learner-data transfer, incremental charge, or recurring cost is added. Any
 future GPT-authored Last Train variation requires a separate plan and new
 content/study/speech approval gates.
 
+### D-055 — Close M8 with the remaining compiler-regression checks waived
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user direction
+- Affects: M8 Milestones 5 and 6, manual regression evidence, roadmap handoff
+
+Context:
+
+The approved-profile implementation passes its supported static, unit,
+integration, schema, approval-hash, asset, and production-build checks. The
+user manually accepted scenario A, every scenario B subcase, the mission-card
+repair, and scenario C1's unchanged M7 authoring-handoff route. C2 through C6
+would repeat direct-M8, park/demo, resume/background, renderer/layout, and
+failure-control regression checks after the compiler-linked integration.
+
+Decision:
+
+Accept the user's instruction `không cần test, làm tiếp` as an explicit waiver
+of manual C2 through C6. Record those checks as `WAIVED_BY_USER`, never as
+`PASS`. Close focused M8 Milestone 5 with A, B, and C1 accepted plus the
+remaining regression scope waived. Complete parent Milestone 6 as a durable
+handoff of the existing implementation checks, provenance, measurements,
+manual evidence, known warnings, and explicit waiver; add no further test or
+implementation work solely to satisfy that handoff. Close Milestone 8 and move
+planning to Milestone 9.
+
+Consequences:
+
+The compiler-linked direct-M8 default-mode check, published park/authored-demo
+isolation check, compiler-linked reload/background check, additional forced-
+WebGL2 narrow/wide check, and combined manifest/asset/persistence/failure
+control check remain unverified in this focused matrix. Earlier fixed-lesson,
+world, mixer, persistence, failure, renderer, and build evidence remains valid
+only for its recorded scope and is not relabeled as the skipped C2–C6 proof.
+No service, dependency, provider, model, asset, account, credential,
+environment variable, learner-data transfer, or cost is added. This waiver
+does not satisfy or weaken the later local release-candidate acceptance gate.
+
+### D-056 — Approve the learner-facing M9 product-slice polish boundary
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user approval
+- Affects: M9 product shell, completion recap, reaction cadence, acceptance
+
+Context:
+
+M8 already delivered and approved the first rainy-neighborhood world, fixed
+Last Train lesson, speech, complete audio runtime, compiler-linked package,
+beginner support, Japanese study tools, evidence, and resume. Rebuilding those
+inputs in M9 would reopen hash-bound content, speech, audio, and world gates
+without improving the learner experience. The remaining root page still mixes
+learner actions with speech authoring, transport warnings, destructive cache
+controls, and technical regression routes, while completion exposes no compact
+learning recap or reaction-density observation.
+
+Decision:
+
+Accept `plans/2026-08-29-m9-first-product-slice-polish.md` after the user sent
+`DUYỆT PLAN M9 PRODUCT SLICE`. Reuse the exact accepted M8 package and runtime
+identities unchanged. Make the ordinary root page learner-first and move
+speech-generation, technical regression, transport, diagnostics, and local
+data controls behind an explicit development surface. Preserve compiler
+review, publication, library launch, and recovery routes.
+
+Add a local current-session completion recap from existing privacy-minimized
+evidence. It may report target exposure, correct/incorrect reactions,
+assisted/unaided outcomes, active time, reactions per active minute, and
+median/p95 active-time gaps. It must not claim mastery, percentage grading,
+JLPT readiness, or persist raw TYPE text. Add replay and return-to-library
+actions without a new persistence schema.
+
+Use the plan's representative local thresholds: warm scene ready at most 500
+ms, warm first Japanese stimulus at most 2,000 ms, picking at most 100 ms,
+fewer than 100 draw calls, at least 45 FPS with 60 preferred and p95 at most
+33.3 ms, guided cadence at least 4 reactions/minute, immersive cadence at
+least 5, and median inter-reaction gap at most 15 seconds. These are named-run
+M9 acceptance thresholds, not broad browser/device guarantees.
+
+Consequences:
+
+M9 adds no dependency, service, provider, model, asset, utterance, account,
+credential, environment variable, external learner-data flow, or cost. It
+does not add NPC simulation, a primitive, realtime AI, a timer, or a second
+lesson package. Browser validation remains user-run under D-011; Docker and
+deployment remain deferred under D-015. Any accepted content/audio/world byte
+change requires its own existing approval gate.
+
+### D-057 — Count one meaningful reaction per learner attempt
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user approval
+- Affects: M9 cadence, completion recap, runtime diagnostics
+
+Context:
+
+The user's first M9 completion screenshot reached 9/9 but showed 19 reactions,
+15.0 reactions/minute, and a 0.0-second median gap. One learner attempt can
+assess multiple targets, and the evidence layer intentionally writes one
+REACTION row per target binding. Counting each row as a separate learner
+reaction therefore inflates cadence and creates simultaneous zero-length gaps.
+
+Decision:
+
+Accept `DUYỆT PLAN M9 CADENCE DEDUP`. Preserve every target-level evidence row
+and the EvidencePersistence schema unchanged. For learner-facing counts,
+correct/wrong summaries, and cadence only, group REACTION rows by
+`sessionId + stepId + attempt`. One group is one meaningful learner reaction.
+Timestamp that group once in the current active visit. If inconsistent target
+rows ever disagree on correctness, classify the grouped attempt conservatively
+as incorrect rather than inventing a successful reaction.
+
+Consequences:
+
+The completion recap and diagnostics describe learner attempts while SQLite
+retains target-level evidence for progress analysis. Existing event IDs,
+idempotency, target coverage, step results, checkpoints, content, audio, world,
+and package identities do not change. This adds no migration, dependency,
+service, provider, model, asset, external data flow, or cost. The first
+15.0/minute screenshot remains an invalid observation and must be retested.
+
+### D-058 — Waive the corrected M9 cadence browser retest
+
+- Date: 2026-08-29
+- Status: Accepted by explicit user direction
+- Affects: D-057 manual verification, M9 cadence acceptance evidence
+
+Context:
+
+D-057 is implemented and passes its supported static, unit, schema, and build
+checks. Accepting the corrected numeric cadence would normally require a fresh
+guided and immersive browser run because the first 15.0/minute screenshot used
+the superseded target-row counting semantics.
+
+Decision:
+
+Accept the user's instruction `bỏ qua kiểm tra phần này` as a waiver of the
+fresh guided and immersive D-057 cadence retest. Record the manual result as
+`WAIVED_BY_USER`, not `PASS`. Do not reuse the first screenshot as corrected
+cadence evidence and do not infer that D-056's numeric cadence thresholds were
+met.
+
+Consequences:
+
+The attempt-deduplication implementation and automated evidence remain valid,
+but M9 has no accepted named manual cadence measurement. This waiver adds no
+code, dependency, service, provider, model, asset, external data flow, or cost,
+and does not weaken a later local release-candidate acceptance gate.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

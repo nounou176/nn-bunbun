@@ -243,6 +243,75 @@ test("TYPE guided recovery is explicit and remains hidden before the final scaff
   assert.match(styles, /\.type-recovery\[hidden\]\s*\{\s*display: none;/);
 });
 
+test("ARRANGE distinguishes unselected tokens from the answer and explains disabled submit", async () => {
+  const [shellSource, styles] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/style.css"), "utf8"),
+  ]);
+
+  assert.match(shellSource, /Chưa chọn — bấm để đưa vào câu/);
+  assert.match(shellSource, /Câu trả lời của bạn/);
+  assert.match(shellSource, /data-role="arrange-status" role="status"/);
+  assert.match(shellSource, /Chưa thể Kiểm tra: còn/);
+  assert.match(shellSource, /Đã chọn đủ mảnh/);
+  assert.match(styles, /\.arrange-actions \.primary-button:disabled/);
+});
+
+test("mission controls can collapse to avoid covering narrow gameplay", async () => {
+  const [shellSource, styles] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/style.css"), "utf8"),
+  ]);
+
+  assert.match(shellSource, /data-role="world-controls-toggle"/);
+  assert.match(shellSource, /aria-controls="world-controls-content"/);
+  assert.match(shellSource, /Mở nhiệm vụ/);
+  assert.match(shellSource, /Thu gọn/);
+  assert.match(shellSource, /max-width: 80rem/);
+  assert.match(styles, /\.world-controls\[data-collapsed="true"\]/);
+  assert.match(
+    styles,
+    /\.world-controls\[data-collapsed="true"\] \.world-controls-content/,
+  );
+});
+
+test("M9 keeps the ordinary home learner-first and gates development tools explicitly", async () => {
+  const [homeSource, mainSource, shellSource] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/authoring/home.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/main.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+  ]);
+
+  assert.match(homeSource, /Phiêu lưu bằng tiếng Nhật/);
+  assert.match(homeSource, /Công cụ phát triển/);
+  assert.match(
+    homeSource,
+    /class="authoring-card developer-surface" \$\{developmentHidden\}/,
+  );
+  assert.match(mainSource, /developmentMode: baseConfig\.diagnosticsOpen/);
+  assert.match(
+    shellSource,
+    /data-role="diagnostics"[\s\S]*\$\{developmentHidden\}/,
+  );
+  assert.match(shellSource, /class="world-footer" \$\{developmentHidden\}/);
+});
+
+test("M9 completion recap is truthful and offers replay or library return", async () => {
+  const [mainSource, shellSource, runtimeSource] = await Promise.all([
+    readFile(resolve(packageDirectory, "src/main.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/ui/shell.ts"), "utf8"),
+    readFile(resolve(packageDirectory, "src/lesson/runtime.ts"), "utf8"),
+  ]);
+
+  assert.match(shellSource, /không phải điểm thông thạo/);
+  assert.match(shellSource, /data-role="lesson-recap" hidden/);
+  assert.match(shellSource, /data-role="lesson-library"/);
+  assert.match(shellSource, /snapshot\.phase !== "COMPLETED"/);
+  assert.match(runtimeSource, /calculateReactionCadence/);
+  assert.match(runtimeSource, /clock\.read\(\) - visitStartedAtActiveMs/);
+  assert.match(mainSource, /returnToLibraryButton\.addEventListener/);
+});
+
 test("renderer retry replaces a canvas that may own a failed GPU context", async () => {
   const initialCanvas = { id: "initial" } as unknown as HTMLCanvasElement;
   const replacementCanvas = {

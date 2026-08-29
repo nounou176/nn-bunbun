@@ -40,7 +40,9 @@ async function startApp(app: HTMLDivElement): Promise<void> {
     await startWorldPreview(app, baseConfig);
     return;
   }
-  const selection = await showAuthoringHome(app);
+  const selection = await showAuthoringHome(app, {
+    developmentMode: baseConfig.diagnosticsOpen,
+  });
   const selectedPackage =
     selection.kind === "PUBLISHED"
       ? selection.lessonPackage
@@ -50,9 +52,9 @@ async function startApp(app: HTMLDivElement): Promise<void> {
           ? loadLastTrainLesson(false)
           : undefined;
   const selectedSceneId = selectedPackage?.manifest.scene.sceneId;
-  const shell = createAppShell(
-    app,
-    selectedSceneId === "neighborhood_small"
+  const shell = createAppShell(app, {
+    developmentMode: baseConfig.diagnosticsOpen,
+    ...(selectedSceneId === "neighborhood_small"
       ? {
           worldTitle: "Bunbun Neighborhood",
           worldSceneId: selectedSceneId,
@@ -62,8 +64,8 @@ async function startApp(app: HTMLDivElement): Promise<void> {
           instructionSupport:
             "Complete the authored Japanese actions in the rainy neighborhood.",
         }
-      : undefined,
-  );
+      : {}),
+  });
   const audioMixer = createConfiguredAudioMixer(baseConfig);
   const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);
   const evidenceStore = createHttpEvidenceStore(
@@ -298,6 +300,15 @@ async function startApp(app: HTMLDivElement): Promise<void> {
     { signal: lifecycle.signal },
   );
 
+  shell.returnToLibraryButton.addEventListener(
+    "click",
+    () => {
+      disposeApp();
+      void startApp(app);
+    },
+    { signal: lifecycle.signal },
+  );
+
   shell.localDataButton.addEventListener(
     "click",
     () => {
@@ -447,6 +458,7 @@ async function startWorldPreview(
     instructionSupport:
       "Closed M8 world preview · click the pedestrian area to move and click actors or clue objects to inspect IDs.",
     previewMode: true,
+    developmentMode: true,
   });
   const audioMixer = createConfiguredAudioMixer(config);
   const unbindAudioMixer = bindAudioMixerControls(shell, audioMixer);

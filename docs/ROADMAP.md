@@ -463,7 +463,7 @@ Exit criteria:
 
 ## Milestone 8 — Japanese voice and complete audio runtime
 
-Status: In progress
+Status: Complete under D-055; focused M5 C2–C6 waived by the user
 
 Purpose:
 
@@ -590,8 +590,18 @@ Acceptance status:
   zero-attempt local review candidate, explicit publication linkage,
   mode-aware authoring UI, speech-readiness gate, and guided/immersive
   published launch are implemented. Supported checks pass: contracts 46/46,
-  server 18/18, web 71/71, all M8 approval/runtime validators, and production
-  build. Milestone 5 remains open only for the focused manual A/B/C matrix.
+  server 18/18, web 75/75, all M8 approval/runtime validators, and production
+  build. Manual A is accepted from the exact published profile, completed 9/9
+  durable session, focused ARRANGE UI PASS, and supplied runtime diagnostics.
+  Manual B1–B4 pass aliases/reuse, invalid inputs, immersive Help evidence, and
+  complete zero-HEARD audio fallback. A mission-card overlap discovered during
+  B4 is repaired with a compact collapse/reopen control; the user passes its
+  focused collapsed/expanded UI retest. Manual A and B are accepted. Milestone
+  5 manual C1 passes the unchanged M7 `AUTHORING_HANDOFF` route. The user then
+  directs `không cần test, làm tiếp`; D-055 records C2–C6 as
+  `WAIVED_BY_USER`, closes focused Milestone 5, and completes Milestone 6's
+  durable handoff without relabeling omitted checks as PASS. M8 is complete;
+  M9 planning is next.
 
 Implemented speech-foundation scope:
 
@@ -614,10 +624,8 @@ Implemented complete-audio foundation:
 - background/resume/restart/disposal behavior that restores loops without
   replaying stale transients.
 
-Remaining complete-audio scope:
+Deferred follow-up outside the completed M8 scope:
 
-- Milestone 5 compiler integration/polish and contextual mix acceptance in the
-  resulting production-linked slice; and
 - numeric audio/performance measurements if they become release criteria.
 
 Exit criteria:
@@ -633,7 +641,7 @@ Exit criteria:
 
 ## Milestone 9 — First product vertical slice
 
-Status: Planned
+Status: In progress under D-056
 
 Purpose:
 
@@ -648,14 +656,26 @@ Decision resolved:
 Minutes to the Last Train` scenario, its requested and supporting target set,
   Aoi, Tanaka, Momo, narrative-only time pressure, and audio-complete acceptance
   boundary.
+- D-043, D-045, D-047, D-049, D-053, and D-054 already deliver and approve
+  the exact audio, world, content, speech, fixed lesson, and compiler-linked
+  package that the original M9 scope expected.
 
-Decisions required:
+Decisions resolved by D-056:
 
-- exact production asset choices and intake records;
-- exact dialogue and reference review; and
-- explicit qualitative and quantitative acceptance thresholds.
+- learner-first versus development-tool presentation boundary;
+- truthful completion-recap and local reaction-cadence semantics; and
+- explicit qualitative and quantitative product-acceptance thresholds.
 
-Planned scope:
+The active focused plan is
+`plans/2026-08-29-m9-first-product-slice-polish.md`. It recommends reusing the
+accepted M8 package unchanged, separating learner and development surfaces,
+adding a non-mastery completion recap and local cadence observations, and
+performing only measured product polish. It adds no provider, dependency,
+asset, utterance, service, account, key, external data flow, or cost. The user approved the plan with
+`DUYỆT PLAN M9 PRODUCT SLICE`; D-056 authorizes implementation within that
+boundary.
+
+Already delivered in M8 and reused unchanged by M9:
 
 - source/license/hash and conversion provenance for every selected asset;
 - one reusable stylized Japanese-neighborhood chunk with road,
@@ -663,13 +683,22 @@ Planned scope:
 - the D-026 rainy-evening last-train scenario;
 - requested `財布`, `探す`, and `～てください` targets plus reviewed supporting
   N5 content across repeated contexts;
-- multiple reaction difficulty levels;
 - all required character speech, ambience, meaningful effects, and restrained
   music or stings;
-- evidence and resume;
-- interaction-density measurement;
-- visual and input polish;
-- manual browser/device validation; and
+- guided/immersive support presentations; and
+- evidence and resume.
+
+Implemented M9 scope:
+
+- learner-first product shell with development tooling separated explicitly;
+- truthful completion recap without a mastery score;
+- interaction-density measurement with D-057 learner-attempt deduplication;
+- replay and return-to-library completion actions; and
+- bounded responsive and action-hierarchy polish.
+
+Remaining acceptance scope:
+
+- manual browser/device validation outside the D-058-waived cadence retest;
 - documented learner observations.
 
 Exit criteria:

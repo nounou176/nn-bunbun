@@ -8,6 +8,7 @@ import {
 } from "../src/lesson/controller.js";
 import { loadLastTrainLesson } from "../src/lesson/content.js";
 import {
+  arrangeRecoveryHint,
   authoredTextualHints,
   operationalGuidance,
 } from "../src/lesson/guidance.js";
@@ -81,6 +82,19 @@ test("manual help exposes only existing authored textual hints", () => {
       text: "財布（さいふ）を探（さが）してください。",
     },
   ]);
+});
+
+test("ARRANGE reveals the exact authored order after the first wrong attempt", () => {
+  const step = loadLastTrainLesson(false).manifest.steps.find(
+    (candidate) => candidate.stepId === "arrange_wallet_request",
+  );
+  assert.ok(step);
+
+  assert.equal(arrangeRecoveryHint(step, 0), undefined);
+  assert.equal(
+    arrangeRecoveryHint(step, 1),
+    "答えの順番 / Thứ tự đúng: 財布を → 探して → ください。",
+  );
 });
 
 test("guided mode opts into help without activating attempt-gated scaffolds", () => {

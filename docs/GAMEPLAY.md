@@ -434,6 +434,25 @@ The runtime should also capture:
 - help and replay use; and
 - long gaps tagged by loading, movement, presentation, or learner idle time.
 
+Under D-056, M9 displays reactions per active minute and median/p95
+inter-reaction gaps for the currently open play visit. The visibility-aware
+clock excludes time while the document is backgrounded. Because historical
+events do not persist a global active-time timestamp, a resumed visit must not
+invent historical gaps or relabel them as current measurements. Completion may
+also show encountered target count and current-visit assisted/unaided outcomes,
+with an explicit statement that these facts are not a mastery score.
+
+Under D-057, one meaningful reaction is one learner attempt identified by
+`sessionId + stepId + attempt`. A step may intentionally emit several
+target-level REACTION evidence rows for the same attempt; those rows remain
+stored, but learner-facing reaction counts, correct/wrong summaries, and
+cadence group them as one reaction. If grouped rows disagree on correctness,
+the attempt is classified as incorrect.
+
+The completion state has two ordinary exits: replay the accepted lesson from
+the beginning or return to the learner library. Neither action changes answer
+truth, duplicates evidence, or creates a new interaction primitive.
+
 Metric implementation and privacy rules require a later accepted decision.
 
 ## Example sequence

@@ -112,6 +112,22 @@ Implemented Milestone 7 responsibilities:
 - enter the unchanged deterministic evidence, resume, and Three.js runtime only
   after package validation succeeds.
 
+D-056 separates this browser presentation into two surfaces without adding a
+router or another runtime. The ordinary root renders learner target entry and
+published launch actions. `debug=1` explicitly reveals compiler/speech review,
+technical regression controls, runtime diagnostics, and local-data controls.
+Both surfaces reuse the same local clients, immutable publications, and runtime;
+the distinction is presentation ownership rather than a security boundary.
+
+The completion panel derives a current-visit recap from the in-memory event
+sink, controller state, and visibility-aware active clock. A pure cadence
+function receives active-time reaction timestamps and returns reactions per
+minute plus median/p95 gaps. These presentation metrics do not change the
+EvidencePersistence schema, persist TYPE text, or create a mastery model.
+Under D-057, the presentation layer groups target-level REACTION rows by
+`sessionId + stepId + attempt` and timestamps each group once. The raw event
+sink and persistence adapter continue to retain every target-level row.
+
 Implemented Milestone 8 speech-foundation responsibilities:
 
 - validate and preload reviewed Aoi/Tanaka WAVs through a cache-key-only,

@@ -4,7 +4,19 @@ Last updated: 2026-08-29
 
 ## Current milestone
 
-Milestone 8 — Japanese voice and complete audio runtime is in progress.
+Milestone 8 — Japanese voice and complete audio runtime is complete under
+D-055. Milestone 9 — First product vertical slice is implemented under D-056
+and awaits the user's focused learner-browser acceptance.
+
+Active focused M9 ExecPlan:
+
+- plans/2026-08-29-m9-first-product-slice-polish.md — Approved under D-056;
+  reuse the
+  accepted M8 world/lesson/audio/compiler and add only a learner-first product
+  shell, truthful completion recap, local reaction-cadence measurement, and
+  bounded product polish. Implementation and supported non-browser checks are
+  complete; manual guided/immersive acceptance is pending.
+
 Milestone 7's
 provider-independent implementation is closed under D-036: authoring 0.2.0,
 the Skills-only plugin, project-authored Bunbun Core reference, deterministic
@@ -27,17 +39,17 @@ Most recently completed ExecPlan:
   implementation delivered, requalification and testing/manual acceptance
   waived under D-035/D-036
 
-Active parent ExecPlan:
+Most recently completed M8 parent ExecPlan:
 
-- plans/2026-08-19-audio-complete-last-train-showcase.md — Active; parent
-  Milestones 2 through 4 complete; Milestone 5 implementation checks pass and
-  its manual acceptance is pending
+- plans/2026-08-19-audio-complete-last-train-showcase.md — Complete under
+  D-055; Milestones 2–6 are handed off, with focused M5 C2–C6 explicitly
+  waived rather than passed
 
-Active focused M8 compiler-integration plan:
+Completed focused M8 compiler-integration plan:
 
-- plans/2026-08-29-m8-approved-profile-compiler-integration.md — Approved
-  under D-054 and implemented through the automated/build gates; manual
-  browser A/B/C acceptance remains open
+- plans/2026-08-29-m8-approved-profile-compiler-integration.md — Complete
+  under D-054/D-055; manual A/B/C1 accepted and C2–C6
+  `WAIVED_BY_USER`
 
 Completed focused M8 lesson plans:
 
@@ -383,12 +395,64 @@ Completed ExecPlans:
 
 ## Current work
 
+- D-056's M9 product shell is implemented. The ordinary root now presents
+  learner target entry, the approved Last Train situation, and published
+  library actions; `debug=1` explicitly restores compiler/speech regression
+  tools. Gameplay diagnostics, local-data controls, renderer identity, and
+  technical footer are development-only. Completion now shows a current-visit,
+  non-mastery recap with target coverage, reaction/result facts, active time,
+  reactions per minute, and median/p95 active-time gaps, plus replay and return
+  to library. Historical gaps are not invented on resume. No accepted M8
+  content, audio, world, package, persistence schema, dependency, service, or
+  asset changed. D-057 repairs the first completion run's inflated cadence by
+  counting one meaningful reaction per `sessionId + stepId + attempt`, while
+  retaining every target-level evidence row. Web typecheck, lint, and all 86
+  web tests pass; the updated production build passes. The corrected manual
+  cadence retest remains pending.
+
 - M8 Milestone 5 implementation passes supported static, unit, integration,
   approval-hash, asset, and production-build gates. Contracts pass 46/46,
-  server passes 18/18, and web passes 71/71. Content, speech, study, audio, and
+  server passes 18/18, and web passes 75/75. Content, speech, study, audio, and
   world identities remain unchanged. The focused manual A/B/C browser matrix
   is the remaining acceptance gate; no PASS is inferred before the user runs
-  it.
+  it. During manual A, the user's first ARRANGE report was traced through the
+  local evidence database: the wrong first order was rejected and the exact
+  second order was accepted, leaving the checkpoint at `type_wallet_request`.
+  The confusing abstract post-error hint is repaired to expose the exact
+  authored token order after one wrong attempt without changing grading.
+  A follow-up screenshot showed that source-bank tokens looked like a completed
+  answer while the actual answer region was empty; Submit was therefore
+  disabled without an explanation. The ARRANGE UI now labels unselected versus
+  answer regions explicitly, shows an empty-answer prompt and live remaining
+  token count, and keeps the disabled Submit label readable. The user reports
+  `M8 M5 A ARRANGE UI: PASS`; the attached browser screenshot reaches
+  `COMPLETE` at 9/9 and preserves visible text recovery for speech interrupted
+  in the background. The user then supplied the complete runtime diagnostics;
+  durable inspection confirms the exact approved-profile compilation is
+  `PUBLISHED` and session `bc5aac25-cd6d-4f14-83b3-fe906f891340` is
+  `COMPLETED`, saved at checkpoint 51. M5 manual A is accepted.
+  The user subsequently reports `M8 M5 B1: PASS`: reordered kana aliases reuse
+  the same published compilation and single library entry. Database counts
+  remain exactly one profile compilation, one Last Train revision, and one
+  published link. The user also reports `M8 M5 B2: PASS` for partial,
+  duplicate, unknown, and mixed inputs; no rejected request created a database
+  row. The user reports `M8 M5 B3 IMMERSIVE: PASS`; one session records unaided
+  LISTEN followed by a correct Help-assisted ARRANGE result, saved at
+  checkpoint 7 with `Assisted results = 1`. The user then reports
+  `M8 M5 B4 AUDIO FALLBACK: PASS`; durable session
+  `03136f52-410f-49e6-9a78-fa904af052b9` completes 9/9 with zero HEARD events,
+  nine assisted step results, checkpoint 31, and 49 stored events. During that
+  run, the objective/world-tools card visibly overlapped the lesson on a
+  portrait-like viewport. It now starts collapsed on narrow/low viewports and
+  exposes an accessible `Thu gọn / Mở nhiệm vụ` toggle. The user reports
+  `M8 M5 B MISSION TOGGLE: PASS` and supplies screenshots of both collapsed
+  and expanded states. M5 manual B is accepted. Manual C1 also passes: the
+  supplied `犬 + ～てください + 猫` request remains
+  `AUTHORING_HANDOFF · PARK_AUTHORING_V1 · AWAITING_AUTHORING` with Download
+  request and Import result controls. The user then directs
+  `không cần test, làm tiếp`; D-055 records C2–C6 as `WAIVED_BY_USER`, closes
+  M8 Milestones 5 and 6, and advances planning to M9 without weakening the
+  later local release-candidate gate.
 - D-052 TYPE guided correction and the neighborhood visibility revision are
   implemented. The second wrong M8 TYPE answer now exposes the exact reading
   and a bilingual `Điền câu mẫu` action without advancing. The learner still
@@ -768,34 +832,41 @@ documentation and implementation changes are uncommitted.
    arbitrary Japanese coverage remains unsupported.
 10. The login shell resolves system Node.js 18.19.1 until NVM is sourced;
     contributors must run nvm use to activate Node.js 24.18.0.
-11. Deployment topology remains intentionally deferred until local
+11. M8 Milestone 5 manual A is accepted. Its reported ARRANGE block
+    was instructional rather than a rejected correct answer: durable evidence
+    records correct attempt 2 and progression to TYPE. The repaired ARRANGE
+    UI now has both automated coverage and the user's explicit
+    `M8 M5 A ARRANGE UI: PASS`, with a `COMPLETE` 9/9 screenshot. The supplied
+    diagnostics and local durable profile/session records close A; the B/C
+    matrix stays open.
+12. Deployment topology remains intentionally deferred until local
     release-candidate acceptance.
-12. The current WebGPU-capable web build is 1,425.15 kB minified and triggers
+13. The current WebGPU-capable web build is 1,425.15 kB minified and triggers
     Vite's default uncompressed chunk warning; measured gzip size is 392.12 kB.
     Reported browser measurements must guide any future splitting.
-13. Browser SpeechSynthesis voice quality and availability vary by installed
+14. Browser SpeechSynthesis voice quality and availability vary by installed
     desktop voice. D-040 confines it to legacy `voice_guide_01` technical
     fixtures; Aoi and Tanaka never fall back to it.
-14. Milestone 6 has only qualitative overall manual approval. There are no
+15. Milestone 6 has only qualitative overall manual approval. There are no
     scenario-level observations, measured save/reload latency, named device or
     browser details, or numeric renderer metrics; the approval must not be
     represented as evidence for those finer-grained claims.
-15. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
+16. RECOGNITION_FALLBACK is valid in contract 0.1.0 but has no accepted web
     runtime rejoin semantics. D-020 keeps it capability-rejected in
     Milestone 5 rather than guessing behavior.
-16. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
+17. PICK_UP uses a technical dog follow/escort presentation and one carry slot;
     it is not production animal handling, an inventory, or a physics system.
-17. Milestone 5 browser behavior is manually accepted, but the user supplied no
+18. Milestone 5 browser behavior is manually accepted, but the user supplied no
     numeric diagnostics, named-device details, or per-scenario evidence. The
     result does not establish broader browser, mobile, or touch support.
-18. Six Custom GPT configurations and their local Knowledge assets are
+19. Six Custom GPT configurations and their local Knowledge assets are
     captured, their Milestone 7 mapping is accepted, and Prompt Adaptation Pack
     0.1.0 is approved. The three selected modules are compile-time inputs via
     manual file handoff and remain absent from gameplay. GPT-editor model,
     capability/action, and version-history metadata was not supplied and is not
     inherited; config hashes identify the reviewed local source snapshots.
     Supplied images and the APKG remain style/output examples only.
-19. M7 v3 cannot assume that the original GPTs satisfy the approved typed
+20. M7 v3 cannot assume that the original GPTs satisfy the approved typed
     adaptations. Story Sheet normally generates worksheets/images, while
     Reverse Trainer and Story Coach are long interactive flows. Run 001 proves
     strong structural compliance but fails strict world-fact discipline; Run
@@ -803,17 +874,17 @@ documentation and implementation changes are uncommitted.
     viability an implementation dependency by selecting the repository-owned
     prompt adaptations inside one Skill, but the truncated v3.1 evidence remains
     a quality risk and must not be upgraded to a full pass.
-20. D-032 closes the transport-proof output-budget gap by putting explicit
+21. D-032 closes the transport-proof output-budget gap by putting explicit
     title, objective, premise, setting-context, and synopsis limits in the
     request packet. These authored fixture values are proof inputs, not yet
     accepted production-profile defaults.
-21. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
+22. D-032 resolves the v3.1 world-fact ambiguity conservatively with stable
     claim IDs, per-beat claim allowlists, and returned claim bindings. This
     makes unknown or out-of-beat claims deterministically rejectable, but code
     still cannot prove that every nuance of free-form natural-language copy is
     semantically entailed. Application publication therefore remains gated by
     later catalog/runtime validation and review.
-22. Product-surface availability, install behavior, and strict composed output
+23. Product-surface availability, install behavior, and strict composed output
     validation now pass for `bunbun-authoring@0.1.0`. Installation exposed two
     local setup constraints now recorded in the runbook: a repository
     marketplace manifest belongs at `.agents/plugins/marketplace.json`, and the
@@ -823,30 +894,47 @@ documentation and implementation changes are uncommitted.
     plugin output. Plan-limit behavior remains unverified. The Codex IDE
     extension does not support plugins; a supported app/CLI or ChatGPT surface
     is required.
-23. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
+24. Authoring 0.2.0 now represents all fifteen D-024 fixtures and carries
     compiler-owned practice text, exact accepted Japanese answer truth,
     read-only runtime-plan context, and bounded repair diagnostics. The
     installed plugin is 0.2.0, but D-035 waives rather than passes external
     requalification. No transport result may be inferred from source validation
     or the waiver.
-24. D-036 closes M7 implementation without focused compiler/repository/API/web
+25. D-036 closes M7 implementation without focused compiler/repository/API/web
     tests or manual end-to-end gameplay. Static checks and build pass, but
     create/import/repair/restart/publish/play behavior, idempotency, reset, and
     authored-demo regressions remain `UNVERIFIED_USER_WAIVED`. A fresh job after
     terminal failure receives a retry-suffixed identity so prior attempt audit
     rows remain intact.
+26. M9 current-visit cadence is intentionally session-local in the browser.
+    EvidencePersistence stores step-relative active latency but no global
+    active-time event timestamp, so a resumed visit cannot reconstruct prior
+    inter-reaction gaps. The recap states that it is not a mastery score; manual
+    guided and immersive threshold observations are still pending.
+27. The unchanged server audio test file executes all six assertions, then the
+    Node.js 24.18.0 process aborts during native callback teardown with
+    `InternalCallbackScope::Close` / `execution_async_id`. The crash reproduces
+    when that file runs alone. The separate compiler and persistence suites
+    pass 11/11 when local loopback binding is permitted. This blocks a truthful
+    full-root `npm test` PASS but does not implicate an M9-changed server file.
+28. The first M9 completion screenshot proves the recap renders at 9/9, but its
+    15.0 reactions/minute and 0.0-second median are not accepted. D-057 repairs
+    the source semantics by grouping target-level REACTION rows per learner
+    attempt and timestamping the group once. Under D-058, the user waives the
+    fresh guided and immersive cadence retest; its result is `WAIVED_BY_USER`,
+    not PASS, and M9 retains no accepted named cadence measurement.
 
 ## Next recommended work
 
-Continue Milestone 8 without expanding M7's provider scope:
+Complete the focused M9 learner-browser acceptance without expanding M7's
+provider scope:
 
-1. Treat parent showcase Milestone 2, the complete technical audio boundary,
-   as complete under D-043.
-2. Run the focused M8 Milestone 5 manual A/B/C matrix: exact preset → review →
-   publish → guided completion; aliases/errors/idempotency/immersive/audio
-   fallback; and M7/direct-M8/persistence/renderer regressions. Record only
-   results the user explicitly reports.
-3. Keep M9 linkage behind Milestone 5 integration and Milestone 6 handoff.
+1. Run the remaining non-cadence M9 learner-browser checks only if the user
+   chooses to retain them; D-058 waives the corrected cadence retest.
+2. Confirm `debug=1` retains development tools if that remaining regression is
+   kept in scope.
+3. Carry M8 C2–C6 as `WAIVED_BY_USER`; do not infer their results or weaken the
+   later local release-candidate acceptance gate.
 4. Preserve M7's `UNVERIFIED_USER_WAIVED` label until explicit later evidence
    is supplied; keep v1 inactive, v2 research-only, and v3.3 MCP conditional.
 
@@ -859,6 +947,20 @@ work remains gated by rainy-neighborhood approval, final speech review, and
 measurable vertical-slice acceptance choices.
 
 ## Verification status
+
+- M9 D-056/D-057 implementation: full typecheck passes, lint passes, formatting
+  passes, all 57 schema artifacts pass, 86/86 web tests pass, and the full
+  contracts/server/web production build passes. The production output is
+  1,435.45 kB JavaScript (395.18 kB gzip) and 21.57 kB CSS (5.13 kB gzip), with
+  the existing Vite large-chunk warning. Playwright remains excluded under
+  D-011 and Docker is not applicable under D-015. The first cadence screenshot
+  is invalid; corrected manual guided and immersive cadence results are
+  `WAIVED_BY_USER` under D-058 and are not PASS.
+- Full-root `npm test` is not PASS: contracts pass 46/46, web passes 86/86,
+  and separately rerun server compiler/persistence tests pass 11/11, but the
+  unchanged server audio test process aborts after its six passing assertions
+  due to the reproducible Node.js 24.18.0 native teardown assertion recorded in
+  Known issue 27.
 
 - D-052 TYPE guided correction and visibility: contracts 46/46, server 10/10,
   web 68/68, deterministic world tests, typecheck, lint, formatting, 57 schema

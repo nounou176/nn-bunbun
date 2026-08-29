@@ -474,6 +474,115 @@ credits, and full-reload reset of session-local controls. Together, A/B/C close
 the planned D-043 browser/audio matrix. No numeric latency, frame, memory,
 device, loudness, or source-growth baseline is inferred.
 
+## Milestone 8 approved-profile happy-path observation
+
+The user's 2026-08-29 M8 Milestone 5 A completion run reports the following
+runtime diagnostics for session prefix `bc5aac25-cd6`:
+
+| Diagnostic            |                         Reported value |
+| --------------------- | -------------------------------------: |
+| Renderer              |                                 WebGL2 |
+| FPS                   |                                     58 |
+| Frame average / p95   |                         17.2 / 25.0 ms |
+| Draw calls            |                                     57 |
+| Triangles             |                                  4,661 |
+| Render size / DPR     |                     2424 × 1245 / 1.50 |
+| Scene ready           |                                 232 ms |
+| Pick response         |                                10.8 ms |
+| First stimulus        |                               1,875 ms |
+| Audio context         |                                running |
+| Audio sources / loops |                                  3 / 3 |
+| Audio decoded         |                                     12 |
+| Audio duck / mute     |                         full / audible |
+| Lesson active         |                             244,698 ms |
+| Events / reactions    |                                54 / 20 |
+| Correct / wrong       |                                 11 / 9 |
+| Heard / step results  |                                  5 / 9 |
+| Assisted results      |                                      9 |
+| Persistence           | saved, checkpoint 51, 54 stored events |
+
+The UI reports `listen_aoi_resolution (9/9)` in `COMPLETED`, with no pending
+world target, location, or carried object. The local database independently
+records the full session ID as `bc5aac25-cd6d-4f14-83b3-fe906f891340`, status
+`COMPLETED`, exact `lesson_m8_last_train` revision 1, and checkpoint 51. It also
+records the exact approved-profile compilation as `PUBLISHED` under
+`m8_last_train_approved_v1` for wallet, search, and te-kudasai.
+
+This is one high-DPI WebGL2 observation, not a broad device baseline. The 57
+draw calls remain below the manifest's preferred maximum of 100 and the 10.8
+ms pick response is the first numeric M8 neighborhood picking measurement.
+Browser version, GPU/device identity, cold versus warm cache state, memory,
+and a separate visible or audio-delay report were not supplied. Nine assisted
+step results are consistent with the selected guided mode and are learning
+evidence rather than a performance failure.
+
+The user's M5 B3 immersive checkpoint on the same high-DPI render size reports
+WebGL2 at 52 FPS, 19.3/25.0 ms average/p95, 58 draw calls, 4,725 triangles,
+312 ms scene ready, and 328 ms first stimulus. Audio remains running with 3/3
+sources/loops and 8 decoded assets. At `choose_tanaka_meaning`, persistence is
+saved at checkpoint 7 with 16 stored events. The local event rows distinguish
+an unaided successful LISTEN result from the later correct Help-assisted
+ARRANGE reactions and assisted step result. No pick was performed at this
+checkpoint, so pick response is correctly unavailable.
+
+The user's M5 B4 simulated-audio-failure completion reports WebGL2 at 49 FPS,
+20.5/33.3 ms average/p95, 57 draw calls, 4,661 triangles, 240 ms scene ready,
+4.8 ms pick response, and 3,475 ms first stimulus at 2424 × 1245 and DPR 1.50.
+The deliberately locked/suspended audio path has 0/0 sources/loops and two
+decoded non-voice assets. The lesson still reaches `COMPLETED` 9/9 with 49
+events, 20 reactions, zero HEARD events, nine assisted step results, and saved
+checkpoint 31. The local database confirms the exact session as
+`03136f52-410f-49e6-9a78-fa904af052b9`. The 33.3 ms p95 is an observed
+audio-failure-run tail, not a new accepted cross-device frame threshold.
+
+## Milestone 9 product-slice measurement gate
+
+D-056 reuses the accepted M8 package and establishes these representative
+local thresholds for a named manual run: warm scene ready at most 500 ms, warm
+first Japanese stimulus at most 2,000 ms, picking at most 100 ms, fewer than
+100 draw calls, at least 45 FPS with 60 preferred and p95 at most 33.3 ms,
+guided cadence at least 4 reactions per active minute, immersive cadence at
+least 5, and median inter-reaction gap at most 15 seconds. These thresholds do
+not create a broad browser or device claim.
+
+The runtime now captures qualifying reaction timestamps against the
+visibility-aware active clock for the currently open visit. A pure calculation
+reports reactions per active minute and median/p95 gaps in development
+diagnostics and the non-mastery completion recap. A resumed visit does not
+invent historical active-time gaps from persisted wall-clock timestamps.
+
+The 2026-08-29 production build after the product-shell implementation reports
+1,435.12 kB JavaScript (395.07 kB gzip) and 21.57 kB CSS (5.13 kB gzip). The
+existing default Vite large-chunk warning remains visible. Typecheck, lint, 82
+web tests, and the full production build pass; manual guided and immersive
+cadence observations remain pending and are not inferred from the M8 runs
+above.
+
+The user's first M9 completion screenshot reaches 9/9 and renders the recap
+with 6/6 targets, 19 REACTION evidence rows, 0/9 unaided/assisted step results,
+1:16 active time, 15.0 reactions/minute, and 0.0/13.5-second median/p95 gaps.
+This is not an accepted cadence measurement. Source semantics explain the zero
+median: one learner attempt may create one REACTION evidence row for each
+assessed target, and the current calculation timestamps each row separately.
+M9 must deduplicate those rows into one meaningful learner reaction per attempt
+before comparing cadence with D-056 thresholds.
+
+D-057 implements that repair by grouping current-visit REACTION rows by
+`sessionId + stepId + attempt` while preserving all target-level evidence.
+Focused tests cover duplicate targets, distinct retries, conflicting outcomes,
+and cadence boundaries. The first screenshot remains invalid measurement
+evidence; a fresh guided and immersive browser run is required to accept the
+corrected cadence.
+
+The user subsequently waived that fresh browser run under D-058. Its status is
+`WAIVED_BY_USER`, not PASS. Therefore M9 has no accepted corrected guided or
+immersive cadence value, and the original 15.0/minute observation remains
+invalid rather than becoming a baseline.
+
+The production build after D-057 reports 1,435.45 kB JavaScript (395.18 kB
+gzip) and 21.57 kB CSS (5.13 kB gzip). The existing Vite large-chunk warning
+remains unchanged in character.
+
 ## Manual performance protocol
 
 The user performs browser and gameplay validation manually. Do not create an

@@ -11,6 +11,11 @@ import type { AppShell } from "../ui/shell.js";
 import { ActiveClock } from "./active-clock.js";
 import { createLessonAudioPort } from "./audio.js";
 import {
+  calculateReactionCadence,
+  meaningfulReactionKey,
+  summarizeMeaningfulReactions,
+} from "./cadence.js";
+import {
   checkpointFromState,
   currentStep,
   isTypeGuidedCorrection,
@@ -98,6 +103,9 @@ export async function createLessonRuntime(
     undefined,
     persistence.resumedSession?.checkpoint.activeTimeMs ?? 0,
   );
+  const visitStartedAtActiveMs = clock.read();
+  const reactionActiveTimesMs: number[] = [];
+  const measuredReactionAttemptKeys = new Set<string>();
   const eventSink = new InMemoryEventSink();
   let state: LessonState;
   let checkpointSequence = persistence.resumedSession?.checkpoint.sequence ?? 0;
@@ -222,29 +230,59 @@ export async function createLessonRuntime(
 
   const updateDiagnostics = () => {
     const events = eventSink.values();
-    const reactions = events.filter((event) => event.kind === "REACTION");
+    const reactionEvents = events.filter((event) => event.kind === "REACTION");
+    const reactionSummary = summarizeMeaningfulReactions(reactionEvents);
     const stepResults = events.filter(
       (event) => event.kind === "STEP_COMPLETED",
     );
     const lastReaction = [...events]
       .reverse()
       .find((event) => event.kind === "REACTION");
+    const visitActiveTimeMs = Math.max(
+      0,
+      clock.read() - visitStartedAtActiveMs,
+    );
+    const cadence = calculateReactionCadence(
+      visitActiveTimeMs,
+      reactionActiveTimesMs,
+    );
+    const targetIds = new Set(
+      state.manifest.steps.flatMap((step) =>
+        step.targetBindings.map((binding) => binding.targetId),
+      ),
+    );
+    const encounteredStepIds = new Set([
+      ...state.completedStepIds,
+      state.currentStepId,
+    ]);
+    const encounteredTargetIds = new Set(
+      state.manifest.steps
+        .filter((step) => encounteredStepIds.has(step.stepId))
+        .flatMap((step) =>
+          step.targetBindings.map((binding) => binding.targetId),
+        ),
+    );
     shell.updateLessonDiagnostics({
       sessionId: state.sessionId,
       stepId: state.currentStepId,
       phase: state.phase,
       eventCount: Math.max(persistedEventCount, events.length),
-      reactionCount: reactions.length,
-      correctReactionCount: reactions.filter((event) => event.correct).length,
-      incorrectReactionCount: reactions.filter((event) => !event.correct)
-        .length,
+      reactionCount: reactionSummary.reactionCount,
+      correctReactionCount: reactionSummary.correctReactionCount,
+      incorrectReactionCount: reactionSummary.incorrectReactionCount,
       heardCount: events.filter((event) => event.kind === "HEARD").length,
       terminalResultCount: stepResults.length,
       assistedResultCount: stepResults.filter((event) => event.assisted).length,
+      unaidedResultCount: stepResults.filter((event) => !event.assisted).length,
+      targetCount: targetIds.size,
+      encounteredTargetCount: encounteredTargetIds.size,
       completedStepCount: state.completedStepIds.length,
       totalStepCount: state.manifest.steps.length,
       activeTimeMs: clock.read(),
       lastReactionMs: lastReaction?.activeLatencyMs,
+      reactionsPerMinute: cadence.reactionsPerMinute,
+      medianReactionGapMs: cadence.medianGapMs,
+      p95ReactionGapMs: cadence.p95GapMs,
       firstStimulusMs,
       worldTargetMode: worldTargetMode(),
       pendingLocationId: state.pendingLocation?.locationId,
@@ -307,6 +345,16 @@ export async function createLessonRuntime(
     effects.forEach((effect) => {
       switch (effect.type) {
         case "RECORD_EVENTS":
+          effect.events.forEach((event) => {
+            if (event.kind === "REACTION") {
+              const attemptKey = meaningfulReactionKey(event);
+              if (measuredReactionAttemptKeys.has(attemptKey)) return;
+              measuredReactionAttemptKeys.add(attemptKey);
+              reactionActiveTimesMs.push(
+                Math.max(0, clock.read() - visitStartedAtActiveMs),
+              );
+            }
+          });
           eventSink.write(effect.events);
           break;
         case "APPLY_CUES":

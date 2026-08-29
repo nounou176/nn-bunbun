@@ -1,9 +1,9 @@
 # Select, publish, and play the approved Last Train profile through the compiler
 
-Status: Implemented under D-054; manual A/B/C acceptance pending
+Status: Complete under D-054/D-055; manual A/B/C1 accepted, C2–C6 waived
 Owner: Codex and user
 Created: 2026-08-29
-Last updated: 2026-08-29 08:04 Asia/Ho_Chi_Minh
+Last updated: 2026-08-29 09:08 Asia/Ho_Chi_Minh
 
 ## Purpose and user-visible outcome
 
@@ -356,8 +356,76 @@ the required manual results.
 - [x] 2026-08-29 — Pass supported automated gates: contracts 46/46, server
       18/18, web 71/71, typecheck, lint, format, schema 57/57, content/speech/
       study/audio/world validators, production build, and diff hygiene.
-- [ ] Receive the user's manual A/B/C results and close Milestone 5 only when
-      every required scenario passes.
+- [x] 2026-08-29 — Diagnose the user's first manual A ARRANGE report against
+      the real local evidence database. Attempt 1 submitted
+      `探して → 財布を → ください。` and was correctly rejected; attempt 2
+      submitted `財布を → 探して → ください。`, completed the step, and moved
+      the durable checkpoint to `type_wallet_request`.
+- [x] 2026-08-29 — Repair the confusing post-error guidance without changing
+      grading or accepted content. After one wrong ARRANGE attempt, the UI now
+      derives and displays the exact authored order. Focused Last Train order,
+      guidance, full web 73/73, typecheck, format, and production build checks
+      pass.
+- [x] 2026-08-29 — Diagnose the follow-up ARRANGE screenshot: all three tokens
+      remained in the source bank and the answer was empty, so Submit was
+      intentionally disabled but gave no visible reason. Relabel the two
+      regions, add an empty-answer prompt and live remaining-token status, and
+      preserve readable disabled-button contrast. Web 74/74, typecheck,
+      format, production build, and diff hygiene pass.
+- [x] 2026-08-29 — User reports `M8 M5 A ARRANGE UI: PASS`. The supplied
+      screenshot reaches `COMPLETE` at 9/9 after the repaired ARRANGE flow and
+      retains the visible background-interruption text recovery. This closes
+      the focused ARRANGE UI retest only; the remaining M5 A/B/C checklist is
+      not inferred from it.
+- [x] 2026-08-29 — Close manual A after the user supplies complete runtime
+      diagnostics and local durable inspection confirms the exact
+      `m8_last_train_approved_v1` compilation is `PUBLISHED` and session
+      `bc5aac25-cd6d-4f14-83b3-fe906f891340` is `COMPLETED` at checkpoint 51.
+      Record the exact frame, picking, audio, evidence, and persistence values
+      in `docs/PERFORMANCE.md` without creating a wider device baseline.
+- [x] 2026-08-29 — User reports `M8 M5 B1: PASS` with screenshots. The alias
+      permutation `さがす / てください / さいふ` resolves to the existing
+      `PUBLISHED` `m8_last_train_approved_v1` compilation
+      `compilation_ab8c5b9ed8663bdf8e1f`; requested/supporting review remains
+      exact and the library shows one Last Train card. Read-only SQLite
+      inspection confirms one M8 profile compilation, one revision, and one
+      published link before and after the request.
+- [x] 2026-08-29 — User reports `M8 M5 B2: PASS` for partial, duplicate,
+      unknown, and mixed Park/Last Train inputs. The supplied mixed-input
+      screenshot shows the actionable closed-set rejection on the local form.
+      Read-only SQLite inspection confirms the rejected requests created no
+      row: totals remain two compilations overall, one M8 profile compilation,
+      one Last Train revision, and one M8 published link.
+- [x] 2026-08-29 — User reports `M8 M5 B3 IMMERSIVE: PASS` and supplies the
+      follow-up evidence checkpoint. In session
+      `cf4f902a-ac9f-40ea-9370-1769ade9fe7b`, LISTEN completes unaided, then
+      manual Help on ARRANGE produces three correct assisted reactions and one
+      assisted step result. Diagnostics show `Assisted results = 1`,
+      `AWAITING_CHOICE`, saved checkpoint 7, and 16 stored events. This proves
+      immersive does not auto-help while explicit Help remains evidence-honest.
+- [x] 2026-08-29 — User reports `M8 M5 B4 AUDIO FALLBACK: PASS` and supplies
+      the initial fallback plus final completion evidence. Session
+      `03136f52-410f-49e6-9a78-fa904af052b9` is durably `COMPLETED` at
+      checkpoint 31 with zero HEARD events, nine step results, nine assisted
+      results, and 49 stored events. The text path remains playable through
+      all 9/9 steps with speech deliberately unavailable.
+- [x] 2026-08-29 — Repair the mission-card overlap found during B4. The
+      objective, selection, and world-tool card now has an accessible
+      `Thu gọn / Mở nhiệm vụ` toggle and starts collapsed on narrow or low
+      viewports. Collapsed state leaves one compact reopen button and changes
+      no lesson/evidence state. Web 75/75, typecheck, format, build, and diff
+      hygiene pass. The user reports `M8 M5 B MISSION TOGGLE: PASS` with
+      screenshots of both the compact reopen state and the expanded state.
+      Manual B is accepted.
+- [x] 2026-08-29 — User reports `M8 M5 C1 M7 ROUTE: PASS`. The supplied
+      screenshots show `犬 + ～てください + 猫` remains on
+      `AUTHORING_HANDOFF · PARK_AUTHORING_V1 · AWAITING_AUTHORING` and exposes
+      the existing Download request and Import result controls. No M8 approved
+      profile is selected and no external authoring action is required for the
+      regression proof.
+- [x] 2026-08-29 — User directs `không cần test, làm tiếp`. D-055 records C2
+      through C6 as `WAIVED_BY_USER`, not PASS, and closes focused Milestone 5
+      without inferring the omitted regression evidence.
 
 ## Surprises and discoveries
 
@@ -378,6 +446,10 @@ the required manual results.
   its GPT contribution would create new reviewed language rather than select
   the D-053 package. Schema capability is not approval to mutate accepted
   content.
+- The first manual A ARRANGE screenshot looked like a grading failure, but the
+  local evidence row proves the correct authored sequence was accepted on the
+  second attempt. The actionable defect was instructional: the first scaffold
+  displayed abstract `[もの]` syntax without resolving it to the wallet token.
 
 ## Plan decisions
 
@@ -490,11 +562,11 @@ and the repository has no Dockerfiles.
 
 ### Manual results
 
-| Scenario                                                    | Tester  | Date    | Result  | Evidence or notes   |
-| ----------------------------------------------------------- | ------- | ------- | ------- | ------------------- |
-| A — exact target → review → publish → guided completion     | Pending | Pending | Not run | Awaiting manual run |
-| B — aliases, idempotency, errors, immersive, audio fallback | Pending | Pending | Not run | Awaiting manual run |
-| C — M7/direct-M8/runtime/persistence/renderer regression    | Pending | Pending | Not run | Awaiting manual run |
+| Scenario                                                    | Tester | Date       | Result           | Evidence or notes                                                                          |
+| ----------------------------------------------------------- | ------ | ---------- | ---------------- | ------------------------------------------------------------------------------------------ |
+| A — exact target → review → publish → guided completion     | User   | 2026-08-29 | PASS             | Exact profile PUBLISHED; screenshot and durable session COMPLETE 9/9; diagnostics recorded |
+| B — aliases, idempotency, errors, immersive, audio fallback | User   | 2026-08-29 | PASS             | B1–B4 PASS; mission collapse/reopen UI retest PASS                                         |
+| C — M7/direct-M8/runtime/persistence/renderer regression    | User   | 2026-08-29 | PARTIAL / WAIVED | C1 PASS; C2–C6 explicitly `WAIVED_BY_USER`                                                 |
 
 Automated implementation results on 2026-08-29:
 
@@ -502,7 +574,7 @@ Automated implementation results on 2026-08-29:
 | ------------------------------------ | -------------------------------------------- |
 | Contracts                            | PASS — 46/46                                 |
 | Server                               | PASS — 18/18                                 |
-| Web                                  | PASS — 71/71                                 |
+| Web                                  | PASS — 75/75                                 |
 | Typecheck, lint, format, schema      | PASS — schema artifacts 57/57                |
 | Content, speech, study, audio, world | PASS — accepted identities unchanged         |
 | Production build                     | PASS — existing large-chunk warning retained |
@@ -551,8 +623,7 @@ Implemented documentation updates:
 
 ## Outcomes
 
-Implementation is complete and supported automated checks pass. Milestone 5
-remains open for user-run manual A/B/C acceptance. It closes only when the exact
-target set selects, reviews, publishes, and plays the approved package; the
-user reports all required manual results; provenance remains truthful; and no
-content/audio/world gate is silently reopened.
+Implementation is complete and supported automated checks pass. Manual A, B,
+and C1 are accepted. Under D-055, manual C2–C6 remain explicitly
+`WAIVED_BY_USER`, not PASS. Focused Milestone 5 is closed without changing
+content, audio, world, provenance, or the later release-candidate gate.

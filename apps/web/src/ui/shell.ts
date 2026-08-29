@@ -5,6 +5,7 @@ import {
   type LessonState,
 } from "../lesson/controller.js";
 import {
+  arrangeRecoveryHint,
   authoredTextualHints,
   operationalGuidance,
 } from "../lesson/guidance.js";
@@ -55,6 +56,7 @@ export interface AppShell {
   continueButton: HTMLButtonElement;
   helpButton: HTMLButtonElement;
   restartLessonButton: HTMLButtonElement;
+  returnToLibraryButton: HTMLButtonElement;
   choiceList: HTMLElement;
   arrangeBank: HTMLElement;
   arrangeAnswer: HTMLElement;
@@ -113,10 +115,16 @@ export interface LessonDiagnosticsSnapshot {
   heardCount: number;
   terminalResultCount: number;
   assistedResultCount: number;
+  unaidedResultCount: number;
+  targetCount: number;
+  encounteredTargetCount: number;
   completedStepCount: number;
   totalStepCount: number;
   activeTimeMs: number;
   lastReactionMs: number | undefined;
+  reactionsPerMinute: number;
+  medianReactionGapMs: number | undefined;
+  p95ReactionGapMs: number | undefined;
   firstStimulusMs: number;
   worldTargetMode: "none" | "object" | "location" | "recipient";
   pendingLocationId: string | undefined;
@@ -135,6 +143,7 @@ export interface AppShellOptions {
   instructionJa?: string;
   instructionSupport?: string;
   previewMode?: boolean;
+  developmentMode?: boolean;
 }
 
 export function createAppShell(
@@ -155,6 +164,7 @@ export function createAppShell(
     options.instructionSupport ??
     "Complete the authored Japanese actions in the park.";
   const localDataHidden = options.previewMode === true ? "hidden" : "";
+  const developmentHidden = options.developmentMode === true ? "" : "hidden";
   app.innerHTML = `
     <main class="game-shell">
       <section class="world-stage" aria-labelledby="world-title">
@@ -172,12 +182,12 @@ export function createAppShell(
               <h1 id="world-title">${worldTitle}</h1>
             </div>
           </div>
-          <span class="renderer-pill" data-role="renderer">Starting…</span>
+          <span class="renderer-pill" data-role="renderer" ${developmentHidden}>Starting…</span>
         </header>
 
         <section class="state-panel" data-role="state" aria-live="polite">
-          <p class="eyebrow" data-role="state-label">Milestone 6</p>
-          <h2 data-role="state-title">Preparing the lesson…</h2>
+          <p class="eyebrow" data-role="state-label">BUNBUN · LOCAL</p>
+          <h2 data-role="state-title">Đang chuẩn bị bài học…</h2>
           <p data-role="state-message">
             Validating the authored lesson before initializing the park.
           </p>
@@ -220,10 +230,11 @@ export function createAppShell(
           <p class="lesson-audio-error" data-role="lesson-audio-error" hidden></p>
           <p class="lesson-audio-credit" data-role="lesson-audio-credit" hidden>Voice: VOICEVOX Nemo</p>
           <section class="arrange-control" data-role="arrange-control" aria-label="Sentence arrangement" hidden>
-            <p class="control-label">ことば / Mảnh từ</p>
+            <p class="control-label">まだ選んでいないことば / Chưa chọn — bấm để đưa vào câu</p>
             <div class="token-list token-bank" data-role="arrange-bank"></div>
-            <p class="control-label">文 / Câu đã xếp</p>
+            <p class="control-label">あなたの文 / Câu trả lời của bạn</p>
             <div class="token-list token-answer" data-role="arrange-answer"></div>
+            <p class="arrange-status" data-role="arrange-status" role="status" aria-live="polite"></p>
             <div class="arrange-actions">
               <button class="primary-button bilingual-button" data-role="arrange-submit" type="button"><span lang="ja">答える</span><small>Kiểm tra</small></button>
               <button class="bilingual-button" data-role="arrange-reset" type="button"><span lang="ja">リセット</span><small>Làm lại</small></button>
@@ -257,25 +268,46 @@ export function createAppShell(
             </button>
             <button class="bilingual-button" data-role="lesson-help" type="button"><span lang="ja">ヒント</span><small>Xem gợi ý</small></button>
             <button class="bilingual-button" data-role="lesson-restart" type="button" hidden><span lang="ja">もう一度</span><small>Chơi lại từ đầu</small></button>
+            <button class="bilingual-button" data-role="lesson-library" type="button" hidden><span lang="ja">ライブラリへ</span><small>Về thư viện</small></button>
           </div>
+          <section class="lesson-recap" data-role="lesson-recap" hidden>
+            <div>
+              <p class="control-label">ふりかえり / Tổng kết lượt chơi</p>
+              <p class="lesson-recap-note">Mục tiêu và active time theo phiên; phản ứng, kết quả và nhịp theo lượt trang đang mở. Đây không phải điểm thông thạo.</p>
+            </div>
+            <dl>
+              <div><dt>Mục tiêu đã gặp</dt><dd data-recap="targets">—</dd></div>
+              <div><dt>Phản ứng tiếng Nhật</dt><dd data-recap="reactions">—</dd></div>
+              <div><dt>Kết quả tự làm / có hỗ trợ</dt><dd data-recap="results">—</dd></div>
+              <div><dt>Thời gian active</dt><dd data-recap="active">—</dd></div>
+              <div><dt>Nhịp phản ứng</dt><dd data-recap="cadence">—</dd></div>
+              <div><dt>Khoảng cách phản ứng median / p95</dt><dd data-recap="gaps">—</dd></div>
+            </dl>
+          </section>
         </section>
 
-        <aside class="world-controls" aria-label="World controls">
-          <p class="instruction-ja">${instructionJa}</p>
-          <p class="instruction-support">${instructionSupport}</p>
-          <output class="selection-output" data-role="selection">Nothing selected</output>
-          <div class="button-row">
-            <button type="button" data-role="zoom-out" aria-label="Zoom out">−</button>
-            <button type="button" data-role="zoom-in" aria-label="Zoom in">＋</button>
-            <button type="button" data-role="sound" aria-expanded="false">
-              Sound
-            </button>
-            <button type="button" data-role="diagnostics" aria-expanded="false">
-              Diagnostics
-            </button>
-            <button type="button" data-role="local-data" aria-expanded="false" ${localDataHidden}>
-              Local data
-            </button>
+        <aside class="world-controls" data-role="world-controls" data-collapsed="false" aria-label="World controls">
+          <div class="world-controls-heading">
+            <span class="control-label">任務 / Nhiệm vụ</span>
+            <button class="world-controls-toggle bilingual-button" data-role="world-controls-toggle" type="button" aria-controls="world-controls-content" aria-expanded="true"></button>
+          </div>
+          <div class="world-controls-content" id="world-controls-content" data-role="world-controls-content">
+            <p class="instruction-ja">${instructionJa}</p>
+            <p class="instruction-support">${instructionSupport}</p>
+            <output class="selection-output" data-role="selection">Nothing selected</output>
+            <div class="button-row">
+              <button type="button" data-role="zoom-out" aria-label="Zoom out">−</button>
+              <button type="button" data-role="zoom-in" aria-label="Zoom in">＋</button>
+              <button type="button" data-role="sound" aria-expanded="false">
+                Sound
+              </button>
+              <button type="button" data-role="diagnostics" aria-expanded="false" ${developmentHidden}>
+                Diagnostics
+              </button>
+              <button type="button" data-role="local-data" aria-expanded="false" ${localDataHidden || developmentHidden}>
+                Local data
+              </button>
+            </div>
           </div>
         </aside>
 
@@ -386,10 +418,12 @@ export function createAppShell(
             <div><dt>Audio unavailable</dt><dd data-diagnostic="audio-unavailable">—</dd></div>
             <div><dt>Lesson step</dt><dd data-diagnostic="lesson-step">—</dd></div>
             <div><dt>Lesson phase</dt><dd data-diagnostic="lesson-phase">—</dd></div>
-            <div><dt>Events / reactions</dt><dd data-diagnostic="lesson-events">—</dd></div>
+            <div><dt>Evidence events / meaningful reactions</dt><dd data-diagnostic="lesson-events">—</dd></div>
             <div><dt>Correct / wrong</dt><dd data-diagnostic="lesson-reaction-results">—</dd></div>
             <div><dt>Heard / step results</dt><dd data-diagnostic="lesson-evidence">—</dd></div>
             <div><dt>Assisted results</dt><dd data-diagnostic="lesson-assisted">—</dd></div>
+            <div><dt>Reactions / minute</dt><dd data-diagnostic="lesson-cadence">—</dd></div>
+            <div><dt>Reaction gap median / p95</dt><dd data-diagnostic="lesson-reaction-gaps">—</dd></div>
             <div><dt>Lesson active</dt><dd data-diagnostic="lesson-active">—</dd></div>
             <div><dt>Last reaction</dt><dd data-diagnostic="lesson-reaction">—</dd></div>
             <div><dt>First stimulus</dt><dd data-diagnostic="lesson-first-stimulus">—</dd></div>
@@ -404,7 +438,7 @@ export function createAppShell(
           </dl>
         </aside>
 
-        <footer class="world-footer">
+        <footer class="world-footer" ${developmentHidden}>
           <span>${worldSceneId}</span>
           <span data-role="runtime-state">loading</span>
           <span data-role="persistence-state">storage: loading</span>
@@ -599,6 +633,14 @@ export function createAppShell(
     '[data-role="lesson-feedback"]',
   );
   const choiceList = required<HTMLElement>(app, '[data-role="choice-list"]');
+  const worldControls = required<HTMLElement>(
+    app,
+    '[data-role="world-controls"]',
+  );
+  const worldControlsToggle = required<HTMLButtonElement>(
+    app,
+    '[data-role="world-controls-toggle"]',
+  );
   const arrangeControl = required<HTMLElement>(
     app,
     '[data-role="arrange-control"]',
@@ -607,6 +649,10 @@ export function createAppShell(
   const arrangeAnswer = required<HTMLElement>(
     app,
     '[data-role="arrange-answer"]',
+  );
+  const arrangeStatus = required<HTMLElement>(
+    app,
+    '[data-role="arrange-status"]',
   );
   const arrangeSubmitButton = required<HTMLButtonElement>(
     app,
@@ -647,9 +693,31 @@ export function createAppShell(
     app,
     '[data-role="lesson-restart"]',
   );
+  const returnToLibraryButton = required<HTMLButtonElement>(
+    app,
+    '[data-role="lesson-library"]',
+  );
+  const lessonRecap = required<HTMLElement>(app, '[data-role="lesson-recap"]');
   bindJapaneseStudyTools(lessonPanel);
   let japaneseStudyIndex: JapaneseStudyIndex | undefined;
   let audioErrorMessage: string | undefined;
+
+  function setWorldControlsCollapsed(collapsed: boolean): void {
+    worldControls.dataset.collapsed = String(collapsed);
+    worldControlsToggle.setAttribute("aria-expanded", String(!collapsed));
+    setBilingualButtonLabel(
+      worldControlsToggle,
+      collapsed ? "任務を開く" : "任務を隠す",
+      collapsed ? "Mở nhiệm vụ" : "Thu gọn",
+    );
+  }
+
+  setWorldControlsCollapsed(
+    window.matchMedia("(max-width: 80rem), (max-height: 45rem)").matches,
+  );
+  worldControlsToggle.addEventListener("click", () => {
+    setWorldControlsCollapsed(worldControls.dataset.collapsed !== "true");
+  });
 
   const diagnostic = (name: string) =>
     required<HTMLElement>(app, `[data-diagnostic="${name}"]`);
@@ -693,6 +761,7 @@ export function createAppShell(
     continueButton,
     helpButton,
     restartLessonButton,
+    returnToLibraryButton,
     choiceList,
     arrangeBank,
     arrangeAnswer,
@@ -708,8 +777,8 @@ export function createAppShell(
     setLoading: () => {
       setSoundPanelOpen(false);
       statePanel.hidden = false;
-      stateLabel.textContent = "Milestone 6";
-      stateTitle.textContent = "Preparing the lesson…";
+      stateLabel.textContent = "BUNBUN · LOCAL";
+      stateTitle.textContent = "Đang chuẩn bị bài học…";
       stateMessage.textContent = loadingMessage;
       retryButton.hidden = true;
       retryButton.textContent = "Retry runtime";
@@ -897,7 +966,14 @@ export function createAppShell(
           ? undefined
           : formatAuthoredHint(manualMeaningHint);
       const readingHint = state.readingHint ?? manualReading;
-      const patternHint = state.patternHint ?? manualPattern;
+      const recoveryHint = arrangeRecoveryHint(step, state.attempt);
+      const basePatternHint = state.patternHint ?? manualPattern;
+      const patternHint =
+        recoveryHint === undefined
+          ? basePatternHint
+          : basePatternHint === undefined
+            ? recoveryHint
+            : `${basePatternHint} — ${recoveryHint}`;
       const meaningHint = state.meaningHint ?? manualMeaning;
       lessonReading.textContent = readingHint ?? "";
       lessonReading.hidden = readingHint === undefined;
@@ -975,6 +1051,21 @@ export function createAppShell(
           "Remove",
           state.phase !== "AWAITING_ARRANGE",
         );
+        if (state.arrangedTokenIds.length === 0) {
+          const emptyAnswer = document.createElement("span");
+          emptyAnswer.className = "token-empty";
+          emptyAnswer.textContent =
+            "Chưa có từ nào — hãy bấm từng mảnh ở vùng phía trên.";
+          arrangeAnswer.append(emptyAnswer);
+        }
+        arrangeStatus.textContent =
+          state.phase !== "AWAITING_ARRANGE"
+            ? ""
+            : state.availableTokenIds.length > 0
+              ? `Chưa thể Kiểm tra: còn ${state.availableTokenIds.length} mảnh chưa được đưa vào câu trả lời.`
+              : "Đã chọn đủ mảnh. Bây giờ hãy bấm Kiểm tra.";
+      } else {
+        arrangeStatus.textContent = "";
       }
       arrangeSubmitButton.disabled =
         state.phase !== "AWAITING_ARRANGE" ||
@@ -1040,10 +1131,16 @@ export function createAppShell(
         state.helpUsed ? "Đang hiện gợi ý" : "Xem gợi ý",
       );
       restartLessonButton.hidden = state.phase !== "COMPLETED";
+      returnToLibraryButton.hidden = state.phase !== "COMPLETED";
       setBilingualButtonLabel(
         restartLessonButton,
         "もう一度",
         "Chơi lại từ đầu",
+      );
+      setBilingualButtonLabel(
+        returnToLibraryButton,
+        "ライブラリへ",
+        "Về thư viện",
       );
     },
     setDiagnosticsOpen,
@@ -1138,6 +1235,12 @@ export function createAppShell(
       diagnostic("lesson-assisted").textContent = String(
         snapshot.assistedResultCount,
       );
+      diagnostic("lesson-cadence").textContent =
+        `${snapshot.reactionsPerMinute.toFixed(1)} / min`;
+      diagnostic("lesson-reaction-gaps").textContent = formatGaps(
+        snapshot.medianReactionGapMs,
+        snapshot.p95ReactionGapMs,
+      );
       diagnostic("lesson-active").textContent =
         `${snapshot.activeTimeMs.toFixed(0)} ms`;
       diagnostic("lesson-reaction").textContent =
@@ -1165,12 +1268,44 @@ export function createAppShell(
         0,
         12,
       );
+      lessonRecap.hidden = snapshot.phase !== "COMPLETED";
+      recapValue("targets").textContent =
+        `${snapshot.encounteredTargetCount} / ${snapshot.targetCount}`;
+      recapValue("reactions").textContent = String(snapshot.reactionCount);
+      recapValue("results").textContent =
+        `${snapshot.unaidedResultCount} / ${snapshot.assistedResultCount}`;
+      recapValue("active").textContent = formatDuration(snapshot.activeTimeMs);
+      recapValue("cadence").textContent =
+        `${snapshot.reactionsPerMinute.toFixed(1)} phản ứng/phút`;
+      recapValue("gaps").textContent = formatGaps(
+        snapshot.medianReactionGapMs,
+        snapshot.p95ReactionGapMs,
+      );
     },
   };
 
   function localDataValue(name: string): HTMLElement {
     return required<HTMLElement>(app, `[data-local-data="${name}"]`);
   }
+
+  function recapValue(name: string): HTMLElement {
+    return required<HTMLElement>(app, `[data-recap="${name}"]`);
+  }
+}
+
+function formatDuration(durationMs: number): string {
+  const totalSeconds = Math.max(0, Math.round(durationMs / 1_000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function formatGaps(
+  medianMs: number | undefined,
+  p95Ms: number | undefined,
+): string {
+  if (medianMs === undefined || p95Ms === undefined) return "—";
+  return `${(medianMs / 1_000).toFixed(1)} / ${(p95Ms / 1_000).toFixed(1)} s`;
 }
 
 function appendTokenButtons(

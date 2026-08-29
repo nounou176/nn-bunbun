@@ -25,7 +25,7 @@ export function operationalGuidance(step: LessonStep): OperationalGuidance {
       return {
         ja: "ことばを順番に選んで、答えます。",
         support:
-          "Bấm từng mảnh từ để xếp câu. Có thể bấm lại mảnh đã chọn để bỏ xuống, rồi bấm Kiểm tra.",
+          "Bấm từng mảnh từ theo thứ tự đọc từ trái sang phải. Có thể bấm lại mảnh đã chọn để bỏ xuống, rồi bấm Kiểm tra.",
       };
     case "CHOOSE":
       return {
@@ -60,6 +60,21 @@ export function operationalGuidance(step: LessonStep): OperationalGuidance {
           "Bạn đang mang đồ vật. Bấm trực tiếp vào người sẽ nhận nó trong cảnh 3D.",
       };
   }
+}
+
+export function arrangeRecoveryHint(
+  step: LessonStep,
+  attempt: number,
+): string | undefined {
+  if (step.interaction.type !== "ARRANGE" || attempt < 1) return undefined;
+  const acceptedSequence = step.interaction.acceptedSequences[0];
+  if (acceptedSequence === undefined) return undefined;
+  const tokens = new Map(
+    step.interaction.tokens.map((token) => [token.tokenId, token.textJa]),
+  );
+  const answer = acceptedSequence.map((tokenId) => tokens.get(tokenId));
+  if (answer.some((token) => token === undefined)) return undefined;
+  return `答えの順番 / Thứ tự đúng: ${answer.join(" → ")}`;
 }
 
 export function authoredTextualHints(

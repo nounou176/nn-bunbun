@@ -109,6 +109,15 @@ kitchen, restaurant, convenience store, station, street, office, or hospital.
 The camera is isometric, bird's-eye, or another diorama-style presentation.
 The learner points and clicks to select, move, and interact.
 
+Under D-056, the ordinary local entry is learner-first: it explains the target
+input, highlights approved playable situations, and presents the published
+lesson library without speech-generation gates, transport warnings, technical
+fixtures, diagnostics, or destructive data controls. Those tools remain
+recoverable through an explicit development surface. At completion the learner
+may replay or return to the library and sees a compact current-visit evidence
+recap. The recap reports practice facts and reaction cadence; it never claims
+mastery, a percentage grade, or JLPT readiness.
+
 D-025 selects a GLB-first authoring direction for production worlds. The first
 world-production envelope is a bounded Japanese neighborhood with a short road,
 a convenience-store area, a small park, two NPCs, and one animal. Lessons reuse
