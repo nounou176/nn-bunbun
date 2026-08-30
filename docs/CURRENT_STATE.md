@@ -9,7 +9,8 @@ D-055. Milestone 9 — First product vertical slice is complete under D-060,
 with corrected cadence and final smoke S2–S4 explicitly waived rather than
 passed. Milestone 10 — Adaptive exposure and learning support is active under
 D-061. Its policy and AdaptiveLearning 0.1.0 contract/registry checkpoints are
-complete; cross-lesson aggregation has not started.
+complete. Its pure cross-lesson aggregation and deterministic recommendation
+checkpoint is also complete; persistence, API, and learner UI have not started.
 
 Approved M10 ExecPlan:
 
@@ -407,7 +408,7 @@ Completed ExecPlans:
 
 ## Current work
 
-- M10 Milestones 1 and 2 are complete under D-061. The accepted policy keeps
+- M10 Milestones 1 through 3 are complete under D-061. The accepted policy keeps
   adaptation advisory-only and local, resolves cross-lesson identity through
   an exact project-owned registry, groups concept evidence per meaningful
   attempt, retains the three non-mastery signals, and requires truthful
@@ -422,8 +423,20 @@ Completed ExecPlans:
   reviewed `～てください` identities explicitly. Unknown, ambiguous, drifted,
   heuristic-only, and unreferenced KANJI paths fail closed. Contracts pass
   55/55 tests; root typecheck, lint, 60-file schema freshness, format, and
-  production build pass. No aggregation, migration, API, or learner UI code
-  has been implemented yet.
+  production build pass. The server now has a pure derivation module that
+  validates every input package, resolves only exact registry identities,
+  groups REACTION projections by
+  `conceptKey + sessionId + stepId + attempt`, preserves assisted semantics,
+  excludes revision from global context identity, derives the three existing
+  signals, and ranks at most three suggestions in D-061's closed order. It
+  never reads SQLite, the wall clock, the compiler, or browser state. Published
+  candidates must be fully validated; the same lesson is never reported as a
+  changed context, and unavailable/unmapped paths remain explicit. Seven
+  focused adaptive tests pass, including byte-stable canonical output under
+  reordered inputs. The final local 10,000-reaction fixture measured a 42.01 ms
+  median across five warmed derivations, below the approved 100 ms development-
+  machine budget. Focused adaptive/compiler/persistence regression is 18/18.
+  No migration, API, or learner UI code has been implemented yet.
 
 - D-056's M9 product shell is implemented. The ordinary root now presents
   learner target entry, the approved Last Train situation, and published
@@ -958,12 +971,12 @@ documentation and implementation changes are uncommitted.
 
 ## Next recommended work
 
-Implement M10 Milestone 3: pure cross-lesson attempt aggregation and
-deterministic recommendations over the validated AdaptiveLearning registry.
-Do not begin the SQLite preference migration, API, or learner UI before the
-aggregation checkpoint is validated. Carry D-058's cadence waiver, D-060's
-S2–S4 waiver, M8 C2–C6's waiver, and M7's `UNVERIFIED_USER_WAIVED` label
-forward without converting any to PASS.
+Implement M10 Milestone 4: add the forward-only adaptive-preferences migration,
+bounded repository projections, and isolated same-origin adaptation endpoints
+around the completed pure derivation module. Do not begin the learner UI before
+the migration/API checkpoint is validated. Carry D-058's cadence waiver,
+D-060's S2–S4 waiver, M8 C2–C6's waiver, and M7's
+`UNVERIFIED_USER_WAIVED` label forward without converting any to PASS.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and

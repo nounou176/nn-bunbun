@@ -363,7 +363,7 @@ lesson or runtime asset.
 Observable checkpoint: valid cross-lesson aliases pass; unknown, ambiguous,
 drifted, heuristic-only, and unreferenced kanji inputs fail closed.
 
-### 3. Implement cross-lesson aggregation and recommendations
+### 3. Implement cross-lesson aggregation and recommendations — complete
 
 Add a pure module near `apps/server/src/persistence/` or a focused
 `apps/server/src/adaptation/` directory. Group target rows into per-concept
@@ -437,6 +437,14 @@ and ready for the separate local release-candidate gate.
 - [x] 2026-08-30 — Contracts 55/55, root typecheck, lint, 60-artifact schema
       freshness, format, and production build pass with Node 24.18.0. No
       browser test was added or run under D-011.
+- [x] 2026-08-30 — Implemented the pure server derivation module with exact
+      registry resolution, attempt grouping, assisted recovery, revision-safe
+      global contexts, deterministic ranking, validated published-context
+      matching, OFF behavior, and explicit unavailable/unmapped outcomes.
+- [x] 2026-08-30 — Focused adaptive tests pass 7/7; combined adaptive,
+      compiler, and persistence regression passes 18/18 with loopback enabled.
+      The final 10,000-reaction fixture measured a 42.01 ms median over five warmed
+      derivations against the 100 ms development-machine budget.
 
 ## Surprises and discoveries
 
@@ -453,6 +461,9 @@ and ready for the separate local release-candidate gate.
   while authoritative target readings live in the validated manifest. This is
   enough to enforce reference provenance presentation without downloading a
   new kanji dataset in M10.
+- Equivalent package and reaction arrays can arrive in different input order.
+  Canonical sorting by stable identities plus global event sequence makes the
+  derived snapshot byte-identical without persisting a scheduler cache.
 - Gameplay evidence is prohibited from entering M7 prompt modules. An optional
   target prefill is compatible only because the learner must explicitly choose
   Compile and the existing authoring request receives target text, not evidence
@@ -606,12 +617,16 @@ backfill is required.
 
 ## Outcomes
 
-M10 Milestones 1 and 2 are complete under D-061. The accepted policy and
+M10 Milestones 1 through 3 are complete under D-061. The accepted policy and
 AdaptiveLearning 0.1.0 contract now establish explicit concept identity,
 closed non-mastery summaries/reasons/preferences, deterministic
 changed-context DTOs, and reference-provenance separation. The initial exact
 registry covers eight reviewed concepts and safely aliases the two approved
 `～てください` identities. It deliberately avoids mastery claims, automatic
 scheduling, new production content, third-party reference intake, runtime AI,
-and external learner-data flow. Pure aggregation and recommendation logic is
-the next checkpoint; no M10 persistence, API, or learner UI exists yet.
+and external learner-data flow. The pure server derivation now turns exact
+mapped REACTION projections into attempt-level summaries and at most three
+deterministic, context-honest suggestions. It passes the focused semantic,
+regression, and 10,000-row performance checkpoints. The next checkpoint is the
+preferences migration, bounded repository projection, and same-origin API; no
+M10 persistence, API, or learner UI exists yet.

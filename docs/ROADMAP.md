@@ -731,10 +731,14 @@ D-057-compatible attempt aggregation, deterministic changed-context
 suggestions, and learner-controlled support. It does not authorize a mastery
 score, automatic scheduling, new production content, a third-party reference
 dataset, runtime AI, external learner-data flow, or cost. D-061 accepts this
-boundary. Milestone 1 policy documentation is complete; contract and registry
-implementation is also complete. Pure cross-lesson aggregation and
-recommendation logic is next; persistence, API, and UI remain later
-checkpoints.
+boundary. Milestone 1 policy documentation, the Milestone 2 contract/registry,
+and the Milestone 3 pure cross-lesson derivation are complete. The derivation
+groups attempt-level evidence, preserves assisted recovery semantics, excludes
+revision-only context inflation, ranks deterministically, and reports changed,
+unavailable, and unmapped paths without reading storage or the wall clock. The
+final 10,000-reaction local fixture measured a 42.01 ms warmed median against the
+100 ms development-machine budget. Preferences persistence, bounded database
+projection, API, and UI remain later checkpoints.
 
 Planned scope:
 

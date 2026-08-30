@@ -196,12 +196,16 @@ Implemented local persistence responsibilities:
 - reject stale sequences, invalid authored references, raw TYPE text fields,
   incompatible schema versions, and changed immutable revisions.
 
-The M10 backend can now consume the shared project-owned concept registry
-validator. Its remaining responsibilities are to derive bounded cross-lesson
-summaries through a pure deterministic aggregator, match only explicitly
-published validated lessons, store only two closed local preferences, and
-expose isolated same-origin adaptation resources. Recommendation output is not
-stored and no evidence enters the compiler.
+The M10 backend now has a pure deterministic derivation module over the shared
+project-owned concept registry. It validates lesson packages, groups mapped
+REACTION projections into meaningful attempts, derives bounded cross-lesson
+summaries, applies the closed recovery/ranking policy, and matches only
+explicitly supplied validated published lessons. The module does not read
+SQLite, the wall clock, the compiler, or browser state, so reordered equivalent
+inputs produce byte-identical canonical output. The remaining backend work is
+to project bounded database rows into this module, store only two closed local
+preferences, and expose isolated same-origin adaptation resources.
+Recommendation output is not stored and no evidence enters the compiler.
 
 Implemented compiler responsibilities:
 

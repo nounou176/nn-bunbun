@@ -588,6 +588,22 @@ The production build after D-057 reports 1,435.45 kB JavaScript (395.18 kB
 gzip) and 21.57 kB CSS (5.13 kB gzip). The existing Vite large-chunk warning
 remains unchanged in character.
 
+## M10 adaptive derivation measurement
+
+M10 Milestone 3 adds a pure server derivation path with a fixed input ceiling
+of 100,000 REACTION projections, 100 source lesson packages, and 100 published
+lesson candidates. The AdaptiveLearning response remains contract-bounded to
+100 summaries and three suggestions. No derivation work runs in the Three.js
+loop, reads the wall clock, or persists a recommendation cache.
+
+On the development machine with Node.js 24.18.0, the focused 10,000-reaction
+fixture warmed the function once and then measured five complete derivations.
+The final median was 42.01 ms, below D-061's 100 ms local development-machine
+budget.
+This is a named local observation, not a guarantee for other devices or the
+future SQLite/API projection. The test retains the 100 ms checkpoint so a
+material pure-algorithm regression fails visibly.
+
 ## Manual performance protocol
 
 The user performs browser and gameplay validation manually. Do not create an
