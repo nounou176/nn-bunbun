@@ -1,13 +1,24 @@
 # Bunbun Current State
 
-Last updated: 2026-08-29
+Last updated: 2026-08-30
 
 ## Current milestone
 
 Milestone 8 — Japanese voice and complete audio runtime is complete under
 D-055. Milestone 9 — First product vertical slice is complete under D-060,
 with corrected cadence and final smoke S2–S4 explicitly waived rather than
-passed. Milestone 10 planning is next.
+passed. Milestone 10 — Adaptive exposure and learning support is active under
+D-061. Its policy and AdaptiveLearning 0.1.0 contract/registry checkpoints are
+complete; cross-lesson aggregation has not started.
+
+Approved M10 ExecPlan:
+
+- `plans/2026-08-29-m10-adaptive-exposure-and-learning-support.md` — derive
+  advisory next-exposure suggestions from existing local evidence through an
+  explicit concept registry, attempt-level aggregation, changed-context rules,
+  and learner-controlled support. It adds no mastery score, automatic launch,
+  production content, third-party source, provider, dependency, external data
+  flow, or cost. D-061 authorizes the bounded implementation.
 
 Completed focused M9 ExecPlan:
 
@@ -396,6 +407,24 @@ Completed ExecPlans:
 
 ## Current work
 
+- M10 Milestones 1 and 2 are complete under D-061. The accepted policy keeps
+  adaptation advisory-only and local, resolves cross-lesson identity through
+  an exact project-owned registry, groups concept evidence per meaningful
+  attempt, retains the three non-mastery signals, and requires truthful
+  changed-context availability plus learner-owned support controls. Durable
+  product, gameplay, manifest, persistence, architecture, and AI boundaries
+  are updated. AdaptiveLearning 0.1.0 now provides closed registry,
+  preferences, summary, suggestion, changed-context, snapshot, and API-error
+  DTOs plus strict structural validators. The semantic registry validator
+  enforces unique concepts/selectors, target-kind compatibility, canonical
+  content signatures, and KANJI `REFERENCE` provenance. The project registry
+  contains eight reviewed Bunbun Core/Last Train concepts and aliases both
+  reviewed `～てください` identities explicitly. Unknown, ambiguous, drifted,
+  heuristic-only, and unreferenced KANJI paths fail closed. Contracts pass
+  55/55 tests; root typecheck, lint, 60-file schema freshness, format, and
+  production build pass. No aggregation, migration, API, or learner UI code
+  has been implemented yet.
+
 - D-056's M9 product shell is implemented. The ordinary root now presents
   learner target entry, the approved Last Train situation, and published
   library actions; `debug=1` explicitly restores compiler/speech regression
@@ -411,7 +440,7 @@ Completed ExecPlans:
   web tests pass; the updated production build passes. The corrected manual
   cadence retest is waived under D-058. Under D-060, the user reports final
   smoke S1 PASS, waives S2–S4, and closes focused M9 without relabeling those
-  omitted checks as PASS. M10 planning is next.
+  omitted checks as PASS. D-061 now governs the active M10 work.
 
 - M8 Milestone 5 implementation passes supported static, unit, integration,
   approval-hash, asset, and production-build gates. Contracts pass 46/46,
@@ -929,11 +958,12 @@ documentation and implementation changes are uncommitted.
 
 ## Next recommended work
 
-Prepare a self-contained M10 adaptive-exposure plan. Do not implement mastery,
-spaced repetition, or learner-model changes before the user reviews their
-pedagogical meaning, local data effects, and zero-cost boundary. Carry D-058's
-cadence waiver, D-060's S2–S4 waiver, M8 C2–C6's waiver, and M7's
-`UNVERIFIED_USER_WAIVED` label forward without converting any to PASS.
+Implement M10 Milestone 3: pure cross-lesson attempt aggregation and
+deterministic recommendations over the validated AdaptiveLearning registry.
+Do not begin the SQLite preference migration, API, or learner UI before the
+aggregation checkpoint is validated. Carry D-058's cadence waiver, D-060's
+S2–S4 waiver, M8 C2–C6's waiver, and M7's `UNVERIFIED_USER_WAIVED` label
+forward without converting any to PASS.
 
 D-025 and D-026 now have an approved queued implementation plan at
 `plans/2026-08-19-audio-complete-last-train-showcase.md`. It covers world and

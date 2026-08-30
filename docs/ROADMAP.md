@@ -717,16 +717,28 @@ Exit criteria:
 
 ## Milestone 10 — Adaptive exposure and learning support
 
-Status: Planned
+Status: In progress
 
 Purpose:
 
 Use accumulated evidence to improve future exposure without creating drill
 loops.
 
+The approved ExecPlan is
+`plans/2026-08-29-m10-adaptive-exposure-and-learning-support.md`. It recommends
+an advisory-only local layer with explicit cross-lesson concept identity,
+D-057-compatible attempt aggregation, deterministic changed-context
+suggestions, and learner-controlled support. It does not authorize a mastery
+score, automatic scheduling, new production content, a third-party reference
+dataset, runtime AI, external learner-data flow, or cost. D-061 accepts this
+boundary. Milestone 1 policy documentation is complete; contract and registry
+implementation is also complete. Pure cross-lesson aggregation and
+recommendation logic is next; persistence, API, and UI remain later
+checkpoints.
+
 Planned scope:
 
-- conservative mastery aggregation;
+- conservative non-mastery evidence aggregation;
 - weak-target prioritization;
 - context-spacing rules;
 - optional grammar and kanji help;

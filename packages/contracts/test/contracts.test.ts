@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  AdaptiveLearningSchema,
   EvidencePersistenceSchema,
   LessonManifestSchema,
   normalizeTypeAnswer,
@@ -281,7 +282,11 @@ test("interaction union is serialized with oneOf", () => {
 
 test("every TypeBox object record rejects additional properties", () => {
   const openRecords: string[] = [];
-  [LessonManifestSchema, EvidencePersistenceSchema].forEach((root) =>
+  [
+    LessonManifestSchema,
+    EvidencePersistenceSchema,
+    AdaptiveLearningSchema,
+  ].forEach((root) =>
     walkSchema(root, "", (schema, path) => {
       const kind = Object.getOwnPropertyDescriptor(schema, "~kind")?.value;
       if (kind === "Object" && schema.additionalProperties !== false) {

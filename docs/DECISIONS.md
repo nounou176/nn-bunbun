@@ -2892,6 +2892,77 @@ local release candidate, waive later release verification, or resolve the
 known Node audio-test teardown. It adds no code, dependency, provider, asset,
 service, external data flow, or cost.
 
+### D-061 — Approve advisory local adaptive exposure for M10
+
+- Date: 2026-08-30
+- Status: Accepted by explicit user approval
+- Affects: M10 learning policy, target identity, evidence aggregation,
+  preferences, local API, learner library
+
+Context:
+
+EvidencePersistence 0.1.0 deliberately summarizes one lesson revision and
+target at a time. Its three conservative signals are not a cross-lesson
+scheduler, while D-057 establishes that one meaningful reaction is an attempt
+rather than every target-level REACTION row. Cross-lesson target identity also
+cannot safely use target IDs, visible Japanese, or one reference ID: the same
+reviewed grammar concept can carry different identities in different lesson
+packages. Bunbun currently has only one fully approved product package, so an
+adaptive surface must represent the absence of another published context
+truthfully instead of fabricating variation.
+
+Decision:
+
+Accept
+`plans/2026-08-29-m10-adaptive-exposure-and-learning-support.md` after the user
+sent `DUYỆT PLAN M10 ADAPTIVE EXPOSURE`. M10 is an advisory-only local layer.
+It may recommend at most three concepts and a compatible already published
+lesson, but it never auto-launches, auto-compiles, mutates or reorders a
+LessonManifest, pre-activates a scaffold, or claims mastery.
+
+Introduce a versioned, project-owned LearningTargetRegistry whose exact
+provider/version/reference/kind selectors map reviewed lesson targets to
+stable concept keys. Text similarity and LLM inference are forbidden. An
+unmapped or drifted target remains lesson-scoped and fails closed for
+cross-lesson merging.
+
+For cross-lesson evidence, group rows by
+`conceptKey + sessionId + stepId + attempt`. A grouped attempt is correct only
+when every mapped row is correct and assisted when any row is assisted. Use
+`lessonId + contextId` as the global context identity; a new revision alone is
+not a new learning context. Preserve only `INSUFFICIENT_EVIDENCE`,
+`NEEDS_REVIEW`, and `DEVELOPING`. Recovery from an incorrect or assisted
+attempt requires later unaided-correct evidence in two distinct global
+contexts. Do not add `MASTERED`, a percentage, a forgetting curve, or a due
+date.
+
+Rank deterministically from the same evidence, published-package set,
+registry version, and learner preferences. Prefer changed published contexts
+and expose closed reasons such as `NO_CHANGED_CONTEXT_AVAILABLE` when none
+exists. Let the learner set adaptation to `SUGGEST` or `OFF` and support to
+`ASK_EACH_TIME`, `MORE_SUPPORT`, or `LESS_SUPPORT`; these values affect
+presentation only.
+
+Keep AdaptiveLearning 0.1.0 independent from EvidencePersistence 0.1.0. Store
+only the two closed local preferences in one additive SQLite migration;
+recalculate concept summaries and recommendations. Gameplay evidence,
+adaptation output, preferences, and local profile state never enter an AI
+module or external process.
+
+Consequences:
+
+M10 may add shared contracts, project-owned registry records, pure local
+aggregation, a preference table, same-origin local endpoints, and an optional
+learner-library surface. It adds no production lesson, dialogue, audio, world
+asset, third-party dataset, dependency, service, provider, model, account,
+credential, environment variable, learner-data transfer, incremental charge,
+or recurring cost. Grammar help reuses reviewed data. Kanji support may show
+reviewed readings and provider/version provenance as `REFERENCE`, but it must
+not synthesize a mnemonic or import a reference dataset. Adaptation failure
+must not block the library or ordinary lesson launch. D-058 and D-060 remain
+waivers rather than PASS evidence, and local release-candidate acceptance
+remains separate.
+
 ## Deferred decisions
 
 These are acknowledged but not yet ready to decide:

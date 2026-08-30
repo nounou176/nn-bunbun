@@ -1,3 +1,4 @@
+export * from "./adaptive-learning.js";
 export * from "./catalog.js";
 export * from "./authoring.js";
 export * from "./authoring-v2.js";

@@ -1,0 +1,735 @@
+{
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "contractType",
+        "schemaVersion",
+        "registryId",
+        "registryVersion",
+        "provenance",
+        "concepts"
+      ],
+      "properties": {
+        "contractType": {
+          "type": "string",
+          "const": "LEARNING_TARGET_REGISTRY"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "registryId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+        },
+        "registryVersion": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "source",
+            "statement"
+          ],
+          "properties": {
+            "source": {
+              "type": "string",
+              "const": "PROJECT_AUTHORED"
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "conceptKey",
+              "targetKind",
+              "labelJa",
+              "selectors"
+            ],
+            "properties": {
+              "conceptKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "targetKind": {
+                "type": "string",
+                "enum": [
+                  "VOCABULARY",
+                  "GRAMMAR",
+                  "KANJI"
+                ]
+              },
+              "labelJa": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "\\S"
+              },
+              "supportLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240,
+                "pattern": "\\S"
+              },
+              "selectors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "providerId",
+                    "providerVersion",
+                    "referenceId",
+                    "targetKind",
+                    "contentSignature"
+                  ],
+                  "properties": {
+                    "providerId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                    },
+                    "providerVersion": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 80
+                    },
+                    "referenceId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                    },
+                    "targetKind": {
+                      "type": "string",
+                      "enum": [
+                        "VOCABULARY",
+                        "GRAMMAR",
+                        "KANJI"
+                      ]
+                    },
+                    "contentSignature": {
+                      "type": "string",
+                      "minLength": 20,
+                      "maxLength": 2048,
+                      "pattern": "^target_content_v1:"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 20
+              },
+              "compilerPrefillText": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "\\S"
+              },
+              "referenceAid": {
+                "type": "object",
+                "required": [
+                  "aidKind",
+                  "character",
+                  "readings",
+                  "providerId",
+                  "providerVersion",
+                  "referenceId"
+                ],
+                "properties": {
+                  "aidKind": {
+                    "type": "string",
+                    "const": "REFERENCE"
+                  },
+                  "character": {
+                    "type": "string",
+                    "pattern": "^\\p{Script=Han}$"
+                  },
+                  "readings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12,
+                    "uniqueItems": true
+                  },
+                  "providerId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                  },
+                  "providerVersion": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 100
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://bunbun.local/schemas/learning-target-registry-0.1.0.schema.json",
+      "title": "Bunbun LearningTargetRegistry 0.1.0",
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "contractType",
+        "schemaVersion",
+        "adaptiveMode",
+        "supportPreference",
+        "updatedAt"
+      ],
+      "properties": {
+        "contractType": {
+          "type": "string",
+          "const": "ADAPTIVE_PREFERENCES"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "adaptiveMode": {
+          "type": "string",
+          "enum": [
+            "SUGGEST",
+            "OFF"
+          ]
+        },
+        "supportPreference": {
+          "type": "string",
+          "enum": [
+            "ASK_EACH_TIME",
+            "MORE_SUPPORT",
+            "LESS_SUPPORT"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "$id": "AdaptivePreferences.0.1.0",
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "contractType",
+        "schemaVersion",
+        "adaptiveMode",
+        "supportPreference"
+      ],
+      "properties": {
+        "contractType": {
+          "type": "string",
+          "const": "UPDATE_ADAPTIVE_PREFERENCES"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "adaptiveMode": {
+          "type": "string",
+          "enum": [
+            "SUGGEST",
+            "OFF"
+          ]
+        },
+        "supportPreference": {
+          "type": "string",
+          "enum": [
+            "ASK_EACH_TIME",
+            "MORE_SUPPORT",
+            "LESS_SUPPORT"
+          ]
+        }
+      },
+      "$id": "UpdateAdaptivePreferencesRequest.0.1.0",
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "contractType",
+        "schemaVersion",
+        "registryId",
+        "registryVersion",
+        "preferences",
+        "summaries",
+        "suggestions",
+        "unmappedTargets",
+        "publishedLessonCandidateCount"
+      ],
+      "properties": {
+        "contractType": {
+          "type": "string",
+          "const": "ADAPTIVE_SNAPSHOT"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "registryId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+        },
+        "registryVersion": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+        },
+        "preferences": {
+          "type": "object",
+          "required": [
+            "contractType",
+            "schemaVersion",
+            "adaptiveMode",
+            "supportPreference",
+            "updatedAt"
+          ],
+          "properties": {
+            "contractType": {
+              "type": "string",
+              "const": "ADAPTIVE_PREFERENCES"
+            },
+            "schemaVersion": {
+              "type": "string",
+              "const": "0.1.0"
+            },
+            "adaptiveMode": {
+              "type": "string",
+              "enum": [
+                "SUGGEST",
+                "OFF"
+              ]
+            },
+            "supportPreference": {
+              "type": "string",
+              "enum": [
+                "ASK_EACH_TIME",
+                "MORE_SUPPORT",
+                "LESS_SUPPORT"
+              ]
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "$id": "AdaptivePreferences.0.1.0",
+          "additionalProperties": false
+        },
+        "summaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "conceptKey",
+              "targetKind",
+              "labelJa",
+              "role",
+              "priority",
+              "attemptCount",
+              "unaidedCorrectAttemptCount",
+              "assistedCorrectAttemptCount",
+              "incorrectAttemptCount",
+              "distinctUnaidedCorrectContextCount",
+              "signal"
+            ],
+            "properties": {
+              "conceptKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "targetKind": {
+                "type": "string",
+                "enum": [
+                  "VOCABULARY",
+                  "GRAMMAR",
+                  "KANJI"
+                ]
+              },
+              "labelJa": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "supportLabel": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "REQUESTED",
+                  "SUPPORTING"
+                ]
+              },
+              "priority": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "attemptCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unaidedCorrectAttemptCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "assistedCorrectAttemptCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "incorrectAttemptCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "distinctUnaidedCorrectContextCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "signal": {
+                "type": "string",
+                "enum": [
+                  "INSUFFICIENT_EVIDENCE",
+                  "NEEDS_REVIEW",
+                  "DEVELOPING"
+                ]
+              },
+              "lastPracticedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastContextKey": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 129,
+                "pattern": "^[a-z0-9_]+:[a-z0-9_]+$"
+              },
+              "referenceAid": {
+                "type": "object",
+                "required": [
+                  "aidKind",
+                  "character",
+                  "readings",
+                  "providerId",
+                  "providerVersion",
+                  "referenceId"
+                ],
+                "properties": {
+                  "aidKind": {
+                    "type": "string",
+                    "const": "REFERENCE"
+                  },
+                  "character": {
+                    "type": "string",
+                    "pattern": "^\\p{Script=Han}$"
+                  },
+                  "readings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "minItems": 1,
+                    "maxItems": 12,
+                    "uniqueItems": true
+                  },
+                  "providerId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                  },
+                  "providerVersion": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxItems": 100
+        },
+        "suggestions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "conceptKey",
+              "reason",
+              "context"
+            ],
+            "properties": {
+              "conceptKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "NEEDS_REVIEW",
+                  "INSUFFICIENT_EVIDENCE",
+                  "READY_FOR_VARIATION"
+                ]
+              },
+              "context": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "availability",
+                      "lessonId",
+                      "revision",
+                      "title",
+                      "contextIds",
+                      "supportedLaunchModes"
+                    ],
+                    "properties": {
+                      "availability": {
+                        "type": "string",
+                        "const": "CHANGED_CONTEXT_AVAILABLE"
+                      },
+                      "lessonId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                      },
+                      "revision": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "title": {
+                        "type": "object",
+                        "required": [
+                          "ja"
+                        ],
+                        "properties": {
+                          "ja": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120,
+                            "pattern": "\\S"
+                          },
+                          "support": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 240,
+                            "pattern": "\\S"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "contextIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64,
+                          "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+                        },
+                        "minItems": 1,
+                        "maxItems": 100,
+                        "uniqueItems": true
+                      },
+                      "supportedLaunchModes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "GUIDED",
+                            "IMMERSIVE"
+                          ]
+                        },
+                        "minItems": 1,
+                        "maxItems": 2,
+                        "uniqueItems": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "availability"
+                    ],
+                    "properties": {
+                      "availability": {
+                        "type": "string",
+                        "const": "NO_CHANGED_CONTEXT_AVAILABLE"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "availability"
+                    ],
+                    "properties": {
+                      "availability": {
+                        "type": "string",
+                        "const": "NO_PUBLISHED_LESSON_AVAILABLE"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "compilerPrefillText": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxItems": 3
+        },
+        "unmappedTargets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "lessonId",
+              "revision",
+              "targetId",
+              "targetKind",
+              "reason"
+            ],
+            "properties": {
+              "lessonId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "targetId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+              },
+              "targetKind": {
+                "type": "string",
+                "enum": [
+                  "VOCABULARY",
+                  "GRAMMAR",
+                  "KANJI"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "const": "UNMAPPED_TARGET"
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxItems": 100
+        },
+        "publishedLessonCandidateCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "$id": "AdaptiveLearningSnapshot.0.1.0",
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "contractType",
+        "status",
+        "code",
+        "message"
+      ],
+      "properties": {
+        "contractType": {
+          "type": "string",
+          "const": "ADAPTIVE_API_ERROR"
+        },
+        "status": {
+          "type": "string",
+          "const": "error"
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "ADAPTATION_UNAVAILABLE",
+            "INVALID_ADAPTIVE_PREFERENCES",
+            "REGISTRY_INVALID",
+            "ADAPTATION_RESPONSE_TOO_LARGE"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "pattern": "\\S"
+        }
+      },
+      "$id": "AdaptiveApiError.0.1.0",
+      "additionalProperties": false
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bunbun.local/schemas/adaptive-learning-0.1.0.schema.json",
+  "title": "Bunbun AdaptiveLearning 0.1.0"
+}

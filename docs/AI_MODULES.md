@@ -411,6 +411,11 @@ reference truth.
   explicit Compile action and disclosure defined by Milestone 7.
 - Gameplay evidence, progress, raw TYPE answers, local profile data, and
   persistence checkpoints are not module inputs.
+- Under D-061, concept summaries, recommendation reasons, adaptive support
+  preferences, and changed-context history are also not module inputs. An
+  explicit learner Compile action may reuse the existing disclosed target-text
+  handoff, but it must not attach the evidence or recommendation that suggested
+  that target.
 - A future runtime Tutor call would require a separate decision specifying
   transmission, latency, cost, privacy, and deterministic fallback.
 

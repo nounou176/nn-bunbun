@@ -149,6 +149,28 @@ guided presentation explains required controls and actions in concise
 Vietnamese. Receiving that language support is recorded as assisted rather
 than being misreported as unaided evidence.
 
+## Adaptive exposure
+
+Under D-061, Bunbun may use privacy-minimized local evidence to suggest what
+the learner could encounter next. These suggestions are advisory: the learner
+chooses whether to see them, which published lesson to open, and which support
+mode to use. Bunbun does not silently schedule, launch, compile, rewrite, or
+hide lessons.
+
+The adaptive surface uses explicit reviewed concept identities and explains
+its recommendation with conservative evidence facts. It prefers a different
+published situation when one exists and says clearly when no changed context
+is available. Incorrect or assisted work raises review priority; later
+unaided-correct work in two distinct contexts can recover the signal. The
+system uses `INSUFFICIENT_EVIDENCE`, `NEEDS_REVIEW`, and `DEVELOPING`, never a
+mastery percentage, permanent learned state, punitive due date, streak, or
+JLPT-readiness claim.
+
+Adaptation remains deterministic and local. Gameplay evidence and adaptive
+preferences do not leave localhost or enter an AI authoring module. Grammar
+and kanji help must reuse reviewed reference data with visible provenance;
+Bunbun does not invent a mnemonic when such data is absent.
+
 ## Success indicators
 
 Early product validation should consider:
@@ -202,7 +224,8 @@ before the relevant implementation milestone:
 
 - Which learner level and support languages define the first vertical slice?
 - Which initial scene and scenario template best prove the learning loop?
-- What exact mastery policy converts evidence into future lesson selection?
+- What evidence would justify evolving D-061's advisory non-mastery policy
+  beyond the initial three conservative signals?
 - What minimum browser and device matrix should the MVP support?
 - How should learner progress behave across browsers or devices?
 - What latency and cost budgets are acceptable for lesson compilation and TTS?

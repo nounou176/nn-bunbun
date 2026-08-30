@@ -110,3 +110,40 @@ and only one of:
 
 This is diagnostic evidence, not mastery, a percentage, cross-lesson
 aggregation, or a scheduler. It never gates lesson completion.
+
+## Independent adaptive-learning boundary
+
+D-061 keeps EvidencePersistence 0.1.0 unchanged and introduces a separate
+AdaptiveLearning 0.1.0 boundary. The server derives concept summaries and
+recommendations from immutable local evidence, validated published packages,
+an exact reviewed concept registry, and closed preferences. It does not rewrite
+events, lesson revisions, checkpoints, or the existing lesson-scoped progress
+summary.
+
+Cross-lesson attempts are grouped by
+`conceptKey + sessionId + stepId + attempt`. A group is correct only if every
+mapped target row is correct and assisted if any row is assisted. Distinct
+contexts use `lessonId + contextId`; revision changes alone do not add a new
+context. The derived result retains only `INSUFFICIENT_EVIDENCE`,
+`NEEDS_REVIEW`, and `DEVELOPING` and is recalculated rather than persisted.
+
+One additive, forward-only M10 migration may store only:
+
+- adaptation mode: `SUGGEST` or `OFF`; and
+- support preference: `ASK_EACH_TIME`, `MORE_SUPPORT`, or `LESS_SUPPORT`.
+
+The anonymous `local_default` profile remains the only owner. Confirmed local
+reset deletes these preferences along with the existing local data while
+retaining the migration ledger. No recommendation cache, mastery score,
+learner identity, raw response, browser storage, remote transport, account,
+cookie, or synchronization is authorized.
+
+The approved same-origin boundary may add:
+
+- `GET /api/v1/adaptation`;
+- `GET /api/v1/adaptation/preferences`; and
+- `PUT /api/v1/adaptation/preferences`.
+
+An adaptation error is isolated: the learner library and ordinary published
+lesson launch remain usable. Gameplay evidence, derived summaries, reasons,
+and preferences are never compiler or AI-module inputs.

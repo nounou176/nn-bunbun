@@ -8,6 +8,9 @@ import addFormatsModule from "ajv-formats";
 import {
   AbandonSessionRequestSchema,
   AbandonSessionResultSchema,
+  AdaptiveApiErrorSchema,
+  AdaptiveLearningSnapshotSchema,
+  AdaptivePreferencesSchema,
   CatalogSnapshotSchema,
   EvidenceEventSchema,
   LessonAuthoringRequestSchema,
@@ -15,6 +18,7 @@ import {
   LessonAuthoringResultSchema,
   LessonAuthoringResultV2Schema,
   LocalPreferencesSchema,
+  LearningTargetRegistrySchema,
   JapaneseTextStudyCatalogSchema,
   LessonManifestSchema,
   ProgressSummaryResultSchema,
@@ -27,8 +31,12 @@ import {
   SessionCreateRequestSchema,
   StorageSummarySchema,
   UpdatePreferencesRequestSchema,
+  UpdateAdaptivePreferencesRequestSchema,
   type AbandonSessionRequest,
   type AbandonSessionResult,
+  type AdaptiveApiError,
+  type AdaptiveLearningSnapshot,
+  type AdaptivePreferences,
   type CatalogSnapshot,
   type EvidenceEvent,
   type LessonAuthoringRequest,
@@ -36,6 +44,7 @@ import {
   type LessonAuthoringResult,
   type LessonAuthoringResultV2,
   type LocalPreferences,
+  type LearningTargetRegistry,
   type JapaneseTextStudyCatalog,
   type LessonManifest,
   type ProgressSummaryResult,
@@ -48,6 +57,7 @@ import {
   type SessionCreateRequest,
   type StorageSummary,
   type UpdatePreferencesRequest,
+  type UpdateAdaptivePreferencesRequest,
 } from "../schema/index.js";
 import {
   type BunbunValidationError,
@@ -75,6 +85,22 @@ addFormats(ajv);
 
 const catalogValidator = ajv.compile<CatalogSnapshot>(
   CatalogSnapshotSchema as AnySchema,
+);
+const learningTargetRegistryValidator = ajv.compile<LearningTargetRegistry>(
+  LearningTargetRegistrySchema as AnySchema,
+);
+const adaptivePreferencesValidator = ajv.compile<AdaptivePreferences>(
+  AdaptivePreferencesSchema as AnySchema,
+);
+const updateAdaptivePreferencesRequestValidator =
+  ajv.compile<UpdateAdaptivePreferencesRequest>(
+    UpdateAdaptivePreferencesRequestSchema as AnySchema,
+  );
+const adaptiveLearningSnapshotValidator = ajv.compile<AdaptiveLearningSnapshot>(
+  AdaptiveLearningSnapshotSchema as AnySchema,
+);
+const adaptiveApiErrorValidator = ajv.compile<AdaptiveApiError>(
+  AdaptiveApiErrorSchema as AnySchema,
 );
 const japaneseTextStudyCatalogValidator = ajv.compile<JapaneseTextStudyCatalog>(
   JapaneseTextStudyCatalogSchema as AnySchema,
@@ -141,6 +167,56 @@ export function validateCatalogStructure(
   input: unknown,
 ): ValidationResult<CatalogSnapshot> {
   return runStructuralValidation(input, catalogValidator, "CATALOG");
+}
+
+export function validateLearningTargetRegistryStructure(
+  input: unknown,
+): ValidationResult<LearningTargetRegistry> {
+  return runStructuralValidation(
+    input,
+    learningTargetRegistryValidator,
+    "ADAPTATION",
+  );
+}
+
+export function validateAdaptivePreferencesStructure(
+  input: unknown,
+): ValidationResult<AdaptivePreferences> {
+  return runStructuralValidation(
+    input,
+    adaptivePreferencesValidator,
+    "ADAPTATION",
+  );
+}
+
+export function validateUpdateAdaptivePreferencesRequestStructure(
+  input: unknown,
+): ValidationResult<UpdateAdaptivePreferencesRequest> {
+  return runStructuralValidation(
+    input,
+    updateAdaptivePreferencesRequestValidator,
+    "ADAPTATION",
+  );
+}
+
+export function validateAdaptiveLearningSnapshotStructure(
+  input: unknown,
+): ValidationResult<AdaptiveLearningSnapshot> {
+  return runStructuralValidation(
+    input,
+    adaptiveLearningSnapshotValidator,
+    "ADAPTATION",
+  );
+}
+
+export function validateAdaptiveApiErrorStructure(
+  input: unknown,
+): ValidationResult<AdaptiveApiError> {
+  return runStructuralValidation(
+    input,
+    adaptiveApiErrorValidator,
+    "ADAPTATION",
+  );
 }
 
 export function validateJapaneseTextStudyCatalogStructure(

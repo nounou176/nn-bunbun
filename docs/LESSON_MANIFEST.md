@@ -187,6 +187,27 @@ KANJI targets MUST have at least one referenceIds entry. Components, radicals,
 and decompositions come from the referenced deterministic record and MUST NOT
 be authored freely inside the manifest.
 
+### Cross-lesson concept compatibility
+
+D-061 does not add a global concept ID to LessonManifest 0.1.0 and does not
+change manifest execution. `targetId` remains unique only within one manifest.
+Cross-lesson adaptation resolves a target through the independently versioned,
+project-owned LearningTargetRegistry using an exact provider ID, provider
+version, reference ID, and target kind selector. A reviewed canonical content
+signature may reject registry drift but must never discover an alias.
+
+One selector maps to at most one stable concept key. If no exact selector
+matches, the target remains lesson-scoped and is ineligible for cross-lesson
+aggregation; visible Japanese, reading, gloss, or pattern similarity must not
+be used as a fallback. Registry changes require their own version and review
+and cannot mutate stored manifests or evidence.
+
+For adaptation only, a global context identity is `lessonId + contextId`.
+`revision` remains part of immutable package and evidence identity but does not
+manufacture a changed pedagogical context. A recommendation may select only an
+explicitly published, fully validated lesson revision and cannot mutate its
+targets, target roles, priorities, steps, or transitions.
+
 ## Scene and scenario
 
 SceneSelection:
@@ -982,6 +1003,7 @@ version 1.0:
 - SPEAK and pronunciation evidence;
 - multiple simultaneous support languages;
 - collaborative or teacher-authored metadata;
-- exact mastery aggregation and scheduling fields;
+- any numeric mastery, automatic scheduling, or due-date fields beyond the
+  independent D-061 advisory adaptation contract;
 - analytics consent and redaction fields; and
 - a general, safe world-state transition vocabulary.

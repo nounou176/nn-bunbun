@@ -21,6 +21,12 @@ audio matrix is complete.
 D-054 adds one deterministic approved-profile selection route for the
 byte-identical D-053 Last Train package. It records compiler lineage without
 changing the package's `AUTHORED` provenance or invoking an AI module.
+D-061 approves an advisory-only local M10 adaptation layer with exact reviewed
+concept identity, attempt-level evidence aggregation, deterministic changed-
+context suggestions, and learner-owned support preferences. AdaptiveLearning
+0.1.0 contracts, strict registry validation, and the project-owned initial
+registry are implemented; server aggregation, persistence, API, and learner UI
+remain pending.
 No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
@@ -128,6 +134,13 @@ Under D-057, the presentation layer groups target-level REACTION rows by
 `sessionId + stepId + attempt` and timestamps each group once. The raw event
 sink and persistence adapter continue to retain every target-level row.
 
+Approved M10 learner responsibilities under D-061 are to load adaptation
+independently from the published library, render at most three inspectable
+suggestions, show truthful no-context states, and let the learner turn
+suggestions off or choose a support preference. The card must not block lesson
+listing or launch, and a suggestion requires an explicit learner action before
+opening a lesson or preparing a compiler target.
+
 Implemented Milestone 8 speech-foundation responsibilities:
 
 - validate and preload reviewed Aoi/Tanaka WAVs through a cache-key-only,
@@ -182,6 +195,13 @@ Implemented local persistence responsibilities:
   and confirmed-reset APIs; and
 - reject stale sequences, invalid authored references, raw TYPE text fields,
   incompatible schema versions, and changed immutable revisions.
+
+The M10 backend can now consume the shared project-owned concept registry
+validator. Its remaining responsibilities are to derive bounded cross-lesson
+summaries through a pure deterministic aggregator, match only explicitly
+published validated lessons, store only two closed local preferences, and
+expose isolated same-origin adaptation resources. Recommendation output is not
+stored and no evidence enters the compiler.
 
 Implemented compiler responsibilities:
 
@@ -241,6 +261,17 @@ strict, non-coercing structural validation, while pure TypeScript validators
 check references, world compatibility, graph termination, learning coverage,
 evidence, language safety, interactions, scaffolds, provenance, and quality
 budgets. Generated JSON Schema artifacts are checked against their source.
+
+D-061's independently versioned AdaptiveLearning 0.1.0 contract is implemented.
+It defines the exact LearningTargetRegistry, concept summaries, closed
+recommendation reasons, published-context eligibility, preferences, snapshot
+response, and structured errors without version-bumping or embedding those
+derived semantics into LessonManifest or EvidencePersistence. The initial
+project-owned registry maps eight reviewed concepts and explicitly aliases the
+Bunbun Core and Last Train `～てください` identities. Canonical content
+signatures reject drift; unknown, duplicate, ambiguous, heuristic-only, and
+unreferenced KANJI inputs fail closed. A test-only project-authored KANJI record
+proves `REFERENCE` provenance without a production mnemonic or dataset.
 
 The frontend and backend consume the same contract package. Starting in
 Milestone 4, the frontend intentionally bundles the strict package validator so
@@ -443,6 +474,12 @@ For the local milestone, the server is the only SQLite owner and the browser
 uses an EvidenceStore HTTP port. Identity, remote ownership, offline browser
 storage, and cross-device synchronization remain open. Do not add accounts or
 cloud sync implicitly. See EVIDENCE_PERSISTENCE.md.
+
+Under D-061, one forward-only migration may add adaptive mode and support
+preference for `local_default`. Cross-lesson summaries and rankings remain
+derived. Confirmed reset removes the preference row; the migration must not
+rewrite events, manifests, sessions, checkpoints, compiler records, or audio
+metadata.
 
 Generated audio and mnemonic images should use stable cache keys derived from
 their relevant inputs and provider version. Store metadata and references in

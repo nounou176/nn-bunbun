@@ -402,8 +402,7 @@ Learner-entered TYPE text, normalized TYPE answers, and answer-derived event
 IDs are never persisted. The local lesson/revision/target summary distinguishes
 `INSUFFICIENT_EVIDENCE`, `NEEDS_REVIEW`, and `DEVELOPING` while keeping assisted
 and unaided performance separate. It is not mastery, a percentage, or a
-scheduler and never gates completion. Cross-lesson mastery policy remains
-deferred.
+scheduler and never gates completion.
 
 Events and a closed checkpoint are committed atomically at meaningful safe
 boundaries. Reload restores acknowledged attempts, scaffolds, completed steps,
@@ -413,6 +412,41 @@ awaiting phases. See EVIDENCE_PERSISTENCE.md.
 
 Weak targets should be scheduled for more useful exposure without causing
 immediate, repetitive failure loops.
+
+### Advisory cross-lesson exposure
+
+Under D-061, M10 derives cross-lesson suggestions without changing the stored
+EvidencePersistence 0.1.0 events or lesson-scoped summary. A reviewed
+LearningTargetRegistry maps exact reference identities to stable concept keys.
+Target IDs, surface-text equality, readings, translations, and LLM similarity
+must not discover or merge concepts. An unmapped target remains available to
+its lesson-scoped progress path and is reported as `UNMAPPED_TARGET` for
+cross-lesson use.
+
+One concept attempt groups all mapped REACTION rows sharing
+`conceptKey + sessionId + stepId + attempt`. It is correct only when every row
+is correct and assisted when any row is assisted. Its global learning context
+is `lessonId + contextId`; changing only a lesson revision does not create a
+new context.
+
+Cross-lesson summaries retain the same three non-mastery signals. A latest
+incorrect or assisted attempt remains `NEEDS_REVIEW` until two distinct later
+global contexts contain unaided-correct evidence. Two unaided-correct contexts
+without an unrecovered weak attempt support `DEVELOPING`; otherwise the signal
+is `INSUFFICIENT_EVIDENCE`. This does not establish permanent knowledge.
+
+Recommendations are deterministic, bounded to three, and inspectable. They
+prioritize review needs, requested targets, authored priority, and useful
+context variation. The same lesson is never labeled a changed context. When no
+other validated published lesson exists, the UI reports
+`NO_CHANGED_CONTEXT_AVAILABLE` and leaves ordinary library actions available.
+Suggestions never create evidence, auto-launch or auto-compile a lesson,
+change answer truth, reorder a manifest, or pre-activate help.
+
+The learner may turn suggestions off and choose `ASK_EACH_TIME`,
+`MORE_SUPPORT`, or `LESS_SUPPORT`. Support preference changes only the offered
+launch presentation; assisted evidence is still determined by actual support
+use in the lesson.
 
 ## Reaction-density measurement
 

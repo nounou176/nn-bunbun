@@ -1,0 +1,35 @@
+{
+  "contractType": "LEARNING_TARGET_REGISTRY",
+  "schemaVersion": "0.1.0",
+  "registryId": "test_kanji_reference_registry",
+  "registryVersion": "0.1.0",
+  "provenance": {
+    "source": "PROJECT_AUTHORED",
+    "statement": "Test-only project-authored provenance fixture; not production lesson or dictionary content."
+  },
+  "concepts": [
+    {
+      "conceptKey": "kanji_gaku_test",
+      "targetKind": "KANJI",
+      "labelJa": "学",
+      "supportLabel": "học",
+      "selectors": [
+        {
+          "providerId": "bunbun_fixture",
+          "providerVersion": "0.1.0",
+          "referenceId": "bunbun_fixture_kanji_gaku",
+          "targetKind": "KANJI",
+          "contentSignature": "target_content_v1:{\"character\":\"学\",\"kind\":\"KANJI\",\"readings\":[\"がく\",\"まなぶ\"],\"supportGlosses\":[\"học\"]}"
+        }
+      ],
+      "referenceAid": {
+        "aidKind": "REFERENCE",
+        "character": "学",
+        "readings": ["がく", "まなぶ"],
+        "providerId": "bunbun_fixture",
+        "providerVersion": "0.1.0",
+        "referenceId": "bunbun_fixture_kanji_gaku"
+      }
+    }
+  ]
+}

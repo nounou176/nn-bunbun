@@ -2,7 +2,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { format as formatWithPrettier } from "prettier";
+
 import {
+  AdaptiveLearningSchema,
   CatalogSnapshotSchema,
   EvidencePersistenceSchema,
   LessonAuthoringRequestSchema,
@@ -12,6 +15,10 @@ import {
   LessonManifestSchema,
   JapaneseTextStudyCatalogSchema,
 } from "../src/schema/index.js";
+import {
+  projectLearningTargetRegistry,
+  testKanjiReferenceRegistry,
+} from "./adaptive-learning-fixtures.js";
 import {
   validAuthoringRequest,
   validAuthoringResult,
@@ -43,6 +50,10 @@ const validManifest = JSON.parse(
 ) as JsonObject;
 
 const artifacts = new Map<string, string>([
+  [
+    resolve(packageDirectory, "schemas/adaptive-learning-0.1.0.schema.json"),
+    serialize(AdaptiveLearningSchema),
+  ],
   [
     resolve(packageDirectory, "schemas/lesson-manifest-0.1.0.schema.json"),
     serialize(LessonManifestSchema),
@@ -119,6 +130,21 @@ const artifacts = new Map<string, string>([
     serialize(LessonAuthoringResultV2Schema),
   ],
 ]);
+
+artifacts.set(
+  resolve(
+    packageDirectory,
+    "fixtures/adaptive/learning-target-registry-0.1.0.json",
+  ),
+  await serializeFormattedJson(projectLearningTargetRegistry),
+);
+artifacts.set(
+  resolve(
+    packageDirectory,
+    "fixtures/adaptive/test-kanji-reference-registry-0.1.0.json",
+  ),
+  await serializeFormattedJson(testKanjiReferenceRegistry),
+);
 
 const authoringFixtureDirectory = resolve(
   packageDirectory,
@@ -343,6 +369,10 @@ function addInvalidManifest(fileName: string, manifest: JsonObject): void {
 
 function serialize(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+async function serializeFormattedJson(value: unknown): Promise<string> {
+  return formatWithPrettier(serialize(value), { parser: "json" });
 }
 
 function clone<Value>(value: Value): Value {
