@@ -166,6 +166,12 @@ test("compiler repository selects, reviews, publishes, lists, and reloads exact 
       repository.listLessons().map((lesson) => lesson.lessonId),
       ["lesson_m8_last_train"],
     );
+    const adaptiveLessons = repository.listAdaptivePublishedLessons();
+    assert.equal(adaptiveLessons.length, 1);
+    assert.deepEqual(adaptiveLessons[0]?.supportedLaunchModes, [
+      "GUIDED",
+      "IMMERSIVE",
+    ]);
     assert.equal(
       repository.loadLesson("lesson_m8_last_train", 1).manifest.scene.sceneId,
       "neighborhood_small",

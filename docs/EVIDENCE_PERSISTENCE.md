@@ -127,23 +127,29 @@ contexts use `lessonId + contextId`; revision changes alone do not add a new
 context. The derived result retains only `INSUFFICIENT_EVIDENCE`,
 `NEEDS_REVIEW`, and `DEVELOPING` and is recalculated rather than persisted.
 
-One additive, forward-only M10 migration may store only:
+Migration 5, `m10_adaptive_preferences`, is additive and forward-only. It stores
+only:
 
 - adaptation mode: `SUGGEST` or `OFF`; and
 - support preference: `ASK_EACH_TIME`, `MORE_SUPPORT`, or `LESS_SUPPORT`.
 
-The anonymous `local_default` profile remains the only owner. Confirmed local
-reset deletes these preferences along with the existing local data while
+The deterministic fresh default is `SUGGEST` plus `ASK_EACH_TIME`; an identical
+PUT preserves the existing `updatedAt`. The anonymous `local_default` profile
+remains the only owner. Confirmed local reset deletes these preferences along
+with the existing local data while
 retaining the migration ledger. No recommendation cache, mastery score,
 learner identity, raw response, browser storage, remote transport, account,
 cookie, or synchronization is authorized.
 
-The approved same-origin boundary may add:
+The implemented same-origin boundary exposes:
 
 - `GET /api/v1/adaptation`;
 - `GET /api/v1/adaptation/preferences`; and
 - `PUT /api/v1/adaptation/preferences`.
 
+The implemented repository bounds one derivation read to 100,000 REACTION
+rows, 100 lesson revisions, and 100 latest validated published lesson
+candidates. Oversized, incomplete, unknown, or invalid projections fail closed.
 An adaptation error is isolated: the learner library and ordinary published
 lesson launch remain usable. Gameplay evidence, derived summaries, reasons,
 and preferences are never compiler or AI-module inputs.

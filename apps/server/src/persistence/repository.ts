@@ -425,6 +425,7 @@ export class EvidenceRepository {
         DELETE FROM play_sessions;
         DELETE FROM lesson_revisions;
         DELETE FROM local_preferences;
+        DELETE FROM adaptive_preferences;
       `);
     });
   }

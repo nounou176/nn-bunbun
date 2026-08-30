@@ -160,7 +160,7 @@ test("SQLite repository migrates, commits idempotently, resumes, and resets", as
     reopenedRepository.resetLocalData();
     assert.deepEqual(reopenedRepository.storageSummary(), {
       schemaVersion: EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
-      databaseSchemaVersion: 4,
+      databaseSchemaVersion: 5,
       lessonRevisionCount: 0,
       sessionCount: 0,
       activeSessionCount: 0,

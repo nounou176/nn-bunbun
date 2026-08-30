@@ -379,7 +379,7 @@ stable tie-breaks.
 Observable checkpoint: identical inputs return identical canonical JSON, and
 no same-lesson replay is labeled changed context.
 
-### 4. Add local preferences, API, and safe migration
+### 4. Add local preferences, API, and safe migration — complete
 
 Add the forward-only SQLite migration and adaptive repository. Add validated
 GET/PUT preference endpoints and the snapshot endpoint. Update confirmed reset,
@@ -445,6 +445,15 @@ and ready for the separate local release-candidate gate.
       compiler, and persistence regression passes 18/18 with loopback enabled.
       The final 10,000-reaction fixture measured a 42.01 ms median over five warmed
       derivations against the 100 ms development-machine budget.
+- [x] 2026-08-30 — Added migration 5 with deterministic local defaults,
+      idempotent preference updates, confirmed-reset cleanup, migration-3
+      upgrade coverage, and checksum enforcement. Added bounded evidence,
+      revision, and latest-published-lesson projections into the pure module.
+- [x] 2026-08-30 — Added isolated same-origin snapshot and preference resources
+      plus a strict web client. Focused adaptive/compiler/persistence regression
+      passes 23/23; contracts pass 55/55; web passes 89/89. Root typecheck,
+      lint, 60-artifact schema freshness, format, production build, and diff
+      hygiene pass. No browser E2E was added or run under D-011.
 
 ## Surprises and discoveries
 
@@ -617,7 +626,7 @@ backfill is required.
 
 ## Outcomes
 
-M10 Milestones 1 through 3 are complete under D-061. The accepted policy and
+M10 Milestones 1 through 4 are complete under D-061. The accepted policy and
 AdaptiveLearning 0.1.0 contract now establish explicit concept identity,
 closed non-mastery summaries/reasons/preferences, deterministic
 changed-context DTOs, and reference-provenance separation. The initial exact
@@ -627,6 +636,9 @@ scheduling, new production content, third-party reference intake, runtime AI,
 and external learner-data flow. The pure server derivation now turns exact
 mapped REACTION projections into attempt-level summaries and at most three
 deterministic, context-honest suggestions. It passes the focused semantic,
-regression, and 10,000-row performance checkpoints. The next checkpoint is the
-preferences migration, bounded repository projection, and same-origin API; no
-M10 persistence, API, or learner UI exists yet.
+regression, and 10,000-row performance checkpoints. Migration 5 persists only
+the approved local preferences; bounded projections and the isolated
+same-origin API now expose deterministic snapshots without storing derived
+recommendations or disrupting the ordinary library. The next checkpoint is the
+learner-facing adaptive card and preference controls; no M10 learner UI exists
+yet.

@@ -601,8 +601,11 @@ fixture warmed the function once and then measured five complete derivations.
 The final median was 42.01 ms, below D-061's 100 ms local development-machine
 budget.
 This is a named local observation, not a guarantee for other devices or the
-future SQLite/API projection. The test retains the 100 ms checkpoint so a
-material pure-algorithm regression fails visibly.
+SQLite/API projection. Milestone 4 bounds that projection to 100,000 REACTION
+rows, 100 evidence lesson revisions, 100 latest published lesson candidates,
+and a 128 KiB response, but does not claim a separate end-to-end API latency
+measurement. The pure test retains the 100 ms checkpoint so a material
+algorithm regression fails visibly.
 
 ## Manual performance protocol
 

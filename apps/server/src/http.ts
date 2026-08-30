@@ -8,6 +8,7 @@ import {
   EVIDENCE_PERSISTENCE_SCHEMA_VERSION,
   LESSON_MANIFEST_SCHEMA_VERSION,
   type ValidationResult,
+  validateUpdateAdaptivePreferencesRequestStructure,
   validateAbandonSessionRequestStructure,
   validateResetLocalDataRequestStructure,
   validateSessionCommitRequestStructure,
@@ -17,6 +18,8 @@ import {
 
 import { CompilerError } from "./compiler/core.js";
 import type { CompilationRepository } from "./compiler/repository.js";
+import { AdaptiveRepositoryError } from "./adaptation/errors.js";
+import type { AdaptiveRepository } from "./adaptation/repository.js";
 import { SpeechAudioError } from "./audio/errors.js";
 import type { SpeechService } from "./audio/service.js";
 import { PersistenceError } from "./persistence/errors.js";
@@ -31,6 +34,7 @@ export function createBunbunServer(
   repository: EvidenceRepository,
   compilations: CompilationRepository,
   speech?: SpeechService,
+  adaptation?: AdaptiveRepository,
 ) {
   return createServer((request, response) => {
     void routeRequest(
@@ -39,6 +43,7 @@ export function createBunbunServer(
       repository,
       compilations,
       speech,
+      adaptation,
     ).catch((error: unknown) => {
       sendError(response, error);
     });
@@ -51,6 +56,7 @@ async function routeRequest(
   repository: EvidenceRepository,
   compilations: CompilationRepository,
   speech: SpeechService | undefined,
+  adaptation: AdaptiveRepository | undefined,
 ): Promise<void> {
   const url = new URL(request.url ?? "/", LOCAL_ORIGIN);
 
@@ -363,6 +369,43 @@ async function routeRequest(
     return;
   }
 
+  if (request.method === "GET" && url.pathname === "/api/v1/adaptation") {
+    sendJson(response, 200, requiredAdaptation(adaptation).snapshot());
+    return;
+  }
+
+  if (
+    request.method === "GET" &&
+    url.pathname === "/api/v1/adaptation/preferences"
+  ) {
+    sendJson(response, 200, requiredAdaptation(adaptation).getPreferences());
+    return;
+  }
+
+  if (
+    request.method === "PUT" &&
+    url.pathname === "/api/v1/adaptation/preferences"
+  ) {
+    const input = await readJson(request);
+    const result = validateUpdateAdaptivePreferencesRequestStructure(input);
+    if (!result.ok) {
+      const first = result.errors[0];
+      throw new AdaptiveRepositoryError(
+        "INVALID_ADAPTIVE_PREFERENCES",
+        first === undefined
+          ? "Adaptive preferences are invalid."
+          : `${first.code} at ${first.path}: ${first.message}`,
+        400,
+      );
+    }
+    sendJson(
+      response,
+      200,
+      requiredAdaptation(adaptation).updatePreferences(result.value),
+    );
+    return;
+  }
+
   if (request.method === "GET" && url.pathname === "/api/v1/preferences") {
     sendJson(response, 200, repository.getPreferences());
     return;
@@ -509,6 +552,15 @@ function sendError(response: ServerResponse, error: unknown): void {
     response.destroy();
     return;
   }
+  if (error instanceof AdaptiveRepositoryError) {
+    sendJson(response, error.statusCode, {
+      contractType: "ADAPTIVE_API_ERROR",
+      status: "error",
+      code: error.code,
+      message: error.message,
+    });
+    return;
+  }
   if (
     error instanceof PersistenceError ||
     error instanceof CompilerError ||
@@ -528,6 +580,17 @@ function sendError(response: ServerResponse, error: unknown): void {
     code: "INTERNAL_ERROR",
     message: "The local evidence store could not complete the request.",
   });
+}
+
+function requiredAdaptation(
+  adaptation: AdaptiveRepository | undefined,
+): AdaptiveRepository {
+  if (adaptation !== undefined) return adaptation;
+  throw new AdaptiveRepositoryError(
+    "ADAPTATION_UNAVAILABLE",
+    "Adaptive learning is unavailable; ordinary lessons remain usable.",
+    503,
+  );
 }
 
 function sendWav(

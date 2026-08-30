@@ -8,9 +8,9 @@ Milestone 8 — Japanese voice and complete audio runtime is complete under
 D-055. Milestone 9 — First product vertical slice is complete under D-060,
 with corrected cadence and final smoke S2–S4 explicitly waived rather than
 passed. Milestone 10 — Adaptive exposure and learning support is active under
-D-061. Its policy and AdaptiveLearning 0.1.0 contract/registry checkpoints are
-complete. Its pure cross-lesson aggregation and deterministic recommendation
-checkpoint is also complete; persistence, API, and learner UI have not started.
+D-061. Its policy, AdaptiveLearning 0.1.0 contract/registry, pure cross-lesson
+derivation, and local persistence/API checkpoints are complete. The remaining
+implementation checkpoint is the learner-facing adaptive UI.
 
 Approved M10 ExecPlan:
 
@@ -408,7 +408,7 @@ Completed ExecPlans:
 
 ## Current work
 
-- M10 Milestones 1 through 3 are complete under D-061. The accepted policy keeps
+- M10 Milestones 1 through 4 are complete under D-061. The accepted policy keeps
   adaptation advisory-only and local, resolves cross-lesson identity through
   an exact project-owned registry, groups concept evidence per meaningful
   attempt, retains the three non-mastery signals, and requires truthful
@@ -435,8 +435,19 @@ Completed ExecPlans:
   focused adaptive tests pass, including byte-stable canonical output under
   reordered inputs. The final local 10,000-reaction fixture measured a 42.01 ms
   median across five warmed derivations, below the approved 100 ms development-
-  machine budget. Focused adaptive/compiler/persistence regression is 18/18.
-  No migration, API, or learner UI code has been implemented yet.
+  machine budget. Migration 5 now creates one deterministic `local_default`
+  preference row, preserves migration checksums and old evidence during an
+  upgrade from migration 3, rejects invalid values, keeps identical writes
+  idempotent, and removes preferences during confirmed reset without deleting
+  the migration ledger. The adaptive repository projects at most 100,000
+  REACTION rows, 100 lesson revisions, and 100 latest published lesson
+  candidates into the pure derivation and rejects oversized snapshots. The
+  server exposes closed same-origin GET snapshot, GET preferences, and PUT
+  preferences resources; failures remain isolated from the ordinary lesson
+  library. The web has a strict same-origin client but no adaptive UI yet.
+  Focused adaptive/compiler/persistence regression is 23/23, contracts are
+  55/55, and the complete web unit regression is 89/89. Root typecheck, lint,
+  60-file schema freshness, format, production build, and diff hygiene pass.
 
 - D-056's M9 product shell is implemented. The ordinary root now presents
   learner target entry, the approved Last Train situation, and published
@@ -971,11 +982,11 @@ documentation and implementation changes are uncommitted.
 
 ## Next recommended work
 
-Implement M10 Milestone 4: add the forward-only adaptive-preferences migration,
-bounded repository projections, and isolated same-origin adaptation endpoints
-around the completed pure derivation module. Do not begin the learner UI before
-the migration/API checkpoint is validated. Carry D-058's cadence waiver,
-D-060's S2–S4 waiver, M8 C2–C6's waiver, and M7's
+Implement M10 Milestone 5: add the learner-facing, advisory-only next-exposure
+card and preference controls around the completed same-origin client. Keep
+launch and target prefill learner-triggered, preserve explicit unavailable
+states, and do not alter the active lesson controller. Carry D-058's cadence
+waiver, D-060's S2–S4 waiver, M8 C2–C6's waiver, and M7's
 `UNVERIFIED_USER_WAIVED` label forward without converting any to PASS.
 
 D-025 and D-026 now have an approved queued implementation plan at

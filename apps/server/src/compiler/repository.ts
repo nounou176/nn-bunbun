@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 
 import type { DatabaseSync } from "node:sqlite";
 
+import type { PublishedLessonProjection } from "../adaptation/derive-adaptive-snapshot.js";
+
 import {
   type LessonAuthoringRequestV2,
   type LessonAuthoringResultV2,
@@ -21,6 +23,7 @@ import {
 import {
   type ApprovedProfileTrace,
   type CompilationMode,
+  M8_LAST_TRAIN_PROFILE_ID,
   M8_LAST_TRAIN_APPROVED_SPEECH,
   approvedLastTrainPackage,
   createCompilerRouteDraft,
@@ -436,6 +439,55 @@ export class CompilationRepository {
         createdAt: row.created_at,
       };
     });
+  }
+
+  listAdaptivePublishedLessons(limit = 100): PublishedLessonProjection[] {
+    if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
+      throw new CompilerError(
+        "PUBLISHED_LIBRARY_LIMIT_INVALID",
+        "Adaptive published lesson limit must be between 1 and 100.",
+        [],
+      );
+    }
+    const rows = this.database
+      .prepare(
+        `WITH ranked AS (
+           SELECT lesson_id, revision, profile_id,
+                  ROW_NUMBER() OVER (
+                    PARTITION BY lesson_id
+                    ORDER BY revision DESC, published_at DESC, compilation_id DESC
+                  ) AS lesson_rank
+           FROM compilation_requests
+           WHERE status = 'PUBLISHED'
+             AND lesson_id IS NOT NULL
+             AND revision IS NOT NULL
+         )
+         SELECT lesson_id, revision, profile_id
+         FROM ranked
+         WHERE lesson_rank = 1
+         ORDER BY lesson_id
+         LIMIT ?`,
+      )
+      .all(limit + 1) as Array<{
+      lesson_id: string;
+      revision: number;
+      profile_id: string;
+    }>;
+    if (rows.length > limit) {
+      throw new CompilerError(
+        "PUBLISHED_LIBRARY_LIMIT_EXCEEDED",
+        `Adaptive publication projection exceeds ${limit} lessons.`,
+        [],
+        500,
+      );
+    }
+    return rows.map((row) => ({
+      ...this.loadLesson(row.lesson_id, row.revision),
+      supportedLaunchModes:
+        row.profile_id === M8_LAST_TRAIN_PROFILE_ID
+          ? ["GUIDED", "IMMERSIVE"]
+          : ["IMMERSIVE"],
+    }));
   }
 
   loadLesson(lessonId: string, revision: number): ValidatedLessonPackage {

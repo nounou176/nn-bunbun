@@ -24,9 +24,9 @@ changing the package's `AUTHORED` provenance or invoking an AI module.
 D-061 approves an advisory-only local M10 adaptation layer with exact reviewed
 concept identity, attempt-level evidence aggregation, deterministic changed-
 context suggestions, and learner-owned support preferences. AdaptiveLearning
-0.1.0 contracts, strict registry validation, and the project-owned initial
-registry are implemented; server aggregation, persistence, API, and learner UI
-remain pending.
+0.1.0 contracts, strict registry validation, the project-owned initial registry,
+pure server aggregation, migration 5, bounded repository projections, and the
+same-origin API/client are implemented; only the learner UI remains pending.
 No model/provider runs inside Bunbun or gameplay.
 
 ## Architectural goals
@@ -196,16 +196,19 @@ Implemented local persistence responsibilities:
 - reject stale sequences, invalid authored references, raw TYPE text fields,
   incompatible schema versions, and changed immutable revisions.
 
-The M10 backend now has a pure deterministic derivation module over the shared
+The M10 backend has a pure deterministic derivation module over the shared
 project-owned concept registry. It validates lesson packages, groups mapped
 REACTION projections into meaningful attempts, derives bounded cross-lesson
 summaries, applies the closed recovery/ranking policy, and matches only
 explicitly supplied validated published lessons. The module does not read
 SQLite, the wall clock, the compiler, or browser state, so reordered equivalent
-inputs produce byte-identical canonical output. The remaining backend work is
-to project bounded database rows into this module, store only two closed local
-preferences, and expose isolated same-origin adaptation resources.
-Recommendation output is not stored and no evidence enters the compiler.
+inputs produce byte-identical canonical output. A separate repository now
+projects bounded SQLite evidence and latest validated published lessons into
+that module. Migration 5 stores only the two closed `local_default`
+preferences, and isolated same-origin snapshot/preference resources expose the
+independent AdaptiveLearning contract. Recommendation output is not stored, no
+evidence enters the compiler, and an adaptation failure does not disable the
+ordinary published library.
 
 Implemented compiler responsibilities:
 
@@ -479,11 +482,10 @@ uses an EvidenceStore HTTP port. Identity, remote ownership, offline browser
 storage, and cross-device synchronization remain open. Do not add accounts or
 cloud sync implicitly. See EVIDENCE_PERSISTENCE.md.
 
-Under D-061, one forward-only migration may add adaptive mode and support
-preference for `local_default`. Cross-lesson summaries and rankings remain
-derived. Confirmed reset removes the preference row; the migration must not
-rewrite events, manifests, sessions, checkpoints, compiler records, or audio
-metadata.
+Under D-061, migration 5 adds adaptive mode and support preference for
+`local_default`. Cross-lesson summaries and rankings remain derived. Confirmed
+reset removes the preference row; the migration does not rewrite events,
+manifests, sessions, checkpoints, compiler records, or audio metadata.
 
 Generated audio and mnemonic images should use stable cache keys derived from
 their relevant inputs and provider version. Store metadata and references in

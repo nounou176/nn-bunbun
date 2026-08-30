@@ -4,6 +4,7 @@ import { createBunbunServer } from "./http.js";
 import { CompilationRepository } from "./compiler/repository.js";
 import { SpeechRepository } from "./audio/repository.js";
 import { SpeechService } from "./audio/service.js";
+import { AdaptiveRepository } from "./adaptation/repository.js";
 
 const DEFAULT_PORT = 3000;
 const LOCAL_HOST = "127.0.0.1";
@@ -12,7 +13,8 @@ const database = openDatabase();
 const repository = new EvidenceRepository(database);
 const compilations = new CompilationRepository(database);
 const speech = new SpeechService(new SpeechRepository(database));
-const server = createBunbunServer(repository, compilations, speech);
+const adaptation = new AdaptiveRepository(database, compilations);
+const server = createBunbunServer(repository, compilations, speech, adaptation);
 const port = parsePort(process.env.PORT);
 
 server.listen(port, LOCAL_HOST, () => {

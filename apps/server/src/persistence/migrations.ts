@@ -238,6 +238,29 @@ const migrations: readonly Migration[] = [
         ON compilation_requests (profile_id, mode, updated_at DESC);
     `,
   },
+  {
+    id: 5,
+    name: "m10_adaptive_preferences",
+    sql: `
+      CREATE TABLE adaptive_preferences (
+        profile_id TEXT PRIMARY KEY,
+        adaptive_mode TEXT NOT NULL
+          CHECK (adaptive_mode IN ('SUGGEST', 'OFF')),
+        support_preference TEXT NOT NULL
+          CHECK (support_preference IN (
+            'ASK_EACH_TIME', 'MORE_SUPPORT', 'LESS_SUPPORT'
+          )),
+        updated_at TEXT NOT NULL
+      ) STRICT;
+
+      INSERT INTO adaptive_preferences (
+        profile_id, adaptive_mode, support_preference, updated_at
+      ) VALUES (
+        'local_default', 'SUGGEST', 'ASK_EACH_TIME',
+        '1970-01-01T00:00:00.000Z'
+      );
+    `,
+  },
 ];
 
 export const DATABASE_SCHEMA_VERSION = migrations.length;
@@ -245,7 +268,19 @@ export const DATABASE_SCHEMA_VERSION = migrations.length;
 export function migrateDatabase(
   database: DatabaseSync,
   occurredAt: string,
+  maximumVersion = DATABASE_SCHEMA_VERSION,
 ): void {
+  if (
+    !Number.isInteger(maximumVersion) ||
+    maximumVersion < 0 ||
+    maximumVersion > DATABASE_SCHEMA_VERSION
+  ) {
+    throw new PersistenceError(
+      "PERSISTENCE_DATABASE_INCOMPATIBLE",
+      `Migration target ${maximumVersion} is not supported by this Bunbun build.`,
+      500,
+    );
+  }
   database.exec(`
     CREATE TABLE IF NOT EXISTS schema_migrations (
       id INTEGER PRIMARY KEY,
@@ -258,8 +293,11 @@ export function migrateDatabase(
   const applied = database
     .prepare("SELECT id, name, checksum FROM schema_migrations ORDER BY id")
     .all() as Array<{ id: number; name: string; checksum: string }>;
+  const targetMigrations = migrations.filter(
+    (migration) => migration.id <= maximumVersion,
+  );
   const knownById = new Map(
-    migrations.map((migration) => [migration.id, migration]),
+    targetMigrations.map((migration) => [migration.id, migration]),
   );
 
   for (const row of applied) {
@@ -280,7 +318,7 @@ export function migrateDatabase(
     }
   }
 
-  for (const migration of migrations) {
+  for (const migration of targetMigrations) {
     if (applied.some((row) => row.id === migration.id)) continue;
     try {
       database.exec("BEGIN IMMEDIATE");
